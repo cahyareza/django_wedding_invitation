@@ -1,6 +1,1310 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n static %}
 
 {% block content %}
-    <h1>{% trans "Hello, World!" %}</h1>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation" style="width: 100%;">
+      <div class="navbar-brand">
+
+        <a class="navbar-item" href="https://bulma.io">
+          <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+        </a>
+
+        <a v-bind:aria-expanded="isActive" v-bind:class="{ 'is-active': isActive }" role="button" class="navbar-burger"
+           aria-label="menu" data-target="navbarMenu" @click="isActive = !isActive" style="right: 15px; position: absolute;">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="navbarMenu" class="navbar-menu has-text-centered" v-bind:class="{ 'is-active': isActive }">
+          <div class="navbar-start has-text-weight-bold">
+              <a class="navbar-item">Preset/Desain</a>
+              <a class="navbar-item">Portofolio</a>
+          </div>
+      </div>
+  </nav>
+
+  <!-- Hero del producto -->
+  <section class="hero is-white is-medium">
+    <div class="hero-body is-marginless p-3 mt-6">
+      <div class="container">
+        <div class="columns is-multiline is-vcentered">
+          <div class="column
+          is-12-mobile
+          is-6-tablet
+          is-6-desktop
+          is-7-widescreen
+          is-7-fullhd is-paddingless">
+            <figure class="image is-square">
+              <img src="{% static 'site/img/undraw_wedding.svg' %}">
+            </figure>
+          </div>
+          <div class="column
+          is-12-mobile
+          is-5-tablet
+          is-5-desktop
+          is-5-widescreen
+          is-5-fullhd ">
+            <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-5">
+              Website <br><strong>Undangan Pernikahan</strong>
+            </h1>
+            <p class="is-size-5-tablet"><strong>Fitur paling lengkap banyak preset siap pakai<br></strong> Masa aktif selamanya dan edit tanpa batas!</p>
+
+            <div class="buttons mt-3">
+              <button class="button is-danger">Buat undangan sekarang</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero has-background-danger-light is-small">
+    <div class="hero-body mt-6 mb-6">
+      <div class="container">
+        <div class="columns is-multiline is-vcentered">
+          <div class="column
+          is-12-mobile
+          is-5-tablet
+          is-6-desktop
+          is-7-widescreen
+          is-6-fullhd has-text-centered">
+            <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-5">
+              <strong>No. 1 Platform</strong><br>Website Undangan Pernikahan
+            </h1>
+            <p>
+              Buat website undangan pernikahanmu secara ekslusif dengan mudah, murah dan cepat. Solusi website undangan pernikahan kamu jadi lebih berkesan!
+            </p>
+          </div>
+          <div class="column
+          is-12-mobile
+          is-7-tablet
+          is-6-desktop
+          is-5-widescreen
+          is-5-fullhd ">
+            <div class="columns is-multiline is-mobile is-centered">
+              <div class="column is-5">
+                <article class="media">
+                  <figure class="media-left">
+                    <span class="icon is-medium has-text-danger">
+                      <i class="fa-solid fa-2x fa-envelope"></i>
+                    </span>
+                  </figure>
+                  <div class="media-content">
+                    <p class="is-size-7-mobile is-size-6-tablet">
+                      <strong>17.878</strong>
+                      <br>
+                      Undangan Aktif
+                    </p>
+                  </div>
+                </article>
+              </div>
+              <div class="column is-5">
+                <article class="media">
+                  <figure class="media-left">
+                    <span class="icon is-medium has-text-danger">
+                      <i class="fa-solid fa-2x fa-pen-to-square"></i>
+                    </span>
+                  </figure>
+                  <div class="media-content">
+                    <p class="is-size-7-mobile is-size-6-tablet">
+                      <strong>17.878</strong>
+                      <br>
+                      Doa & ucapan
+                    </p>
+                  </div>
+                </article>
+              </div>
+              <div class="column is-5">
+                <article class="media">
+                  <figure class="media-left">
+                    <span class="icon is-medium has-text-danger">
+                      <i class="fa-solid fa-2x fa-wallet"></i>
+                    </span>
+                  </figure>
+                  <div class="media-content">
+                    <p class="is-size-7-mobile is-size-6-tablet">
+                      <strong>17.878</strong>
+                      <br>
+                      Amplop digital
+                    </p>
+                  </div>
+                </article>
+              </div>
+              <div class="column is-5">
+                <article class="media">
+                  <figure class="media-left">
+                    <span class="icon is-medium has-text-danger">
+                      <i class="fa-solid fa-2x fa-calendar-check"></i>
+                    </span>
+                  </figure>
+                  <div class="media-content">
+                    <p class="is-size-7-mobile is-size-6-tablet">
+                      <strong>17.878</strong>
+                      <br>
+                      Tamu reservasi
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero has-background-warning-light is-medium">
+    <div class="hero-body is-marginless p-3 mt-6">
+      <div class="container">
+        <div class="columns is-multiline is-vcentered">
+          <div class="column
+          is-12-mobile
+          is-12-tablet
+          is-4-desktop
+          is-7-widescreen
+          is-4-fullhd is-offset-1-fullhd has-text-centered">
+            <figure class="image center" style="heigth: 400px; width: 300px;">
+              <img src="{% static 'site/img/undraw_online_article.svg' %}">
+            </figure>
+            <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-5 mt-5">
+              17.878 <br><strong>Undangan Aktif</strong>
+            </h1>
+            <p class="is-size-5-tablet px-6">Banyak pasangan berbahagia sudah membuat undangnya, giliran kamu untuk mencoba :)</p>
+          </div>
+          <div class="column
+          is-12-mobile
+          is-12-tablet
+          is-8-desktop
+          is-5-widescreen
+          is-5-fullhd">
+            <section class="product">
+                <button class="pre-btn"><img src="{% static 'site/img/arrow.png' %}" alt=""></button>
+                <button class="nxt-btn"><img src="{% static 'site/img/arrow.png' %}" alt=""></button>
+                <div class="product-container">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="{% static 'site/img/card1.jpg' %}" class="product-thumb" alt="">
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="{% static 'site/img/card2.jpg' %}" class="product-thumb" alt="">
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="{% static 'site/img/card3.jpg' %}" class="product-thumb" alt="">
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="{% static 'site/img/card4.jpg' %}" class="product-thumb" alt="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="buttons mt-3 is-centered">
+                    <button class="button is-danger">Lebih banyak portofolio</button>
+                </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero has-background-warning-light is-small">
+    <div class="hero-body">
+      <div class="container px-2 pt-3">
+        <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-5">
+          Fitur yang keren dan lengkap
+        </h1>
+
+        <div class="columns is-hidden-mobile is-multiline is-vcentered is-mobile mt-5">
+          <div class="column
+          is-6-mobile p-5
+          is-4-tablet
+          is-4-desktop
+          is-3-widescreen
+          is-3-fullhd">
+            <div class="box p-2" style="width:250px; height: 140px;">
+              <article class="media">
+                <figure class="media-left">
+                  <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                  </span>
+                </figure>
+                <div class="media-content">
+                  <p class="is-size-7-mobile is-size-6-tablet">
+                    <strong>Hitungan Mundur</strong>
+                    <br>
+                    Hitung mundur tanggal acara pernikahan.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="column
+          is-6-mobile
+          is-4-tablet
+          is-4-desktop
+          is-3-widescreen
+          is-3-fullhd">
+            <div class="box p-2" style="width:250px; height: 140px;">
+              <article class="media">
+                <figure class="media-left">
+                  <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                    <i class="fa-solid fa-mobile-button"></i>
+                  </span>
+                </figure>
+                <div class="media-content">
+                  <p class="is-size-7-mobile is-size-6-tablet">
+                    <strong>Design Modern & Responsive</strong>
+                    <br>
+                    Undanganmu akan tampil lebih menarik.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="column
+          is-6-mobile
+          is-4-tablet
+          is-4-desktop
+          is-3-widescreen
+          is-3-fullhd">
+            <div class="box p-2" style="width:250px; height: 140px;">
+              <article class="media">
+                <figure class="media-left">
+                  <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                    <i class="fa-solid fa-calendar-check"></i>
+                  </span>
+                </figure>
+                <div class="media-content">
+                  <p class="is-size-7-mobile is-size-6-tablet">
+                    <strong>Menambahkan ke Kalender</strong>
+                    <br>
+                    Tamu bisa menyimpan tanggal dan lokasi acara ke kalender.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="column
+          is-6-mobile
+          is-4-tablet
+          is-4-desktop
+          is-3-widescreen
+          is-3-fullhd">
+            <div class="box p-2" style="width:250px; height: 140px;">
+              <article class="media">
+                <figure class="media-left">
+                  <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                    <i class="fa-solid fa-share-nodes"></i>
+                  </span>
+                </figure>
+                <div class="media-content">
+                  <p class="is-size-7-mobile is-size-6-tablet">
+                    <strong>Support Native Share</strong>
+                    <br>
+                    Bisa share undangan dengan mudah.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="column
+          is-6-mobile
+          is-4-tablet
+          is-4-desktop
+          is-3-widescreen
+          is-3-fullhd">
+            <div class="box p-2" style="width:250px; height: 140px;">
+              <article class="media">
+                <figure class="media-left">
+                  <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                    <i class="fa-solid fa-pen"></i>
+                  </span>
+                </figure>
+                <div class="media-content">
+                  <p class="is-size-7-mobile is-size-6-tablet">
+                    <strong>Realtime Editing</strong>
+                    <br>
+                    Bisa edit undangan kapanpun
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="column
+          is-6-mobile
+          is-4-tablet
+          is-4-desktop
+          is-3-widescreen
+          is-3-fullhd">
+            <div class="box p-2" style="width:250px; height: 140px;">
+              <article class="media">
+                <figure class="media-left">
+                  <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                    <i class="fa-solid fa-bell"></i>
+                  </span>
+                </figure>
+                <div class="media-content">
+                  <p class="is-size-7-mobile is-size-6-tablet">
+                    <strong>Notification Ready</strong>
+                    <br>
+                    Mendapat informasi aktifitas undangan.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="column
+          is-6-mobile
+          is-4-tablet
+          is-4-desktop
+          is-3-widescreen
+          is-3-fullhd">
+            <div class="box p-2" style="width:250px; height: 140px;">
+              <article class="media">
+                <figure class="media-left">
+                  <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                    <i class="fa-solid fa-share"></i>
+                  </span>
+                </figure>
+                <div class="media-content">
+                  <p class="is-size-7-mobile is-size-6-tablet">
+                    <strong>Share Eksklusive</strong>
+                    <br>
+                    Bisa share dengan nama tamu undangan.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="column
+          is-6-mobile
+          is-4-tablet
+          is-4-desktop
+          is-3-widescreen
+          is-3-fullhd">
+            <div class="box p-2" style="width:250px; height: 140px;">
+              <article class="media">
+                <figure class="media-left">
+                  <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                    <i class="fa-solid fa-images"></i>
+                  </span>
+                </figure>
+                <div class="media-content">
+                  <p class="is-size-7-mobile is-size-6-tablet">
+                    <strong>Gallery Foto</strong>
+                    <br>
+                    Share moment indah dengan slide show keren.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="column
+          is-6-mobile
+          is-4-tablet
+          is-4-desktop
+          is-3-widescreen
+          is-3-fullhd">
+            <div class="box p-2" style="width:250px; height: 140px;">
+              <article class="media">
+                <figure class="media-left">
+                  <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                    <i class="fa-solid fa-map-location"></i>
+                  </span>
+                </figure>
+                <div class="media-content">
+                  <p class="is-size-7-mobile is-size-6-tablet">
+                    <strong>Lokasi</strong>
+                    <br>
+                    Informasi lokasi lengkap untuk navigasi.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="column
+          is-6-mobile
+          is-4-tablet
+          is-4-desktop
+          is-3-widescreen
+          is-3-fullhd">
+            <div class="box p-2" style="width:250px; height: 140px;">
+              <article class="media">
+                <figure class="media-left">
+                  <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                    <i class="fa-solid fa-music"></i>
+                  </span>
+                </figure>
+                <div class="media-content">
+                  <p class="is-size-7-mobile is-size-6-tablet">
+                    <strong>Music</strong>
+                    <br>
+                    Pilih music agar lebih eksklusive.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="column
+          is-6-mobile
+          is-4-tablet
+          is-4-desktop
+          is-3-widescreen
+          is-3-fullhd">
+            <div class="box p-2" style="width:250px; height: 140px;">
+              <article class="media">
+                <figure class="media-left">
+                  <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                    <i class="fa-solid fa-user-group"></i>
+                  </span>
+                </figure>
+                <div class="media-content">
+                  <p class="is-size-7-mobile is-size-6-tablet">
+                    <strong>Ucapan</strong>
+                    <br>
+                    Tamu dapat mengirimkan ucapan.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="column
+          is-6-mobile
+          is-4-tablet
+          is-4-desktop
+          is-3-widescreen
+          is-3-fullhd">
+            <div class="box p-2" style="width:250px; height: 140px;">
+              <article class="media">
+                <figure class="media-left">
+                  <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                    <i class="fa-solid fa-envelope"></i>
+                  </span>
+                </figure>
+                <div class="media-content">
+                  <p class="is-size-7-mobile is-size-6-tablet">
+                    <strong>Amplop Digital</strong>
+                    <br>
+                    Dapat mengirim amplop dengan mudah.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="column
+          is-6-mobile
+          is-4-tablet
+          is-4-desktop
+          is-3-widescreen
+          is-3-fullhd">
+            <div class="box p-2" style="width:250px; height: 140px;">
+              <article class="media">
+                <figure class="media-left">
+                  <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                    <i class="fa-solid fa-t"></i>
+                  </span>
+                </figure>
+                <div class="media-content">
+                  <p class="is-size-7-mobile is-size-6-tablet">
+                    <strong>Translate</strong>
+                    <br>
+                    Dapat mentraslate ke bahasa inggris.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="column
+          is-6-mobile
+          is-4-tablet
+          is-4-desktop
+          is-3-widescreen
+          is-3-fullhd">
+            <div class="box p-2" style="width:250px; height: 140px;">
+              <article class="media">
+                <figure class="media-left">
+                  <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                    <i class="fa-solid fa-heart"></i>
+                  </span>
+                </figure>
+                <div class="media-content">
+                  <p class="is-size-7-mobile is-size-6-tablet">
+                    <strong>Love Stories</strong>
+                    <br>
+                    Ceritakan kisah cinta kamu.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="column
+          is-6-mobile
+          is-4-tablet
+          is-4-desktop
+          is-3-widescreen
+          is-3-fullhd">
+            <div class="box p-2" style="width:250px; height: 140px;">
+              <article class="media">
+                <figure class="media-left">
+                  <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                    <i class="fa-solid fa-video"></i>
+                  </span>
+                </figure>
+                <div class="media-content">
+                  <p class="is-size-7-mobile is-size-6-tablet">
+                    <strong>Live Streaming</strong>
+                    <br>
+                    Temui secara virtual
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="column
+          is-6-mobile
+          is-4-tablet
+          is-4-desktop
+          is-3-widescreen
+          is-3-fullhd">
+            <div class="box p-2" style="width:250px; height: 140px;">
+              <article class="media">
+                <figure class="media-left">
+                  <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                    <i class="fa-solid fa-clock"></i>
+                  </span>
+                </figure>
+                <div class="media-content">
+                  <p class="is-size-7-mobile is-size-6-tablet">
+                    <strong>Custome Timezone</strong>
+                    <br>
+                    Support perbedaan waktu di dalam negeri dan luar negeri
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="columns is-hidden-tablet is-multiline is-vcentered is-mobile is-centered">
+          <div class="column
+          is-12-mobile
+          is-12-tablet
+          is-12-desktop
+          is-12-widescreen
+          is-12-fullhd">
+            <section class="product" style="height: 230px;">
+                <button class="pre-btn"><img src="{% static 'site/img/arrow.png' %}" alt=""></button>
+                <button class="nxt-btn"><img src="{% static 'site/img/arrow.png' %}" alt=""></button>
+                <div class="product-container" style="height: 200px;">
+                    <div class="product-card" style="height: 200px;">
+                      <div class="box p-2" style="width:250px; height: 140px;">
+                        <article class="media">
+                          <figure class="media-left">
+                            <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                              <i class="fa-solid fa-clock-rotate-left"></i>
+                            </span>
+                          </figure>
+                          <div class="media-content">
+                            <p class="is-size-6-mobile is-size-6-tablet">
+                              <strong>Hitungan Mundur</strong>
+                              <br>
+                              Hitung mundur tanggal acara pernikahan.
+                            </p>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+                    <div class="product-card" style="height: 200px;">
+                      <div class="box p-2" style="width:250px; height: 140px;">
+                        <article class="media">
+                          <figure class="media-left">
+                            <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                              <i class="fa-solid fa-mobile-button"></i>
+                            </span>
+                          </figure>
+                          <div class="media-content">
+                            <p class="is-size-6-mobile is-size-6-tablet">
+                              <strong>Design Modern & Responsive</strong>
+                              <br>
+                              Undanganmu akan tampil lebih menarik.
+                            </p>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+                    <div class="product-card" style="height: 200px;">
+                      <div class="box p-2" style="width:250px; height: 140px;">
+                        <article class="media">
+                          <figure class="media-left">
+                            <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                              <i class="fa-solid fa-calendar-check"></i>
+                            </span>
+                          </figure>
+                          <div class="media-content">
+                            <p class="is-size-6-mobile is-size-6-tablet">
+                              <strong>Menambahkan ke Kalender</strong>
+                              <br>
+                              Tamu bisa menyimpan tanggal dan lokasi acara ke kalender.
+                            </p>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+                    <div class="product-card" style="height: 200px;">
+                      <div class="box p-2" style="width:250px; height: 140px;">
+                        <article class="media">
+                          <figure class="media-left">
+                            <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                              <i class="fa-solid fa-share-nodes"></i>
+                            </span>
+                          </figure>
+                          <div class="media-content">
+                            <p class="is-size-6-mobile is-size-6-tablet">
+                              <strong>Support Native Share</strong>
+                              <br>
+                              Bisa share undangan dengan mudah.
+                            </p>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+                    <div class="product-card" style="height: 200px;">
+                      <div class="box p-2" style="width:250px; height: 140px;">
+                        <article class="media">
+                          <figure class="media-left">
+                            <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                              <i class="fa-solid fa-pen"></i>
+                            </span>
+                          </figure>
+                          <div class="media-content">
+                            <p class="is-size-6-mobile is-size-6-tablet">
+                              <strong>Realtime Editing</strong>
+                              <br>
+                              Bisa edit undangan kapanpun
+                            </p>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+                    <div class="product-card" style="height: 200px;">
+                      <div class="box p-2" style="width:250px; height: 140px;">
+                        <article class="media">
+                          <figure class="media-left">
+                            <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                              <i class="fa-solid fa-bell"></i>
+                            </span>
+                          </figure>
+                          <div class="media-content">
+                            <p class="is-size-6-mobile is-size-6-tablet">
+                              <strong>Notification Ready</strong>
+                              <br>
+                              Mendapat informasi aktifitas undangan.
+                            </p>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+                    <div class="product-card" style="height: 200px;">
+                      <div class="box p-2" style="width:250px; height: 140px;">
+                        <article class="media">
+                          <figure class="media-left">
+                            <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                              <i class="fa-solid fa-share"></i>
+                            </span>
+                          </figure>
+                          <div class="media-content">
+                            <p class="is-size-6-mobile is-size-6-tablet">
+                              <strong>Share Eksklusive</strong>
+                              <br>
+                              Bisa share dengan nama tamu undangan.
+                            </p>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+                    <div class="product-card" style="height: 200px;">
+                      <div class="box p-2" style="width:250px; height: 140px;">
+                        <article class="media">
+                          <figure class="media-left">
+                            <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                              <i class="fa-solid fa-images"></i>
+                            </span>
+                          </figure>
+                          <div class="media-content">
+                            <p class="is-size-6-mobile is-size-6-tablet">
+                              <strong>Gallery Foto</strong>
+                              <br>
+                              Share moment indah dengan slide show keren.
+                            </p>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+                    <div class="product-card" style="height: 200px;">
+                      <div class="box p-2" style="width:250px; height: 140px;">
+                        <article class="media">
+                          <figure class="media-left">
+                            <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                              <i class="fa-solid fa-map-location"></i>
+                            </span>
+                          </figure>
+                          <div class="media-content">
+                            <p class="is-size-6-mobile is-size-6-tablet">
+                              <strong>Lokasi</strong>
+                              <br>
+                              Informasi lokasi lengkap untuk navigasi.
+                            </p>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+                    <div class="product-card" style="height: 200px;">
+                      <div class="box p-2" style="width:250px; height: 140px;">
+                        <article class="media">
+                          <figure class="media-left">
+                            <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                              <i class="fa-solid fa-music"></i>
+                            </span>
+                          </figure>
+                          <div class="media-content">
+                            <p class="is-size-6-mobile is-size-6-tablet">
+                              <strong>Music</strong>
+                              <br>
+                              Pilih music agar lebih eksklusive.
+                            </p>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+                    <div class="product-card" style="height: 200px;">
+                      <div class="box p-2" style="width:250px; height: 140px;">
+                        <article class="media">
+                          <figure class="media-left">
+                            <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                              <i class="fa-solid fa-user-group"></i>
+                            </span>
+                          </figure>
+                          <div class="media-content">
+                            <p class="is-size-6-mobile is-size-6-tablet">
+                              <strong>Ucapan</strong>
+                              <br>
+                              Tamu dapat mengirimkan ucapan.
+                            </p>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+                    <div class="product-card" style="height: 200px;">
+                      <div class="box p-2" style="width:250px; height: 140px;">
+                        <article class="media">
+                          <figure class="media-left">
+                            <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                              <i class="fa-solid fa-envelope"></i>
+                            </span>
+                          </figure>
+                          <div class="media-content">
+                            <p class="is-size-6-mobile is-size-6-tablet">
+                              <strong>Amplop Digital</strong>
+                              <br>
+                              Dapat mengirim amplop dengan mudah.
+                            </p>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+                    <div class="product-card" style="height: 200px;">
+                      <div class="box p-2" style="width:250px; height: 140px;">
+                        <article class="media">
+                          <figure class="media-left">
+                            <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                              <i class="fa-solid fa-t"></i>
+                            </span>
+                          </figure>
+                          <div class="media-content">
+                            <p class="is-size-6-mobile is-size-6-tablet">
+                              <strong>Translate</strong>
+                              <br>
+                              Dapat mentraslate ke bahasa inggris.
+                            </p>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+                    <div class="product-card" style="height: 200px;">
+                      <div class="box p-2" style="width:250px; height: 140px;">
+                        <article class="media">
+                          <figure class="media-left">
+                            <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                              <i class="fa-solid fa-heart"></i>
+                            </span>
+                          </figure>
+                          <div class="media-content">
+                            <p class="is-size-6-mobile is-size-6-tablet">
+                              <strong>Love Stories</strong>
+                              <br>
+                              Ceritakan kisah cinta kamu.
+                            </p>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+                    <div class="product-card" style="height: 200px;">
+                      <div class="box p-2" style="width:250px; height: 140px;">
+                        <article class="media">
+                          <figure class="media-left">
+                            <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                              <i class="fa-solid fa-video"></i>
+                            </span>
+                          </figure>
+                          <div class="media-content">
+                            <p class="is-size-6-mobile is-size-6-tablet">
+                              <strong>Live Streaming</strong>
+                              <br>
+                              Temui secara virtual
+                            </p>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+                    <div class="product-card" style="height: 200px;">
+                      <div class="box p-2" style="width:250px; height: 140px;">
+                        <article class="media">
+                          <figure class="media-left">
+                            <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                              <i class="fa-solid fa-clock"></i>
+                            </span>
+                          </figure>
+                          <div class="media-content">
+                            <p class="is-size-6-mobile is-size-6-tablet">
+                              <strong>Custome Timezone</strong>
+                              <br>
+                              Support perbedaan waktu di dalam negeri dan luar negeri
+                            </p>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+                </div>
+              </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero has-background-warning-light is-medium">
+    <div class="hero-body is-marginless p-3 mt-1">
+      <div class="container px-2 pt-3">
+        <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-1 px-4">
+          Preset Make Easy
+        </h1>
+        <p class="is-size-5-tablet px-4 mt-1 block">32 Presets tersedia. Dengan adanya preset kamu tinggal pilih design undangan sesuai dengan yang kamu mau.</p>
+        <div class="columns is-multiline is-vcentered">
+          <div class="column
+          is-12-mobile
+          is-12-tablet
+          is-12-desktop
+          is-12-widescreen
+          is-12-fullhd">
+            <section class="product">
+                <button class="pre-btn"><img src="{% static 'site/img/arrow.png' %}" alt=""></button>
+                <button class="nxt-btn"><img src="{% static 'site/img/arrow.png' %}" alt=""></button>
+                <div class="product-container">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="{% static 'site/img/card1.jpg' %}" class="product-thumb" alt="">
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="{% static 'site/img/card2.jpg' %}" class="product-thumb" alt="">
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="{% static 'site/img/card3.jpg' %}" class="product-thumb" alt="">
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="{% static 'site/img/card4.jpg' %}" class="product-thumb" alt="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="buttons mt-3 is-centered">
+                    <button class="button is-danger">Lebih banyak preset</button>
+                </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero has-background-warning-light is-medium">
+    <div class="hero-body is-marginless p-3 mt-1">
+      <div class="container px-2 pt-3">
+        <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-1 px-4">
+          Daftar Harga Undangan Digital
+        </h1>
+        <p class="is-size-5-tablet px-4 mt-1 block">Harga terbaik dengan jaminan website yang berkualitas.</p>
+        <div class="columns is-multiline is-vcentered">
+
+          <div class="column
+          is-12-mobile
+          is-12-tablet
+          is-12-desktop
+          is-12-widescreen
+          is-12-fullhd">
+            <section class="product">
+              <button class="pre-btn"><img src="{% static 'site/img/arrow.png' %}" alt=""></button>
+              <button class="nxt-btn"><img src="{% static 'site/img/arrow.png' %}" alt=""></button>
+              <div class="product-container" style="height: 570px;">
+                <div class="product-card">
+                    <div class="box">
+                      <div class="product-image" style="height: 400px;">
+                          <span class="discount-tag">35% off</span>
+  <!--                        <img src="{% static 'site/img/card1.jpg' %}" class="product-thumb" alt="">-->
+                            <p class="is-size-5 has-text-weight-bold mb-4 has-text-centered">Fitur</p>
+                            <p class="is-size-6">- Preset/Design standard</p>
+                            <p class="is-size-6">- Quotes</p>
+                            <p class="is-size-6">- Detail Info Acara</p>
+                            <p class="is-size-6">- Profil Pasangan</p>
+                            <p class="is-size-6">- Protokol Kesehatan</p>
+                            <p class="is-size-6">- Navigasi Lokasi</p>
+                            <p class="is-size-6">- Preset/Design standard</p>
+                            <p class="is-size-6">- Menambah ke Google Calender</p>
+                            <p class="is-size-6">- Unlimited Custom Jadwal Acara</p>
+                            <p class="is-size-6">- RSVP</p>
+                            <p class="is-size-6 has-text-weight-bold mt-4">Masa Aktif Selamanya</p>
+                            <p class="is-size-6 has-text-weight-bold">Edit Tanpa Batas</p>
+                      </div>
+                    </div>
+                    <div class="product-info has-text-centered">
+                        <h2 class="product-brand">Silver</h2>
+  <!--                        <p class="product-short-description">a short line about the cloth..</p>-->
+                        <span class="price">IDR 65.000</span><span class="actual-price">IDR 100.000</span>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="box">
+                      <div class="product-image" style="height: 400px;">
+                          <span class="discount-tag">50% off</span>
+  <!--                        <img src="{% static 'site/img/card1.jpg' %}" class="product-thumb" alt="">-->
+                            <p class="is-size-5 has-text-weight-bold mb-4 has-text-centered">Fitur</p>
+                            <p class="is-size-6 has-text-weight-bold">- Semua yang ada di Paket Silver</p>
+                            <p class="is-size-6">- Amplop Digital</p>
+                            <p class="is-size-6">- Kirim Ucapan</p>
+                            <p class="is-size-6">- Gallery(max 10)</p>
+                            <p class="is-size-6">- Love Stories</p>
+                            <p class="is-size-6">- Buku Tamu</p>
+                            <p class="is-size-6">- Share Eksklusif - Nama Tamu (max 50)</p>
+                            <p class="is-size-6">- Background Music (list only)</p>
+                            <p class="is-size-6">- Custom Domain(additional)</p>
+                            <p class="is-size-6">- Preset/Design Platinum</p>
+                            <p class="is-size-6 has-text-weight-bold mt-4">Masa Aktif Selamanya</p>
+                            <p class="is-size-6 has-text-weight-bold">Edit Tanpa Batas</p>
+                      </div>
+                    </div>
+                    <div class="product-info has-text-centered">
+                        <h2 class="product-brand">Platinum</h2>
+  <!--                        <p class="product-short-description">a short line about the cloth..</p>-->
+                        <span class="price">IDR 100.000</span><span class="actual-price">IDR 200.000</span>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="box">
+                      <div class="product-image" style="height: 400px;">
+                          <span class="discount-tag">57% off</span>
+  <!--                        <img src="{% static 'site/img/card1.jpg' %}" class="product-thumb" alt="">-->
+                            <p class="is-size-5 has-text-weight-bold mb-4 has-text-centered">Fitur</p>
+                            <p class="is-size-6 has-text-weight-bold">- Semua yang ada di Paket Platinum</p>
+                            <p class="is-size-6">- Gallery (max 20)</p>
+                            <p class="is-size-6">- Live Streaming</p>
+                            <p class="is-size-6">- Share Eksklusif - nama tamu (unlimited)</p>
+                            <p class="is-size-6">- Background Music (list dan custom)</p>
+                            <p class="is-size-6">- Tersedia Versi Inggris</p>
+                            <p class="is-size-6">- Semua Jenis Preset</p>
+                            <p class="is-size-6">- Support Prioritas</p>
+                            <p class="is-size-6 has-text-weight-bold mt-4">Masa Aktif Selamanya</p>
+                            <p class="is-size-6 has-text-weight-bold">Edit Tanpa Batas</p>
+                      </div>
+                    </div>
+                    <div class="product-info has-text-centered">
+                        <h2 class="product-brand">Gold</h2>
+  <!--                        <p class="product-short-description">a short line about the cloth..</p>-->
+                        <span class="price">IDR 130.000</span><span class="actual-price">IDR 300.000</span>
+                    </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero has-background-warning-light is-medium">
+    <div class="hero-body is-marginless p-3 mt-1">
+      <div class="container px-2 pt-3">
+        <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-1 px-4">
+          Testimoni
+        </h1>
+        <p class="is-size-5-tablet px-4 mt-1 block">Pendapat mereka yang telah membuat undangan,</p>
+        <div class="columns is-multiline is-vcentered is-mobile is-centered">
+
+          <div class="column
+          is-12-mobile
+          is-12-tablet
+          is-12-desktop
+          is-12-widescreen
+          is-12-fullhd">
+            <section class="product" style="height: 300px;">
+                <button class="pre-btn"><img src="{% static 'site/img/arrow.png' %}" alt=""></button>
+                <button class="nxt-btn"><img src="{% static 'site/img/arrow.png' %}" alt=""></button>
+                <div class="product-container" style="height: 200px;">
+                    <div class="product-card" style="height: 200px;">
+                        <div class="box">
+                          <p class="is-size-7-mobile is-size-6-tablet"><small>dari</small> <strong>Ratih & Aristo</strong></p>
+                            &#9733 &#9733 &#9733 &#9733 &#9734
+                          <p class="is-size-7-mobile is-size-6-tablet mt-2">Fiturnya bagus banget, dan bisa diedit kapan aja.</p>
+                        </div>
+                    </div>
+                    <div class="product-card" style="height: 200px;">
+                        <div class="box">
+                          <p class="is-size-7-mobile is-size-6-tablet"><small>dari</small> <strong>Ratih & Aristo</strong></p>
+                            &#9733 &#9733 &#9733 &#9733 &#9734
+                          <p class="is-size-7-mobile is-size-6-tablet mt-2">Fiturnya bagus banget, dan bisa diedit kapan aja.</p>
+                        </div>
+                    </div>
+                    <div class="product-card" style="height: 200px;">
+                        <div class="box">
+                          <p class="is-size-7-mobile is-size-6-tablet"><small>dari</small> <strong>Ratih & Aristo</strong></p>
+                            &#9733 &#9733 &#9733 &#9733 &#9734
+                          <p class="is-size-7-mobile is-size-6-tablet mt-2">Fiturnya bagus banget, dan bisa diedit kapan aja.</p>
+                        </div>
+                    </div>
+                    <div class="product-card" style="height: 200px;">
+                        <div class="box">
+                          <p class="is-size-7-mobile is-size-6-tablet"><small>dari</small> <strong>Ratih & Aristo</strong></p>
+                            &#9733 &#9733 &#9733 &#9733 &#9734
+                          <p class="is-size-7-mobile is-size-6-tablet mt-2">Fiturnya bagus banget, dan bisa diedit kapan aja.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="buttons mt-3 is-centered">
+                    <button class="button is-danger">Lebih banyak testimoni</button>
+                </div>
+            </section>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero is-medium">
+    <div class="hero-body is-marginless p-3 mt-1">
+      <div class="container px-2 pt-3">
+        <div class="columns is-multiline is-vcentered is-mobile">
+
+
+
+          <div class="column
+          is-12-mobile
+          is-6-tablet
+          is-6-desktop
+          is-6-widescreen
+          is-6-fullhd">
+            <h1 class="subtitle has-text-weight-bold is-size-5-desktop is-size-5-tablet is-size-6-mobile mt-3 mb-4 px-4">
+              Metode Pembayaran
+            </h1>
+            <div class="columns is-multiline is-mobile px-4">
+              <div class="column
+              is-4-mobile
+              is-4-tablet
+              is-4-desktop
+              is-4-widescreen
+              is-4-fullhd p-2">
+                <figure class="image is-48x48">
+                  <img class="is-rounded" src="{% static 'site/img/bca.png' %}">
+                </figure>
+              </div>
+              <div class="column
+              is-4-mobile
+              is-4-tablet
+              is-4-desktop
+              is-4-widescreen
+              is-4-fullhd p-2">
+                <figure class="image is-48x48">
+                  <img class="is-rounded" src="{% static 'site/img/bri.png' %}">
+                </figure>
+              </div>
+              <div class="column
+              is-4-mobile
+              is-4-tablet
+              is-4-desktop
+              is-4-widescreen
+              is-4-fullhd p-2">
+                <figure class="image is-48x48">
+                  <img class="is-rounded" src="{% static 'site/img/gopay.png' %}">
+                </figure>
+              </div>
+              <div class="column
+              is-4-mobile
+              is-4-tablet
+              is-4-desktop
+              is-4-widescreen
+              is-4-fullhd p-2">
+                <figure class="image is-48x48">
+                  <img class="is-rounded" src="{% static 'site/img/dana.png' %}">
+                </figure>
+              </div>
+              <div class="column
+              is-4-mobile
+              is-4-tablet
+              is-4-desktop
+              is-4-widescreen
+              is-4-fullhd p-2">
+                <figure class="image is-48x48">
+                  <img class="is-rounded" src="{% static 'site/img/ovo.png' %}">
+                </figure>
+              </div>
+              <div class="column
+              is-4-mobile
+              is-4-tablet
+              is-4-desktop
+              is-4-widescreen
+              is-4-fullhd p-2">
+                <figure class="image is-48x48">
+                  <img class="is-rounded" src="{% static 'site/img/jenius.png' %}">
+                </figure>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="column
+          is-12-mobile
+          is-6-tablet
+          is-6-desktop
+          is-6-widescreen
+          is-6-fullhd pt-1">
+            <h1 class="subtitle has-text-weight-bold is-size-5-desktop is-size-5-tablet is-size-6-mobile mb-4 px-4">
+              Kontak
+            </h1>
+
+            <div class="columns is-multiline is-mobile px-4">
+              <div class="column
+              is-6-mobile
+              is-6-tablet
+              is-6-desktop
+              is-6-widescreen
+              is-6-fullhd p-2">
+                <article class="media">
+                  <figure class="media-left">
+                    <span class="icon is-medium">
+                      <i class="fa-brands fa-2x fa-whatsapp"></i>
+                    </span>
+                  </figure>
+                  <div class="media-content">
+                    <p class="is-size-7-mobile is-size-6-tablet">
+                      082213566900
+                    </p>
+                  </div>
+                </article>
+              </div>
+              <div class="column
+              is-6-mobile
+              is-6-tablet
+              is-6-desktop
+              is-6-widescreen
+              is-6-fullhd p-2">
+                <article class="media">
+                  <figure class="media-left">
+                    <span class="icon is-medium">
+                      <i class="fa-brands fa-2x fa-instagram"></i>
+                    </span>
+                  </figure>
+                  <div class="media-content">
+                    <p class="is-size-7-mobile is-size-6-tablet">
+                      @wedding.link
+                    </p>
+                  </div>
+                </article>
+              </div>
+              <div class="column
+              is-6-mobile
+              is-6-tablet
+              is-6-desktop
+              is-6-widescreen
+              is-6-fullhd p-2">
+                <article class="media">
+                  <figure class="media-left">
+                    <span class="icon is-medium">
+                      <i class="fa-solid fa-2x fa-envelopes-bulk"></i>
+                    </span>
+                  </figure>
+                  <div class="media-content">
+                    <p class="is-size-7-mobile is-size-6-tablet">
+                      wedding@gmail.com
+                    </p>
+                  </div>
+                </article>
+              </div>
+              <div class="column
+              is-6-mobile
+              is-6-tablet
+              is-6-desktop
+              is-6-widescreen
+              is-6-fullhd p-2">
+                <article class="media">
+                  <figure class="media-left">
+                    <span class="icon is-medium">
+                      <i class="fa-brands fa-2x fa-facebook-f"></i>
+                    </span>
+                  </figure>
+                  <div class="media-content">
+                    <p class="is-size-7-mobile is-size-6-tablet">
+                      wedding.link
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="mb-1">
+
+  <section class="hero is-small is-paddingless is-marginless">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns">
+          <div class="column has-text-centered">
+            <p class="subtitle is-size-6 has-text-black">
+                © 2022 Copyright tomtomstore.website
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
 {% endblock %}
