@@ -2,8 +2,7 @@
 {% load i18n static %}
 
 {% block content %}
-
-  <nav class="navbar" role="navigation" aria-label="main navigation" style="width: 100%;">
+  <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
 
         <a class="navbar-item" href="https://bulma.io">
@@ -11,7 +10,7 @@
         </a>
 
         <a v-bind:aria-expanded="isActive" v-bind:class="{ 'is-active': isActive }" role="button" class="navbar-burger"
-           aria-label="menu" data-target="navbarMenu" @click="isActive = !isActive" style="right: 15px; position: absolute;">
+           aria-label="menu" data-target="navbarMenu" @click="isActive = !isActive">
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -23,7 +22,13 @@
               <a class="navbar-item">Preset/Desain</a>
               <a class="navbar-item">Portofolio</a>
           </div>
+
+          <div class="navbar-end has-text-weight-bold">
+              <a class="navbar-item">Sign up</a>
+              <a class="navbar-item">Login</a>
+          </div>
       </div>
+
   </nav>
 
   <!-- Hero del producto -->
@@ -1307,4 +1312,7 @@
     </div>
   </section>
 
+{% endblock %}
+
+{% block script %}
 {% endblock %}
