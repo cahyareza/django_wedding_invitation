@@ -29,3 +29,27 @@
     </div>
 
   </nav>
+
+          <div class="column
+          is-6-mobile p-5
+          is-4-tablet
+          is-4-desktop
+          is-3-widescreen
+          is-3-fullhd">
+            <div class="box p-2" style="width:250px; height: 140px;">
+              <article class="media">
+                <figure class="media-left">
+                  <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                  </span>
+                </figure>
+                <div class="media-content">
+                  <p class="is-size-7-mobile is-size-6-tablet">
+                    <strong>Hitungan Mundur</strong>
+                    <br>
+                    Hitung mundur tanggal acara pernikahan.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
