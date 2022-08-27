@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     # third-party
     # ...
     # local
-    # ...
+    'myproject.apps.portofolio',
 ]
 
 MIDDLEWARE = [

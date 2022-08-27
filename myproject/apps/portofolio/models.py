@@ -18,6 +18,9 @@ class Couple (CreationModificationDateBase):
     lnama_ibu = models.CharField(max_length=40)
     lpicture = models.CharField(max_length=40)
 
+    class Meta:
+        verbose_name_plural = "Couple"
+
 class Acara(CreationModificationDateBase):
     tanggal_akad = models.DateField()
     tanggal_selesai_akad = models.DateField()
@@ -32,22 +35,37 @@ class Acara(CreationModificationDateBase):
     tempat_unduhmantu = models.CharField(max_length=250)
     link_gmap_unduhmantu = models.CharField(max_length=250)
 
+    class Meta:
+        verbose_name_plural = "Acara"
+
 class Ourmoment(CreationModificationDateBase):
     video = models.CharField(max_length=250)
     photo = models.CharField(max_length=250)
     livestream = models.CharField(max_length=250)
 
+    class Meta:
+        verbose_name_plural = "Ourmoment"
+
 class SpecialInvitation(CreationModificationDateBase):
     name = models.CharField(max_length=40)
+
+    class Meta:
+        verbose_name_plural = "SpecialInvitation"
 
 class Ucapan(CreationModificationDateBase):
     name = models.CharField(max_length=40)
     alamat = models.CharField(max_length=40)
     pesan = models.CharField(max_length=60)
 
+    class Meta:
+        verbose_name_plural = "Ucapan"
+
 class Quotes(CreationModificationDateBase):
     ayat = models.CharField(max_length=250)
     kutipan = models.TextField()
+
+    class Meta:
+        verbose_name_plural = "Quotes"
 
 class AddtoCalender(CreationModificationDateBase):
     name = models.CharField(max_length=250)
@@ -61,16 +79,28 @@ class AddtoCalender(CreationModificationDateBase):
     trigger = models.CharField(max_length=250)
     iCalFileName = models.CharField(max_length=250)
 
+    class Meta:
+        verbose_name_plural = "AddtoCalender"
+
 class Goto(CreationModificationDateBase):
     link_iframe = models.CharField(max_length=250)
     lokasi = models.CharField(max_length=250)
     link_gmap = models.CharField(max_length=250)
 
+    class Meta:
+        verbose_name_plural = "Goto"
+
 class Hadir(CreationModificationDateBase):
     name = models.CharField(max_length=40)
     hadir = models.CharField(max_length=40)
+
+    class Meta:
+        verbose_name_plural = "Hadir"
 
 class Dompet(CreationModificationDateBase):
     rekening = models.CharField(max_length=40)
     nomor = models.IntegerField()
     pemilik = models.CharField(max_length=40)
+
+    class Meta:
+        verbose_name_plural = "Dompet"
