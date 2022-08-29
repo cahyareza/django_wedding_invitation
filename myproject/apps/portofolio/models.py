@@ -2,9 +2,9 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
-from myproject.apps.core.models import CreationModificationDateBase
+from myproject.apps.core.models import CreationModificationDateBase, UrlBase
 
-class Portofolio(CreationModificationDateBase):
+class Portofolio(CreationModificationDateBase, UrlBase):
     name = models.CharField(max_length=250)
     # sementara belum mengunakan app account karena belum dibuat
     user = models.CharField(max_length=250)
@@ -12,7 +12,7 @@ class Portofolio(CreationModificationDateBase):
     class Meta:
         verbose_name_plural = "Portofolio"
 
-class Couple (CreationModificationDateBase):
+class Couple(CreationModificationDateBase, UrlBase):
     portofolio = models.OneToOneField(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
     pname = models.CharField(max_length=40, blank=True, null=True)
     pinsta_link = models.CharField(max_length=250)
@@ -30,7 +30,14 @@ class Couple (CreationModificationDateBase):
     class Meta:
         verbose_name_plural = "Couple"
 
-class Acara(CreationModificationDateBase):
+    class Couple(UrlBase):
+        # fields, attributes, properties and methods...
+        def get_url_path(self):
+            return reverse("register", kwargs={
+                "couple_id": str(self.pk),
+            })
+
+class Acara(CreationModificationDateBase, UrlBase):
     portofolio = models.OneToOneField(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
     tanggal_akad = models.DateField()
     tanggal_selesai_akad = models.DateField()
@@ -48,7 +55,7 @@ class Acara(CreationModificationDateBase):
     class Meta:
         verbose_name_plural = "Acara"
 
-class Ourmoment(CreationModificationDateBase):
+class Ourmoment(CreationModificationDateBase, UrlBase):
     portofolio = models.OneToOneField(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
     video = models.CharField(max_length=250)
     livestream = models.CharField(max_length=250)
@@ -56,14 +63,14 @@ class Ourmoment(CreationModificationDateBase):
     class Meta:
         verbose_name_plural = "Ourmoment"
 
-class SpecialInvitation(CreationModificationDateBase):
+class SpecialInvitation(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
     name = models.CharField(max_length=40)
 
     class Meta:
         verbose_name_plural = "SpecialInvitation"
 
-class Ucapan(CreationModificationDateBase):
+class Ucapan(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
     name = models.CharField(max_length=40)
     alamat = models.CharField(max_length=40)
@@ -72,7 +79,7 @@ class Ucapan(CreationModificationDateBase):
     class Meta:
         verbose_name_plural = "Ucapan"
 
-class Quotes(CreationModificationDateBase):
+class Quotes(CreationModificationDateBase, UrlBase):
     portofolio = models.OneToOneField(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
     ayat = models.CharField(max_length=250)
     kutipan = models.TextField()
@@ -80,7 +87,7 @@ class Quotes(CreationModificationDateBase):
     class Meta:
         verbose_name_plural = "Quotes"
 
-class AddtoCalender(CreationModificationDateBase):
+class AddtoCalender(CreationModificationDateBase, UrlBase):
     WIB = 'Asia/Jakarta'
     WITA = 'Asia/Makassar'
     WIT = 'Asia/Jayapura'
@@ -106,7 +113,7 @@ class AddtoCalender(CreationModificationDateBase):
     class Meta:
         verbose_name_plural = "AddtoCalender"
 
-class Goto(CreationModificationDateBase):
+class Goto(CreationModificationDateBase, UrlBase):
     portofolio = models.OneToOneField(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
     link_iframe = models.CharField(max_length=250)
     lokasi = models.CharField(max_length=250)
@@ -115,7 +122,7 @@ class Goto(CreationModificationDateBase):
     class Meta:
         verbose_name_plural = "Goto"
 
-class Hadir(CreationModificationDateBase):
+class Hadir(CreationModificationDateBase, UrlBase):
     IYA = 'iya'
     TIDAK = 'tidak'
 
@@ -130,7 +137,7 @@ class Hadir(CreationModificationDateBase):
     class Meta:
         verbose_name_plural = "Hadir"
 
-class Dompet(CreationModificationDateBase):
+class Dompet(CreationModificationDateBase, UrlBase):
     portofolio= models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
     nomor = models.IntegerField()
     pemilik = models.CharField(max_length=40)
@@ -140,12 +147,12 @@ class Dompet(CreationModificationDateBase):
 
 # Tambahan
 
-class PhotoOurmoment(CreationModificationDateBase):
+class PhotoOurmoment(CreationModificationDateBase, UrlBase):
     ourmoment = models.ForeignKey(Ourmoment, on_delete=models.SET_NULL, blank=True, null=True)
     name =  models.CharField(max_length=150)
     photo = models.CharField(max_length=150)
 
-class Rekening(CreationModificationDateBase):
+class Rekening(CreationModificationDateBase, UrlBase):
     dompet = models.ForeignKey(Dompet, on_delete=models.SET_NULL, blank=True, null=True)
     bank = models.CharField(max_length=50)
     kode = models.CharField(max_length=20)

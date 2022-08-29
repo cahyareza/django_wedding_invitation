@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+
+<section id="registerapp" class="hero has-background-danger-light is-small">
+  <div class="hero-body mt-6 mb-6">
+    <div class="container">
+      <div class="columns is-multiline is-vcentered">
+        <div class="column
+        is-12-mobile
+        is-5-tablet
+        is-6-desktop
+        is-7-widescreen
+        is-6-fullhd has-text-centered">
+          <div class="tabs is-boxed">
+            <ul>
+              <li class="nav-item">
+                <a class="nav-link" :class="{'active': current_step == 1}" href="#" @click.prevent="goToStep(value=1)">
+                  <span>Pictures</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" :class="{'disable': max_step < 2, 'active': current_step == 2 }" href="#"
+                  @click.prevent="goToStep(value=2)">
+                  <span>Music</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" :class="{'disable': max_step < 3, 'active': current_step == 3 }" href="#"
+                  @click.prevent="goToStep(value=3)">
+                  <span>Videos</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="column
+        is-12-mobile
+        is-5-tablet
+        is-6-desktop
+        is-7-widescreen
+        is-6-fullhd has-text-centered">
+          <div class="tab-content">
+            <div class="tab-pictures" v-show="current_step == 1">
+              <div class="control">
+                <form action="{% url 'portofolio:register' %}" method="post">
+                    {{ form_couple.as_p }}
+                    {% csrf_token %}
+                    <button class="button is-primary" type="submit" @click="advanceStep">
+                      <span v-if="max_step === 3">Submit</span>
+                      <span v-else>Next</span>
+                    </button>
+                </form>
+              </div>
+            </div>
+
+            <div class="tab-music" v-show="current_step == 2">
+              <div class="control">
+                <form action="{% url 'portofolio:register' %}" method="post">
+                    {{ form_couple.as_p }}
+                    {% csrf_token %}
+                    <button class="button is-primary" type="submit" @click="advanceStep">
+                      <span v-if="max_step === 3">Submit</span>
+                      <span v-else>Next</span>
+                    </button>
+                </form>
+              </div>
+            </div>
+
+            <div class="tab-videos" v-show="current_step == 3">
+              <div class="control">
+                <form action="{% url 'portofolio:register' %}" method="post">
+                    {{ form_couple.as_p }}
+                    {% csrf_token %}
+                    <input class="button is-primary" type="submit" value="Submit">
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <button class="button" @click="advanceStep">
+            <span v-if="max_step === 3">Submit</span>
+            <span v-else>Next</span>
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block script %}
+<script>
+  const registerapp = createApp({
+      el: '#registerapp',
+      delimiters: ['[[', ']]'],
+      data () {
+          return {
+              max_step: 1,
+              current_step: 1,
+
+          }
+      },
+      methods: {
+        advanceStep() {
+          if (this.max_step === 3) {
+            return this.submitForm()
+          }
+
+          this.current_step++
+
+          if (this.max_step < this.current_step) {
+            this.max_step = this.current_step
+          }
+        },
+
+        goToStep(value) {
+<!--          if (!this.validate()) {-->
+<!--            return-->
+<!--          }-->
+
+          this.current_step = value
+        },
+
+        submitForm() {
+          console.log("submit")
+          window.location.replace("http://127.0.0.1:8000")
+        }
+      }
+  })
+
+  registerapp.mount('#registerapp')
+</script>
+{% endblock %}

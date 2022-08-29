@@ -22,16 +22,254 @@
     <title>{% trans "Hello, World!" %}</title>
   </head>
   <body>
-    <div id="app">
-      {% block content %}
-      {% endblock %}
+    <nav id="navbarapp" class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+
+        <a class="navbar-item" href="/">
+          <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+        </a>
+
+        <a v-bind:aria-expanded="isActive" v-bind:class="{ 'is-active': isActive }" role="button" class="navbar-burger"
+           aria-label="menu" data-target="navbarMenu" @click="isActive = !isActive">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="navbarMenu" class="navbar-menu has-text-centered" v-bind:class="{ 'is-active': isActive }">
+          <div class="navbar-start has-text-weight-bold">
+              <a class="navbar-item">Preset/Desain</a>
+              <a class="navbar-item">Portofolio</a>
+          </div>
+
+          <div class="navbar-end has-text-weight-bold">
+              <a class="navbar-item">Sign up</a>
+              <a class="navbar-item">Login</a>
+          </div>
+      </div>
+
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+
+    <section class="hero is-medium">
+  <div class="hero-body is-marginless p-3 mt-1">
+    <div class="container px-2 pt-3">
+      <div class="columns is-multiline is-vcentered is-mobile">
+
+
+
+        <div class="column
+        is-12-mobile
+        is-6-tablet
+        is-6-desktop
+        is-6-widescreen
+        is-6-fullhd">
+          <h1 class="subtitle has-text-weight-bold is-size-5-desktop is-size-5-tablet is-size-6-mobile mt-3 mb-4 px-4">
+            Metode Pembayaran
+          </h1>
+          <div class="columns is-multiline is-mobile px-4">
+            <div class="column
+            is-4-mobile
+            is-4-tablet
+            is-4-desktop
+            is-4-widescreen
+            is-4-fullhd p-2">
+              <figure class="image is-48x48">
+                <img class="is-rounded" src="{% static 'site/img/bca.png' %}">
+              </figure>
+            </div>
+            <div class="column
+            is-4-mobile
+            is-4-tablet
+            is-4-desktop
+            is-4-widescreen
+            is-4-fullhd p-2">
+              <figure class="image is-48x48">
+                <img class="is-rounded" src="{% static 'site/img/bri.png' %}">
+              </figure>
+            </div>
+            <div class="column
+            is-4-mobile
+            is-4-tablet
+            is-4-desktop
+            is-4-widescreen
+            is-4-fullhd p-2">
+              <figure class="image is-48x48">
+                <img class="is-rounded" src="{% static 'site/img/gopay.png' %}">
+              </figure>
+            </div>
+            <div class="column
+            is-4-mobile
+            is-4-tablet
+            is-4-desktop
+            is-4-widescreen
+            is-4-fullhd p-2">
+              <figure class="image is-48x48">
+                <img class="is-rounded" src="{% static 'site/img/dana.png' %}">
+              </figure>
+            </div>
+            <div class="column
+            is-4-mobile
+            is-4-tablet
+            is-4-desktop
+            is-4-widescreen
+            is-4-fullhd p-2">
+              <figure class="image is-48x48">
+                <img class="is-rounded" src="{% static 'site/img/ovo.png' %}">
+              </figure>
+            </div>
+            <div class="column
+            is-4-mobile
+            is-4-tablet
+            is-4-desktop
+            is-4-widescreen
+            is-4-fullhd p-2">
+              <figure class="image is-48x48">
+                <img class="is-rounded" src="{% static 'site/img/jenius.png' %}">
+              </figure>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="column
+        is-12-mobile
+        is-6-tablet
+        is-6-desktop
+        is-6-widescreen
+        is-6-fullhd pt-1">
+          <h1 class="subtitle has-text-weight-bold is-size-5-desktop is-size-5-tablet is-size-6-mobile mb-4 px-4">
+            Kontak
+          </h1>
+
+          <div class="columns is-multiline is-mobile px-4">
+            <div class="column
+            is-6-mobile
+            is-6-tablet
+            is-6-desktop
+            is-6-widescreen
+            is-6-fullhd p-2">
+              <article class="media">
+                <figure class="media-left">
+                  <span class="icon is-medium">
+                    <i class="fa-brands fa-2x fa-whatsapp"></i>
+                  </span>
+                </figure>
+                <div class="media-content">
+                  <p class="is-size-7-mobile is-size-6-tablet">
+                    082213566900
+                  </p>
+                </div>
+              </article>
+            </div>
+            <div class="column
+            is-6-mobile
+            is-6-tablet
+            is-6-desktop
+            is-6-widescreen
+            is-6-fullhd p-2">
+              <article class="media">
+                <figure class="media-left">
+                  <span class="icon is-medium">
+                    <i class="fa-brands fa-2x fa-instagram"></i>
+                  </span>
+                </figure>
+                <div class="media-content">
+                  <p class="is-size-7-mobile is-size-6-tablet">
+                    @wedding.link
+                  </p>
+                </div>
+              </article>
+            </div>
+            <div class="column
+            is-6-mobile
+            is-6-tablet
+            is-6-desktop
+            is-6-widescreen
+            is-6-fullhd p-2">
+              <article class="media">
+                <figure class="media-left">
+                  <span class="icon is-medium">
+                    <i class="fa-solid fa-2x fa-envelopes-bulk"></i>
+                  </span>
+                </figure>
+                <div class="media-content">
+                  <p class="is-size-7-mobile is-size-6-tablet">
+                    wedding@gmail.com
+                  </p>
+                </div>
+              </article>
+            </div>
+            <div class="column
+            is-6-mobile
+            is-6-tablet
+            is-6-desktop
+            is-6-widescreen
+            is-6-fullhd p-2">
+              <article class="media">
+                <figure class="media-left">
+                  <span class="icon is-medium">
+                    <i class="fa-brands fa-2x fa-facebook-f"></i>
+                  </span>
+                </figure>
+                <div class="media-content">
+                  <p class="is-size-7-mobile is-size-6-tablet">
+                    wedding.link
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+</section>
+
+    <hr class="mb-1">
+
+    <section class="hero is-small is-paddingless is-marginless">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns">
+        <div class="column has-text-centered">
+          <p class="subtitle is-size-6 has-text-black">
+              © 2022 Copyright tomtomstore.website
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
     <!-- Optional JavaScript -->
     <!-- vue3 -->
     <script src="https://unpkg.com/vue@3"></script>
-    <script src="{% static  'site/js/vue.js' %}"></script>
     <script src="{% static  'site/js/main.js' %}"></script>
+
+    <!--  Vue instance for navbar  -->
+    <script>
+      const { createApp } = Vue
+
+      const navbarapp = createApp({
+          el: '#navbarapp',
+          delimiters: ['[[', ']]'],
+          data () {
+              return {
+                  isActive: false,
+              }
+          },
+      })
+
+      navbarapp.mount('#navbarapp')
+    </script>
+
+    <!--  Vue instance for navbar  -->
+
     {% block script %}
     {% endblock %}
   </body>
