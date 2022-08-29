@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import (Couple, Acara, Ourmoment, SpecialInvitation, Ucapan,
-     Quotes, AddtoCalender, Goto, Hadir, Dompet, Portofolio)
+     Quotes, AddtoCalender, Goto, Hadir, Dompet, Portofolio, PhotoOurmoment,
+     Rekening)
 
 #Inline
 class AcaraInline(admin.TabularInline):
@@ -33,23 +34,34 @@ class HadirInline(admin.TabularInline):
 class DompetInline(admin.TabularInline):
     model = Dompet
 
+class PhotoOurmomentInline(admin.TabularInline):
+    model = PhotoOurmoment
 
-
+class RekeningInline(admin.TabularInline):
+    model = Rekening
 
 # Register your models here.
 admin.site.register(Couple)
 admin.site.register(Acara)
-admin.site.register(Ourmoment)
+# admin.site.register(Ourmoment)
 admin.site.register(SpecialInvitation)
 admin.site.register(Ucapan)
 admin.site.register(Quotes)
 admin.site.register(AddtoCalender)
 admin.site.register(Goto)
 admin.site.register(Hadir)
-admin.site.register(Dompet)
+# admin.site.register(Dompet)
 
 @admin.register(Portofolio)
 class PortofolioAdmin(admin.ModelAdmin):
     inlines = [AcaraInline, CoupleInline, OurmomentInline, SpecialInvitationInline,
                UcapanInline, QuotesInline, AddtoCalenderInline, GotoInline, HadirInline,
                DompetInline]
+
+@admin.register(Ourmoment)
+class OurmomentAdmin(admin.ModelAdmin):
+    inlines = [PhotoOurmomentInline]
+
+@admin.register(Dompet)
+class DompetAdmin(admin.ModelAdmin):
+    inlines = [RekeningInline]

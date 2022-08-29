@@ -9,6 +9,9 @@ class Portofolio(CreationModificationDateBase):
     # sementara belum mengunakan app account karena belum dibuat
     user = models.CharField(max_length=250)
 
+    class Meta:
+        verbose_name_plural = "Portofolio"
+
 class Couple (CreationModificationDateBase):
     portofolio = models.OneToOneField(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
     pname = models.CharField(max_length=40, blank=True, null=True)
@@ -48,7 +51,6 @@ class Acara(CreationModificationDateBase):
 class Ourmoment(CreationModificationDateBase):
     portofolio = models.OneToOneField(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
     video = models.CharField(max_length=250)
-    photo = models.CharField(max_length=250)
     livestream = models.CharField(max_length=250)
 
     class Meta:
@@ -79,6 +81,16 @@ class Quotes(CreationModificationDateBase):
         verbose_name_plural = "Quotes"
 
 class AddtoCalender(CreationModificationDateBase):
+    WIB = 'Asia/Jakarta'
+    WITA = 'Asia/Makassar'
+    WIT = 'Asia/Jayapura'
+
+    TIMEZONE_CHOICES = (
+        (WIB, 'Asia/Jakarta'),
+        (WITA, 'Asia/Makassar'),
+        (WIT, 'Asia/Jayapura')
+    )
+
     portofolio = models.OneToOneField(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=250)
     description = models.CharField(max_length=250)
@@ -87,7 +99,7 @@ class AddtoCalender(CreationModificationDateBase):
     startTime = models.DateField()
     endTime = models.DateField()
     options = models.CharField(max_length=250)
-    timeZone = models.CharField(max_length=250)
+    timeZone = models.CharField(max_length=20, choices=TIMEZONE_CHOICES, default=WIB)
     trigger = models.CharField(max_length=250)
     iCalFileName = models.CharField(max_length=250)
 
@@ -104,19 +116,36 @@ class Goto(CreationModificationDateBase):
         verbose_name_plural = "Goto"
 
 class Hadir(CreationModificationDateBase):
+    IYA = 'iya'
+    TIDAK = 'tidak'
+
+    STATUS_CHOICES = (
+        (IYA, 'iya'),
+        (TIDAK, 'tidak')
+    )
     portofolio = models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
     name = models.CharField(max_length=40)
-    hadir = models.CharField(max_length=40)
+    hadir = models.CharField(max_length=20, choices=STATUS_CHOICES, default=TIDAK)
 
     class Meta:
         verbose_name_plural = "Hadir"
 
 class Dompet(CreationModificationDateBase):
     portofolio= models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
-    rekening = models.CharField(max_length=40)
     nomor = models.IntegerField()
     pemilik = models.CharField(max_length=40)
 
     class Meta:
         verbose_name_plural = "Dompet"
 
+# Tambahan
+
+class PhotoOurmoment(CreationModificationDateBase):
+    ourmoment = models.ForeignKey(Ourmoment, on_delete=models.SET_NULL, blank=True, null=True)
+    name =  models.CharField(max_length=150)
+    photo = models.CharField(max_length=150)
+
+class Rekening(CreationModificationDateBase):
+    dompet = models.ForeignKey(Dompet, on_delete=models.SET_NULL, blank=True, null=True)
+    bank = models.CharField(max_length=50)
+    kode = models.CharField(max_length=20)
