@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
+from django.core.exceptions import ValidationError
 
 from myproject.apps.core.models import CreationModificationDateBase, UrlBase
 
@@ -27,7 +28,6 @@ ANAK_KE = (
     ('8', 'Kedelapan'),
     ('9', 'Kesembilan'),
 )
-
 
 class Portofolio(CreationModificationDateBase, UrlBase):
     # Portofolio
@@ -63,11 +63,11 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     waktu_selesai_unduhmantu = models.TimeField(auto_now=False, auto_now_add=False)
     tempat_unduhmantu = models.CharField(max_length=250)
     link_gmap_unduhmantu = models.CharField(max_length=250)
-    #
-    # # Our moment
-    # video = models.CharField(max_length=250)
-    # livestream = models.CharField(max_length=250)
-    # photo = models.CharField(max_length=250)
+
+    # Our moment
+    video = models.CharField(max_length=250)
+    livestream = models.CharField(max_length=250)
+
     #
     # # Special invitation
     # name = models.CharField(max_length=250)
@@ -94,6 +94,15 @@ class Portofolio(CreationModificationDateBase, UrlBase):
 
     def __str__(self):
         return self.porto_name
+
+class MultiImage(CreationModificationDateBase, UrlBase):
+    portofolio = models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
+    image = models.FileField(blank=True)
+
+    class Meta:
+        verbose_name_plural = "Multiimages"
+
+
 # class Ucapan(CreationModificationDateBase, UrlBase):
 #     portofolio = models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
 #     name = models.CharField(max_length=40)

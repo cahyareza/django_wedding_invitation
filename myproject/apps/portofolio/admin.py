@@ -1,35 +1,25 @@
 from django.contrib import admin
-from .models import (Portofolio)
+from .models import (Portofolio, MultiImage)
 
-#Inline
-# class AcaraInline(admin.TabularInline):
-#     model = Acara
-#
-# class CoupleInline(admin.TabularInline):
-#     model = Couple
+# Inline
+class MultiImageInline(admin.TabularInline):
+    model = MultiImage
+
 
 
 # Register your models here.
 # admin.site.register(Couple)
-# admin.site.register(Acara)
-# admin.site.register(Ourmoment)
-# admin.site.register(SpecialInvitation)
-# admin.site.register(Ucapan)
-# admin.site.register(Quotes)
-# admin.site.register(AddtoCalender)
-# admin.site.register(Goto)
-# admin.site.register(Hadir)
-# admin.site.register(Dompet)
+
 
 @admin.register(Portofolio)
 class PortofolioAdmin(admin.ModelAdmin):
+    inlines = [MultiImageInline]
+
+
+@admin.register(MultiImage)
+class MultiImageAdmin(admin.ModelAdmin):
     pass
 
-#
-# @admin.register(Ourmoment)
-# class OurmomentAdmin(admin.ModelAdmin):
-#     inlines = [PhotoOurmomentInline]
-#
 # @admin.register(Dompet)
 # class DompetAdmin(admin.ModelAdmin):
 #     inlines = [RekeningInline]

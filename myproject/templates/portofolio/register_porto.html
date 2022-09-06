@@ -286,6 +286,38 @@
             {% endfor %}
         </div>
       </div>
+
+      <!--   INFORMASI OUR MOMENT   -->
+      <div class="notification is-light p-1 has-text-centered">
+        INFORMASI MOMENT
+      </div>
+      <div class="columns is-multiline mt-1">
+        <div class="column is-6">
+          {{ form.video.label_tag }}
+          {{ form.video }}
+
+          {% for error in form.video.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div class="column is-6">
+            {{ form.livestream.label_tag }}
+            {{ form.livestream }}
+
+            {% for error in form.livestream.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div class="column is-6">
+            {{ form2.image.label_tag }}
+            {{ form2.image }}
+
+            {% for error in form2.image.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+      </div>
       <button type="submit" class="button is-info p-2 mt-1">Submit</button>
     </div>
   </form>

@@ -1,5 +1,6 @@
 from django import forms
-from .models import Portofolio
+from django.forms import ClearableFileInput
+from .models import Portofolio, MultiImage
 from django.core.validators import RegexValidator
 from django.contrib.admin import widgets
 
@@ -251,6 +252,46 @@ class PortofolioForm(forms.ModelForm):
         )
     )
 
+    # INFORMASI OUR MOMENT
+
+    video = forms.CharField(
+        label='Link video',
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Link video',
+                'class': 'input',
+                'style': 'font-size: 13px;'
+            }
+        )
+    )
+
+    livestream = forms.CharField(
+        label='Link livestream',
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Link livestream',
+                'class': 'input',
+                'style': 'font-size: 13px;'
+            }
+        )
+    )
+
+    # Photo (Upload photo)
+    # photos = forms.MultiImageField(
+    #     min_num=1, max_num=20,
+    #     label="Foto",
+    #     widget=forms.ClearableFileInput(
+    #         attrs={
+    #             'placeholder': 'Select a picture',
+    #             'class': 'image',
+    #             'style': 'font-size: 15px',
+    #             'accept': 'image/png, image/jpeg'
+    #         }
+    #     )
+    # )
+
+
+
     class Meta:
         model = Portofolio
         fields = "__all__"
@@ -356,3 +397,11 @@ class PortofolioForm(forms.ModelForm):
     #     super(PortofolioForm, self).__init__(*args, **kwargs)
     #
     #     self.fields['waktu_akad'].widget = widgets.AdminTimeWidget()
+
+class MultiImageForm(forms.ModelForm):
+    class Meta:
+        model = MultiImage
+        fields = ['image']
+        widgets = {
+            'image': ClearableFileInput(attrs={'multiple': True}),
+        }
