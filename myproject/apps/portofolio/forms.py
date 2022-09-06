@@ -1,6 +1,7 @@
 from django import forms
 from .models import Portofolio
 from django.core.validators import RegexValidator
+from django.contrib.admin import widgets
 
 # Every letters to LowerCase
 class Lowercase(forms.CharField):
@@ -183,6 +184,175 @@ class PortofolioForm(forms.ModelForm):
         )
     )
 
+    # INFORMASI ACARA
+    tempat_akad = forms.CharField(
+        label='Tempat akad', min_length=3, max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Tempat akad',
+                'class': 'input',
+                'style': 'font-size: 13px; text-transform: capitalize'
+            }
+        )
+    )
+
+    link_gmap_akad = forms.CharField(
+        label='Link google maps', min_length=3, max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Link google maps',
+                'class': 'input',
+                'style': 'font-size: 13px;'
+            }
+        )
+    )
+
+    tempat_resepsi = forms.CharField(
+        label='Tempat resepsi', min_length=3, max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Tempat resepsi',
+                'class': 'input',
+                'style': 'font-size: 13px; text-transform: capitalize'
+            }
+        )
+    )
+
+    link_gmap_resepsi = forms.CharField(
+        label='Link google maps', min_length=3, max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Link google maps',
+                'class': 'input',
+                'style': 'font-size: 13px;'
+            }
+        )
+    )
+
+    tempat_unduhmantu = forms.CharField(
+        label='Tempat unduh mantu', min_length=3, max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Tempat unduh mantu',
+                'class': 'input',
+                'style': 'font-size: 13px; text-transform: capitalize'
+            }
+        )
+    )
+
+    link_gmap_unduhmantu = forms.CharField(
+        label='Link google maps', min_length=3, max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Link google maps',
+                'class': 'input',
+                'style': 'font-size: 13px;'
+            }
+        )
+    )
+
     class Meta:
         model = Portofolio
         fields = "__all__"
+        labels = {
+            'tanggal_unduhmantu': "Tanggal unduh mantu",
+            'waktu_unduhmantu': "Waktu unduh mantu",
+            'waktu_selesai_unduhmantu': "Waktu selesai unduh mantu",
+        }
+
+        # OUTSIDE WIDGET
+        widgets = {
+            # Tanggal akad
+            'tanggal_akad': forms.DateInput(
+                attrs={
+                    'style': 'font-size: 13px; cursor: pointer;',
+                    'type': 'date',
+                    'class': 'input',
+                    'onkeydown': 'return false',  # Block typing inside field
+                    'min': '2022-01-01',
+                    'max': '2030-01-01'
+                }
+            ),
+            # Waktu akad
+            'waktu_akad': forms.TimeInput(
+                attrs={
+                    'placeholder': 'Waktu akad',
+                    'style': 'font-size: 13px; cursor: pointer;',
+                    'class': 'input',
+                    'data-mask': '00:00'
+                }
+            ),
+            # Waktu selesai akad
+            'waktu_selesai_akad': forms.TimeInput(
+                attrs={
+                    'placeholder': 'Waktu selesai akad',
+                    'style': 'font-size: 13px; cursor: pointer;',
+                    'class': 'input',
+                    'data-mask': '00:00'
+                }
+            ),
+            # Tanggal resepsi
+            'tanggal_resepsi': forms.DateInput(
+                attrs={
+                    'style': 'font-size: 13px; cursor: pointer;',
+                    'type': 'date',
+                    'class': 'input',
+                    'onkeydown': 'return false',  # Block typing inside field
+                    'min': '2022-01-01',
+                    'max': '2030-01-01'
+                }
+            ),
+            # Waktu resepsi
+            'waktu_resepsi': forms.TimeInput(
+                attrs={
+                    'placeholder': 'Waktu resepsi',
+                    'style': 'font-size: 13px; cursor: pointer;',
+                    'class': 'input',
+                    'data-mask': '00:00'
+                }
+            ),
+            # Waktu selesai resepsi
+            'waktu_selesai_resepsi': forms.TimeInput(
+                attrs={
+                    'placeholder': 'Waktu selesai resepsi',
+                    'style': 'font-size: 13px; cursor: pointer;',
+                    'class': 'input',
+                    'data-mask': '00:00'
+                }
+            ),
+            # Tanggal unduh mantu
+            'tanggal_unduhmantu': forms.DateInput(
+                attrs={
+                    'style': 'font-size: 13px; cursor: pointer;',
+                    'type': 'date',
+                    'class': 'input',
+                    'onkeydown': 'return false',  # Block typing inside field
+                    'min': '2022-01-01',
+                    'max': '2030-01-01'
+                }
+            ),
+            # Waktu unduh mantu
+            'waktu_unduhmantu': forms.TimeInput(
+                attrs={
+                    'placeholder': 'Waktu unduh mantu',
+                    'style': 'font-size: 13px; cursor: pointer;',
+                    'class': 'input',
+                    'data-mask': '00:00'
+                }
+            ),
+            # Waktu selesai unduh mantu
+            'waktu_selesai_unduhmantu': forms.TimeInput(
+                attrs={
+                    'placeholder': 'Waktu selesai unduh mantu',
+                    'style': 'font-size: 13px; cursor: pointer;',
+                    'class': 'input',
+                    'data-mask': '00:00'
+                }
+            ),
+        }
+
+    # SUPER FUNCTION
+    # def __init__(self, *args, **kwargs):
+    #     super(PortofolioForm, self).__init__(*args, **kwargs)
+    #
+    #     self.fields['waktu_akad'].widget = widgets.AdminTimeWidget()
