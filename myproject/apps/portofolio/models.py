@@ -47,19 +47,19 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     lnama_ibu = models.CharField(max_length=40)
     lpicture = models.ImageField(blank=True)
 
-    # # Acara
-    # tanggal_akad = models.DateTimeField(auto_now=False, auto_now_add=False)
-    # tanggal_selesai_akad = models.DateTimeField(auto_now=False, auto_now_add=False)
-    # tempat_akad = models.CharField(max_length=250)
-    # link_gmap_akad = models.CharField(max_length=250)
-    # tanggal_resepsi = models.DateTimeField(auto_now=False, auto_now_add=False)
-    # tanggal_selesai_resepsi = models.DateTimeField(auto_now=False, auto_now_add=False)
-    # tempat_resepsi = models.CharField(max_length=250)
-    # link_gmap_resepsi = models.CharField(max_length=250)
-    # tanggal_unduhmantu = models.DateTimeField(auto_now=False, auto_now_add=False)
-    # tanggal_selesai_unduhmantu = models.DateTimeField(auto_now=False, auto_now_add=False)
-    # tempat_unduhmantu = models.CharField(max_length=250)
-    # link_gmap_unduhmantu = models.CharField(max_length=250)
+    # Acara
+    tanggal_akad = models.DateTimeField(auto_now=False, auto_now_add=False)
+    tanggal_selesai_akad = models.DateTimeField(auto_now=False, auto_now_add=False)
+    tempat_akad = models.CharField(max_length=250)
+    link_gmap_akad = models.CharField(max_length=250)
+    tanggal_resepsi = models.DateTimeField(auto_now=False, auto_now_add=False)
+    tanggal_selesai_resepsi = models.DateTimeField(auto_now=False, auto_now_add=False)
+    tempat_resepsi = models.CharField(max_length=250)
+    link_gmap_resepsi = models.CharField(max_length=250)
+    tanggal_unduhmantu = models.DateTimeField(auto_now=False, auto_now_add=False)
+    tanggal_selesai_unduhmantu = models.DateTimeField(auto_now=False, auto_now_add=False)
+    tempat_unduhmantu = models.CharField(max_length=250)
+    link_gmap_unduhmantu = models.CharField(max_length=250)
     #
     # # Our moment
     # video = models.CharField(max_length=250)
@@ -89,6 +89,8 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     class Meta:
         verbose_name_plural = "Portofolio"
 
+    def __str__(self):
+        return self.porto_name
 # class Ucapan(CreationModificationDateBase, UrlBase):
 #     portofolio = models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
 #     name = models.CharField(max_length=40)
