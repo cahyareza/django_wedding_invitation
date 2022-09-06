@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # third-party
-    # ...
+    'django_cleanup.apps.CleanupConfig',
     # local
     'myproject.apps.portofolio',
 ]

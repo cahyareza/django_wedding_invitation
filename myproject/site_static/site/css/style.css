@@ -1,3 +1,4 @@
+/* UMUM */
 .columns.is-vcentered {
   -webkit-box-align: center;
      -ms-flex-align: center;
@@ -10,6 +11,10 @@
   margin-right: auto;
   width: 50%;
 }
+
+/* FORMS */
+
+
 
 /* PRODUCTS */
 .product {

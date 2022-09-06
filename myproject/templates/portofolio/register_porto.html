@@ -3,136 +3,135 @@
 
 {% block content %}
 
-<section id="registerapp" class="hero has-background-danger-light is-small">
-  <div class="hero-body mt-6 mb-6">
-    <div class="container">
-      <div class="columns is-multiline is-vcentered">
-        <div class="column
-        is-12-mobile
-        is-5-tablet
-        is-6-desktop
-        is-7-widescreen
-        is-6-fullhd has-text-centered">
-          <div class="tabs is-boxed">
-            <ul>
-              <li class="nav-item">
-                <a class="nav-link" :class="{'active': current_step == 1}" href="#" @click.prevent="goToStep(value=1)">
-                  <span>Pictures</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" :class="{'disable': max_step < 2, 'active': current_step == 2 }" href="#"
-                  @click.prevent="goToStep(value=2)">
-                  <span>Music</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" :class="{'disable': max_step < 3, 'active': current_step == 3 }" href="#"
-                  @click.prevent="goToStep(value=3)">
-                  <span>Videos</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
+  <form method="POST" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    <div class="card p-5 m-5 mt-5">
+      <!--   INFORMASI UNDANGAN   -->
+      <div class="notification is-light p-1 has-text-centered">
+        INFORMASI UNDANGAN
+      </div>
+      <div class="columns is-multiline">
+        <div class="column is-6">
+          {{ form.porto_name.label_tag }}
+          {{ form.porto_name }}
 
-        <div class="column
-        is-12-mobile
-        is-5-tablet
-        is-6-desktop
-        is-7-widescreen
-        is-6-fullhd has-text-centered">
-          <div class="tab-content">
-            <div class="tab-pictures" v-show="current_step == 1">
-              <div class="control">
-                <form action="{% url 'portofolio:register' %}" method="post">
-                    {{ form_couple.as_p }}
-                    {% csrf_token %}
-                    <button class="button is-primary" type="submit" @click="advanceStep">
-                      <span v-if="max_step === 3">Submit</span>
-                      <span v-else>Next</span>
-                    </button>
-                </form>
-              </div>
-            </div>
-
-            <div class="tab-music" v-show="current_step == 2">
-              <div class="control">
-                <form action="{% url 'portofolio:register' %}" method="post">
-                    {{ form_couple.as_p }}
-                    {% csrf_token %}
-                    <button class="button is-primary" type="submit" @click="advanceStep">
-                      <span v-if="max_step === 3">Submit</span>
-                      <span v-else>Next</span>
-                    </button>
-                </form>
-              </div>
-            </div>
-
-            <div class="tab-videos" v-show="current_step == 3">
-              <div class="control">
-                <form action="{% url 'portofolio:register' %}" method="post">
-                    {{ form_couple.as_p }}
-                    {% csrf_token %}
-                    <input class="button is-primary" type="submit" value="Submit">
-                </form>
-              </div>
-            </div>
-          </div>
-
-          <button class="button" @click="advanceStep">
-            <span v-if="max_step === 3">Submit</span>
-            <span v-else>Next</span>
-          </button>
-
+          {% for error in form.porto_name.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
         </div>
       </div>
+      <!--   INFORMASI PASANGAN   -->
+      <!--   Perempuan   -->
+      <div class="notification is-light p-1 has-text-centered">
+          INFORMASI PASANGAN
+      </div>
+      <p class="title is-size-5 mb-1">Perempuan</p>
+      <div class="columns is-multiline mt-1">
+        <div class="column is-4">
+          {{ form.pname.label_tag }}
+          {{ form.pname }}
+
+          {% for error in form.pname.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+        <div class="column is-5">
+          {{ form.pinsta_link.label_tag }}
+          {{ form.pinsta_link }}
+
+          {% for error in form.pinsta_link.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+        <div class="column is-3">
+          {{ form.panak_ke.label_tag }}
+          {{ form.panak_ke }}
+
+          {% for error in form.panak_ke.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+        <div class="column is-4">
+          {{ form.pnama_ayah.label_tag }}
+          {{ form.pnama_ayah }}
+
+          {% for error in form.pnama_ayah.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+        <div class="column is-4">
+          {{ form.pnama_ibu.label_tag }}
+          {{ form.pnama_ibu }}
+
+          {% for error in form.pnama_ibu.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+        <div class="column is-6">
+          {{ form.ppicture.label_tag }}
+          {{ form.ppicture }}
+
+          {% for error in form.ppicture.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <hr>
+
+      <!--   Laki-laki   -->
+      <p class="title is-size-5 mb-1">Laki-laki</p>
+      <div class="columns is-multiline mt-1">
+        <div class="column is-4">
+          {{ form.lname.label_tag }}
+          {{ form.lname }}
+
+          {% for error in form.lname.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+        <div class="column is-5">
+          {{ form.linsta_link.label_tag }}
+          {{ form.linsta_link }}
+
+          {% for error in form.linsta_link.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+        <div class="column is-3">
+          {{ form.lanak_ke.label_tag }}
+          {{ form.lanak_ke }}
+
+          {% for error in form.lanak_ke.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+        <div class="column is-4">
+          {{ form.lnama_ayah.label_tag }}
+          {{ form.lnama_ayah }}
+
+          {% for error in form.lnama_ayah.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+        <div class="column is-4">
+          {{ form.lnama_ibu.label_tag }}
+          {{ form.lnama_ibu }}
+
+          {% for error in form.lnama_ibu.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+        <div class="column is-6">
+          {{ form.lpicture.label_tag }}
+          {{ form.lpicture }}
+
+          {% for error in form.lpicture.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+      </div>
+      <button type="submit" class="button is-info p-2 mt-1">Submit</button>
     </div>
-  </div>
-</section>
-
-{% endblock %}
-
-{% block script %}
-<script>
-  const registerapp = createApp({
-      el: '#registerapp',
-      delimiters: ['[[', ']]'],
-      data () {
-          return {
-              max_step: 1,
-              current_step: 1,
-
-          }
-      },
-      methods: {
-        advanceStep() {
-          if (this.max_step === 3) {
-            return this.submitForm()
-          }
-
-          this.current_step++
-
-          if (this.max_step < this.current_step) {
-            this.max_step = this.current_step
-          }
-        },
-
-        goToStep(value) {
-<!--          if (!this.validate()) {-->
-<!--            return-->
-<!--          }-->
-
-          this.current_step = value
-        },
-
-        submitForm() {
-          console.log("submit")
-          window.location.replace("http://127.0.0.1:8000")
-        }
-      }
-  })
-
-  registerapp.mount('#registerapp')
-</script>
+  </form>
 {% endblock %}

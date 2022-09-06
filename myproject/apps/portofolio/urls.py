@@ -1,9 +1,9 @@
 # myproject/apps/ideas/urls.py
 from django.urls import path
 from .views import (
-    register_couple
+    register
 )
 
 urlpatterns = [
-    path("register/", register_couple, name="register"),
+    path("register/", register, name="register"),
 ]
