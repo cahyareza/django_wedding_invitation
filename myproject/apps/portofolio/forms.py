@@ -1,8 +1,10 @@
 from django import forms
 from django.forms import ClearableFileInput
-from .models import Portofolio, MultiImage
+from .models import Portofolio, MultiImage, SpecialInvitation
 from django.core.validators import RegexValidator
 from django.contrib.admin import widgets
+from django.forms import BaseFormSet
+from django.core.exceptions import ValidationError
 
 # Every letters to LowerCase
 class Lowercase(forms.CharField):
@@ -276,22 +278,6 @@ class PortofolioForm(forms.ModelForm):
         )
     )
 
-    # Photo (Upload photo)
-    # photos = forms.MultiImageField(
-    #     min_num=1, max_num=20,
-    #     label="Foto",
-    #     widget=forms.ClearableFileInput(
-    #         attrs={
-    #             'placeholder': 'Select a picture',
-    #             'class': 'image',
-    #             'style': 'font-size: 15px',
-    #             'accept': 'image/png, image/jpeg'
-    #         }
-    #     )
-    # )
-
-
-
     class Meta:
         model = Portofolio
         fields = "__all__"
@@ -393,15 +379,83 @@ class PortofolioForm(forms.ModelForm):
         }
 
     # SUPER FUNCTION
-    # def __init__(self, *args, **kwargs):
-    #     super(PortofolioForm, self).__init__(*args, **kwargs)
-    #
-    #     self.fields['waktu_akad'].widget = widgets.AdminTimeWidget()
+    def __init__(self, *args, **kwargs):
+        super(PortofolioForm, self).__init__(*args, **kwargs)
+
+        # ========== CONTROL PANEL (Optional method to control ========== !
+        # 1. Input required
+        # self.fields['message'].required = True
 
 class MultiImageForm(forms.ModelForm):
     class Meta:
         model = MultiImage
         fields = ['image']
         widgets = {
-            'image': ClearableFileInput(attrs={'multiple': True}),
+            'image': ClearableFileInput(
+                attrs={
+                    'multiple': True,
+                    'class': 'image',
+                    'style': 'font-size: 15px',
+                    'accept': 'image/png, image/jpeg'
+               }),
         }
+
+    # SUPER FUNCTION
+    def __init__(self, *args, **kwargs):
+        super(MultiImageForm, self).__init__(*args, **kwargs)
+
+        # ========== CONTROL PANEL (Optional method to control ========== !
+        # 1. Input required
+        self.fields['image'].required = True
+
+
+class SpecialInvitationForm(forms.ModelForm):
+    class Meta:
+        model = SpecialInvitation
+        fields = ['name_invite']
+        labels = {
+            'name_invite': "Nama tamu",
+        }
+        widgets = {
+            'name_invite': forms.TextInput(
+                attrs={
+                    'style': 'font-size: 13px',
+                    'placeholder': 'Nama undangan',
+                    'class': 'input'
+                }
+            ),
+        }
+
+    # SUPER FUNCTION
+    def __init__(self, *args, **kwargs):
+        super(SpecialInvitationForm, self).__init__(*args, **kwargs)
+
+        # ========== CONTROL PANEL (Optional method to control ========== !
+        # 1. Input required
+        self.fields['name_invite'].required = True
+
+
+ # ================== FORMSET =================== !
+class BaseRegisterFormSet(BaseFormSet):
+    def clean(self):
+        super().clean()
+        """Checks that no two articles have the same title."""
+        if any(self.errors):
+            # Don't bother validating the formset unless each form is valid on its own
+            return
+        name_invites = []
+        for form in self.forms:
+            cd = form.cleaned_data
+            if cd:
+                if self.can_delete and self._should_delete_form(form):
+                    continue
+                name_invite = cd['name_invite']
+                if name_invite in name_invites:
+                    raise ValidationError("Name in a set must have distinct title.")
+                name_invites.append(name_invite)
+                if name_invite == "":
+                    raise ValidationError("This field cannot be empty!")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # self.queryset = SpecialInvitation.objects.filter(pk=id)

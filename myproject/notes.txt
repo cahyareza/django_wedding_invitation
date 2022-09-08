@@ -1,55 +1,39 @@
-  <nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-      <a class="navbar-item" href="https://bulma.io">
-        <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
-      </a>
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from django.http import HttpResponseRedirect
 
-      <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-    </div>
+from .models import MultiImage, Portofolio
 
-    <div id="navMenu" class="navbar-menu has-text-centered is-active">
-      <div class="navbar-start has-text-weight-bold">
-          <button class="button is-text has-text-black mt-2"><strong>Preset/Desain</strong></button>
-          <button class="button is-text has-text-black mt-2"><strong>Portofolio</strong></button>
-      </div>
+from .forms import PortofolioForm, MultiImageForm
 
-      <div class="navbar-end">
-        <a class="navbar-item">
-          WHY?
-        </a>
 
-        <a class="navbar-item">
-          BUY
-        </a>
-      </div>
-    </div>
+# Create your views here.
+def register(request):
+    if request.method == "POST":
+        form = PortofolioForm(request.POST or None, request.FILES)
+        form2 = MultiImageForm(request.POST or None, request.FILES)
+        images = request.FILES.getlist('image')
+        if form.is_valid() and form2.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
 
-  </nav>
+            porto_instance = Portofolio.objects.get(pk=instance.pk)
 
-          <div class="column
-          is-6-mobile p-5
-          is-4-tablet
-          is-4-desktop
-          is-3-widescreen
-          is-3-fullhd">
-            <div class="box p-2" style="width:250px; height: 140px;">
-              <article class="media">
-                <figure class="media-left">
-                  <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
-                    <i class="fa-solid fa-clock-rotate-left"></i>
-                  </span>
-                </figure>
-                <div class="media-content">
-                  <p class="is-size-7-mobile is-size-6-tablet">
-                    <strong>Hitungan Mundur</strong>
-                    <br>
-                    Hitung mundur tanggal acara pernikahan.
-                  </p>
-                </div>
-              </article>
-            </div>
-          </div>
+            for i in images:
+                MultiImage.objects.create(portofolio=porto_instance, image=i)
+
+            messages.success(request, "Registered Successfully !")
+            return HttpResponseRedirect('/')
+        else:
+            return render(request, "portofolio/register_porto.html", {'form': form, 'form2': form2})
+
+    else:
+        form = PortofolioForm()
+        form2 = MultiImageForm()
+
+        return render(request, "portofolio/register_porto.html", {'form': form, 'form2': form2})
+
+
+
+
+

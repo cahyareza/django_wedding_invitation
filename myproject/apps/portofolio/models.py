@@ -2,7 +2,6 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
-from django.core.exceptions import ValidationError
 
 from myproject.apps.core.models import CreationModificationDateBase, UrlBase
 
@@ -69,9 +68,6 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     livestream = models.CharField(max_length=250)
 
     #
-    # # Special invitation
-    # name = models.CharField(max_length=250)
-    #
     # # Add to calender
     # name = models.CharField(max_length=250)
     # description = models.TextField()
@@ -102,6 +98,12 @@ class MultiImage(CreationModificationDateBase, UrlBase):
     class Meta:
         verbose_name_plural = "Multiimages"
 
+class SpecialInvitation(CreationModificationDateBase, UrlBase):
+    portofolio = models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
+    name_invite = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name_invite
 
 # class Ucapan(CreationModificationDateBase, UrlBase):
 #     portofolio = models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
