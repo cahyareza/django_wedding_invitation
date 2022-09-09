@@ -18,6 +18,8 @@ class Uppercase(forms.CharField):
         if value:
             return value.upper()
 
+
+# ================== MODELFORM =================== !
 class PortofolioForm(forms.ModelForm):
     # INFORMASI UNDANGAN
     porto_name = forms.CharField(
@@ -278,6 +280,77 @@ class PortofolioForm(forms.ModelForm):
         )
     )
 
+    # INFORMASI ADD TO CALENDER
+
+    name = forms.CharField(
+        label='Nama notifikasi', min_length=3, max_length=50,
+        validators=[RegexValidator(r'^[a-zA-ZA-y\s]*$',
+        message="Only letters is allowed !")],
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Nama notifikasi',
+                'class': 'input',
+                'style': 'font-size: 13px; text-transform: capitalize'
+            }
+        )
+    )
+
+    description = forms.CharField(
+        label='Deskripsi undangan', min_length=50, max_length=1000,
+        required=True,
+        widget=forms.Textarea(
+            attrs={
+                'placeholder': 'Deskripsi undangan',
+                'class': 'textarea',
+                'style': 'font-size: 13px',
+            }
+        )
+    )
+
+    location = forms.CharField(
+        label='Lokasi acara',
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Lokasi acara',
+                'class': 'input',
+                'style': 'font-size: 13px; text-transform: capitalize'
+            }
+        )
+    )
+
+    options = forms.CharField(
+        label='Options',
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Options',
+                'class': 'input',
+                'style': 'font-size: 13px; text-transform: capitalize'
+            }
+        )
+    )
+
+    trigger = forms.CharField(
+        label='Trigger',
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Trigger',
+                'class': 'input',
+                'style': 'font-size: 13px; text-transform: capitalize'
+            }
+        )
+    )
+
+    iCalFileName = forms.CharField(
+        label='iCalFileName',
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'iCalFileName',
+                'class': 'input',
+                'style': 'font-size: 13px; text-transform: capitalize'
+            }
+        )
+    )
+
     class Meta:
         model = Portofolio
         fields = "__all__"
@@ -285,6 +358,7 @@ class PortofolioForm(forms.ModelForm):
             'tanggal_unduhmantu': "Tanggal unduh mantu",
             'waktu_unduhmantu': "Waktu unduh mantu",
             'waktu_selesai_unduhmantu': "Waktu selesai unduh mantu",
+
         }
 
         # OUTSIDE WIDGET
@@ -376,6 +450,42 @@ class PortofolioForm(forms.ModelForm):
                     'data-mask': '00:00'
                 }
             ),
+            # Tanggal acara di calender
+            'startDate': forms.DateInput(
+                attrs={
+                    'style': 'font-size: 13px; cursor: pointer;',
+                    'type': 'date',
+                    'class': 'input',
+                    'onkeydown': 'return false',  # Block typing inside field
+                    'min': '2022-01-01',
+                    'max': '2030-01-01'
+                }
+            ),
+            # Waktu acara mulai di calender
+            'startTime': forms.TimeInput(
+                attrs={
+                    'placeholder': 'Waktu mulai acara',
+                    'style': 'font-size: 13px; cursor: pointer;',
+                    'class': 'input',
+                    'data-mask': '00:00'
+                }
+            ),
+            # Waktu acara selesai di calender
+            'endTime': forms.TimeInput(
+                attrs={
+                    'placeholder': 'Waktu selesai acara',
+                    'style': 'font-size: 13px; cursor: pointer;',
+                    'class': 'input',
+                    'data-mask': '00:00'
+                }
+            ),
+            # Timezone
+            'timeZone' : forms.Select(
+                attrs={
+                    'class': 'input',
+                    'style': 'font-size: 13px',
+                }
+            ),
         }
 
     # SUPER FUNCTION
@@ -435,7 +545,7 @@ class SpecialInvitationForm(forms.ModelForm):
         self.fields['name_invite'].required = True
 
 
- # ================== FORMSET =================== !
+# ================== FORMSET =================== !
 class BaseRegisterFormSet(BaseFormSet):
     def clean(self):
         super().clean()

@@ -10,7 +10,7 @@ from .forms import PortofolioForm, MultiImageForm, SpecialInvitationForm, BaseRe
 
 # Create your views here.
 def register(request, id=None):
-
+    # initiate formset
     SpecialInviteFormSet = modelformset_factory(
         SpecialInvitation,
         form=SpecialInvitationForm,
@@ -24,17 +24,19 @@ def register(request, id=None):
         formset = SpecialInviteFormSet(request.POST or None)
         # get image from form2
         images = request.FILES.getlist('image')
+
+        # form validation
         if form.is_valid() and form2.is_valid() and formset.is_valid():
-            print("valid")
+            # create portofolio instance
             instance = form.save(commit=False)
             instance.save()
 
+            # to create multiple image instance
             porto_instance = Portofolio.objects.get(pk=instance.pk)
-
             for i in images:
                 MultiImage.objects.create(portofolio=porto_instance, image=i)
 
-
+            # to create multiple value instance
             for form2 in formset:
                 # Not save blank field use has_changed()
                 if form2.is_valid() and form2.has_changed():
@@ -45,7 +47,6 @@ def register(request, id=None):
             messages.success(request, "Registered Successfully !")
             return HttpResponseRedirect('/')
         else:
-            print("ulang")
             return render(request, "portofolio/register_porto.html", {'form': form, 'form2': form2, 'formset': formset})
 
     else:

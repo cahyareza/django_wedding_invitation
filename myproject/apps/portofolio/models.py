@@ -4,16 +4,13 @@ from django.utils.translation import gettext_lazy as _
 from PIL import Image
 
 from myproject.apps.core.models import CreationModificationDateBase, UrlBase
-
-
-WIB = 'Asia/Jakarta'
-WITA = 'Asia/Makassar'
-WIT = 'Asia/Jayapura'
+from django.contrib.postgres.fields import ArrayField
 
 TIMEZONE_CHOICES = (
-    (WIB, 'Asia/Jakarta'),
-    (WITA, 'Asia/Makassar'),
-    (WIT, 'Asia/Jayapura')
+    ('', 'Pilih zona waktu'),
+    ('Asia/Jakarta', 'WIB'),
+    ('Asia/Makassar', 'WITA'),
+    ('Asia/Jayapura', 'WIT')
 )
 
 ANAK_KE = (
@@ -67,19 +64,29 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     video = models.CharField(max_length=250)
     livestream = models.CharField(max_length=250)
 
-    #
-    # # Add to calender
-    # name = models.CharField(max_length=250)
-    # description = models.TextField()
-    # startDate = models.DateField(auto_now=False, auto_now_add=False)
-    # location = models.CharField(max_length=250)
-    # startTime = models.DateTimeField(auto_now=False, auto_now_add=False)
-    # endTime = models.DateTimeField(auto_now=False, auto_now_add=False)
-    # options = models.CharField(max_length=250)
-    # timeZone = models.CharField(max_length=20, choices=TIMEZONE_CHOICES, default=WIB)
-    # trigger = models.CharField(max_length=250)
-    # iCalFileName = models.CharField(max_length=250)
-    #
+
+    # Add to calender
+    name = models.CharField(max_length=250)
+    description = models.TextField()
+    startDate = models.DateField(auto_now=False, auto_now_add=False)
+    location = models.CharField(max_length=250)
+    startTime = models.TimeField(auto_now=False, auto_now_add=False)
+    endTime = models.TimeField(auto_now=False, auto_now_add=False)
+    options = ArrayField(models.CharField(
+        max_length=200,
+        default= [
+          "Google",
+          "Apple",
+          "iCal",
+          "Yahoo",
+          "Outlook.com",
+          "Microsoft365"
+        ])
+    )
+    timeZone = models.CharField(max_length=30, choices=TIMEZONE_CHOICES)
+    trigger = models.CharField(max_length=20, default="click")
+    iCalFileName = models.CharField(max_length=50, default="Reminder-Event")
+
     # # Goto
     # link_iframe = models.CharField(max_length=250)
     # lokasi = models.CharField(max_length=250)

@@ -350,6 +350,93 @@
 
       <button id="add-more" type="button" class="button is-small is-outlined pd-1">Tambah</button>
 
+      <!--   INFORMASI CALENDER   -->
+      <div class="notification is-light p-1 has-text-centered mt-4">
+        INFORMASI CALENDER
+      </div>
+      <div class="columns is-multiline mt-1">
+        <div class="column is-6">
+          {{ form.name.label_tag }}
+          {{ form.name }}
+
+          {% for error in form.name.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div class="column is-6">
+            {{ form.location.label_tag }}
+            {{ form.location }}
+
+            {% for error in form.location.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div class="column is-6">
+            {{ form.options.label_tag }}
+            {{ form.options }}
+
+            {% for error in form.options.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div class="column is-6">
+            {{ form.trigger.label_tag }}
+            {{ form.trigger }}
+
+            {% for error in form.trigger.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div class="column is-6">
+            {{ form.iCalFileName.label_tag }}
+            {{ form.iCalFileName }}
+
+            {% for error in form.iCalFileName.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div class="column is-6">
+            {{ form.startDate.label_tag }}
+            {{ form.startDate }}
+
+            {% for error in form.startDate.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div class="column is-6">
+            {{ form.startTime.label_tag }}
+            {{ form.startTime }}
+
+            {% for error in form.startTime.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div class="column is-6">
+            {{ form.endTime.label_tag }}
+            {{ form.endTime }}
+
+            {% for error in form.endTime.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div class="column is-6">
+            {{ form.timeZone.label_tag }}
+            {{ form.timeZone }}
+
+            {% for error in form.timeZone.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div class="column is-6">
+            {{ form.description.label_tag }}
+            {{ form.description }}
+
+            {% for error in form.description.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+      </div>
       <button type="submit" class="button is-info p-2 mt-1">Submit</button>
     </div>
   </form>
