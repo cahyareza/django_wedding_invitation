@@ -450,19 +450,19 @@
               <p class="help is-danger">{{ error }}</p>
           {% endfor %}
         </div>
-        <div class="column is-8">
-            {{ form.link_iframe.label_tag }}
-            {{ form.link_iframe }}
-
-            {% for error in form.link_iframe.errors %}
-                <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
-        </div>
-        <div class="column is-8">
+        <div class="column is-6">
             {{ form.link_gmap.label_tag }}
             {{ form.link_gmap }}
 
             {% for error in form.link_gmap.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div class="column is-6">
+            {{ form.link_iframe.label_tag }}
+            {{ form.link_iframe }}
+
+            {% for error in form.link_iframe.errors %}
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
         </div>

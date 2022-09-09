@@ -191,7 +191,7 @@ class PortofolioForm(forms.ModelForm):
 
     # INFORMASI ACARA
     tempat_akad = forms.CharField(
-        label='Tempat akad', min_length=3, max_length=50,
+        label='Tempat akad', min_length=3, max_length=100,
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Tempat akad',
@@ -202,18 +202,18 @@ class PortofolioForm(forms.ModelForm):
     )
 
     link_gmap_akad = forms.CharField(
-        label='Link google maps', min_length=3, max_length=50,
-        widget=forms.TextInput(
+        label='Link google maps',
+        widget=forms.Textarea(
             attrs={
-                'placeholder': 'Link google maps',
-                'class': 'input',
-                'style': 'font-size: 13px;'
+                'placeholder': 'Link ke google maps',
+                'class': 'textarea',
+                'style': 'font-size: 13px',
             }
         )
     )
 
     tempat_resepsi = forms.CharField(
-        label='Tempat resepsi', min_length=3, max_length=50,
+        label='Tempat resepsi', min_length=3, max_length=100,
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Tempat resepsi',
@@ -224,18 +224,18 @@ class PortofolioForm(forms.ModelForm):
     )
 
     link_gmap_resepsi = forms.CharField(
-        label='Link google maps', min_length=3, max_length=50,
-        widget=forms.TextInput(
+        label='Link google maps',
+        widget=forms.Textarea(
             attrs={
-                'placeholder': 'Link google maps',
-                'class': 'input',
-                'style': 'font-size: 13px;'
+                'placeholder': 'Link ke google maps',
+                'class': 'textarea',
+                'style': 'font-size: 13px',
             }
         )
     )
 
     tempat_unduhmantu = forms.CharField(
-        label='Tempat unduh mantu', min_length=3, max_length=50,
+        label='Tempat unduh mantu', min_length=3, max_length=100,
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Tempat unduh mantu',
@@ -246,12 +246,12 @@ class PortofolioForm(forms.ModelForm):
     )
 
     link_gmap_unduhmantu = forms.CharField(
-        label='Link google maps', min_length=3, max_length=50,
-        widget=forms.TextInput(
+        label='Link google maps',
+        widget=forms.Textarea(
             attrs={
-                'placeholder': 'Link google maps',
-                'class': 'input',
-                'style': 'font-size: 13px;'
+                'placeholder': 'Link ke google maps',
+                'class': 'textarea',
+                'style': 'font-size: 13px',
             }
         )
     )

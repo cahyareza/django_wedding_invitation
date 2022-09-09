@@ -1,4 +1,5 @@
 import json
+import re
 
 from django.db import models
 from django.urls import reverse
@@ -49,17 +50,17 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     waktu_akad = models.TimeField(auto_now=False, auto_now_add=False)
     waktu_selesai_akad = models.TimeField(auto_now=False, auto_now_add=False)
     tempat_akad = models.CharField(max_length=250)
-    link_gmap_akad = models.CharField(max_length=250)
+    link_gmap_akad = models.TextField()
     tanggal_resepsi = models.DateField(auto_now=False, auto_now_add=False)
     waktu_resepsi = models.TimeField(auto_now=False, auto_now_add=False)
     waktu_selesai_resepsi = models.TimeField(auto_now=False, auto_now_add=False)
     tempat_resepsi = models.CharField(max_length=250)
-    link_gmap_resepsi = models.CharField(max_length=250)
+    link_gmap_resepsi = models.TextField()
     tanggal_unduhmantu = models.DateField(auto_now=False, auto_now_add=False)
     waktu_unduhmantu = models.TimeField(auto_now=False, auto_now_add=False)
     waktu_selesai_unduhmantu = models.TimeField(auto_now=False, auto_now_add=False)
     tempat_unduhmantu = models.CharField(max_length=250)
-    link_gmap_unduhmantu = models.CharField(max_length=250)
+    link_gmap_unduhmantu = models.TextField()
 
     # Our moment
     video = models.CharField(max_length=250)
@@ -90,6 +91,14 @@ class Portofolio(CreationModificationDateBase, UrlBase):
 
     def __str__(self):
         return self.porto_name
+
+    # ========== CLEAN METHOD ========== !
+    # get link from iframe
+    def get_link(self, url):
+        return re.search("(?P<name>https?://[^\s]+)", url).group('name')
+
+    def clean(self):
+        self.link_iframe = self.get_link(self.link_iframe)
 
     # SUPER FUNCTION
 

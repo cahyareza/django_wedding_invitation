@@ -38,6 +38,9 @@ class PortofolioAdmin(admin.ModelAdmin):
         ('INFORMASI CALENDER', {"fields": ['name','description', 'startDate', 'location','startTime', 'endTime',
         'options', 'timeZone', 'trigger','iCalFileName']}
         ),
+        # INFORMASI MAP
+        ('INFORMASI MAP', {"fields": ['link_iframe', 'lokasi', 'link_gmap']}
+        ),
     ]
 
 
