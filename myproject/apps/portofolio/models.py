@@ -88,10 +88,13 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     trigger = models.CharField(max_length=20)
     iCalFileName = models.CharField(max_length=50)
 
-    # # Goto
+    # Goto
     link_iframe = models.TextField()
     lokasi = models.CharField(max_length=250)
     link_gmap = models.TextField()
+
+    # Quote
+    quote = models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "Portofolio"
@@ -154,6 +157,13 @@ class Dompet(CreationModificationDateBase, UrlBase):
     class Meta:
         verbose_name_plural = "Dompet"
 
+class Quote(CreationModificationDateBase, UrlBase):
+    ayat = models.CharField(max_length=250)
+    kutipan = models.TextField()
+
+    class Meta:
+        verbose_name_plural = "Quotes"
+
 # class Ucapan(CreationModificationDateBase, UrlBase):
 #     portofolio = models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
 #     name = models.CharField(max_length=40)
@@ -163,13 +173,7 @@ class Dompet(CreationModificationDateBase, UrlBase):
 #     class Meta:
 #         verbose_name_plural = "Ucapan"
 #
-# class Quotes(CreationModificationDateBase, UrlBase):
-#     portofolio = models.OneToOneField(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
-#     ayat = models.CharField(max_length=250)
-#     kutipan = models.TextField()
-#
-#     class Meta:
-#         verbose_name_plural = "Quotes"
+
 #
 # class Hadir(CreationModificationDateBase, UrlBase):
 #     IYA = 'iya'

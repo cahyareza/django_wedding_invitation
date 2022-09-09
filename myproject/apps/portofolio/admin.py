@@ -20,7 +20,7 @@ class DompetInline(admin.TabularInline):
 
 @admin.register(Portofolio)
 class PortofolioAdmin(admin.ModelAdmin):
-    inlines = [MultiImageInline, SpecialInvitationInline, DompetInline, DompetInline]
+    inlines = [MultiImageInline, SpecialInvitationInline, DompetInline]
     list_per_page = 10
 
     # Fieldset
