@@ -29,7 +29,10 @@ def register(request, id=None):
         if form.is_valid() and form2.is_valid() and formset.is_valid():
             # create portofolio instance
             instance = form.save(commit=False)
+            # save porto name ke field name notifikasi
+            instance.name = instance.porto_name
             instance.save()
+            print(request.POST)
 
             # to create multiple image instance
             porto_instance = Portofolio.objects.get(pk=instance.pk)

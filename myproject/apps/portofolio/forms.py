@@ -495,6 +495,23 @@ class PortofolioForm(forms.ModelForm):
         # ========== CONTROL PANEL (Optional method to control ========== !
         # 1. Input required
         # self.fields['message'].required = True
+        self.fields['name'].required = False
+        self.fields['trigger'].required = False
+        self.fields['iCalFileName'].required = False
+        self.fields['options'].required = False
+
+        # ========== ADVANCE CONTROL PANEL (multiple <Inputs>) ========== !
+        # 1. Input required
+        # require = ['pname', 'pinsta_link', 'panak_ke', 'pnama_ayah', 'pnama_ibu',
+        #     'ppicture', 'lname', 'linsta_link', 'lanak_ke', 'lnama_ayah', 'lnama_ibu',
+        #     'lpicture', 'tanggal_akad','waktu_akad', 'waktu_selesai_akad', 'tempat_akad',
+        #     'link_gmap_akad', 'tanggal_resepsi','waktu_resepsi', 'waktu_selesai_resepsi',
+        #     'tempat_resepsi', 'link_gmap_resepsi', 'tanggal_unduhmantu','waktu_unduhmantu',
+        #     'waktu_selesai_unduhmantu', 'tempat_unduhmantu','link_gmap_unduhmantu', 'video',
+        #     'livestream',
+        # ]
+        # for field in require:
+        #     self.fields[field].required = False
 
 class MultiImageForm(forms.ModelForm):
     class Meta:
@@ -516,7 +533,7 @@ class MultiImageForm(forms.ModelForm):
 
         # ========== CONTROL PANEL (Optional method to control ========== !
         # 1. Input required
-        self.fields['image'].required = True
+        self.fields['image'].required = False
 
 
 class SpecialInvitationForm(forms.ModelForm):

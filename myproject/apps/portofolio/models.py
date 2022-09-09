@@ -1,10 +1,11 @@
+import json
+
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
 
 from myproject.apps.core.models import CreationModificationDateBase, UrlBase
-from django.contrib.postgres.fields import ArrayField
 
 TIMEZONE_CHOICES = (
     ('', 'Pilih zona waktu'),
@@ -72,20 +73,12 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     location = models.CharField(max_length=250)
     startTime = models.TimeField(auto_now=False, auto_now_add=False)
     endTime = models.TimeField(auto_now=False, auto_now_add=False)
-    options = ArrayField(models.CharField(
-        max_length=200,
-        default= [
-          "Google",
-          "Apple",
-          "iCal",
-          "Yahoo",
-          "Outlook.com",
-          "Microsoft365"
-        ])
+    options = models.CharField(
+        max_length=200
     )
     timeZone = models.CharField(max_length=30, choices=TIMEZONE_CHOICES)
-    trigger = models.CharField(max_length=20, default="click")
-    iCalFileName = models.CharField(max_length=50, default="Reminder-Event")
+    trigger = models.CharField(max_length=20)
+    iCalFileName = models.CharField(max_length=50)
 
     # # Goto
     # link_iframe = models.CharField(max_length=250)
@@ -97,6 +90,22 @@ class Portofolio(CreationModificationDateBase, UrlBase):
 
     def __str__(self):
         return self.porto_name
+
+    # SUPER FUNCTION
+    # ========== SAVE FUNCTION ========== !
+
+    def save(self, *args, **kwargs):
+        self.options = json.dumps([
+          "Google",
+          "Apple",
+          "iCal",
+          "Yahoo",
+          "Outlook.com",
+          "Microsoft365"
+        ])
+        self.trigger = "click"
+        self.iCalFileName = "Reminder-Event"
+        super().save(*args, **kwargs)
 
 class MultiImage(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)

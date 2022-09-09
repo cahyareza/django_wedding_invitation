@@ -355,7 +355,7 @@
         INFORMASI CALENDER
       </div>
       <div class="columns is-multiline mt-1">
-        <div class="column is-6">
+        <div class="column is-hidden is-6">
           {{ form.name.label_tag }}
           {{ form.name }}
 
@@ -363,16 +363,7 @@
               <p class="help is-danger">{{ error }}</p>
           {% endfor %}
         </div>
-
-        <div class="column is-6">
-            {{ form.location.label_tag }}
-            {{ form.location }}
-
-            {% for error in form.location.errors %}
-                <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
-        </div>
-        <div class="column is-6">
+        <div class="column is-hidden is-6">
             {{ form.options.label_tag }}
             {{ form.options }}
 
@@ -380,7 +371,7 @@
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
         </div>
-        <div class="column is-6">
+        <div class="column is-hidden is-6">
             {{ form.trigger.label_tag }}
             {{ form.trigger }}
 
@@ -388,7 +379,7 @@
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
         </div>
-        <div class="column is-6">
+        <div class="column is-hidden is-6">
             {{ form.iCalFileName.label_tag }}
             {{ form.iCalFileName }}
 
@@ -396,7 +387,7 @@
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
         </div>
-        <div class="column is-6">
+        <div class="column is-3">
             {{ form.startDate.label_tag }}
             {{ form.startDate }}
 
@@ -404,7 +395,7 @@
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
         </div>
-        <div class="column is-6">
+        <div class="column is-3">
             {{ form.startTime.label_tag }}
             {{ form.startTime }}
 
@@ -412,7 +403,7 @@
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
         </div>
-        <div class="column is-6">
+        <div class="column is-3">
             {{ form.endTime.label_tag }}
             {{ form.endTime }}
 
@@ -420,7 +411,7 @@
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
         </div>
-        <div class="column is-6">
+        <div class="column is-3">
             {{ form.timeZone.label_tag }}
             {{ form.timeZone }}
 
@@ -428,7 +419,15 @@
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
         </div>
-        <div class="column is-6">
+        <div class="column is-8">
+            {{ form.location.label_tag }}
+            {{ form.location }}
+
+            {% for error in form.location.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div class="column is-8">
             {{ form.description.label_tag }}
             {{ form.description }}
 
