@@ -11,13 +11,21 @@
         INFORMASI UNDANGAN
       </div>
       <div class="columns is-multiline">
-        <div class="column is-6">
+        <div class="column is-8">
           {{ form.porto_name.label_tag }}
           {{ form.porto_name }}
 
           {% for error in form.porto_name.errors %}
               <p class="help is-danger">{{ error }}</p>
           {% endfor %}
+        </div>
+        <div class="column is-8">
+            {{ form.description.label_tag }}
+            {{ form.description }}
+
+            {% for error in form.description.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
         </div>
       </div>
       <!--   INFORMASI PASANGAN   -->
@@ -285,6 +293,14 @@
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
         </div>
+        <div class="column is-3">
+            {{ form.timeZone.label_tag }}
+            {{ form.timeZone }}
+
+            {% for error in form.timeZone.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
       </div>
 
       <!--   INFORMASI OUR MOMENT   -->
@@ -351,10 +367,10 @@
       <button id="add-more" type="button" class="button is-small is-outlined pd-1">Tambah</button>
 
       <!--   INFORMASI CALENDER   -->
-      <div class="notification is-light p-1 has-text-centered mt-4">
+      <div class="notification is-hidden is-light p-1 has-text-centered mt-4">
         INFORMASI CALENDER
       </div>
-      <div class="columns is-multiline mt-1">
+      <div class="columns is-hidden is-multiline mt-1">
         <div class="column is-hidden is-6">
           {{ form.name.label_tag }}
           {{ form.name }}
@@ -411,15 +427,7 @@
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
         </div>
-        <div class="column is-3">
-            {{ form.timeZone.label_tag }}
-            {{ form.timeZone }}
-
-            {% for error in form.timeZone.errors %}
-                <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
-        </div>
-        <div class="column is-8">
+        <div class="column is-hidden is-8">
             {{ form.location.label_tag }}
             {{ form.location }}
 
@@ -427,11 +435,34 @@
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
         </div>
-        <div class="column is-8">
-            {{ form.description.label_tag }}
-            {{ form.description }}
+      </div>
 
-            {% for error in form.description.errors %}
+      <!--   INFORMASI MAP  -->
+      <div class="notification is-light p-1 has-text-centered mt-4">
+        INFORMASI MAP
+      </div>
+      <div class="columns is-multiline mt-1">
+        <div class="column is-hidden is-8">
+          {{ form.lokasi.label_tag }}
+          {{ form.lokasi }}
+
+          {% for error in form.lokasi.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+        <div class="column is-8">
+            {{ form.link_iframe.label_tag }}
+            {{ form.link_iframe }}
+
+            {% for error in form.link_iframe.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div class="column is-8">
+            {{ form.link_gmap.label_tag }}
+            {{ form.link_gmap }}
+
+            {% for error in form.link_gmap.errors %}
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
         </div>

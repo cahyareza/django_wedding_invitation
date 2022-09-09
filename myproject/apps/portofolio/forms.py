@@ -351,6 +351,42 @@ class PortofolioForm(forms.ModelForm):
         )
     )
 
+    # INFORMASI GO TO
+
+    link_iframe = forms.CharField(
+        label='Link embed map', min_length=50, max_length=1000,
+        required=True,
+        widget=forms.Textarea(
+            attrs={
+                'placeholder': 'Link embed map',
+                'class': 'textarea',
+                'style': 'font-size: 13px',
+            }
+        )
+    )
+    link_gmap = forms.CharField(
+        label='Link ke google maps', min_length=50, max_length=1000,
+        required=True,
+        widget=forms.Textarea(
+            attrs={
+                'placeholder': 'Link ke google maps',
+                'class': 'textarea',
+                'style': 'font-size: 13px',
+            }
+        )
+    )
+
+    lokasi = forms.CharField(
+        label='lokasi',
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'lokasi',
+                'class': 'input',
+                'style': 'font-size: 13px; text-transform: capitalize'
+            }
+        )
+    )
+
     class Meta:
         model = Portofolio
         fields = "__all__"
@@ -496,9 +532,19 @@ class PortofolioForm(forms.ModelForm):
         # 1. Input required
         # self.fields['message'].required = True
         self.fields['name'].required = False
+        self.fields['description'].required = False
+        self.fields['startDate'].required = False
+        self.fields['location'].required = False
+        self.fields['startTime'].required = False
+        self.fields['endTime'].required = False
+        self.fields['options'].required = False
         self.fields['trigger'].required = False
         self.fields['iCalFileName'].required = False
-        self.fields['options'].required = False
+
+        self.fields['lokasi'].required = False
+
+
+
 
         # ========== ADVANCE CONTROL PANEL (multiple <Inputs>) ========== !
         # 1. Input required

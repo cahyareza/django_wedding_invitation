@@ -29,8 +29,16 @@ def register(request, id=None):
         if form.is_valid() and form2.is_valid() and formset.is_valid():
             # create portofolio instance
             instance = form.save(commit=False)
-            # save porto name ke field name notifikasi
+            # save porto field ke field calender
             instance.name = instance.porto_name
+            instance.location =  instance.tempat_resepsi
+            instance.startDate = instance.tanggal_resepsi
+            instance.startTime = instance.waktu_resepsi
+            instance.endTime = instance.waktu_selesai_resepsi
+            # save porto field ke field go to
+            instance.lokasi = instance.tempat_resepsi
+
+
             instance.save()
             print(request.POST)
 

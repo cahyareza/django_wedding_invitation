@@ -81,9 +81,9 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     iCalFileName = models.CharField(max_length=50)
 
     # # Goto
-    # link_iframe = models.CharField(max_length=250)
-    # lokasi = models.CharField(max_length=250)
-    # link_gmap = models.CharField(max_length=250)
+    link_iframe = models.TextField()
+    lokasi = models.CharField(max_length=250)
+    link_gmap = models.TextField()
 
     class Meta:
         verbose_name_plural = "Portofolio"
@@ -92,8 +92,8 @@ class Portofolio(CreationModificationDateBase, UrlBase):
         return self.porto_name
 
     # SUPER FUNCTION
-    # ========== SAVE FUNCTION ========== !
 
+    # ========== SAVE FUNCTION ========== !
     def save(self, *args, **kwargs):
         self.options = json.dumps([
           "Google",
