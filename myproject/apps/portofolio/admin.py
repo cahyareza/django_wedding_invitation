@@ -1,12 +1,18 @@
 from django.contrib import admin
-from .models import (Portofolio, MultiImage, SpecialInvitation)
+from .models import (Portofolio, MultiImage, SpecialInvitation, Dompet)
 
 # Inline
 class MultiImageInline(admin.TabularInline):
     model = MultiImage
 
+class DompetInline(admin.TabularInline):
+    model = Dompet
+
 class SpecialInvitationInline(admin.TabularInline):
     model = SpecialInvitation
+
+class DompetInline(admin.TabularInline):
+    model = Dompet
 
 # Register your models here.
 # admin.site.register(Couple)
@@ -14,7 +20,7 @@ class SpecialInvitationInline(admin.TabularInline):
 
 @admin.register(Portofolio)
 class PortofolioAdmin(admin.ModelAdmin):
-    inlines = [MultiImageInline, SpecialInvitationInline]
+    inlines = [MultiImageInline, SpecialInvitationInline, DompetInline, DompetInline]
     list_per_page = 10
 
     # Fieldset
@@ -50,4 +56,8 @@ class MultiImageAdmin(admin.ModelAdmin):
 
 @admin.register(SpecialInvitation)
 class SpecialInvitationAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Dompet)
+class DompetAdmin(admin.ModelAdmin):
     pass

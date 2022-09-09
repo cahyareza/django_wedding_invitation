@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ClearableFileInput
-from .models import Portofolio, MultiImage, SpecialInvitation
+from .models import Portofolio, MultiImage, SpecialInvitation, Dompet
 from django.core.validators import RegexValidator
 from django.contrib.admin import widgets
 from django.forms import BaseFormSet
@@ -606,6 +606,53 @@ class SpecialInvitationForm(forms.ModelForm):
         # ========== CONTROL PANEL (Optional method to control ========== !
         # 1. Input required
         self.fields['name_invite'].required = True
+
+class DompetForm(forms.ModelForm):
+
+    nomor = forms.CharField(
+        label='Nomor rekening',
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'lokasi',
+                'class': 'input',
+                'style': 'font-size: 13px; text-transform: capitalize'
+            }
+        )
+    )
+
+    pemilik = forms.CharField(
+        label='Atas nama',
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Atas nama',
+                'class': 'input',
+                'style': 'font-size: 13px; text-transform: capitalize'
+            }
+        )
+    )
+    class Meta:
+        model = Dompet
+        fields = ['nomor', 'pemilik', 'rekening']
+        # labels = {
+        #     'name_invite': "Nama tamu",
+        # }
+        widgets = {
+            'rekening': forms.Select(
+                attrs={
+                    'class': 'input',
+                    'style': 'font-size: 13px',
+                }
+            ),
+        }
+
+    # SUPER FUNCTION
+    def __init__(self, *args, **kwargs):
+        super(DompetForm, self).__init__(*args, **kwargs)
+
+        # ========== CONTROL PANEL (Optional method to control ========== !
+        # 1. Input required
+        # self.fields['nomor'].required = True
+
 
 
 # ================== FORMSET =================== !

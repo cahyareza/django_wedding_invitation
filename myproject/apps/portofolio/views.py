@@ -6,7 +6,8 @@ from django.core.exceptions import ValidationError
 
 from .models import MultiImage, Portofolio, SpecialInvitation
 
-from .forms import PortofolioForm, MultiImageForm, SpecialInvitationForm, BaseRegisterFormSet
+from .forms import PortofolioForm, MultiImageForm, SpecialInvitationForm, \
+    BaseRegisterFormSet, DompetForm
 
 # Create your views here.
 def register(request, id=None):
@@ -21,6 +22,7 @@ def register(request, id=None):
     if request.method == "POST":
         form = PortofolioForm(request.POST or None, request.FILES)
         form2 = MultiImageForm(request.POST or None, request.FILES)
+        form3 = DompetForm(request.POST or None)
         formset = SpecialInviteFormSet(request.POST or None)
         # get image from form2
         images = request.FILES.getlist('image')
@@ -58,11 +60,14 @@ def register(request, id=None):
             messages.success(request, "Registered Successfully !")
             return HttpResponseRedirect('/')
         else:
-            return render(request, "portofolio/register_porto.html", {'form': form, 'form2': form2, 'formset': formset})
+            return render(request, "portofolio/register_porto.html", {'form': form,
+                'form2': form2, 'form3': form3, 'formset': formset})
 
     else:
         form = PortofolioForm()
         form2 = MultiImageForm()
+        form3 = DompetForm()
         formset = SpecialInviteFormSet()
 
-        return render(request, "portofolio/register_porto.html", {'form': form, 'form2': form2, 'formset': formset})
+        return render(request, "portofolio/register_porto.html", {'form': form,
+            'form2': form2, 'form3': form3, 'formset': formset})

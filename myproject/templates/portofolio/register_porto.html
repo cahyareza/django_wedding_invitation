@@ -467,6 +467,37 @@
             {% endfor %}
         </div>
       </div>
+
+      <!--   INFORMASI DOMPET DIGITAL  -->
+      <div class="notification is-light p-1 has-text-centered mt-4">
+        INFORMASI DOMPET DIGITAL
+      </div>
+      <div class="columns is-multiline mt-1">
+        <div class="column is-4">
+          {{ form3.rekening.label_tag }}
+          {{ form3.rekening }}
+
+          {% for error in form3.rekening.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+        <div class="column is-4">
+            {{ form3.nomor.label_tag }}
+            {{ form3.nomor }}
+
+            {% for error in form3.nomor.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div class="column is-4">
+            {{ form3.pemilik.label_tag }}
+            {{ form3.pemilik }}
+
+            {% for error in form3.pemilik.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+      </div>
       <button type="submit" class="button is-info p-2 mt-1">Submit</button>
     </div>
   </form>

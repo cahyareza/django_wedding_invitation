@@ -27,6 +27,13 @@ ANAK_KE = (
     ('9', 'Kesembilan'),
 )
 
+DAFTAR_BANK = (
+    ('', 'Pilih bank'),
+    ('BANK RAKYAT INDONESIA', 'BANK RAKYAT INDONESIA'),
+    ('BANK NEGARA INDONESIA', 'BANK NEGARA INDONESIA'),
+    ('MANDIRI', 'MANDIRI')
+)
+
 class Portofolio(CreationModificationDateBase, UrlBase):
     # Portofolio
     porto_name = models.CharField(max_length=150)
@@ -34,13 +41,13 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     # Couple
     pname = models.CharField(max_length=40)
     pinsta_link = models.CharField(max_length=250)
-    panak_ke = models.CharField(max_length=2, choices=ANAK_KE, default='1')
+    panak_ke = models.CharField(max_length=2, choices=ANAK_KE)
     pnama_ayah = models.CharField(max_length=40)
     pnama_ibu = models.CharField(max_length=40)
     ppicture = models.ImageField(blank=True)
     lname = models.CharField(max_length=40)
     linsta_link = models.CharField(max_length=250)
-    lanak_ke = models.CharField(max_length=2, choices=ANAK_KE, default='1')
+    lanak_ke = models.CharField(max_length=2, choices=ANAK_KE)
     lnama_ayah = models.CharField(max_length=40)
     lnama_ibu = models.CharField(max_length=40)
     lpicture = models.ImageField(blank=True)
@@ -130,6 +137,22 @@ class SpecialInvitation(CreationModificationDateBase, UrlBase):
     def __str__(self):
         return self.name_invite
 
+# class Rekening(CreationModificationDateBase, UrlBase):
+#     bank = models.CharField(max_length=50)
+#     kode = models.CharField(max_length=20)
+#
+#     def __str__(self):
+#         return self.bank
+
+class Dompet(CreationModificationDateBase, UrlBase):
+    portofolio = models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
+    rekening = models.CharField(max_length=40, choices=DAFTAR_BANK)
+    nomor = models.CharField(max_length=40)
+    pemilik = models.CharField(max_length=50)
+
+    class Meta:
+        verbose_name_plural = "Dompet"
+
 # class Ucapan(CreationModificationDateBase, UrlBase):
 #     portofolio = models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
 #     name = models.CharField(max_length=40)
@@ -162,15 +185,5 @@ class SpecialInvitation(CreationModificationDateBase, UrlBase):
 #     class Meta:
 #         verbose_name_plural = "Hadir"
 #
-# class Dompet(CreationModificationDateBase, UrlBase):
-#     portofolio= models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
-#     nomor = models.IntegerField()
-#     pemilik = models.CharField(max_length=40)
-#
-#     class Meta:
-#         verbose_name_plural = "Dompet"
-#
-# class Rekening(CreationModificationDateBase, UrlBase):
-#     dompet = models.ForeignKey(Dompet, on_delete=models.SET_NULL, blank=True, null=True)
-#     bank = models.CharField(max_length=50)
-#     kode = models.CharField(max_length=20)
+
+
