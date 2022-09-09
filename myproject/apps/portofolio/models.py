@@ -102,10 +102,11 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     # ========== CLEAN METHOD ========== !
     # get link from iframe
     def get_link(self, url):
-        return re.search("(?P<name>https?://[^\s]+)", url).group('name')
+        return re.search('(?P<name>"https?://[^\s]+)', url).group('name')
 
     def clean(self):
-        self.link_iframe = self.get_link(self.link_iframe)
+        if self.link_iframe:
+            self.link_iframe = self.get_link(self.link_iframe)
 
     # SUPER FUNCTION
 

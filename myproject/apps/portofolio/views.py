@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.forms import modelformset_factory
 from django.core.exceptions import ValidationError
 
-from .models import MultiImage, Portofolio, SpecialInvitation
+from .models import MultiImage, Portofolio, SpecialInvitation, Dompet
 
 from .forms import PortofolioForm, MultiImageForm, SpecialInvitationForm, \
     BaseRegisterFormSet, DompetForm
@@ -18,12 +18,18 @@ def register(request, id=None):
         formset=BaseRegisterFormSet,
         extra=1,
     )
+    DompetFormSet = modelformset_factory(
+        Dompet,
+        form=DompetForm,
+        formset=BaseRegisterFormSet,
+        extra=1,
+    )
 
     if request.method == "POST":
         form = PortofolioForm(request.POST or None, request.FILES)
         form2 = MultiImageForm(request.POST or None, request.FILES)
-        form3 = DompetForm(request.POST or None)
         formset = SpecialInviteFormSet(request.POST or None)
+        formset2 = DompetFormSet(request.POST or None)
         # get image from form2
         images = request.FILES.getlist('image')
 
@@ -50,10 +56,17 @@ def register(request, id=None):
                 MultiImage.objects.create(portofolio=porto_instance, image=i)
 
             # to create multiple value instance
-            for form2 in formset:
+            for form in formset:
                 # Not save blank field use has_changed()
-                if form2.is_valid() and form2.has_changed():
-                    child = form2.save(commit=False)
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset2:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
 
@@ -61,13 +74,13 @@ def register(request, id=None):
             return HttpResponseRedirect('/')
         else:
             return render(request, "portofolio/register_porto.html", {'form': form,
-                'form2': form2, 'form3': form3, 'formset': formset})
+                'form2': form2, 'formset': formset, 'formset2': formset2})
 
     else:
         form = PortofolioForm()
         form2 = MultiImageForm()
-        form3 = DompetForm()
         formset = SpecialInviteFormSet()
+        formset2 = DompetFormSet()
 
         return render(request, "portofolio/register_porto.html", {'form': form,
-            'form2': form2, 'form3': form3, 'formset': formset})
+            'form2': form2, 'formset': formset, 'formset2': formset2})

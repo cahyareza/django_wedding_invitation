@@ -175,6 +175,15 @@
         </div>
 
         <div class="column is-6">
+            {{ form.link_gmap_akad.label_tag }}
+            {{ form.link_gmap_akad }}
+
+            {% for error in form.link_gmap_akad.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+
+        <div class="column is-6">
             {{ form.tempat_akad.label_tag }}
             {{ form.tempat_akad }}
 
@@ -183,14 +192,6 @@
             {% endfor %}
         </div>
 
-        <div class="column is-6">
-            {{ form.link_gmap_akad.label_tag }}
-            {{ form.link_gmap_akad }}
-
-            {% for error in form.link_gmap_akad.errors %}
-                <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
-        </div>
       </div>
 
       <hr>
@@ -226,6 +227,15 @@
         </div>
 
         <div class="column is-6">
+            {{ form.link_gmap_resepsi.label_tag }}
+            {{ form.link_gmap_resepsi }}
+
+            {% for error in form.link_gmap_resepsi.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+
+        <div class="column is-6">
             {{ form.tempat_resepsi.label_tag }}
             {{ form.tempat_resepsi }}
 
@@ -234,14 +244,6 @@
             {% endfor %}
         </div>
 
-        <div class="column is-6">
-            {{ form.link_gmap_resepsi.label_tag }}
-            {{ form.link_gmap_resepsi }}
-
-            {% for error in form.link_gmap_resepsi.errors %}
-                <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
-        </div>
       </div>
 
       <hr>
@@ -277,6 +279,15 @@
         </div>
 
         <div class="column is-6">
+            {{ form.link_gmap_unduhmantu.label_tag }}
+            {{ form.link_gmap_unduhmantu }}
+
+            {% for error in form.link_gmap_unduhmantu.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+
+        <div class="column is-6">
             {{ form.tempat_unduhmantu.label_tag }}
             {{ form.tempat_unduhmantu }}
 
@@ -285,14 +296,6 @@
             {% endfor %}
         </div>
 
-        <div class="column is-6">
-            {{ form.link_gmap_unduhmantu.label_tag }}
-            {{ form.link_gmap_unduhmantu }}
-
-            {% for error in form.link_gmap_unduhmantu.errors %}
-                <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
-        </div>
         <div class="column is-3">
             {{ form.timeZone.label_tag }}
             {{ form.timeZone }}
@@ -346,7 +349,7 @@
             <div class="column is-6">
                 <div id="ingredient-form-list">
                     {% for form in formset %}
-                    <div class="ingredient-form">
+                    <div class="ingredient-form mb-3">
 <!--                        {{ form }}-->
 
                         {% for field in form %}
@@ -472,32 +475,64 @@
       <div class="notification is-light p-1 has-text-centered mt-4">
         INFORMASI DOMPET DIGITAL
       </div>
-      <div class="columns is-multiline mt-1">
-        <div class="column is-4">
-          {{ form3.rekening.label_tag }}
-          {{ form3.rekening }}
 
-          {% for error in form3.rekening.errors %}
-              <p class="help is-danger">{{ error }}</p>
-          {% endfor %}
-        </div>
-        <div class="column is-4">
-            {{ form3.nomor.label_tag }}
-            {{ form3.nomor }}
+      <div class="columns is-multiline">
+        {% if formset2 %}
+            {{ formset2.management_form }}
+            <div class="column is-4">
+                <div id="ingredient-form-list2">
+                    {% for form in formset2 %}
+                    <div class="ingredient-form2 mb-5">
+<!--                        {{ form }}-->
 
-            {% for error in form3.nomor.errors %}
-                <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
-        </div>
-        <div class="column is-4">
-            {{ form3.pemilik.label_tag }}
-            {{ form3.pemilik }}
+                        {% for field in form %}
+                            {{ field.label_tag }} {{ field }}
+                            {% for error in field.errors %}
+                                <p class="help is-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
 
-            {% for error in form3.pemilik.errors %}
-                <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
-        </div>
+            <div id="empty-form2" class="is-hidden mt-3">{{ formset2.empty_form }}</div>
+        {% endif %}
       </div>
+
+      <button id="add-more2" type="button" class="button is-small is-outlined pd-1">Tambah</button>
+
+
+
+
+<!--      <div class="columns is-multiline mt-1">-->
+<!--        <div class="column is-4">-->
+<!--          {{ form3.rekening.label_tag }}-->
+<!--          {{ form3.rekening }}-->
+
+<!--          {% for error in form3.rekening.errors %}-->
+<!--              <p class="help is-danger">{{ error }}</p>-->
+<!--          {% endfor %}-->
+<!--        </div>-->
+<!--        <div class="column is-4">-->
+<!--            {{ form3.nomor.label_tag }}-->
+<!--            {{ form3.nomor }}-->
+
+<!--            {% for error in form3.nomor.errors %}-->
+<!--                <p class="help is-danger">{{ error }}</p>-->
+<!--            {% endfor %}-->
+<!--        </div>-->
+<!--        <div class="column is-4">-->
+<!--            {{ form3.pemilik.label_tag }}-->
+<!--            {{ form3.pemilik }}-->
+
+<!--            {% for error in form3.pemilik.errors %}-->
+<!--                <p class="help is-danger">{{ error }}</p>-->
+<!--            {% endfor %}-->
+<!--        </div>-->
+<!--      </div>-->
+
+
       <button type="submit" class="button is-info p-2 mt-1">Submit</button>
     </div>
   </form>
@@ -505,7 +540,7 @@
 
 {% block script %}
 <script>
-
+    <!--------------- Formset1--------------->
     const addMoreBtn = document.getElementById('add-more')
     const totalNewForms = document.getElementById('id_form-TOTAL_FORMS')
 
@@ -529,6 +564,33 @@
         totalNewForms.setAttribute('value', currentFormCount + 1)
         // now add new form element to our html form
         formCopyTarget.append(copyEmptyFormEl)
+    }
+
+    <!--------------- Formset12--------------->
+
+    const addMoreBtn2 = document.getElementById('add-more2')
+    const totalNewForms2 = document.getElementById('id_form-TOTAL_FORMS')
+
+
+    addMoreBtn2.addEventListener('click', add_new_form2)
+
+    function add_new_form2(event) {
+        if (event) {
+            event.preventDefault()
+        }
+        const currentIngredientForms2 = document.getElementsByClassName('ingredient-form2')
+        const currentFormCount2 = currentIngredientForms2.length // + 1
+        console.log(currentIngredientForms2.length)
+
+        const formCopyTarget2 = document.getElementById('ingredient-form-list2')
+        const copyEmptyFormEl2 = document.getElementById('empty-form2').cloneNode(true)
+        copyEmptyFormEl2.setAttribute('class', 'ingredient-form2')
+        copyEmptyFormEl2.setAttribute('id', `form-${currentFormCount2}`)
+        const regex = new RegExp('__prefix__', 'g')
+        copyEmptyFormEl2.innerHTML = copyEmptyFormEl2.innerHTML.replace(regex, currentFormCount2)
+        totalNewForms2.setAttribute('value', currentFormCount2 + 1)
+        // now add new form element to our html form
+        formCopyTarget2.append(copyEmptyFormEl2)
     }
 </script>
 {% endblock %}

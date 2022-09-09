@@ -1,4 +1,5 @@
 from django import forms
+import re
 from django.forms import ClearableFileInput
 from .models import Portofolio, MultiImage, SpecialInvitation, Dompet
 from django.core.validators import RegexValidator
@@ -541,6 +542,9 @@ class PortofolioForm(forms.ModelForm):
         self.fields['trigger'].required = False
         self.fields['iCalFileName'].required = False
 
+        self.fields['lokasi'].required = False
+
+        self.fields['lokasi'].required = False
         self.fields['lokasi'].required = False
 
 
