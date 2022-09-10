@@ -1,7 +1,7 @@
 from django import forms
 import re
 from django.forms import ClearableFileInput
-from .models import Portofolio, MultiImage, SpecialInvitation, Dompet, Quote
+from .models import Portofolio, MultiImage, SpecialInvitation, Dompet, Quote, Rekening
 from django.core.validators import RegexValidator
 from django.contrib.admin import widgets
 from django.forms import BaseFormSet
@@ -638,11 +638,16 @@ class DompetForm(forms.ModelForm):
     class Meta:
         model = Dompet
         fields = ['nomor', 'pemilik', 'rekening']
-        # labels = {
-        #     'name_invite': "Nama tamu",
-        # }
+        labels = {
+            'rekening': "Nama bank",
+        }
+
+        rekenings = Rekening.objects.all()
+        DAFTAR_BANK = [ rekening.bank for rekening in rekenings]
+
         widgets = {
             'rekening': forms.Select(
+                choices=DAFTAR_BANK,
                 attrs={
                     'class': 'input',
                     'style': 'font-size: 13px',
@@ -655,8 +660,8 @@ class DompetForm(forms.ModelForm):
         super(DompetForm, self).__init__(*args, **kwargs)
 
         # ========== CONTROL PANEL (Optional method to control ========== !
-        # 1. Input required
-        # self.fields['nomor'].required = True
+        # 1. Select option
+        self.fields["rekening"].choices = [('', 'Pilih bank'),] + list(self.fields["rekening"].choices)[1:]
 
 class QuoteForm(forms.ModelForm):
     # INFORMASI QUOTE

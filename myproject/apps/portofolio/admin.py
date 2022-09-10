@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import (Portofolio, MultiImage, SpecialInvitation, Dompet, Quote)
+from .models import (Portofolio, MultiImage, SpecialInvitation, Dompet, Quote, Rekening)
 
 # Inline
 class MultiImageInline(admin.TabularInline):
@@ -16,6 +16,9 @@ class DompetInline(admin.TabularInline):
 
 class QuoteInline(admin.TabularInline):
     model = Quote
+
+class RekeningInline(admin.TabularInline):
+    model = Rekening
 
 # Register your models here.
 # admin.site.register(Couple)
@@ -68,3 +71,7 @@ class DompetAdmin(admin.ModelAdmin):
 @admin.register(Quote)
 class QuoteAdmin(admin.ModelAdmin):
     pass
+
+@admin.register(Rekening)
+class RekeningAdmin(admin.ModelAdmin):
+    inlines = [DompetInline]

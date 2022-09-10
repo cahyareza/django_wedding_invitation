@@ -138,16 +138,17 @@ class SpecialInvitation(CreationModificationDateBase, UrlBase):
     def __str__(self):
         return self.name_invite
 
-# class Rekening(CreationModificationDateBase, UrlBase):
-#     bank = models.CharField(max_length=50)
-#     kode = models.CharField(max_length=20)
-#
-#     def __str__(self):
-#         return self.bank
+class Rekening(CreationModificationDateBase, UrlBase):
+    bank = models.CharField(max_length=50)
+    kode = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.bank
 
 class Dompet(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
-    rekening = models.CharField(max_length=40, choices=DAFTAR_BANK)
+    # rekening = models.CharField(max_length=40, choices=DAFTAR_BANK)
+    rekening = models.ForeignKey(Rekening, on_delete=models.SET_NULL, blank=True, null=True)
     nomor = models.CharField(max_length=40)
     pemilik = models.CharField(max_length=50)
 
@@ -170,7 +171,7 @@ class Quote(CreationModificationDateBase, UrlBase):
 #
 #     class Meta:
 #         verbose_name_plural = "Ucapan"
-
+#
 
 #
 # class Hadir(CreationModificationDateBase, UrlBase):
