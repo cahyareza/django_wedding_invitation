@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import (Portofolio, MultiImage, SpecialInvitation, Dompet)
+from .models import (Portofolio, MultiImage, SpecialInvitation, Dompet, Quote)
 
 # Inline
 class MultiImageInline(admin.TabularInline):
@@ -14,13 +14,16 @@ class SpecialInvitationInline(admin.TabularInline):
 class DompetInline(admin.TabularInline):
     model = Dompet
 
+class QuoteInline(admin.TabularInline):
+    model = Quote
+
 # Register your models here.
 # admin.site.register(Couple)
 
 
 @admin.register(Portofolio)
 class PortofolioAdmin(admin.ModelAdmin):
-    inlines = [MultiImageInline, SpecialInvitationInline, DompetInline]
+    inlines = [MultiImageInline, SpecialInvitationInline, DompetInline, QuoteInline]
     list_per_page = 10
 
     # Fieldset
@@ -60,4 +63,8 @@ class SpecialInvitationAdmin(admin.ModelAdmin):
 
 @admin.register(Dompet)
 class DompetAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Quote)
+class QuoteAdmin(admin.ModelAdmin):
     pass

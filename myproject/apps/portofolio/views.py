@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 from .models import MultiImage, Portofolio, SpecialInvitation, Dompet
 
 from .forms import PortofolioForm, MultiImageForm, SpecialInvitationForm, \
-    BaseRegisterFormSet, DompetForm
+    BaseRegisterFormSet, DompetForm, QuoteForm
 
 # Create your views here.
 def register(request, id=None):
@@ -28,6 +28,7 @@ def register(request, id=None):
     if request.method == "POST":
         form = PortofolioForm(request.POST or None, request.FILES)
         form2 = MultiImageForm(request.POST or None, request.FILES)
+        form3 = QuoteForm(request.POST or None, request.FILES)
         formset = SpecialInviteFormSet(request.POST or None)
         formset2 = DompetFormSet(request.POST or None)
         # get image from form2
@@ -55,6 +56,11 @@ def register(request, id=None):
             for i in images:
                 MultiImage.objects.create(portofolio=porto_instance, image=i)
 
+            # to create instance quote
+            instance_quote = form3.save(commit=False)
+            instance_quote.portofolio = porto_instance
+            instance_quote.save()
+
             # to create multiple value instance
             for form in formset:
                 # Not save blank field use has_changed()
@@ -74,13 +80,14 @@ def register(request, id=None):
             return HttpResponseRedirect('/')
         else:
             return render(request, "portofolio/register_porto.html", {'form': form,
-                'form2': form2, 'formset': formset, 'formset2': formset2})
+                'form2': form2, 'form3': form3, 'formset': formset, 'formset2': formset2})
 
     else:
         form = PortofolioForm()
         form2 = MultiImageForm()
+        form3 = QuoteForm()
         formset = SpecialInviteFormSet()
         formset2 = DompetFormSet()
 
         return render(request, "portofolio/register_porto.html", {'form': form,
-            'form2': form2, 'formset': formset, 'formset2': formset2})
+            'form2': form2, 'form3': form3,'formset': formset, 'formset2': formset2})

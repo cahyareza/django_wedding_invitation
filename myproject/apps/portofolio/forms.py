@@ -1,7 +1,7 @@
 from django import forms
 import re
 from django.forms import ClearableFileInput
-from .models import Portofolio, MultiImage, SpecialInvitation, Dompet
+from .models import Portofolio, MultiImage, SpecialInvitation, Dompet, Quote
 from django.core.validators import RegexValidator
 from django.contrib.admin import widgets
 from django.forms import BaseFormSet
@@ -388,6 +388,7 @@ class PortofolioForm(forms.ModelForm):
         )
     )
 
+
     class Meta:
         model = Portofolio
         fields = "__all__"
@@ -656,6 +657,35 @@ class DompetForm(forms.ModelForm):
         # ========== CONTROL PANEL (Optional method to control ========== !
         # 1. Input required
         # self.fields['nomor'].required = True
+
+class QuoteForm(forms.ModelForm):
+    # INFORMASI QUOTE
+    ayat = forms.CharField(
+        label='Nama ayat/kutipan',
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Nama ayat/kutipan',
+                'class': 'input',
+                'style': 'font-size: 13px; text-transform: capitalize'
+            }
+        )
+    )
+
+    kutipan = forms.CharField(
+        label='Kutipan', min_length=50, max_length=1000,
+        required=True,
+        widget=forms.Textarea(
+            attrs={
+                'placeholder': 'Kutipan',
+                'class': 'textarea',
+                'style': 'font-size: 13px',
+            }
+        )
+    )
+
+    class Meta:
+        model = Quote
+        fields = ['ayat', 'kutipan']
 
 
 

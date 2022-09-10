@@ -93,9 +93,6 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     lokasi = models.CharField(max_length=250)
     link_gmap = models.TextField()
 
-    # Quote
-    quote = models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
-
     class Meta:
         verbose_name_plural = "Portofolio"
 
@@ -158,6 +155,7 @@ class Dompet(CreationModificationDateBase, UrlBase):
         verbose_name_plural = "Dompet"
 
 class Quote(CreationModificationDateBase, UrlBase):
+    portofolio = models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
     ayat = models.CharField(max_length=250)
     kutipan = models.TextField()
 
@@ -172,7 +170,7 @@ class Quote(CreationModificationDateBase, UrlBase):
 #
 #     class Meta:
 #         verbose_name_plural = "Ucapan"
-#
+
 
 #
 # class Hadir(CreationModificationDateBase, UrlBase):
