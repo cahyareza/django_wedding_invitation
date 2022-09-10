@@ -42,7 +42,7 @@ class PortofolioForm(forms.ModelForm):
         message="Only letters is allowed !")],
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'Nama',
+                'placeholder': 'Nama lengkap',
                 'class': 'input',
                 'style': 'font-size: 13px; text-transform: capitalize'
             }
@@ -66,7 +66,7 @@ class PortofolioForm(forms.ModelForm):
         message="Only numbers is allowed !")],
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'Anak ke-',
+                'placeholder': 'Misal: 1',
                 'class': 'input',
                 'style': 'font-size: 13px',
             }
@@ -115,7 +115,7 @@ class PortofolioForm(forms.ModelForm):
 
     # LAKI - LAKI
     lname = forms.CharField(
-        label='Nama', min_length=3, max_length=50,
+        label='Nama lengkap', min_length=3, max_length=50,
         validators=[RegexValidator(r'^[a-zA-ZA-y\s]*$',
         message="Only letters is allowed !")],
         widget=forms.TextInput(
@@ -144,7 +144,7 @@ class PortofolioForm(forms.ModelForm):
         message="Only numbers is allowed !")],
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'Anak ke-',
+                'placeholder': 'Misal: 3',
                 'class': 'input',
                 'style': 'font-size: 13px',
             }
@@ -203,7 +203,7 @@ class PortofolioForm(forms.ModelForm):
     )
 
     link_gmap_akad = forms.CharField(
-        label='Link google maps',
+        label='Link google map lokasi akad',
         widget=forms.Textarea(
             attrs={
                 'placeholder': 'Link ke google maps',
@@ -225,7 +225,7 @@ class PortofolioForm(forms.ModelForm):
     )
 
     link_gmap_resepsi = forms.CharField(
-        label='Link google maps',
+        label='Link google map lokasi resepsi',
         widget=forms.Textarea(
             attrs={
                 'placeholder': 'Link ke google maps',
@@ -247,7 +247,7 @@ class PortofolioForm(forms.ModelForm):
     )
 
     link_gmap_unduhmantu = forms.CharField(
-        label='Link google maps',
+        label='Link google map lokasi unduh mantu',
         widget=forms.Textarea(
             attrs={
                 'placeholder': 'Link ke google maps',
@@ -297,11 +297,11 @@ class PortofolioForm(forms.ModelForm):
     )
 
     description = forms.CharField(
-        label='Deskripsi undangan', min_length=50, max_length=1000,
+        label='Informasi/deskripsi undangan', min_length=50, max_length=1000,
         required=True,
         widget=forms.Textarea(
             attrs={
-                'placeholder': 'Deskripsi undangan',
+                'placeholder': 'Misal: Merupakan undangan online untuk pernikahan kami(Cahya dan Mila). Besar harapan untuk kehadiran bapak/ibu, dan atas perhatianya diucapkan terimakasih',
                 'class': 'textarea',
                 'style': 'font-size: 13px',
             }
@@ -355,7 +355,7 @@ class PortofolioForm(forms.ModelForm):
     # INFORMASI GO TO
 
     link_iframe = forms.CharField(
-        label='Link embed map', min_length=50, max_length=1000,
+        label='Link embed map tempat acara di google map', min_length=50, max_length=1000,
         required=True,
         widget=forms.Textarea(
             attrs={
@@ -366,11 +366,11 @@ class PortofolioForm(forms.ModelForm):
         )
     )
     link_gmap = forms.CharField(
-        label='Link ke google maps', min_length=50, max_length=1000,
+        label='Link tempat acara di google maps', min_length=50, max_length=1000,
         required=True,
         widget=forms.Textarea(
             attrs={
-                'placeholder': 'Link ke google maps',
+                'placeholder': 'Link google maps',
                 'class': 'textarea',
                 'style': 'font-size: 13px',
             }
@@ -415,7 +415,7 @@ class PortofolioForm(forms.ModelForm):
             # Waktu akad
             'waktu_akad': forms.TimeInput(
                 attrs={
-                    'placeholder': 'Waktu akad',
+                    'placeholder': 'Misal: 09:00',
                     'style': 'font-size: 13px; cursor: pointer;',
                     'class': 'input',
                     'data-mask': '00:00'
@@ -424,7 +424,7 @@ class PortofolioForm(forms.ModelForm):
             # Waktu selesai akad
             'waktu_selesai_akad': forms.TimeInput(
                 attrs={
-                    'placeholder': 'Waktu selesai akad',
+                    'placeholder': 'Misal: 11:00',
                     'style': 'font-size: 13px; cursor: pointer;',
                     'class': 'input',
                     'data-mask': '00:00'
@@ -444,7 +444,7 @@ class PortofolioForm(forms.ModelForm):
             # Waktu resepsi
             'waktu_resepsi': forms.TimeInput(
                 attrs={
-                    'placeholder': 'Waktu resepsi',
+                    'placeholder': 'Misal: 13:00',
                     'style': 'font-size: 13px; cursor: pointer;',
                     'class': 'input',
                     'data-mask': '00:00'
@@ -453,7 +453,7 @@ class PortofolioForm(forms.ModelForm):
             # Waktu selesai resepsi
             'waktu_selesai_resepsi': forms.TimeInput(
                 attrs={
-                    'placeholder': 'Waktu selesai resepsi',
+                    'placeholder': 'Misal: 15:00',
                     'style': 'font-size: 13px; cursor: pointer;',
                     'class': 'input',
                     'data-mask': '00:00'
@@ -473,7 +473,7 @@ class PortofolioForm(forms.ModelForm):
             # Waktu unduh mantu
             'waktu_unduhmantu': forms.TimeInput(
                 attrs={
-                    'placeholder': 'Waktu unduh mantu',
+                    'placeholder': 'Misal: 09:00',
                     'style': 'font-size: 13px; cursor: pointer;',
                     'class': 'input',
                     'data-mask': '00:00'
@@ -482,7 +482,7 @@ class PortofolioForm(forms.ModelForm):
             # Waktu selesai unduh mantu
             'waktu_selesai_unduhmantu': forms.TimeInput(
                 attrs={
-                    'placeholder': 'Waktu selesai unduh mantu',
+                    'placeholder': 'Misal: 12:00',
                     'style': 'font-size: 13px; cursor: pointer;',
                     'class': 'input',
                     'data-mask': '00:00'
@@ -564,6 +564,15 @@ class PortofolioForm(forms.ModelForm):
         # for field in require:
         #     self.fields[field].required = False
 
+    # ========== MeTHOD ========== !
+    # 1) Clean waktu
+    # def clean_waktu(self):
+    #     waktu_akad = self.cleaned_data('waktu_akad')
+    #     waktu_selesai_akad = self.cleaned_data('waktu_selesai_akad')
+    #
+    #     if waktu_akad.hour >= waktu_selesai_akad.hour:
+    #         raise forms.ValidationError('Denied! Waktu selesai harus lebih akhir dari waktu mulai')
+
 class MultiImageForm(forms.ModelForm):
     class Meta:
         model = MultiImage
@@ -585,6 +594,9 @@ class MultiImageForm(forms.ModelForm):
         # ========== CONTROL PANEL (Optional method to control ========== !
         # 1. Input required
         self.fields['image'].required = False
+
+        # 2. Help text
+        self.fields['image'].help_text = 'Note: Upload dengan memilih beberapa image secara langsung'
 
 
 class SpecialInvitationForm(forms.ModelForm):

@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import (Portofolio, MultiImage, SpecialInvitation, Dompet, Quote, Rekening)
+from .models import (Portofolio, MultiImage, SpecialInvitation, Dompet, Quote,
+     Rekening, Ucapan, Hadir)
 
 # Inline
 class MultiImageInline(admin.TabularInline):
@@ -20,13 +21,20 @@ class QuoteInline(admin.TabularInline):
 class RekeningInline(admin.TabularInline):
     model = Rekening
 
+class UcapanInline(admin.TabularInline):
+    model = Ucapan
+
+class HadirInline(admin.TabularInline):
+    model = Hadir
+
 # Register your models here.
 # admin.site.register(Couple)
 
 
 @admin.register(Portofolio)
 class PortofolioAdmin(admin.ModelAdmin):
-    inlines = [MultiImageInline, SpecialInvitationInline, DompetInline, QuoteInline]
+    inlines = [MultiImageInline, SpecialInvitationInline, DompetInline, QuoteInline,
+               UcapanInline, HadirInline]
     list_per_page = 10
 
     # Fieldset
@@ -75,3 +83,11 @@ class QuoteAdmin(admin.ModelAdmin):
 @admin.register(Rekening)
 class RekeningAdmin(admin.ModelAdmin):
     inlines = [DompetInline]
+
+@admin.register(Ucapan)
+class UcapanAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Hadir)
+class HadirAdmin(admin.ModelAdmin):
+    pass

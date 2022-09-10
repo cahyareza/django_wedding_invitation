@@ -163,31 +163,31 @@ class Quote(CreationModificationDateBase, UrlBase):
     class Meta:
         verbose_name_plural = "Quotes"
 
-# class Ucapan(CreationModificationDateBase, UrlBase):
-#     portofolio = models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
-#     name = models.CharField(max_length=40)
-#     alamat = models.CharField(max_length=40)
-#     pesan = models.CharField(max_length=60)
-#
-#     class Meta:
-#         verbose_name_plural = "Ucapan"
-#
+class Ucapan(CreationModificationDateBase, UrlBase):
+    portofolio = models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
+    nama = models.CharField(max_length=40)
+    alamat = models.CharField(max_length=40)
+    pesan = models.CharField(max_length=60)
 
-#
-# class Hadir(CreationModificationDateBase, UrlBase):
-#     IYA = 'iya'
-#     TIDAK = 'tidak'
-#
-#     STATUS_CHOICES = (
-#         (IYA, 'iya'),
-#         (TIDAK, 'tidak')
-#     )
-#     portofolio = models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
-#     name = models.CharField(max_length=40)
-#     hadir = models.CharField(max_length=20, choices=STATUS_CHOICES, default=TIDAK)
-#
-#     class Meta:
-#         verbose_name_plural = "Hadir"
-#
+    class Meta:
+        verbose_name_plural = "Ucapan"
+
+
+
+class Hadir(CreationModificationDateBase, UrlBase):
+    IYA = 'iya'
+    TIDAK = 'tidak'
+
+    STATUS_CHOICES = (
+        (IYA, 'iya'),
+        (TIDAK, 'tidak')
+    )
+    portofolio = models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
+    name = models.CharField(max_length=40)
+    hadir = models.CharField(max_length=20, choices=STATUS_CHOICES, default=TIDAK)
+
+    class Meta:
+        verbose_name_plural = "Hadir"
+
 
 
