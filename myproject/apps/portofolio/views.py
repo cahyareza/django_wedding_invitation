@@ -9,7 +9,7 @@ from .models import MultiImage, Portofolio, SpecialInvitation, Dompet
 from .forms import PortofolioForm, MultiImageForm, SpecialInvitationForm, \
     BaseRegisterFormSet, DompetForm, QuoteForm
 
-# Create your views here.
+# Portofolio registration
 def register(request, id=None):
     # initiate formset
     SpecialInviteFormSet = modelformset_factory(
@@ -49,7 +49,6 @@ def register(request, id=None):
 
 
             instance.save()
-            print(request.POST)
 
             # to create multiple image instance
             porto_instance = Portofolio.objects.get(pk=instance.pk)
@@ -76,6 +75,8 @@ def register(request, id=None):
                     child.portofolio = porto_instance
                     child.save()
 
+            print(request.POST[formset])
+
             messages.success(request, "Registered Successfully !")
             return HttpResponseRedirect('/')
         else:
@@ -91,3 +92,9 @@ def register(request, id=None):
 
         return render(request, "portofolio/register_porto.html", {'form': form,
             'form2': form2, 'form3': form3,'formset': formset, 'formset2': formset2})
+
+def portofolio_detail(request, id):
+    data = Portofolio.objects.get(pk=id)
+    form = PortofolioForm(instance = data)
+    context = {'form': form}
+    return render(request, 'portofolio/portofolio_detail.html', context)

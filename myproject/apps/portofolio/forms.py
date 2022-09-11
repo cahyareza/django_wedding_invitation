@@ -553,16 +553,16 @@ class PortofolioForm(forms.ModelForm):
 
         # ========== ADVANCE CONTROL PANEL (multiple <Inputs>) ========== !
         # 1. Input required
-        # require = ['pname', 'pinsta_link', 'panak_ke', 'pnama_ayah', 'pnama_ibu',
-        #     'ppicture', 'lname', 'linsta_link', 'lanak_ke', 'lnama_ayah', 'lnama_ibu',
-        #     'lpicture', 'tanggal_akad','waktu_akad', 'waktu_selesai_akad', 'tempat_akad',
-        #     'link_gmap_akad', 'tanggal_resepsi','waktu_resepsi', 'waktu_selesai_resepsi',
-        #     'tempat_resepsi', 'link_gmap_resepsi', 'tanggal_unduhmantu','waktu_unduhmantu',
-        #     'waktu_selesai_unduhmantu', 'tempat_unduhmantu','link_gmap_unduhmantu', 'video',
-        #     'livestream',
-        # ]
-        # for field in require:
-        #     self.fields[field].required = False
+        require = ['pname', 'pinsta_link', 'panak_ke', 'pnama_ayah', 'pnama_ibu',
+            'ppicture', 'lname', 'linsta_link', 'lanak_ke', 'lnama_ayah', 'lnama_ibu',
+            'lpicture', 'tanggal_akad','waktu_akad', 'waktu_selesai_akad', 'tempat_akad',
+            'link_gmap_akad', 'tanggal_resepsi','waktu_resepsi', 'waktu_selesai_resepsi',
+            'tempat_resepsi', 'link_gmap_resepsi', 'tanggal_unduhmantu','waktu_unduhmantu',
+            'waktu_selesai_unduhmantu', 'tempat_unduhmantu','link_gmap_unduhmantu', 'video',
+            'livestream',
+        ]
+        for field in require:
+            self.fields[field].required = False
 
     # ========== MeTHOD ========== !
     # 1) Clean waktu
@@ -703,6 +703,16 @@ class QuoteForm(forms.ModelForm):
     class Meta:
         model = Quote
         fields = ['ayat', 'kutipan']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # ========== ADVANCE CONTROL PANEL (multiple <Inputs>) ========== !
+        # 1. Input required
+        require = ['ayat', 'kutipan',
+        ]
+        for field in require:
+            self.fields[field].required = False
 
 
 
