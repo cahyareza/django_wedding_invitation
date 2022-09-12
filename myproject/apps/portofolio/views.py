@@ -29,11 +29,12 @@ def register(request, id=None):
         form = PortofolioForm(request.POST or None, request.FILES)
         form2 = MultiImageForm(request.POST or None, request.FILES)
         form3 = QuoteForm(request.POST or None, request.FILES)
-        formset = SpecialInviteFormSet(request.POST or None)
-        formset2 = DompetFormSet(request.POST or None)
+        formset = SpecialInviteFormSet(request.POST or None, prefix='invite')
+        formset2 = DompetFormSet(request.POST or None, prefix='dompet')
         # get image from form2
         images = request.FILES.getlist('image')
 
+        # print(request.POST)
         # form validation
         if form.is_valid() and form2.is_valid() and formset.is_valid():
             # create portofolio instance
@@ -75,8 +76,6 @@ def register(request, id=None):
                     child.portofolio = porto_instance
                     child.save()
 
-            print(request.POST[formset])
-
             messages.success(request, "Registered Successfully !")
             return HttpResponseRedirect('/')
         else:
@@ -87,8 +86,8 @@ def register(request, id=None):
         form = PortofolioForm()
         form2 = MultiImageForm()
         form3 = QuoteForm()
-        formset = SpecialInviteFormSet()
-        formset2 = DompetFormSet()
+        formset = SpecialInviteFormSet(prefix='invite')
+        formset2 = DompetFormSet(prefix='dompet')
 
         return render(request, "portofolio/register_porto.html", {'form': form,
             'form2': form2, 'form3': form3,'formset': formset, 'formset2': formset2})

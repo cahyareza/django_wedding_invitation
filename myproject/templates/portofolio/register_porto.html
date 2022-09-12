@@ -536,7 +536,7 @@
 <script>
     <!--------------- Formset1--------------->
     const addMoreBtn = document.getElementById('add-more')
-    const totalNewForms = document.getElementById('id_form-TOTAL_FORMS')
+    const totalNewForms = document.getElementById('id_invite-TOTAL_FORMS')
 
 
     addMoreBtn.addEventListener('click', add_new_form)
@@ -552,7 +552,7 @@
         const formCopyTarget = document.getElementById('ingredient-form-list')
         const copyEmptyFormEl = document.getElementById('empty-form').cloneNode(true)
         copyEmptyFormEl.setAttribute('class', 'ingredient-form')
-        copyEmptyFormEl.setAttribute('id', `form-${currentFormCount}`)
+        copyEmptyFormEl.setAttribute('id', `invite-${currentFormCount}`)
         const regex = new RegExp('__prefix__', 'g')
         copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, currentFormCount)
         totalNewForms.setAttribute('value', currentFormCount + 1)
@@ -563,7 +563,7 @@
     <!--------------- Formset12--------------->
 
     const addMoreBtn2 = document.getElementById('add-more2')
-    const totalNewForms2 = document.getElementById('id_form-TOTAL_FORMS')
+    const totalNewForms2 = document.getElementById('id_dompet-TOTAL_FORMS')
 
 
     addMoreBtn2.addEventListener('click', add_new_form2)
@@ -579,7 +579,7 @@
         const formCopyTarget2 = document.getElementById('ingredient-form-list2')
         const copyEmptyFormEl2 = document.getElementById('empty-form2').cloneNode(true)
         copyEmptyFormEl2.setAttribute('class', 'ingredient-form2')
-        copyEmptyFormEl2.setAttribute('id', `form-${currentFormCount2}`)
+        copyEmptyFormEl2.setAttribute('id', `dompet-${currentFormCount2}`)
         const regex = new RegExp('__prefix__', 'g')
         copyEmptyFormEl2.innerHTML = copyEmptyFormEl2.innerHTML.replace(regex, currentFormCount2)
         totalNewForms2.setAttribute('value', currentFormCount2 + 1)
