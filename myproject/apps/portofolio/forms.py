@@ -403,6 +403,7 @@ class PortofolioForm(forms.ModelForm):
         widgets = {
             # Tanggal akad
             'tanggal_akad': forms.DateInput(
+                format='%d%m%Y',
                 attrs={
                     'style': 'font-size: 13px; cursor: pointer;',
                     'type': 'date',
@@ -410,7 +411,7 @@ class PortofolioForm(forms.ModelForm):
                     'onkeydown': 'return false',  # Block typing inside field
                     'min': '2022-01-01',
                     'max': '2030-01-01'
-                }
+                },
             ),
             # Waktu akad
             'waktu_akad': forms.TimeInput(

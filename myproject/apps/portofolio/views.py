@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.forms import modelformset_factory
 from django.core.exceptions import ValidationError
 
-from .models import MultiImage, Portofolio, SpecialInvitation, Dompet
+from .models import MultiImage, Portofolio, SpecialInvitation, Dompet, Quote
 
 from .forms import PortofolioForm, MultiImageForm, SpecialInvitationForm, \
     BaseRegisterFormSet, DompetForm, QuoteForm
@@ -52,9 +52,13 @@ def register(request, id=None):
             instance.save()
 
             # to create multiple image instance
-            porto_instance = Portofolio.objects.get(pk=instance.pk)
-            for i in images:
-                MultiImage.objects.create(portofolio=porto_instance, image=i)
+            # porto_instance = Portofolio.objects.get(pk=instance.pk)
+            # for i in images:
+            #     MultiImage.objects.create(portofolio=porto_instance, image=i)
+
+            instance_multiimage = form2.save(commit=False)
+            instance_multiimage.portofolio = porto_instance
+            instance_multiimage.save()
 
             # to create instance quote
             instance_quote = form3.save(commit=False)
@@ -92,8 +96,90 @@ def register(request, id=None):
         return render(request, "portofolio/register_porto.html", {'form': form,
             'form2': form2, 'form3': form3,'formset': formset, 'formset2': formset2})
 
-def portofolio_detail(request, id):
-    data = Portofolio.objects.get(pk=id)
-    form = PortofolioForm(instance = data)
-    context = {'form': form}
+def update(request, id):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, pk=id)
+    # image instance by porto id
+    obj_image = get_object_or_404(MultiImage, id=obj.id)
+    # quuote instance by porto id
+    obj_quote = get_object_or_404(Quote, id=obj.id)
+
+
+    # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
+    SpecialInviteFormSet = modelformset_factory(
+        SpecialInvitation,
+        form=SpecialInvitationForm,
+        extra=1,
+    )
+    DompetFormSet = modelformset_factory(
+        Dompet,
+        form=DompetForm,
+        extra=1,
+    )
+
+    # Define formset
+    formset = SpecialInviteFormSet(request.POST or None, prefix='invite')
+    formset2 = DompetFormSet(request.POST or None, prefix='dompet')
+
+    if request.method == "POST":
+        form = PortofolioForm(request.POST or None, request.FILES, instance=obj)
+        form2 = MultiImageForm(request.POST or None, request.FILES, instance=obj_image)
+        form3 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
+
+        if form.is_valid() and form2.is_valid() and formset.is_valid():
+            # create portofolio instance
+            instance = form.save(commit=False)
+            # save porto field ke field calender
+            instance.name = instance.porto_name
+            instance.location =  instance.tempat_resepsi
+            instance.startDate = instance.tanggal_resepsi
+            instance.startTime = instance.waktu_resepsi
+            instance.endTime = instance.waktu_selesai_resepsi
+            # save porto field ke field go to
+            instance.lokasi = instance.tempat_resepsi
+
+
+            instance.save()
+
+            # to create multiple image instance
+            porto_instance = Portofolio.objects.get(pk=instance.pk)
+            for i in images:
+                MultiImage.objects.create(portofolio=porto_instance, image=i)
+
+            # to create instance quote
+            instance_quote = form3.save(commit=False)
+            instance_quote.portofolio = porto_instance
+            instance_quote.save()
+
+            # to create multiple value instance
+            for form in formset:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset2:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            messages.success(request, "Data saved!")
+            # return HttpResponseRedirect('/')
+
+    else:
+        form = PortofolioForm(instance=obj)
+        form2 = MultiImageForm(instance=obj_image)
+        form3 = QuoteForm(instance=obj_quote)
+
+    context = {
+        'form': form,
+        'form2': form2,
+        'form3': form3,
+        'formset': formset,
+        'formset2': formset2,
+    }
+
     return render(request, 'portofolio/portofolio_detail.html', context)
