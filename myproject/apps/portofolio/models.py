@@ -108,6 +108,11 @@ class Portofolio(CreationModificationDateBase, UrlBase):
         if self.link_iframe:
             self.link_iframe = self.get_link(self.link_iframe)
 
+    def get_url_path(self):
+        return reverse("update", kwargs={
+            "portofolio_id": str(self.id),
+        })
+
     # SUPER FUNCTION
 
     # ========== SAVE FUNCTION ========== !

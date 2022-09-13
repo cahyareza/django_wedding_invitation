@@ -3,6 +3,13 @@
 
 {% block content %}
 
+    {% for message in messages %}
+        {% if message.tags == 'success' %}
+            <div class="notification has-background-danger-light has-text-centered"> {{ message }}
+            </div>
+        {% endif %}
+    {% endfor %}
+
   <form method="POST" enctype="multipart/form-data" novalidate>
     {% csrf_token %}
     <div class="card p-5 m-5 mt-5">

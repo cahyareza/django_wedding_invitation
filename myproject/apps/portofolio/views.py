@@ -187,7 +187,7 @@ def update(request, id):
                     child.save()
 
             messages.success(request, "Data saved!")
-            # return HttpResponseRedirect('/')
+            return redirect("portofolio:update", id=instance.id)
 
     else:
         form = PortofolioForm(instance=obj)

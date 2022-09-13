@@ -6,6 +6,7 @@ from django.core.validators import RegexValidator
 from django.contrib.admin import widgets
 from django.forms import BaseFormSet
 from django.core.exceptions import ValidationError
+from django.conf import settings
 
 # Every letters to LowerCase
 class Lowercase(forms.CharField):
@@ -388,6 +389,24 @@ class PortofolioForm(forms.ModelForm):
         )
     )
 
+    # tanggal_akad = forms.DateField(
+    #     label='Tanggal akad',
+    #     input_formats=['%d-%m-%Y'],
+    #     widget=forms.DateInput(
+    #         format='%d-%m-%Y',
+    #         attrs = {
+    #             'style': 'font-size: 13px; cursor: pointer;',
+    #             # 'type': 'date',
+    #             'class': 'input',
+    #             # 'onkeydown': 'return false',  # Block typing inside field
+    #             # 'min': '2022-01-01',
+    #             # 'max': '2030-01-01'
+    #         },
+    #     )
+    # )
+
+
+
 
     class Meta:
         model = Portofolio
@@ -403,14 +422,16 @@ class PortofolioForm(forms.ModelForm):
         widgets = {
             # Tanggal akad
             'tanggal_akad': forms.DateInput(
-                format='%d%m%Y',
+                format='%d-%m-%Y',
                 attrs={
+                    'placeholder': 'dd-mm-yyyy',
                     'style': 'font-size: 13px; cursor: pointer;',
-                    'type': 'date',
+                    # 'type': 'date',
                     'class': 'input',
-                    'onkeydown': 'return false',  # Block typing inside field
-                    'min': '2022-01-01',
-                    'max': '2030-01-01'
+                    # 'onkeydown': 'return false',  # Block typing inside field
+                    # 'min': '2022-01-01',
+                    # 'max': '2030-01-01',
+                    'data-mask': '00-00-0000'
                 },
             ),
             # Waktu akad
@@ -433,14 +454,17 @@ class PortofolioForm(forms.ModelForm):
             ),
             # Tanggal resepsi
             'tanggal_resepsi': forms.DateInput(
+                format='%d-%m-%Y',
                 attrs={
+                    'placeholder': 'dd-mm-yyyy',
                     'style': 'font-size: 13px; cursor: pointer;',
-                    'type': 'date',
+                    # 'type': 'date',
                     'class': 'input',
-                    'onkeydown': 'return false',  # Block typing inside field
-                    'min': '2022-01-01',
-                    'max': '2030-01-01'
-                }
+                    # 'onkeydown': 'return false',  # Block typing inside field
+                    # 'min': '2022-01-01',
+                    # 'max': '2030-01-01',
+                    'data-mask': '00-00-0000'
+                },
             ),
             # Waktu resepsi
             'waktu_resepsi': forms.TimeInput(
@@ -462,14 +486,17 @@ class PortofolioForm(forms.ModelForm):
             ),
             # Tanggal unduh mantu
             'tanggal_unduhmantu': forms.DateInput(
+                format='%d-%m-%Y',
                 attrs={
+                    'placeholder': 'dd-mm-yyyy',
                     'style': 'font-size: 13px; cursor: pointer;',
-                    'type': 'date',
+                    # 'type': 'date',
                     'class': 'input',
-                    'onkeydown': 'return false',  # Block typing inside field
-                    'min': '2022-01-01',
-                    'max': '2030-01-01'
-                }
+                    # 'onkeydown': 'return false',  # Block typing inside field
+                    # 'min': '2022-01-01',
+                    # 'max': '2030-01-01',
+                    'data-mask': '00-00-0000'
+                },
             ),
             # Waktu unduh mantu
             'waktu_unduhmantu': forms.TimeInput(
@@ -491,14 +518,17 @@ class PortofolioForm(forms.ModelForm):
             ),
             # Tanggal acara di calender
             'startDate': forms.DateInput(
+                format='%d-%m-%Y',
                 attrs={
+                    'placeholder': 'dd-mm-yyyy',
                     'style': 'font-size: 13px; cursor: pointer;',
-                    'type': 'date',
+                    # 'type': 'date',
                     'class': 'input',
-                    'onkeydown': 'return false',  # Block typing inside field
-                    'min': '2022-01-01',
-                    'max': '2030-01-01'
-                }
+                    # 'onkeydown': 'return false',  # Block typing inside field
+                    # 'min': '2022-01-01',
+                    # 'max': '2030-01-01',
+                    'data-mask': '00-00-0000'
+                },
             ),
             # Waktu acara mulai di calender
             'startTime': forms.TimeInput(
