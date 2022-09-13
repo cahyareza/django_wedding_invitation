@@ -126,12 +126,16 @@ def update(request, id):
     )
 
     # create query set for multi image
-    qs = MultiImage.objects.filter(portofolio=obj)
+    qs = SpecialInvitation.objects.filter(portofolio=obj)
+    # create query set for multi image
+    qs2 = Dompet.objects.filter(portofolio=obj)
+    # create query set for multi image
+    qs3 = MultiImage.objects.filter(portofolio=obj)
 
     # Define formset
-    formset = SpecialInviteFormSet(request.POST or None, prefix='invite')
-    formset2 = DompetFormSet(request.POST or None, prefix='dompet')
-    formset3 = MultiImageFormSet(request.POST or None, request.FILES, queryset= qs, prefix='multiimage')
+    formset = SpecialInviteFormSet(request.POST or None,queryset= qs, prefix='invite')
+    formset2 = DompetFormSet(request.POST or None,queryset= qs2, prefix='dompet')
+    formset3 = MultiImageFormSet(request.POST or None, request.FILES, queryset= qs3, prefix='multiimage')
 
     if request.method == "POST":
         form = PortofolioForm(request.POST or None, request.FILES, instance=obj)
@@ -188,9 +192,9 @@ def update(request, id):
     else:
         form = PortofolioForm(instance=obj)
         form2 = QuoteForm(instance=obj_quote)
-        formset = SpecialInviteFormSet(prefix='invite')
-        formset2 = DompetFormSet(prefix='dompet')
-        formset3 = MultiImageFormSet(queryset= qs, prefix='multiimage')
+        formset = SpecialInviteFormSet(queryset= qs, prefix='invite')
+        formset2 = DompetFormSet(queryset= qs2, prefix='dompet')
+        formset3 = MultiImageFormSet(queryset= qs3, prefix='multiimage')
 
 
     context = {
