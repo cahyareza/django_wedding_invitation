@@ -155,6 +155,9 @@ class Dompet(CreationModificationDateBase, UrlBase):
     class Meta:
         verbose_name_plural = "Dompet"
 
+    def __str__(self):
+        return self.pemilik
+
 class Quote(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
     ayat = models.CharField(max_length=250)

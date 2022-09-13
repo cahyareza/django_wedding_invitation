@@ -554,16 +554,16 @@ class PortofolioForm(forms.ModelForm):
 
         # ========== ADVANCE CONTROL PANEL (multiple <Inputs>) ========== !
         # 1. Input required
-        require = ['pname', 'pinsta_link', 'panak_ke', 'pnama_ayah', 'pnama_ibu',
-            'ppicture', 'lname', 'linsta_link', 'lanak_ke', 'lnama_ayah', 'lnama_ibu',
-            'lpicture', 'tanggal_akad','waktu_akad', 'waktu_selesai_akad', 'tempat_akad',
-            'link_gmap_akad', 'tanggal_resepsi','waktu_resepsi', 'waktu_selesai_resepsi',
-            'tempat_resepsi', 'link_gmap_resepsi', 'tanggal_unduhmantu','waktu_unduhmantu',
-            'waktu_selesai_unduhmantu', 'tempat_unduhmantu','link_gmap_unduhmantu', 'video',
-            'livestream',
-        ]
-        for field in require:
-            self.fields[field].required = False
+        # require = ['pname', 'pinsta_link', 'panak_ke', 'pnama_ayah', 'pnama_ibu',
+        #     'ppicture', 'lname', 'linsta_link', 'lanak_ke', 'lnama_ayah', 'lnama_ibu',
+        #     'lpicture', 'tanggal_akad','waktu_akad', 'waktu_selesai_akad', 'tempat_akad',
+        #     'link_gmap_akad', 'tanggal_resepsi','waktu_resepsi', 'waktu_selesai_resepsi',
+        #     'tempat_resepsi', 'link_gmap_resepsi', 'tanggal_unduhmantu','waktu_unduhmantu',
+        #     'waktu_selesai_unduhmantu', 'tempat_unduhmantu','link_gmap_unduhmantu', 'video',
+        #     'livestream',
+        # ]
+        # for field in require:
+        #     self.fields[field].required = False
 
     # ========== MeTHOD ========== !
     # 1) Clean waktu
@@ -575,18 +575,29 @@ class PortofolioForm(forms.ModelForm):
     #         raise forms.ValidationError('Denied! Waktu selesai harus lebih akhir dari waktu mulai')
 
 class MultiImageForm(forms.ModelForm):
+    image = forms.FileField(
+        label="Foto moment",
+        widget=forms.ClearableFileInput(
+            attrs={
+                'placeholder': 'Select a picture',
+                'class': 'image',
+                'style': 'font-size: 15px',
+                'accept': 'image/png, image/jpeg'
+            }
+        )
+    )
     class Meta:
         model = MultiImage
         fields = ['image']
-        widgets = {
-            'image': ClearableFileInput(
-                attrs={
-                    'multiple': True,
-                    'class': 'image',
-                    'style': 'font-size: 15px',
-                    'accept': 'image/png, image/jpeg'
-               }),
-        }
+        # widgets = {
+        #     'image': ClearableFileInput(
+        #         attrs={
+        #             'multiple': True,
+        #             'class': 'image',
+        #             'style': 'font-size: 15px',
+        #             'accept': 'image/png, image/jpeg'
+        #        }),
+        # }
 
     # SUPER FUNCTION
     def __init__(self, *args, **kwargs):
@@ -597,7 +608,7 @@ class MultiImageForm(forms.ModelForm):
         self.fields['image'].required = False
 
         # 2. Help text
-        self.fields['image'].help_text = 'Note: Upload dengan memilih beberapa image secara langsung'
+        # self.fields['image'].help_text = 'Note: Upload dengan memilih beberapa image secara langsung'
 
 
 class SpecialInvitationForm(forms.ModelForm):

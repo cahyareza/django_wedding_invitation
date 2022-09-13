@@ -24,17 +24,21 @@ def register(request, id=None):
         formset=BaseRegisterFormSet,
         extra=1,
     )
+    MultiImageFormSet = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        formset=BaseRegisterFormSet,
+        extra=1,
+    )
 
     if request.method == "POST":
         form = PortofolioForm(request.POST or None, request.FILES)
-        form2 = MultiImageForm(request.POST or None, request.FILES)
-        form3 = QuoteForm(request.POST or None, request.FILES)
+        form2 = QuoteForm(request.POST or None, request.FILES)
         formset = SpecialInviteFormSet(request.POST or None, prefix='invite')
         formset2 = DompetFormSet(request.POST or None, prefix='dompet')
-        # get image from form2
-        images = request.FILES.getlist('image')
+        formset3 = MultiImageFormSet(request.POST or None, request.FILES, prefix='multiimage')
 
-        # print(request.POST)
+        print(request.POST)
         # form validation
         if form.is_valid() and form2.is_valid() and formset.is_valid():
             # create portofolio instance
@@ -52,16 +56,10 @@ def register(request, id=None):
             instance.save()
 
             # to create multiple image instance
-            # porto_instance = Portofolio.objects.get(pk=instance.pk)
-            # for i in images:
-            #     MultiImage.objects.create(portofolio=porto_instance, image=i)
-
-            instance_multiimage = form2.save(commit=False)
-            instance_multiimage.portofolio = porto_instance
-            instance_multiimage.save()
+            porto_instance = Portofolio.objects.get(pk=instance.pk)
 
             # to create instance quote
-            instance_quote = form3.save(commit=False)
+            instance_quote = form2.save(commit=False)
             instance_quote.portofolio = porto_instance
             instance_quote.save()
 
@@ -80,29 +78,34 @@ def register(request, id=None):
                     child.portofolio = porto_instance
                     child.save()
 
+            for form in formset3:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
             messages.success(request, "Registered Successfully !")
             return HttpResponseRedirect('/')
         else:
             return render(request, "portofolio/register_porto.html", {'form': form,
-                'form2': form2, 'form3': form3, 'formset': formset, 'formset2': formset2})
+                'form2': form2, 'formset': formset, 'formset2': formset2, 'formset3': formset3})
 
     else:
         form = PortofolioForm()
-        form2 = MultiImageForm()
-        form3 = QuoteForm()
+        form2 = QuoteForm()
         formset = SpecialInviteFormSet(prefix='invite')
         formset2 = DompetFormSet(prefix='dompet')
+        formset3 = MultiImageFormSet(prefix='multiimage')
 
         return render(request, "portofolio/register_porto.html", {'form': form,
-            'form2': form2, 'form3': form3,'formset': formset, 'formset2': formset2})
+            'form2': form2,'formset': formset, 'formset2': formset2, 'formset3': formset3})
 
 def update(request, id):
     # get instance portofolio from id
     obj = get_object_or_404(Portofolio, pk=id)
-    # image instance by porto id
-    obj_image = get_object_or_404(MultiImage, id=obj.id)
-    # quuote instance by porto id
-    obj_quote = get_object_or_404(Quote, id=obj.id)
+    # quote instance by porto id
+    obj_quote = get_object_or_404(Quote, portofolio= obj)
 
 
     # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
@@ -116,15 +119,23 @@ def update(request, id):
         form=DompetForm,
         extra=1,
     )
+    MultiImageFormSet = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=1,
+    )
+
+    # create query set for multi image
+    qs = MultiImage.objects.filter(portofolio=obj)
 
     # Define formset
     formset = SpecialInviteFormSet(request.POST or None, prefix='invite')
     formset2 = DompetFormSet(request.POST or None, prefix='dompet')
+    formset3 = MultiImageFormSet(request.POST or None, request.FILES, queryset= qs, prefix='multiimage')
 
     if request.method == "POST":
         form = PortofolioForm(request.POST or None, request.FILES, instance=obj)
-        form2 = MultiImageForm(request.POST or None, request.FILES, instance=obj_image)
-        form3 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
+        form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
 
         if form.is_valid() and form2.is_valid() and formset.is_valid():
             # create portofolio instance
@@ -143,11 +154,9 @@ def update(request, id):
 
             # to create multiple image instance
             porto_instance = Portofolio.objects.get(pk=instance.pk)
-            for i in images:
-                MultiImage.objects.create(portofolio=porto_instance, image=i)
 
             # to create instance quote
-            instance_quote = form3.save(commit=False)
+            instance_quote = form2.save(commit=False)
             instance_quote.portofolio = porto_instance
             instance_quote.save()
 
@@ -166,20 +175,30 @@ def update(request, id):
                     child.portofolio = porto_instance
                     child.save()
 
+            for form in formset3:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
             messages.success(request, "Data saved!")
             # return HttpResponseRedirect('/')
 
     else:
         form = PortofolioForm(instance=obj)
-        form2 = MultiImageForm(instance=obj_image)
-        form3 = QuoteForm(instance=obj_quote)
+        form2 = QuoteForm(instance=obj_quote)
+        formset = SpecialInviteFormSet(prefix='invite')
+        formset2 = DompetFormSet(prefix='dompet')
+        formset3 = MultiImageFormSet(queryset= qs, prefix='multiimage')
+
 
     context = {
         'form': form,
         'form2': form2,
-        'form3': form3,
         'formset': formset,
         'formset2': formset2,
+        'formset3': formset3,
     }
 
     return render(request, 'portofolio/portofolio_detail.html', context)

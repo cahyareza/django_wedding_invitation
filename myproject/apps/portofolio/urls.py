@@ -5,5 +5,5 @@ from .views import (
 
 urlpatterns = [
     path("register/", register, name="register"),
-    path('<int:id>/', update, name='update'),
+    path('update/<int:id>/', update, name='update'),
 ]
