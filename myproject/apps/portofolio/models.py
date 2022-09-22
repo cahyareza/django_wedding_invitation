@@ -4,6 +4,8 @@ import re
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from django.utils.text import slugify
+from django.conf import settings
 from PIL import Image
 
 from myproject.apps.core.models import CreationModificationDateBase, UrlBase
@@ -36,8 +38,12 @@ DAFTAR_BANK = (
 
 class Portofolio(CreationModificationDateBase, UrlBase):
     # Portofolio
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
     porto_name = models.CharField(max_length=150)
-
+    slug = models.SlugField(max_length=255)
     # Couple
     pname = models.CharField(max_length=40)
     pinsta_link = models.CharField(max_length=250)
@@ -110,7 +116,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
 
     def get_url_path(self):
         return reverse("update", kwargs={
-            "portofolio_id": str(self.id),
+            "portofolio_slug": self.slug,
         })
 
     # SUPER FUNCTION
@@ -127,6 +133,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
         ])
         self.trigger = "click"
         self.iCalFileName = "Reminder-Event"
+        self.slug = slugify(self.porto_name)
         super().save(*args, **kwargs)
 
 class MultiImage(CreationModificationDateBase, UrlBase):

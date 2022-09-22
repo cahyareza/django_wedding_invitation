@@ -40,7 +40,7 @@ class PortofolioAdmin(admin.ModelAdmin):
     # Fieldset
     fieldsets = [
         # INFORMASI UNDANGAN
-        ('INFORMASI UNDANGAN', {'fields': ['porto_name']}),
+        ('INFORMASI UNDANGAN', {'fields': ['porto_name', 'slug', 'user']}),
         # INFORMASI PASANGAN
         ('INFORMASI PASANGAN', {'fields': ['pname', 'pinsta_link', 'panak_ke', 'pnama_ayah', 'pnama_ibu',
          'ppicture', 'lname', 'linsta_link', 'lanak_ke', 'lnama_ayah', 'lnama_ibu', 'lpicture']}

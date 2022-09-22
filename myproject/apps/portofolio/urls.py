@@ -1,9 +1,10 @@
 from django.urls import path
 from .views import (
-    register, update
+    register, update, myportofolio
 )
 
 urlpatterns = [
     path("register/", register, name="register"),
-    path('update/<int:id>/', update, name='update'),
+    path('update/<slug:slug>/', update, name='update'),
+    path('myportofolio/', myportofolio, name='myportofolio'),
 ]

@@ -30,9 +30,11 @@
             <p class="is-size-5-tablet"><strong>Fitur paling lengkap banyak preset siap pakai<br></strong> Masa aktif selamanya dan edit tanpa batas!</p>
 
             <div class="buttons mt-3">
-              <button class="button is-danger">
-                <a href="{% url 'portofolio:register' %}">Buat undangan sekarang</a>
-              </button>
+              {% if user.is_authenticated %}
+                  <a class="button is-danger" href="{% url 'portofolio:register' %}">Buat undangan sekarang</a>
+              {% else %}
+                  <a class="button is-danger" href="{% url 'account_signup' %}">Buat undangan sekarang</a>
+              {% endif %}
             </div>
 
           </div>

@@ -43,6 +43,9 @@ def register(request, id=None):
         if form.is_valid() and form2.is_valid() and formset.is_valid():
             # create portofolio instance
             instance = form.save(commit=False)
+            # save user to porto
+            user = request.user
+            instance.user = user
             # save porto field ke field calender
             instance.name = instance.porto_name
             instance.location =  instance.tempat_resepsi
@@ -101,9 +104,9 @@ def register(request, id=None):
         return render(request, "portofolio/register_porto.html", {'form': form,
             'form2': form2,'formset': formset, 'formset2': formset2, 'formset3': formset3})
 
-def update(request, id):
+def update(request, slug):
     # get instance portofolio from id
-    obj = get_object_or_404(Portofolio, pk=id)
+    obj = get_object_or_404(Portofolio, slug=slug)
     # quote instance by porto id
     obj_quote = get_object_or_404(Quote, portofolio= obj)
 
@@ -144,6 +147,10 @@ def update(request, id):
         if form.is_valid() and form2.is_valid() and formset.is_valid():
             # create portofolio instance
             instance = form.save(commit=False)
+            # save user to porto
+            user = request.user
+            print(user)
+            instance.user = user
             # save porto field ke field calender
             instance.name = instance.porto_name
             instance.location =  instance.tempat_resepsi
@@ -187,7 +194,7 @@ def update(request, id):
                     child.save()
 
             messages.success(request, "Data saved!")
-            return redirect("portofolio:update", id=instance.id)
+            return redirect("portofolio:update", slug=instance.slug)
 
     else:
         form = PortofolioForm(instance=obj)
@@ -206,3 +213,11 @@ def update(request, id):
     }
 
     return render(request, 'portofolio/portofolio_detail.html', context)
+
+def myportofolio(request):
+    user = request.user
+    portofolios = Portofolio.objects.filter(user=user)
+    context = {
+        'portofolios': portofolios,
+    }
+    return render(request, 'portofolio/myportofolio.html', context)

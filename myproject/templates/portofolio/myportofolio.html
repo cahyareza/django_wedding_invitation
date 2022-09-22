@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+
+<!-- Page content -->
+{% block isi %}
+
+<div class="card p-5 m-5 mt-5">
+    <!--  Header (title)  -->
+    <h1 class="title is-size-4 has-text-centered has-background-grey has-text-white p-2 mt-2">MY PORTOFOLIO</h1>
+
+    <!--  Table  -->
+    <table class="table is-fullwidth">
+        <thead class="has-background-light">
+            <tr>
+                <th class="has-text-centered">Nama</th>
+                <th class="has-text-centered">Portofolio</th>
+                <th class="has-text-centered">Tanggal Acara</th>
+                <th class="has-text-centered">Detail</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!--   Get data from backend   -->
+            {% for data in portofolios %}
+            <tr>
+                <td class="has-text-centered">{{ data.user }}</td>
+                <td class="has-text-centered">{{ data.porto_name }}</td>
+                <td class="has-text-centered">{{ data.tanggal_resepsi }}</td>
+                <td class="has-text-centered">
+                    <a href="{% url 'portofolio:update' data.slug %}" class="button is-small">
+                        <i class="fas fa-user-alt"></i>
+                    </a>
+                </td>
+                {% empty %}
+                <td class="has-text-danger has-text-centered">No records found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -47,6 +47,7 @@
 
               {% if user.is_authenticated %}
                   <p class="navbar-item">Welcome, {{ user.username }} !</p>
+                  <a class="navbar-item" href="{% url 'portofolio:myportofolio' %}">My Portofolio</a>
                   <a class="navbar-item" href="{% url 'account_logout' %}">Sign Out</a>
               {% else %}
                   <a class="navbar-item" href="{% url 'account_login' %}">Sign In</a>
@@ -61,7 +62,7 @@
     {% endblock %}
 
     <section class="hero is-medium">
-  <div class="hero-body is-marginless p-3 mt-1">
+  <div class="hero-footer is-marginless p-3 mt-1">
     <div class="container px-2 pt-3">
       <div class="columns is-multiline is-vcentered is-mobile">
 
@@ -239,7 +240,7 @@
     <hr class="mb-1">
 
     <section class="hero is-small is-paddingless is-marginless">
-  <div class="hero-body">
+  <div class="hero-footer">
     <div class="container">
       <div class="columns">
         <div class="column has-text-centered">

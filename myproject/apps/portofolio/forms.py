@@ -579,6 +579,9 @@ class PortofolioForm(forms.ModelForm):
         self.fields['lokasi'].required = False
         self.fields['lokasi'].required = False
 
+        self.fields['user'].required = False
+        self.fields['slug'].required = False
+
 
 
 
