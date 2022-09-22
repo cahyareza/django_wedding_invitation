@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block isi %}
+    <div class="container">
+        <div class="box p-3 m-3">
+            <div class="columns is-multiline has-text-centered">
+                {% block body %}
+<!--                    <div class="column is-full">-->
+<!--                            {% if messages %}-->
+<!--                                {% for message in messages %}-->
+<!--                                    <div class="notification has-background-danger-light has-text-centered p-1"> {{ message }}-->
+<!--                                    </div>-->
+<!--                                {% endfor %}-->
+<!--                            {% endif %}-->
+<!--                    </div>-->
+    <!--                    <div class="column is-full">-->
+    <!--                        <p class="title is-size-5 mb-3"><strong>Menu:</strong></p>-->
+    <!--                        <ul>-->
+    <!--                            {% if user.is_authenticated %}-->
+    <!--&lt;!&ndash;                                <a class="button is-danger" href="{% url 'account_email' %}">Change E-mail</a>&ndash;&gt;-->
+    <!--                                <a class="button is-info" href="{% url 'account_logout' %}">Sign Out</a>-->
+    <!--                            {% else %}-->
+    <!--                                <a class="button is-danger" href="{% url 'account_login' %}">Sign In</a>-->
+    <!--                                <a class="button is-info" href="{% url 'account_signup' %}">Sign Up</a>-->
+    <!--                            {% endif %}-->
+    <!--                        </ul>-->
+    <!--                    </div>-->
+                    <div class="column is-full">
+                        {% block content %}
+
+                        {% endblock %}
+                    </div>
+                {% endblock %}
+
+                {% block extra_body %}
+
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

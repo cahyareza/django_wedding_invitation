@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     # local
     'myproject.apps.portofolio',
+    'myproject.apps.accounts',
 ]
 
 MIDDLEWARE = [
@@ -192,4 +193,10 @@ SOCIALACCOUNT_PROVIDERS = {
             'access_type': 'online',
         }
     }
+}
+
+ACCOUNT_FORMS = {
+    'login': 'myproject.apps.accounts.forms.MyCustomLoginForm',
+    'signup': 'myproject.apps.accounts.forms.MyCustomSignupForm',
+
 }

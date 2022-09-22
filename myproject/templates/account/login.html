@@ -1,0 +1,21 @@
+{% extends "account/base.html" %}
+{% load socialaccount i18n %}
+
+{% block content %}
+<h1 class="title is-size-5 mb-3">{% trans "Sign In" %}</h1>
+
+<form class="login" method="POST" action="{% url 'account_login' %}">
+  {% csrf_token %}
+      <div class="columns is-multiline has-text-left">
+        <div class="column is-half is-offset-one-quarter mb-5">
+          {% for field in form %}
+            {{ field.label_tag }}
+            {{ field }}
+            <p class="help is-danger">{{ field.errors }}</p>
+          {% endfor %}
+
+          <button class="button is-danger mt-3" type="submit">Sign in</button>
+          <a href="{% provider_login_url 'google' %}" class="button is-light mt-3" role="button" aria-pressed="true">Sign in with Google</a>
+        </div>
+</form>
+{% endblock %}

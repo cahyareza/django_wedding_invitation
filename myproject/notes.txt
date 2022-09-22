@@ -1,39 +1,36 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
-from django.http import HttpResponseRedirect
-
-from .models import MultiImage, Portofolio
-
-from .forms import PortofolioForm, MultiImageForm
 
 
-# Create your views here.
-def register(request):
-    if request.method == "POST":
-        form = PortofolioForm(request.POST or None, request.FILES)
-        form2 = MultiImageForm(request.POST or None, request.FILES)
-        images = request.FILES.getlist('image')
-        if form.is_valid() and form2.is_valid():
-            instance = form.save(commit=False)
-            instance.save()
+{% extends 'base.html' %}
+{% load socialaccount %}
 
-            porto_instance = Portofolio.objects.get(pk=instance.pk)
-
-            for i in images:
-                MultiImage.objects.create(portofolio=porto_instance, image=i)
-
-            messages.success(request, "Registered Successfully !")
-            return HttpResponseRedirect('/')
-        else:
-            return render(request, "portofolio/register_porto.html", {'form': form, 'form2': form2})
-
-    else:
-        form = PortofolioForm()
-        form2 = MultiImageForm()
-
-        return render(request, "portofolio/register_porto.html", {'form': form, 'form2': form2})
-
-
-
-
-
+{% block content %}
+    <div class="container mt-5">
+        <div class="card p-5 m-5">
+            <form class="form-signin">
+                <div class="columns is-multiline">
+                    <div class="column is-10 mb-1">
+                        <div class="field">
+                            <h1 class="title is-size-4 mb-3 has-text-centered">Please sign in</h1>
+                            <label for="inputEmail" class="label">Email address</label>
+                            <div class="control">
+                                <input type="email" id="inputEmail" class="input" placeholder="Email address" required autofocus>
+                            </div>
+                            <label for="inputPassword" class="label">Password</label>
+                            <div class="control">
+                                <input type="password" id="inputPassword" class="input" placeholder="Password" required>
+                            </div>
+                            <label class="checkbox mt-3">
+                                <input type="checkbox" value="remember-me">
+                                Remember me
+                            </label>
+                        </div>
+                    </div>
+                    <div class="column is-10 mt-1">
+                        <button class="button is-danger" type="submit">Sign in</button>
+                        <a href="{% provider_login_url 'google' %}" class="button is-link" role="button" aria-pressed="true">Sign in with Google</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

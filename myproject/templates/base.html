@@ -44,14 +44,20 @@
           </div>
 
           <div class="navbar-end has-text-weight-bold mr-4">
-              <a class="navbar-item">Sign up</a>
-              <a class="navbar-item">Login</a>
+
+              {% if user.is_authenticated %}
+                  <p class="navbar-item">Welcome, {{ user.username }} !</p>
+                  <a class="navbar-item" href="{% url 'account_logout' %}">Sign Out</a>
+              {% else %}
+                  <a class="navbar-item" href="{% url 'account_login' %}">Sign In</a>
+                  <a class="navbar-item" href="{% url 'account_signup' %}">Sign Up</a>
+              {% endif %}
           </div>
       </div>
 
     </nav>
 
-    {% block content %}
+    {% block isi %}
     {% endblock %}
 
     <section class="hero is-medium">
