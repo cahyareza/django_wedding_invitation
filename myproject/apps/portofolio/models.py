@@ -130,14 +130,14 @@ class Portofolio(CreationModificationDateBase, UrlBase):
         super().save(*args, **kwargs)
 
 class MultiImage(CreationModificationDateBase, UrlBase):
-    portofolio = models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
+    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
     image = models.FileField(blank=True)
 
     class Meta:
         verbose_name_plural = "Multiimages"
 
 class SpecialInvitation(CreationModificationDateBase, UrlBase):
-    portofolio = models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
+    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
     name_invite = models.CharField(max_length=100)
 
     def __str__(self):
@@ -151,7 +151,7 @@ class Rekening(CreationModificationDateBase, UrlBase):
         return self.bank
 
 class Dompet(CreationModificationDateBase, UrlBase):
-    portofolio = models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
+    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
     # rekening = models.CharField(max_length=40, choices=DAFTAR_BANK)
     rekening = models.ForeignKey(Rekening, on_delete=models.SET_NULL, blank=True, null=True)
     nomor = models.CharField(max_length=40)
@@ -164,7 +164,7 @@ class Dompet(CreationModificationDateBase, UrlBase):
         return self.pemilik
 
 class Quote(CreationModificationDateBase, UrlBase):
-    portofolio = models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
+    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
     ayat = models.CharField(max_length=250)
     kutipan = models.TextField()
 
@@ -172,7 +172,7 @@ class Quote(CreationModificationDateBase, UrlBase):
         verbose_name_plural = "Quotes"
 
 class Ucapan(CreationModificationDateBase, UrlBase):
-    portofolio = models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
+    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
     nama = models.CharField(max_length=40)
     alamat = models.CharField(max_length=40)
     pesan = models.CharField(max_length=60)
@@ -190,7 +190,7 @@ class Hadir(CreationModificationDateBase, UrlBase):
         (IYA, 'iya'),
         (TIDAK, 'tidak')
     )
-    portofolio = models.ForeignKey(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
+    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=40)
     hadir = models.CharField(max_length=20, choices=STATUS_CHOICES, default=TIDAK)
 
