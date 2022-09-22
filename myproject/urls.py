@@ -24,6 +24,7 @@ from django.conf.urls.static import static
 urlpatterns = i18n_patterns(
     path('', TemplateView.as_view(template_name="index.html")),
     path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),
     path("portofolio/", include(("myproject.apps.portofolio.urls", "portofolio"), namespace="portofolio")),
     prefix_default_language=False,
 )

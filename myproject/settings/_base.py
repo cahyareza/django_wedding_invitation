@@ -49,13 +49,18 @@ ALLOWED_HOSTS = [
 INSTALLED_APPS = [
     # contributed
     'django.contrib.admin',
-    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.messages',
     'django.contrib.staticfiles',
-    # third-party
     'django_cleanup.apps.CleanupConfig',
+    'django.contrib.auth',
+    'django.contrib.messages',
+    'django.contrib.sites',
+    # third-party
+    'allauth',  # new
+    'allauth.account',  # new
+    'allauth.socialaccount',  # new
+    'allauth.socialaccount.providers.google',
     # local
     'myproject.apps.portofolio',
 ]
@@ -87,6 +92,11 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 WSGI_APPLICATION = 'myproject.wsgi.application'
@@ -163,3 +173,23 @@ EMAIL_HOST_USER = get_secret("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = get_secret("EMAIL_HOST_PASSWORD")
 
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
+
+SITE_ID = 2
+
+LOGIN_REDIRECT_URL = '/'
+
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
