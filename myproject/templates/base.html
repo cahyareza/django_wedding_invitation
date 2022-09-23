@@ -43,15 +43,15 @@
               <a class="navbar-item">Portofolio</a>
           </div>
 
-          <div class="navbar-end has-text-weight-bold mr-4">
+          <div class="navbar-end mr-4">
 
               {% if user.is_authenticated %}
                   <p class="navbar-item">Welcome, {{ user.username }} !</p>
-                  <a class="navbar-item" href="{% url 'portofolio:myportofolio' %}">My Portofolio</a>
-                  <a class="navbar-item" href="{% url 'account_logout' %}">Sign Out</a>
+                  <a class="navbar-item has-text-weight-bold" href="{% url 'portofolio:myportofolio' %}">My Portofolio</a>
+                  <a class="navbar-item has-text-weight-bold" href="{% url 'account_logout' %}">Sign Out</a>
               {% else %}
-                  <a class="navbar-item" href="{% url 'account_login' %}">Sign In</a>
-                  <a class="navbar-item" href="{% url 'account_signup' %}">Sign Up</a>
+                  <a class="navbar-item has-text-weight-bold" href="{% url 'account_login' %}">Sign In</a>
+                  <a class="navbar-item has-text-weight-bold" href="{% url 'account_signup' %}">Sign Up</a>
               {% endif %}
           </div>
       </div>

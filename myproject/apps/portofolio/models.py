@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
 from django.conf import settings
+from multiselectfield import MultiSelectField
 from PIL import Image
 
 from myproject.apps.core.models import CreationModificationDateBase, UrlBase
@@ -34,6 +35,41 @@ DAFTAR_BANK = (
     ('BANK RAKYAT INDONESIA', 'BANK RAKYAT INDONESIA'),
     ('BANK NEGARA INDONESIA', 'BANK NEGARA INDONESIA'),
     ('MANDIRI', 'MANDIRI')
+)
+
+FITUR_CHOICES = (('preset standard', 'preset standard'),
+    ('quotes', 'quotes'),
+    ('detail acara', 'detail acara'),
+    ('profil pasangan', 'profil pasangan'),
+    ('protokol kesehatan', 'protokol kesehatan'),
+    ('navigasi lokasi', 'navigasi lokasi'),
+    ('google calender', 'google calender'),
+    ('unlimited custom jadwal acara', 'unlimited custom jadwal acara'),
+    ('rsvp', 'rsvp'),
+    ('amplop digital', 'amplop digital'),
+    ('kirim ucapan', 'kirim ucapan'),
+    ('gallery(max 10)', 'gallery(max 10)'),
+    ('love stories', 'love stories'),
+    ('buku tamu', 'buku tamu'),
+    ('share eksklusif(max 50)', 'share eksklusif(max 50)'),
+    ('background music(list only)', 'background music(list only)'),
+    ('custom domain(additional)', 'custom domain(additional)'),
+    ('preset platinum', 'preset platinum'),
+    ('gallery(max 20)', 'gallery(max 20)'),
+    ('live streaming', 'live streaming'),
+    ('share eksklusif(unlimited)', 'share eksklusif(unlimited)'),
+    ('background music(list dan custom)', 'background music(list dan custom)'),
+    ('tersedia versi inggris', 'tersedia versi inggris'),
+    ('semua jenis preset', 'semua jenis preset'),
+    ('support prioritas', 'support prioritas'),
+    ('masa aktif selamanya', 'masa aktif selamanya'),
+    ('edit tanpa batas', 'edit tanpa batas'))
+
+THEME_LIST = (
+    ('', 'Pilih theme'),
+    ('autumn', 'autumn'),
+    ('snow', 'snow'),
+    ('winter', 'winter')
 )
 
 class Portofolio(CreationModificationDateBase, UrlBase):
@@ -205,4 +241,34 @@ class Hadir(CreationModificationDateBase, UrlBase):
         verbose_name_plural = "Hadir"
 
 
+class Fitur(CreationModificationDateBase, UrlBase):
+    name = models.CharField(max_length=40)
+    slug = models.SlugField(max_length=255, blank=True)
+    price = models.FloatField()
+    fitur = MultiSelectField(choices=FITUR_CHOICES)
 
+    def __str__(self):
+        return self.name
+
+    # SUPER FUNCTION
+
+    # ========== SAVE FUNCTION ========== !
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+class Theme(CreationModificationDateBase, UrlBase):
+    fitur = models.ForeignKey(Fitur, on_delete=models.CASCADE, blank=True, null=True)
+    portofolio = models.OneToOneField(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
+    name = models.CharField(max_length=40, choices=THEME_LIST, blank=True, null=True)
+    slug = models.SlugField(max_length=255, blank=True)
+
+    def __str__(self):
+        return self.name
+
+    # SUPER FUNCTION
+
+    # ========== SAVE FUNCTION ========== !
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)

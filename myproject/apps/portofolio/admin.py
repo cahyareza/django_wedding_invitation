@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import (Portofolio, MultiImage, SpecialInvitation, Dompet, Quote,
-     Rekening, Ucapan, Hadir)
+     Rekening, Ucapan, Hadir, Fitur, Theme)
 
 # Inline
 class MultiImageInline(admin.TabularInline):
@@ -27,13 +27,16 @@ class UcapanInline(admin.TabularInline):
 class HadirInline(admin.TabularInline):
     model = Hadir
 
+class ThemeInline(admin.TabularInline):
+    model = Theme
+
 # Register your models here.
 # admin.site.register(Couple)
 
 
 @admin.register(Portofolio)
 class PortofolioAdmin(admin.ModelAdmin):
-    inlines = [MultiImageInline, SpecialInvitationInline, DompetInline, QuoteInline,
+    inlines = [ThemeInline, MultiImageInline, SpecialInvitationInline, DompetInline, QuoteInline,
                UcapanInline, HadirInline]
     list_per_page = 10
 
@@ -90,4 +93,12 @@ class UcapanAdmin(admin.ModelAdmin):
 
 @admin.register(Hadir)
 class HadirAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Fitur)
+class FiturAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Theme)
+class ThemeAdmin(admin.ModelAdmin):
     pass

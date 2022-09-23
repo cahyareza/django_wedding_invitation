@@ -542,7 +542,13 @@
         </div>
       </div>
 
+      <!--  Buttons  -->
+      {% block buttons %}
       <button id="submit" type="submit" class="button is-info p-2 mt-1">Submit</button>
+      <a href="{% url 'portofolio:register' %}" class="button is-dark p-2 mt-1">Reset</a>
+      <a href="/" class="button is-dark-light p-2 mt-1">Cancel</a>
+      {% endblock buttons %}
+
     </div>
   </form>
 {% endblock %}
