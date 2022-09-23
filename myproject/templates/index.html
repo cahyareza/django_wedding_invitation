@@ -967,7 +967,9 @@
                                 {% endfor %}
                                 <p class="is-size-6 has-text-weight-bold mt-4">Masa Aktif Selamanya</p>
                                 <p class="is-size-6 has-text-weight-bold">Edit Tanpa Batas</p>
-                                <button class="card-btn">add to cart</button>
+                                {% if user.is_authenticated %}
+                                  <button class="card-btn">add to cart</button>
+                                {% endif %}
                           </div>
                         </div>
                         <div class="product-info has-text-centered">
@@ -989,7 +991,9 @@
                                 {% endfor %}
                                 <p class="is-size-6 has-text-weight-bold mt-4">Masa Aktif Selamanya</p>
                                 <p class="is-size-6 has-text-weight-bold">Edit Tanpa Batas</p>
-                                <button class="card-btn">add to cart</button>
+                                {% if user.is_authenticated %}
+                                  <button class="card-btn">add to cart</button>
+                                {% endif %}
                           </div>
                         </div>
                         <div class="product-info has-text-centered">
@@ -1011,7 +1015,9 @@
                               {% endfor %}
                               <p class="is-size-6 has-text-weight-bold mt-4">Masa Aktif Selamanya</p>
                               <p class="is-size-6 has-text-weight-bold">Edit Tanpa Batas</p>
-                              <button class="card-btn">add to cart</button>
+                              {% if user.is_authenticated %}
+                                <button class="card-btn">add to cart</button>
+                              {% endif %}
                         </div>
                       </div>
                       <div class="product-info has-text-centered">
