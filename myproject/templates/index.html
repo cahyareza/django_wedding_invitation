@@ -953,82 +953,75 @@
             <section class="product">
               <button class="pre-btn"><img src="{% static 'site/img/arrow.png' %}" alt=""></button>
               <button class="nxt-btn"><img src="{% static 'site/img/arrow.png' %}" alt=""></button>
-              <div class="product-container" style="height: 570px;">
-                <div class="product-card">
-                    <div class="box">
-                      <div class="product-image" style="height: 400px;">
-                          <span class="discount-tag">35% off</span>
-  <!--                        <img src="{% static 'site/img/card1.jpg' %}" class="product-thumb" alt="">-->
-                            <p class="is-size-5 has-text-weight-bold mb-4 has-text-centered">Fitur</p>
-                            <p class="is-size-6">- Preset/Design standard</p>
-                            <p class="is-size-6">- Quotes</p>
-                            <p class="is-size-6">- Detail Info Acara</p>
-                            <p class="is-size-6">- Profil Pasangan</p>
-                            <p class="is-size-6">- Protokol Kesehatan</p>
-                            <p class="is-size-6">- Navigasi Lokasi</p>
-                            <p class="is-size-6">- Menambah ke Google Calender</p>
-                            <p class="is-size-6">- Unlimited Custom Jadwal Acara</p>
-                            <p class="is-size-6">- RSVP</p>
-                            <p class="is-size-6 has-text-weight-bold mt-4">Masa Aktif Selamanya</p>
-                            <p class="is-size-6 has-text-weight-bold">Edit Tanpa Batas</p>
+              <div class="product-container" style="height: 590px;">
+                {% for fitur in fiturs %}
+                  {% if fitur.name == "SILVER" %}
+                    <div class="product-card" style="width: 270px;">
+                        <div class="box">
+                          <div class="product-image" style="height: 430px;">
+                              <span class="discount-tag">35% off</span>
+      <!--                        <img src="{% static 'site/img/card1.jpg' %}" class="product-thumb" alt="">-->
+                                <p class="is-size-5 has-text-weight-bold mb-4 has-text-centered">Fitur</p>
+                                {% for fit in fitur.fitur|slice:":-2" %}
+                                  <p class="is-size-6">- {{ fit }}</p>
+                                {% endfor %}
+                                <p class="is-size-6 has-text-weight-bold mt-4">Masa Aktif Selamanya</p>
+                                <p class="is-size-6 has-text-weight-bold">Edit Tanpa Batas</p>
+                                <button class="card-btn">add to cart</button>
+                          </div>
+                        </div>
+                        <div class="product-info has-text-centered">
+                            <h2 class="product-brand">{{ fitur.name }}</h2>
+      <!--                        <p class="product-short-description">a short line about the cloth..</p>-->
+                            <span class="price">IDR 65.000</span><span class="actual-price">IDR {{ fitur.price }}</span>
+                        </div>
+                    </div>
+                  {% elif fitur.name == "PLATINUM" %}
+                    <div class="product-card" style="width: 270px;">
+                        <div class="box">
+                          <div class="product-image" style="height: 430px;">
+                              <span class="discount-tag">35% off</span>
+      <!--                        <img src="{% static 'site/img/card1.jpg' %}" class="product-thumb" alt="">-->
+                                <p class="is-size-5 has-text-weight-bold mb-4 has-text-centered">Fitur</p>
+                                <p class="is-size-6 has-text-weight-bold">- Semua yang ada di Paket Silver</p>
+                                {% for fit in fitur.fitur|slice:"9:-2" %}
+                                  <p class="is-size-6">- {{ fit }}</p>
+                                {% endfor %}
+                                <p class="is-size-6 has-text-weight-bold mt-4">Masa Aktif Selamanya</p>
+                                <p class="is-size-6 has-text-weight-bold">Edit Tanpa Batas</p>
+                                <button class="card-btn">add to cart</button>
+                          </div>
+                        </div>
+                        <div class="product-info has-text-centered">
+                            <h2 class="product-brand">{{ fitur.name }}</h2>
+      <!--                        <p class="product-short-description">a short line about the cloth..</p>-->
+                            <span class="price">IDR 65.000</span><span class="actual-price">IDR {{ fitur.price }}</span>
+                        </div>
+                    </div>
+                  {% elif fitur.name == "GOLD" %}
+                    <div class="product-card" style="width: 270px;">
+                      <div class="box">
+                        <div class="product-image" style="height: 430px;">
+                            <span class="discount-tag">35% off</span>
+    <!--                        <img src="{% static 'site/img/card1.jpg' %}" class="product-thumb" alt="">-->
+                              <p class="is-size-5 has-text-weight-bold mb-4 has-text-centered">Fitur</p>
+                              <p class="is-size-6 has-text-weight-bold">- Semua yang ada di Paket Platinum</p>
+                              {% for fit in fitur.fitur|slice:"19:-2" %}
+                                <p class="is-size-6">- {{ fit }}</p>
+                              {% endfor %}
+                              <p class="is-size-6 has-text-weight-bold mt-4">Masa Aktif Selamanya</p>
+                              <p class="is-size-6 has-text-weight-bold">Edit Tanpa Batas</p>
+                              <button class="card-btn">add to cart</button>
+                        </div>
+                      </div>
+                      <div class="product-info has-text-centered">
+                          <h2 class="product-brand">{{ fitur.name }}</h2>
+    <!--                        <p class="product-short-description">a short line about the cloth..</p>-->
+                          <span class="price">IDR 65.000</span><span class="actual-price">IDR {{ fitur.price }}</span>
                       </div>
                     </div>
-                    <div class="product-info has-text-centered">
-                        <h2 class="product-brand">Silver</h2>
-  <!--                        <p class="product-short-description">a short line about the cloth..</p>-->
-                        <span class="price">IDR 65.000</span><span class="actual-price">IDR 100.000</span>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="box">
-                      <div class="product-image" style="height: 400px;">
-                          <span class="discount-tag">50% off</span>
-  <!--                        <img src="{% static 'site/img/card1.jpg' %}" class="product-thumb" alt="">-->
-                            <p class="is-size-5 has-text-weight-bold mb-4 has-text-centered">Fitur</p>
-                            <p class="is-size-6 has-text-weight-bold">- Semua yang ada di Paket Silver</p>
-                            <p class="is-size-6">- Amplop Digital</p>
-                            <p class="is-size-6">- Kirim Ucapan</p>
-                            <p class="is-size-6">- Gallery(max 10)</p>
-                            <p class="is-size-6">- Love Stories</p>
-                            <p class="is-size-6">- Buku Tamu</p>
-                            <p class="is-size-6">- Share Eksklusif - Nama Tamu (max 50)</p>
-                            <p class="is-size-6">- Background Music (list only)</p>
-                            <p class="is-size-6">- Custom Domain(additional)</p>
-                            <p class="is-size-6">- Preset/Design Platinum</p>
-                            <p class="is-size-6 has-text-weight-bold mt-4">Masa Aktif Selamanya</p>
-                            <p class="is-size-6 has-text-weight-bold">Edit Tanpa Batas</p>
-                      </div>
-                    </div>
-                    <div class="product-info has-text-centered">
-                        <h2 class="product-brand">Platinum</h2>
-  <!--                        <p class="product-short-description">a short line about the cloth..</p>-->
-                        <span class="price">IDR 100.000</span><span class="actual-price">IDR 200.000</span>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="box">
-                      <div class="product-image" style="height: 400px;">
-                          <span class="discount-tag">57% off</span>
-  <!--                        <img src="{% static 'site/img/card1.jpg' %}" class="product-thumb" alt="">-->
-                            <p class="is-size-5 has-text-weight-bold mb-4 has-text-centered">Fitur</p>
-                            <p class="is-size-6 has-text-weight-bold">- Semua yang ada di Paket Platinum</p>
-                            <p class="is-size-6">- Gallery (max 20)</p>
-                            <p class="is-size-6">- Live Streaming</p>
-                            <p class="is-size-6">- Share Eksklusif - nama tamu (unlimited)</p>
-                            <p class="is-size-6">- Background Music (list dan custom)</p>
-                            <p class="is-size-6">- Tersedia Versi Inggris</p>
-                            <p class="is-size-6">- Semua Jenis Preset</p>
-                            <p class="is-size-6">- Support Prioritas</p>
-                            <p class="is-size-6 has-text-weight-bold mt-4">Masa Aktif Selamanya</p>
-                            <p class="is-size-6 has-text-weight-bold">Edit Tanpa Batas</p>
-                      </div>
-                    </div>
-                    <div class="product-info has-text-centered">
-                        <h2 class="product-brand">Gold</h2>
-  <!--                        <p class="product-short-description">a short line about the cloth..</p>-->
-                        <span class="price">IDR 130.000</span><span class="actual-price">IDR 300.000</span>
-                    </div>
-                </div>
+                  {% endif %}
+                {% endfor %}
               </section>
             </div>
           </div>
