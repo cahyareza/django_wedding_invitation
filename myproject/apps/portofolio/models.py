@@ -193,6 +193,14 @@ class Rekening(CreationModificationDateBase, UrlBase):
     def __str__(self):
         return self.bank
 
+class Payment(CreationModificationDateBase, UrlBase):
+    rekening = models.ForeignKey(Rekening, on_delete=models.SET_NULL, blank=True, null=True)
+    number = models.CharField(max_length=20)
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.number
+
 class Dompet(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
     # rekening = models.CharField(max_length=40, choices=DAFTAR_BANK)

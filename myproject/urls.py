@@ -19,13 +19,15 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
+from myproject.apps.portofolio.views import home
 
 
 urlpatterns = i18n_patterns(
-    path('', TemplateView.as_view(template_name="index.html")),
+    path('', home, name='home'),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path("portofolio/", include(("myproject.apps.portofolio.urls", "portofolio"), namespace="portofolio")),
+    path("cart/", include(("myproject.apps.cart.urls", "cart"), namespace="cart")),
     prefix_default_language=False,
 )
 

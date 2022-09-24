@@ -4,10 +4,14 @@ from django.http import HttpResponseRedirect
 from django.forms import modelformset_factory
 from django.core.exceptions import ValidationError
 
+
 from .models import MultiImage, Portofolio, SpecialInvitation, Dompet, Quote, Fitur
 
 from .forms import PortofolioForm, MultiImageForm, SpecialInvitationForm, \
     BaseRegisterFormSet, DompetForm, QuoteForm
+
+def home(request):
+    return render(request, 'index.html')
 
 # Portofolio registration
 def register(request, id=None):

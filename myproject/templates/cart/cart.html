@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %} Cart | {% endblock %}
+
+{% block isi %}
+    <div class="container">
+        <div class="box">
+            <h1 class="title is-size-3-tablet is-size-4-mobile has-text-centered">Keranjang Belanja</h1>
+
+            {% if cart %}
+                <div class="table">
+                    <table class="table">
+                        <thead class="has-background-light">
+                            <th>Produk</th>
+                            <th>Jumlah</th>
+                            <th>Harga</th>
+                            <th></th>
+                        </thead>
+                        {% for item in cart %}
+                        {% with product=item.product %}
+                            <tbody>
+                                <tr>
+
+                                    <td class="is-size-6-mobile">
+                                        {{ product.name }}
+                                    </td>
+                                    <td>{{ item.quantity }}</td>
+                                    <td>{{ item.total_price }}</td>
+                                    <td>
+                                        <form action="{% url 'cart:remove_cart' product.id %}" method="post">
+                                            {% csrf_token %}
+                                            <input class="button is-small is-danger" type="submit" value="Hapus">
+                                        </form>
+<!--                                        <button class="button is-small is-danger is-size-7-mobile"><a href="{% url 'cart:remove_cart' product.id %}">Hapus</a></button>-->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        {% endwith %}
+                        {% endfor %}
+
+                        <tfoot>
+                            <tr>
+                                <td>Total</td>
+                                <td>{{ cart.get_total_quantity }}</td>
+                                <td>{{ cart.get_total_price }}</td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+
+                {% for item in cart %}
+                {% with product=item.product %}
+                <div class="field is-hidden">
+                    <div class="control">
+                        <input class="input" type="text" name="product_title" value="{{ product.title }}">
+                    </div>
+                </div>
+                {% endwith %}
+                {% endfor %}
+
+                <div class="field is-hidden">
+                    <div class="control">
+                        <input class="input" type="text" name="total_price" value="{{ cart.get_total_price }}">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        <input class="input" type="text" name="nama" value="{{ user.username }}" placeholder="Nama lengkap">
+                    </div>
+                    <span style="color: red"></span>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        <input class="input" type="text" name="nomor_hp" placeholder="Nomor Hp">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        <input class="textarea" type="text" name="pesan" placeholder="Tambahkan Pesan">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Metode Pembayaran</label>
+
+                    <div class="control">
+                        <div class="select is-size-7-mobile">
+                            <select id="metode_bayar">
+                                {% for payment in payments %}
+                                    <option value="{{ payment.rekening }}">{{ payment.rekening }}({{ payment.number}}), an {{ payment.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        <input class="input" type="text" name="nama_rekening" placeholder="Masukan nama pemilik rekening/wallet">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        <a class="button is-light" href="{% url 'cart:clear_cart' %}">Beli</a>
+                    </div>
+                </div>
+
+
+            {% else %}
+                <div class="container has-text-centered">
+                    <p class="has-text-danger">Keranjang anda kosong!</p>
+                    <br>
+                    <button class="button is-primary">
+                        <a href="/">Mulai belanja</a>
+                    </button>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <input-form @change-visible="changeVisible" :visible="visible"></input-form>
+{% endblock %}
