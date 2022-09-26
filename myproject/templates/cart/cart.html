@@ -10,7 +10,7 @@
 
             {% if cart %}
                 <div class="table">
-                    <table class="table">
+                    <table class="table is-size-5-desktop is-size-6-tablet is-size-7-mobile">
                         <thead class="has-background-light">
                             <th>Produk</th>
                             <th>Jumlah</th>
@@ -22,9 +22,7 @@
                             <tbody>
                                 <tr>
 
-                                    <td class="is-size-6-mobile">
-                                        {{ product.name }}
-                                    </td>
+                                    <td>{{ product.name }}</td>
                                     <td>{{ item.quantity }}</td>
                                     <td>{{ item.total_price }}</td>
                                     <td>

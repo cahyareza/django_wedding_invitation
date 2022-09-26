@@ -9,35 +9,33 @@
             <h1 class="title is-size-3-tablet is-size-4-mobile has-text-centered">Keranjang Belanja</h1>
 
             {% if order %}
-                <div class="table">
-                    <table class="table">
-                        <thead class="has-background-light">
-                            <th>No</th>
-                            <th>Produk</th>
-                            <th>Harga</th>
-                            <th>Status</th>
-                        </thead>
-                        <tbody>
-                            {% for item in order.items.all %}
-                                <tr>
-                                    <td>{{ forloop.counter }}</td>
-                                    <td>{{ item.product }}</td>
-                                    <td>{{ item.price }}</td>
-                                    <td>{{ order.status }}</td>
-                                </tr>
-                            {% endfor %}
-                                <tr>
-                                    <td>Total</td>
-                                    <td></td>
-                                    <td>{{ order.paid }}</td>
-                                </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <table class="table is-size-5-desktop is-size-6-tablet is-size-7-mobile">
+                    <thead class="has-background-light">
+                        <th>No</th>
+                        <th>Produk</th>
+                        <th>Harga</th>
+                        <th>Status</th>
+                    </thead>
+                    <tbody>
+                        {% for item in order.items.all %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ item.product }}</td>
+                                <td>{{ item.price }}</td>
+                                <td>{{ order.status }}</td>
+                            </tr>
+                        {% endfor %}
+                            <tr>
+                                <td>Total</td>
+                                <td></td>
+                                <td>{{ order.paid }}</td>
+                            </tr>
+                    </tbody>
+                </table>
 
                 <form action="{% url 'order:delete' order.id %}" method="post">
                     {% csrf_token %}
-                    <input class="button is-danger" type="submit" value="Hapus order">
+                    <input class="button is-small is-danger" type="submit" value="Hapus order">
                 </form>
 
                 {% include "order/order_update.html" %}

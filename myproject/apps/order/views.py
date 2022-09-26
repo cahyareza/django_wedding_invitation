@@ -53,7 +53,7 @@ def order_checkout_view(request):
     else:
         form = OrderForm(request.POST or None, request.FILES)
 
-    return render(request, 'order/checkout.html', {"form": form} )
+    return render(request, 'cart/failed.html', {"form": form} )
 
 @login_required
 def order_checkout_update(request, id):
