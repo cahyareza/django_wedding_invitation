@@ -28,6 +28,7 @@ urlpatterns = i18n_patterns(
     path('accounts/', include('allauth.urls')),
     path("portofolio/", include(("myproject.apps.portofolio.urls", "portofolio"), namespace="portofolio")),
     path("cart/", include(("myproject.apps.cart.urls", "cart"), namespace="cart")),
+    path("order/", include(("myproject.apps.order.urls", "order"), namespace="order")),
     prefix_default_language=False,
 )
 

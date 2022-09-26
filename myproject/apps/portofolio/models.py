@@ -199,7 +199,7 @@ class Payment(CreationModificationDateBase, UrlBase):
     name = models.CharField(max_length=20)
 
     def __str__(self):
-        return self.number
+        return self.rekening.bank
 
 class Dompet(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
@@ -265,9 +265,13 @@ class Fitur(CreationModificationDateBase, UrlBase):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
+class FiturProduct(CreationModificationDateBase, UrlBase):
+    fitur = models.ForeignKey(Fitur, on_delete=models.SET_NULL, blank=True, null=True)
+    portofolio = models.OneToOneField(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
+
 class Theme(CreationModificationDateBase, UrlBase):
     fitur = models.ForeignKey(Fitur, on_delete=models.CASCADE, blank=True, null=True)
-    portofolio = models.OneToOneField(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
+    # portofolio = models.OneToOneField(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=40, choices=THEME_LIST, blank=True, null=True)
     slug = models.SlugField(max_length=255, blank=True)
 

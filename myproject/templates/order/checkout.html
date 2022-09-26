@@ -1,0 +1,43 @@
+<form action="{% url 'order:checkout' %}" method="POST" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    <!--   INFORMASI CHECKOUT  -->
+    <div class="notification is-light p-1 has-text-centered mt-4">
+        INFORMASI CHECKOUT
+    </div>
+    <div class="columns is-multiline mt-1">
+        <div class="column is-8">
+            {{ orderform.phone.label_tag }}
+            {{ orderform.phone }}
+
+            {% for error in orderform.phone.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div class="column is-8">
+          {{ orderform.place.label_tag }}
+          {{ orderform.place }}
+
+          {% for error in orderform.place.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+        <div class="column is-8">
+            {{ orderform.payment.label_tag }}
+            {{ orderform.payment }}
+
+            {% for error in orderform.payment.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div class="column is-8">
+          {{ orderform.nama_rekening.label_tag }}
+          {{ orderform.nama_rekening }}
+
+          {% for error in orderform.nama_rekening.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+    </div>
+
+    <button id="submit" type="submit" class="button is-light p-2 mt-1">Submit</button>
+</form>

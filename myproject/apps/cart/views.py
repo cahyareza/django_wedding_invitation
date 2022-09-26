@@ -3,6 +3,7 @@ from .cart import Cart
 from ..portofolio.models import Fitur, Payment
 
 def add_cart(request, product_id):
+    # Cart
     cart = Cart(request)
     product = get_object_or_404(Fitur, id=product_id)
     initial_data = {
@@ -11,12 +12,12 @@ def add_cart(request, product_id):
     }
 
     if request.method == "POST":
-        print("valid")
+        # Cart
         cart.add(product=product, quantity=initial_data['quantity'], override_quantity=initial_data['override'])
 
         return redirect('cart:cart_detail')
 
-    return render(request, 'index.html', {'form': form})
+    return render(request, 'index.html')
 
 def remove_cart(request, product_id):
     cart = Cart(request)

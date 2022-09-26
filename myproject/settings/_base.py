@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     'myproject.apps.portofolio',
     'myproject.apps.accounts',
     'myproject.apps.cart',
+    'myproject.apps.order',
 ]
 
 MIDDLEWARE = [
@@ -98,8 +99,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'myproject.apps.core.context_processor.listProduct',
-                'myproject.apps.core.context_processor.cartaddform',
                 'myproject.apps.core.context_processor.cart',
+                'myproject.apps.core.context_processor.order_checkout_form',
             ],
         },
     },

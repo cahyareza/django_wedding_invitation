@@ -50,66 +50,7 @@
                     </table>
                 </div>
 
-
-                {% for item in cart %}
-                {% with product=item.product %}
-                <div class="field is-hidden">
-                    <div class="control">
-                        <input class="input" type="text" name="product_title" value="{{ product.title }}">
-                    </div>
-                </div>
-                {% endwith %}
-                {% endfor %}
-
-                <div class="field is-hidden">
-                    <div class="control">
-                        <input class="input" type="text" name="total_price" value="{{ cart.get_total_price }}">
-                    </div>
-                </div>
-
-                <div class="field">
-                    <div class="control">
-                        <input class="input" type="text" name="nama" value="{{ user.username }}" placeholder="Nama lengkap">
-                    </div>
-                    <span style="color: red"></span>
-                </div>
-
-                <div class="field">
-                    <div class="control">
-                        <input class="input" type="text" name="nomor_hp" placeholder="Nomor Hp">
-                    </div>
-                </div>
-
-                <div class="field">
-                    <div class="control">
-                        <input class="textarea" type="text" name="pesan" placeholder="Tambahkan Pesan">
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label class="label">Metode Pembayaran</label>
-
-                    <div class="control">
-                        <div class="select is-size-7-mobile">
-                            <select id="metode_bayar">
-                                {% for payment in payments %}
-                                    <option value="{{ payment.rekening }}">{{ payment.rekening }}({{ payment.number}}), an {{ payment.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="field">
-                    <div class="control">
-                        <input class="input" type="text" name="nama_rekening" placeholder="Masukan nama pemilik rekening/wallet">
-                    </div>
-                </div>
-
-                <div class="field">
-                    <div class="control">
-                        <a class="button is-light" href="{% url 'cart:clear_cart' %}">Beli</a>
-                    </div>
+                {% include "order/checkout.html" %}
                 </div>
 
 
@@ -124,6 +65,4 @@
             {% endif %}
         </div>
     </div>
-
-    <input-form @change-visible="changeVisible" :visible="visible"></input-form>
 {% endblock %}

@@ -1,18 +1,22 @@
 from myproject.apps.portofolio.models import Fitur
 from myproject.apps.cart.cart import Cart
-from myproject.apps.cart.forms import CartAddProductForm
+
+from myproject.apps.portofolio.models import Fitur
+from myproject.apps.order.models import Order, OrderItem
+from myproject.apps.order.forms import OrderForm
+from django.contrib.auth.decorators import login_required
 
 def listProduct(request):
     objects_fitur = Fitur.objects.all()
 
     return {'fiturs': objects_fitur}
 
-def cartaddform(request):
-    form = CartAddProductForm(request.POST)
-    print(form)
-    return {'cartaddform': form }
-
-
 def cart(request):
     return {'cart' : Cart(request)}
+
+@login_required
+def order_checkout_form(request):
+    form = OrderForm(request.POST or None)
+
+    return {"orderform": form}
 
