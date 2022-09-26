@@ -31,12 +31,12 @@ def order_checkout_view(request):
             instance.paid =  cart.get_total_price()
             instance.save()
 
-            order_pk = instance.pk
-
+            order_instance = Order.objects.get(pk=instance.pk)
             # create orderitem
             for item in cart:
                 print(item)
-                OrderItem.objects.create(order=order_pk, price=item['total_price'], product= ['item.product.name'], quantity=['item.quantity'])
+                fitur_instance = Fitur.objects.get(pk=item['product'].pk)
+                OrderItem.objects.create(order=order_instance, price=item['total_price'], product= fitur_instance, quantity=item['quantity'])
 
             # clear session
             cart.clear

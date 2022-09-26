@@ -30,8 +30,14 @@ class Order(CreationModificationDateBase, UrlBase):
             "order_id": self.id,
         })
 
+    def __str__(self):
+        return self.user
+
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product = models.ForeignKey(Fitur, null=True, on_delete=models.SET_NULL)
     price = models.FloatField()
     quantity = models.IntegerField(default=1)
+
+    def __str__(self):
+        return self.order.user
