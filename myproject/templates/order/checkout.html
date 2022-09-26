@@ -1,5 +1,6 @@
 <form action="{% url 'order:checkout' %}" method="POST" enctype="multipart/form-data" novalidate>
     {% csrf_token %}
+
     <!--   INFORMASI CHECKOUT  -->
     <div class="notification is-light p-1 has-text-centered mt-4">
         INFORMASI CHECKOUT

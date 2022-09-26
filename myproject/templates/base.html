@@ -48,7 +48,11 @@
               {% if user.is_authenticated %}
                   <a class="navbar-item has-text-weight-bold" href="{% url 'portofolio:myportofolio' %}">My Portofolio</a>
                   <a class="navbar-item has-text-weight-bold" href="{% url 'account_logout' %}">Sign Out</a>
-                  <a class="navbar-item has-text-weight-bold" href="{% url 'cart:cart_detail' %}">Cart ({{ cart.get_total_quantity }})</a>
+                  {% if order %}
+                    <a class="navbar-item has-text-weight-bold" href="{% url 'order:list' %}">Order ({{ order.status }})</a>
+                  {% else %}
+                    <a class="navbar-item has-text-weight-bold" href="{% url 'cart:cart_detail' %}">Cart ({{ cart.get_total_quantity }})</a>
+                  {% endif %}
               {% else %}
                   <a class="navbar-item has-text-weight-bold" href="{% url 'account_login' %}">Sign In</a>
                   <a class="navbar-item has-text-weight-bold" href="{% url 'account_signup' %}">Sign Up</a>

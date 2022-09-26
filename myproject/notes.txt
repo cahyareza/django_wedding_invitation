@@ -1,36 +1,18 @@
+                <form action="{% url 'order:update' order.id %}" method="POST" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <!--   INFORMASI PEMBAYARAN  -->
+                    <div class="notification is-light p-1 has-text-centered mt-4">
+                        INFORMASI PEMBAYARAN
+                    </div>
+                    <div class="columns is-multiline mt-1">
+                        <div class="column is-8 mb-">
+                            {{ orderform.bukti.label_tag }}
+                            {{ orderform.bukti }}
 
-
-{% extends 'base.html' %}
-{% load socialaccount %}
-
-{% block content %}
-    <div class="container mt-5">
-        <div class="card p-5 m-5">
-            <form class="form-signin">
-                <div class="columns is-multiline">
-                    <div class="column is-10 mb-1">
-                        <div class="field">
-                            <h1 class="title is-size-4 mb-3 has-text-centered">Please sign in</h1>
-                            <label for="inputEmail" class="label">Email address</label>
-                            <div class="control">
-                                <input type="email" id="inputEmail" class="input" placeholder="Email address" required autofocus>
-                            </div>
-                            <label for="inputPassword" class="label">Password</label>
-                            <div class="control">
-                                <input type="password" id="inputPassword" class="input" placeholder="Password" required>
-                            </div>
-                            <label class="checkbox mt-3">
-                                <input type="checkbox" value="remember-me">
-                                Remember me
-                            </label>
+                            {% for error in orderform.bukti.errors %}
+                                <p class="help is-danger">{{ error }}</p>
+                            {% endfor %}
                         </div>
                     </div>
-                    <div class="column is-10 mt-1">
-                        <button class="button is-danger" type="submit">Sign in</button>
-                        <a href="{% provider_login_url 'google' %}" class="button is-link" role="button" aria-pressed="true">Sign in with Google</a>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-{% endblock %}
+                    <button id="submit" type="submit" class="button is-light p-2 mt-1">Submit</button>
+                </form>

@@ -20,3 +20,13 @@ def order_checkout_form(request):
 
     return {"orderform": form}
 
+@login_required
+def order_checkout_update(request):
+    obj = Order.objects.filter(user=request.user).first()
+    form2 = OrderForm(instance=obj)
+
+    return {"orderform2": form2}
+
+def order(request):
+    order = Order.objects.filter(user=request.user).first()
+    return {'order' : order}

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %} Order | {% endblock %}
+
+{% block isi %}
+    <div class="container">
+        <div class="box">
+            <h1 class="title is-size-3-tablet is-size-4-mobile has-text-centered">Keranjang Belanja</h1>
+
+            {% if order %}
+                <div class="table">
+                    <table class="table">
+                        <thead class="has-background-light">
+                            <th>No</th>
+                            <th>Produk</th>
+                            <th>Harga</th>
+                            <th>Status</th>
+                        </thead>
+                        <tbody>
+                            {% for item in order.items.all %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ item.product }}</td>
+                                    <td>{{ item.price }}</td>
+                                    <td>{{ order.status }}</td>
+                                </tr>
+                            {% endfor %}
+                                <tr>
+                                    <td>Total</td>
+                                    <td></td>
+                                    <td>{{ order.paid }}</td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <form action="{% url 'order:delete' order.id %}" method="post">
+                    {% csrf_token %}
+                    <input class="button is-danger" type="submit" value="Hapus order">
+                </form>
+
+                {% include "order/order_update.html" %}
+
+
+            {% else %}
+                <div class="container has-text-centered">
+                    <p class="has-text-danger">Order anda kosong!</p>
+                    <br>
+                    <button class="button is-primary">
+                        <a href="/">Mulai order</a>
+                    </button>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

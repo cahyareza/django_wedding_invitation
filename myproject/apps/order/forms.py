@@ -21,6 +21,17 @@ class OrderForm(forms.ModelForm):
 
     }))
 
+    bukti = forms.FileField(
+        label="Bukti pembayaran",
+        widget=forms.ClearableFileInput(
+            attrs={
+                'placeholder': 'Select a picture',
+                'class': 'image',
+                'style': 'font-size: 15px',
+            }
+        )
+    )
+
     class Meta:
         model = Order
         fields = "__all__"
@@ -44,6 +55,7 @@ class OrderForm(forms.ModelForm):
         self.fields['user'].required = False
         self.fields['status'].required = False
         self.fields['paid'].required = False
+        self.fields['bukti'].required = False
 
         # 2. Select option
         self.fields["payment"].choices = [('', 'Pilih payment'),] + list(self.fields["payment"].choices)[1:]

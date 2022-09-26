@@ -1,0 +1,52 @@
+<form action="{% url 'order:update' order.id %}" method="POST" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+
+    <!--   INFORMASI CHECKOUT  -->
+    <div class="notification is-light p-1 has-text-centered mt-4">
+        INFORMASI PEMBAYARAN
+    </div>
+    <div class="columns is-multiline mt-1">
+        <div class="column is-hidden is-8">
+            {{ orderform2.phone.label_tag }}
+            {{ orderform2.phone }}
+
+            {% for error in orderform2.phone.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div class="column is-hidden is-8">
+          {{ orderform2.place.label_tag }}
+          {{ orderform2.place }}
+
+          {% for error in orderform2.place.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+        <div class="column is-hidden is-8">
+            {{ orderform2.payment.label_tag }}
+            {{ orderform2.payment }}
+
+            {% for error in orderform2.payment.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div class="column is-hidden is-8">
+          {{ orderform2.nama_rekening.label_tag }}
+          {{ orderform2.nama_rekening }}
+
+          {% for error in orderform2.nama_rekening.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+        <div class="column is-8 mb-">
+            {{ orderform2.bukti.label_tag }}
+            {{ orderform2.bukti }}
+
+            {% for error in orderform.bukti.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <button id="submit" type="submit" class="button is-light p-2 mt-1">Submit</button>
+</form>
