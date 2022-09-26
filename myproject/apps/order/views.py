@@ -92,3 +92,6 @@ def order_delete(request, id):
     obj.delete()
 
     return render(request, 'order/my_orders.html')
+
+def status_order(request):
+    return render(request, 'order/status_order.html')
