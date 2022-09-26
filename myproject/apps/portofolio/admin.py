@@ -36,6 +36,9 @@ class FiturProductInline(admin.TabularInline):
 
 @admin.register(Portofolio)
 class PortofolioAdmin(admin.ModelAdmin):
+    list_filter = ['tanggal_resepsi']
+    list_display = ['porto_name', 'pname', 'lname', 'tanggal_resepsi', 'waktu_resepsi', 'tempat_resepsi', 'created']
+    search_fields = ['porto_name', 'tanggal_resepsi', 'created']
     inlines = [FiturProductInline, MultiImageInline, SpecialInvitationInline, DompetInline, QuoteInline,
                UcapanInline, HadirInline]
     list_per_page = 10

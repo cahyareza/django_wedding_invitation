@@ -136,7 +136,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     link_gmap = models.TextField()
 
     class Meta:
-        verbose_name_plural = "Portofolio"
+        verbose_name_plural = "APortofolio"
 
     def __str__(self):
         return self.porto_name
