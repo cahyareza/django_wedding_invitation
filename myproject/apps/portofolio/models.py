@@ -78,7 +78,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
-    porto_name = models.CharField(max_length=150)
+    porto_name = models.CharField(max_length=150, unique=True)
     slug = models.SlugField(max_length=255)
     # Couple
     pname = models.CharField(max_length=40)
