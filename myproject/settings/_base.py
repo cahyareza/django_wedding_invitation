@@ -216,3 +216,9 @@ ACCOUNT_FORMS = {
     'signup': 'myproject.apps.accounts.forms.MyCustomSignupForm',
 
 }
+
+REST_FRAMEWORK = {
+   'DEFAULT_PAGINATION_CLASS':
+   'rest_framework.pagination.LimitOffsetPagination',
+   'PAGE_SIZE': 4
+}
