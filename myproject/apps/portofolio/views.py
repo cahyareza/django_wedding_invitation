@@ -3,9 +3,15 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.forms import modelformset_factory
 from django.core.exceptions import ValidationError
+from .serializers import PortofolioSerializer, RekeningSerializer, DompetSerializer, \
+    MultiImageSerializer, SpecialInvitationSerializer, PaymentSerializer, QuoteSerializer, \
+    UcapanSerializer, HadirSerializer, FiturSerializer, FiturProductSerializer, ThemeSerializer
+from rest_framework import generics
 
 
-from .models import MultiImage, Portofolio, SpecialInvitation, Dompet, Quote, Fitur
+from .models import MultiImage, Portofolio, SpecialInvitation, Dompet, Quote, Fitur, \
+    Rekening, Payment, MultiImage, SpecialInvitation, Ucapan, Hadir, Fitur, FiturProduct, \
+    Theme
 
 from .forms import PortofolioForm, MultiImageForm, SpecialInvitationForm, \
     BaseRegisterFormSet, DompetForm, QuoteForm
@@ -230,3 +236,151 @@ def myportofolio(request):
         'portofolios': portofolios,
     }
     return render(request, 'portofolio/myportofolio.html', context)
+
+
+
+#################### SERIALIZER #######################
+
+# Portofolio
+class PortofolioList(generics.ListCreateAPIView):
+    queryset = Portofolio.objects.all()
+    serializer_class = PortofolioSerializer
+    name = 'portofolio-list'
+
+
+class PortofolioDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Portofolio.objects.all()
+    serializer_class = PortofolioSerializer
+    name = 'portofolio-detail'
+
+# Rekening
+class RekeningList(generics.ListCreateAPIView):
+    queryset = Rekening.objects.all()
+    serializer_class = RekeningSerializer
+    name = 'rekening-list'
+
+
+class RekeningDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Rekening.objects.all()
+    serializer_class = RekeningSerializer
+    name = 'rekening-detail'
+
+# Multiimage
+class MultiImageList(generics.ListCreateAPIView):
+    queryset = MultiImage.objects.all()
+    serializer_class = MultiImageSerializer
+    name = 'multiimage-list'
+
+
+class MultiImageDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = MultiImage.objects.all()
+    serializer_class = MultiImageSerializer
+    name = 'multiimage-detail'
+
+# SpecialInvitation
+class SpecialInvitationList(generics.ListCreateAPIView):
+    queryset = SpecialInvitation.objects.all()
+    serializer_class = SpecialInvitationSerializer
+    name = 'specialinvitation-list'
+
+
+class SpecialInvitationDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = SpecialInvitation.objects.all()
+    serializer_class = SpecialInvitationSerializer
+    name = 'specialinvitation-detail'
+
+# Payment
+class PaymentList(generics.ListCreateAPIView):
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer
+    name = 'payment-list'
+
+
+class PaymentDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer
+    name = 'payment-detail'
+
+# Dompet
+class DompetList(generics.ListCreateAPIView):
+    queryset = Dompet.objects.all()
+    serializer_class = DompetSerializer
+    name = 'dompet-list'
+
+
+class DompetDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Dompet.objects.all()
+    serializer_class = DompetSerializer
+    name = 'dompet-detail'
+
+# Quote
+class QuoteList(generics.ListCreateAPIView):
+    queryset = Quote.objects.all()
+    serializer_class = QuoteSerializer
+    name = 'quote-list'
+
+
+class QuoteDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Quote.objects.all()
+    serializer_class = QuoteSerializer
+    name = 'quote-detail'
+
+# Ucapan
+class UcapanList(generics.ListCreateAPIView):
+    queryset = Ucapan.objects.all()
+    serializer_class = UcapanSerializer
+    name = 'ucapan-list'
+
+
+class UcapanDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Ucapan.objects.all()
+    serializer_class = UcapanSerializer
+    name = 'ucapan-detail'
+
+# Hadir
+class HadirList(generics.ListCreateAPIView):
+    queryset = Hadir.objects.all()
+    serializer_class = HadirSerializer
+    name = 'hadir-list'
+
+
+class HadirDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Hadir.objects.all()
+    serializer_class = HadirSerializer
+    name = 'hadir-detail'
+
+# Fitur
+class FiturList(generics.ListCreateAPIView):
+    queryset = Fitur.objects.all()
+    serializer_class = FiturSerializer
+    name = 'fitur-list'
+
+
+class FiturDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Fitur.objects.all()
+    serializer_class = FiturSerializer
+    name = 'fitur-detail'
+
+# FiturProduct
+class FiturProductList(generics.ListCreateAPIView):
+    queryset = FiturProduct.objects.all()
+    serializer_class = FiturProductSerializer
+    name = 'fiturproduct-list'
+
+
+class FiturProductDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = FiturProduct.objects.all()
+    serializer_class = FiturProductSerializer
+    name = 'fiturproduct-detail'
+
+# Theme
+class ThemeList(generics.ListCreateAPIView):
+    queryset = Theme.objects.all()
+    serializer_class = ThemeSerializer
+    name = 'theme-list'
+
+
+class ThemeDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Theme.objects.all()
+    serializer_class = ThemeSerializer
+    name = 'theme-detail'

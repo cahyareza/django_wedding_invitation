@@ -67,6 +67,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',  # new
     'allauth.socialaccount.providers.google',
     'multiselectfield',
+    'rest_framework',
+
     # local
     'myproject.apps.portofolio',
     'myproject.apps.accounts',
