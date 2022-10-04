@@ -190,7 +190,8 @@ DATE_INPUT_FORMATS = ['%d-%m-%Y']
 
 SITE_ID = 2
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 
 # Provider specific settings
 SOCIALACCOUNT_PROVIDERS = {
