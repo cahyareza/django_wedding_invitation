@@ -7,6 +7,8 @@ from .serializers import PortofolioSerializer, RekeningSerializer, DompetSeriali
     MultiImageSerializer, SpecialInvitationSerializer, PaymentSerializer, QuoteSerializer, \
     UcapanSerializer, HadirSerializer, FiturSerializer, FiturProductSerializer, ThemeSerializer
 from rest_framework import generics
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
 
 
 from .models import MultiImage, Portofolio, SpecialInvitation, Dompet, Quote, Fitur, \
@@ -384,3 +386,21 @@ class ThemeDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Theme.objects.all()
     serializer_class = ThemeSerializer
     name = 'theme-detail'
+
+class ApiRoot(generics.GenericAPIView):
+    name = 'api-root'
+    def get(self, request, *args, **kwargs):
+        return Response({
+            'portofolios': reverse('portofolio:portofolio-list', request=request),
+            'rekenings': reverse('portofolio:rekening-list', request=request),
+            'dompets': reverse('portofolio:dompet-list', request=request),
+            'multiimages': reverse('portofolio:multiimage-list', request=request),
+            'specialinvitations': reverse('portofolio:specialinvitation-list', request=request),
+            'payments': reverse('portofolio:payment-list', request=request),
+            'quotes': reverse('portofolio:quote-list', request=request),
+            'ucapans': reverse('portofolio:ucapan-list', request=request),
+            'hadirs': reverse('portofolio:hadir-list', request=request),
+            'fiturs': reverse('portofolio:fitur-list', request=request),
+            'fiturproducts': reverse('portofolio:fiturproduct-list', request=request),
+            'themes': reverse('portofolio:theme-list', request=request),
+            })

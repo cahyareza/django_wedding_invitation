@@ -7,7 +7,7 @@ from .views import (
     SpecialInvitationList, SpecialInvitationDetail, PaymentList, \
     PaymentDetail, QuoteList, QuoteDetail, UcapanList, UcapanDetail, \
     HadirList, HadirDetail, FiturList, FiturDetail, FiturProductList, FiturProductDetail, \
-    ThemeList, ThemeDetail
+    ThemeList, ThemeDetail, ApiRoot
 )
 
 
@@ -50,4 +50,6 @@ urlpatterns = [
 
     path('api/theme/', ThemeList.as_view(), name=views.ThemeList.name),
     path('api/theme/<int:pk>', ThemeDetail.as_view(), name=views.ThemeDetail.name),
+
+    path('api/', ApiRoot.as_view(), name=views.ApiRoot.name),
 ]
