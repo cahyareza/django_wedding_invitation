@@ -248,12 +248,24 @@ class PortofolioList(generics.ListCreateAPIView):
     queryset = Portofolio.objects.all()
     serializer_class = PortofolioSerializer
     name = 'portofolio-list'
-
+    filter_fields = (
+        'slug',
+        'user',
+    )
+    search_fields = (
+        '^slug',
+        '^user',
+    )
+    ordering_fields = (
+        'slug',
+        'user',
+    )
 
 class PortofolioDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Portofolio.objects.all()
     serializer_class = PortofolioSerializer
     name = 'portofolio-detail'
+
 
 # Rekening
 class RekeningList(generics.ListCreateAPIView):
