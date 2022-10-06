@@ -1,5 +1,6 @@
 import json
 import re
+from datetime import datetime
 
 from django.db import models
 from django.urls import reverse
@@ -103,6 +104,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     tanggal_resepsi = models.DateField(auto_now=False, auto_now_add=False)
     waktu_resepsi = models.TimeField(auto_now=False, auto_now_add=False)
     waktu_selesai_resepsi = models.TimeField(auto_now=False, auto_now_add=False)
+    datetime_resepsi = models.DateTimeField(auto_now=False, auto_now_add=False)
     tempat_resepsi = models.CharField(max_length=250)
     link_gmap_resepsi = models.TextField()
     tanggal_unduhmantu = models.DateField(auto_now=False, auto_now_add=False)
@@ -170,6 +172,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
         self.trigger = "click"
         self.iCalFileName = "Reminder-Event"
         self.slug = slugify(self.porto_name)
+        self.datetime_resepsi = datetime.combine(self.tanggal_resepsi,self.waktu_resepsi)
         super().save(*args, **kwargs)
 
 class MultiImage(CreationModificationDateBase, UrlBase):

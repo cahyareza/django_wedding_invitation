@@ -475,6 +475,20 @@ class PortofolioForm(forms.ModelForm):
                     'data-mask': '00:00'
                 }
             ),
+            # Datetime resepsi
+            'datetime_resepsi': forms.DateTimeInput(
+                format='%d-%m-%Y %H:%M',
+                attrs={
+                    'placeholder': 'dd-mm-yyyy hh:mm',
+                    'style': 'font-size: 13px; cursor: pointer;',
+                    # 'type': 'date',
+                    'class': 'input',
+                    # 'onkeydown': 'return false',  # Block typing inside field
+                    # 'min': '2022-01-01',
+                    # 'max': '2030-01-01',
+                    'data-mask': '00-00-0000 00:00'
+                },
+            ),
             # Waktu selesai resepsi
             'waktu_selesai_resepsi': forms.TimeInput(
                 attrs={
@@ -581,6 +595,8 @@ class PortofolioForm(forms.ModelForm):
 
         self.fields['user'].required = False
         self.fields['slug'].required = False
+
+        self.fields['datetime_resepsi'].required = False
 
 
 

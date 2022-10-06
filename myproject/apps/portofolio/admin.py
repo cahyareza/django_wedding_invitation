@@ -53,7 +53,7 @@ class PortofolioAdmin(admin.ModelAdmin):
          ),
         # INFORMASI ACARA
         ('INFORMASI ACARA', {"fields": ['tanggal_akad','waktu_akad', 'waktu_selesai_akad',
-        'tempat_akad', 'link_gmap_akad', 'tanggal_resepsi','waktu_resepsi', 'waktu_selesai_resepsi',
+        'tempat_akad', 'link_gmap_akad', 'tanggal_resepsi','waktu_resepsi', 'datetime_resepsi', 'waktu_selesai_resepsi',
         'tempat_resepsi', 'link_gmap_resepsi', 'tanggal_unduhmantu','waktu_unduhmantu',
         'waktu_selesai_unduhmantu', 'tempat_unduhmantu','link_gmap_unduhmantu']}
         ),

@@ -11,7 +11,7 @@ class PortofolioSerializer(serializers.ModelSerializer):
         fields = ("user", "porto_name", "slug", "pname", "pinsta_link", "panak_ke",\
                   "pnama_ayah", "pnama_ibu", "ppicture", "lname", "linsta_link", "lanak_ke", \
                   "lnama_ayah", "lnama_ibu", "lpicture", "tanggal_akad", "waktu_akad", "waktu_selesai_akad", \
-                  "tempat_akad", "link_gmap_akad", "tanggal_resepsi", "waktu_resepsi", "waktu_selesai_resepsi", \
+                  "tempat_akad", "link_gmap_akad", "tanggal_resepsi", "waktu_resepsi", "waktu_selesai_resepsi", "datetime_resepsi",\
                   "tempat_resepsi", "link_gmap_resepsi", "tanggal_unduhmantu", "waktu_unduhmantu", "waktu_selesai_unduhmantu", \
                   "tempat_unduhmantu", "link_gmap_unduhmantu", "video", "livestream", "name", "description", "startDate",
                   "location", "startTime", "endTime", "options", "timeZone", "trigger", "iCalFileName", "link_iframe", \
