@@ -20,15 +20,15 @@ TIMEZONE_CHOICES = (
 )
 
 ANAK_KE = (
-    ('1', 'Pertama'),
-    ('2', 'Kedua'),
-    ('3', 'Ketiga'),
-    ('4', 'Keempat'),
-    ('5', 'Kelima'),
-    ('6', 'Keenam'),
-    ('7', 'Ketujuh'),
-    ('8', 'Kedelapan'),
-    ('9', 'Kesembilan'),
+    ('Pertama', 'Pertama'),
+    ('Kedua', 'Kedua'),
+    ('Ketiga', 'Ketiga'),
+    ('Keempat', 'Keempat'),
+    ('Kelima', 'Kelima'),
+    ('Keenam', 'Keenam'),
+    ('Ketujuh', 'Ketujuh'),
+    ('Kedelapan', 'Kedelapan'),
+    ('Kesembilan', 'Kesembilan'),
 )
 
 DAFTAR_BANK = (
@@ -84,13 +84,13 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     # Couple
     pname = models.CharField(max_length=40)
     pinsta_link = models.CharField(max_length=250)
-    panak_ke = models.CharField(max_length=2, choices=ANAK_KE)
+    panak_ke = models.CharField(max_length=30, choices=ANAK_KE)
     pnama_ayah = models.CharField(max_length=40)
     pnama_ibu = models.CharField(max_length=40)
     ppicture = models.ImageField(blank=True)
     lname = models.CharField(max_length=40)
     linsta_link = models.CharField(max_length=250)
-    lanak_ke = models.CharField(max_length=2, choices=ANAK_KE)
+    lanak_ke = models.CharField(max_length=30, choices=ANAK_KE)
     lnama_ayah = models.CharField(max_length=40)
     lnama_ibu = models.CharField(max_length=40)
     lpicture = models.ImageField(blank=True)
@@ -104,7 +104,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     tanggal_resepsi = models.DateField(auto_now=False, auto_now_add=False)
     waktu_resepsi = models.TimeField(auto_now=False, auto_now_add=False)
     waktu_selesai_resepsi = models.TimeField(auto_now=False, auto_now_add=False)
-    datetime_resepsi = models.DateTimeField(auto_now=False, auto_now_add=False)
+    datetime_resepsi = models.CharField(max_length=250)
     tempat_resepsi = models.CharField(max_length=250)
     link_gmap_resepsi = models.TextField()
     tanggal_unduhmantu = models.DateField(auto_now=False, auto_now_add=False)
@@ -172,7 +172,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
         self.trigger = "click"
         self.iCalFileName = "Reminder-Event"
         self.slug = slugify(self.porto_name)
-        self.datetime_resepsi = datetime.combine(self.tanggal_resepsi,self.waktu_resepsi)
+        self.datetime_resepsi = datetime.combine(self.tanggal_resepsi,self.waktu_resepsi).strftime("%Y-%m-%d %H:%M")
         super().save(*args, **kwargs)
 
 class MultiImage(CreationModificationDateBase, UrlBase):

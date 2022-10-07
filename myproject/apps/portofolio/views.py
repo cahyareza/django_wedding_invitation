@@ -10,6 +10,9 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
+from rest_framework import filters
+from django_filters import AllValuesFilter, DateTimeFilter, NumberFilter
+
 
 from .models import MultiImage, Portofolio, SpecialInvitation, Dompet, Quote, Fitur, \
     Rekening, Payment, MultiImage, SpecialInvitation, Ucapan, Hadir, Fitur, FiturProduct, \
@@ -248,18 +251,9 @@ class PortofolioList(generics.ListCreateAPIView):
     queryset = Portofolio.objects.all()
     serializer_class = PortofolioSerializer
     name = 'portofolio-list'
-    filter_fields = (
+    filterset_fields = (
         'slug',
-        'user',
-    )
-    search_fields = (
-        '^slug',
-        '^user',
-    )
-    ordering_fields = (
-        'slug',
-        'user',
-    )
+        )
 
 class PortofolioDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Portofolio.objects.all()

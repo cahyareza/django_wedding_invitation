@@ -61,19 +61,6 @@ class PortofolioForm(forms.ModelForm):
         )
     )
 
-    panak_ke = forms.CharField(
-        label='Anak ke-', min_length=1, max_length=1,
-        validators= [RegexValidator(r'^[0-9]*$',
-        message="Only numbers is allowed !")],
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Misal: 1',
-                'class': 'input',
-                'style': 'font-size: 13px',
-            }
-        )
-    )
-
     pnama_ayah = forms.CharField(
         label='Nama ayah', min_length=3, max_length=50,
         validators=[RegexValidator(r'^[a-zA-ZA-y\s]*$',
@@ -135,19 +122,6 @@ class PortofolioForm(forms.ModelForm):
                 'placeholder': 'https://www.instagram.com/cahya_rez/',
                 'class': 'input',
                 'style': 'font-size: 13px;'
-            }
-        )
-    )
-
-    lanak_ke = forms.CharField(
-        label='Anak ke-', min_length=1, max_length=1,
-        validators= [RegexValidator(r'^[0-9]*$',
-        message="Only numbers is allowed !")],
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Misal: 3',
-                'class': 'input',
-                'style': 'font-size: 13px',
             }
         )
     )
@@ -415,6 +389,8 @@ class PortofolioForm(forms.ModelForm):
             'tanggal_unduhmantu': "Tanggal unduh mantu",
             'waktu_unduhmantu': "Waktu unduh mantu",
             'waktu_selesai_unduhmantu': "Waktu selesai unduh mantu",
+            'panak_ke': "Anak ke-",
+            'lanak_ke': "Anak ke-",
 
         }
 
@@ -569,6 +545,18 @@ class PortofolioForm(forms.ModelForm):
                     'style': 'font-size: 13px',
                 }
             ),
+            'panak_ke': forms.Select(
+                attrs={
+                    'class': 'input',
+                    'style': 'font-size: 13px',
+                }
+            ),
+            'lanak_ke': forms.Select(
+                attrs={
+                    'class': 'input',
+                    'style': 'font-size: 13px',
+                }
+            ),
         }
 
     # SUPER FUNCTION
@@ -598,8 +586,10 @@ class PortofolioForm(forms.ModelForm):
 
         self.fields['datetime_resepsi'].required = False
 
-
-
+        # ========== CONTROL PANEL (Optional method to control ========== !
+        # 1. Select option
+        self.fields["panak_ke"].choices = [('', 'Pilih anak ke-'), ] + list(self.fields["panak_ke"].choices)[1:]
+        self.fields["lanak_ke"].choices = [('', 'Pilih anak ke-'), ] + list(self.fields["lanak_ke"].choices)[1:]
 
         # ========== ADVANCE CONTROL PANEL (multiple <Inputs>) ========== !
         # 1. Input required
