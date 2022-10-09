@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Portofolio, Rekening, Dompet, MultiImage, SpecialInvitation, \
-    Payment, Quote, Ucapan, Hadir, Fitur, Theme
+    Payment, Quote, Ucapan, Hadir, Fitur, Theme, ThemeProduct
 
 class PortofolioSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(queryset=User.objects.all(),
@@ -99,3 +99,15 @@ class ThemeSerializer(serializers.HyperlinkedModelSerializer):
         model = Theme
         fields = ("fitur", "name", "slug")
 
+# Theme Product
+class ThemeProductSerializer(serializers.HyperlinkedModelSerializer):
+    portofolio = serializers.SlugRelatedField(queryset=Portofolio.objects.all(),
+        slug_field='slug')
+    fitur = serializers.SlugRelatedField(queryset=Fitur.objects.all(),
+        slug_field='slug')
+    theme = serializers.SlugRelatedField(queryset=Theme.objects.all(),
+        slug_field='slug')
+
+    class Meta:
+        model = ThemeProduct
+        fields = ("fitur", "portofolio", "theme")
