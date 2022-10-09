@@ -50,7 +50,8 @@ class PaymentSerializer(serializers.HyperlinkedModelSerializer):
 
 # Dompet
 class DompetSerializer(serializers.HyperlinkedModelSerializer):
-    rekening = RekeningSerializer()
+    rekening = serializers.SlugRelatedField(queryset=Rekening.objects.all(),
+        slug_field='kode')
     portofolio = serializers.SlugRelatedField(queryset=Portofolio.objects.all(),
         slug_field='slug')
 

@@ -236,25 +236,38 @@ class PortofolioForm(forms.ModelForm):
 
     video = forms.CharField(
         label='Link video',
-        widget=forms.TextInput(
+        required=True,
+        widget=forms.Textarea(
             attrs={
-                'placeholder': 'Link video',
-                'class': 'input',
-                'style': 'font-size: 13px;'
+                'placeholder': 'Link embed video',
+                'class': 'textarea',
+                'style': 'font-size: 13px',
             }
         )
     )
 
     livestream = forms.CharField(
         label='Link livestream',
-        widget=forms.TextInput(
+        required=True,
+        widget=forms.Textarea(
             attrs={
                 'placeholder': 'Link livestream',
-                'class': 'input',
-                'style': 'font-size: 13px;'
+                'class': 'textarea',
+                'style': 'font-size: 13px',
             }
         )
     )
+
+    # livestream = forms.CharField(
+    #     label='Link livestream',
+    #     widget=forms.TextInput(
+    #         attrs={
+    #             'placeholder': 'Link livestream',
+    #             'class': 'input',
+    #             'style': 'font-size: 13px;'
+    #         }
+    #     )
+    # )
 
     # INFORMASI ADD TO CALENDER
 

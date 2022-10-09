@@ -11,7 +11,7 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
 from rest_framework import filters
-from django_filters import AllValuesFilter, DateTimeFilter, NumberFilter
+from django_filters import AllValuesFilter, DateTimeFilter, NumberFilter, FilterSet
 
 
 from .models import MultiImage, Portofolio, SpecialInvitation, Dompet, Quote, Fitur, \
@@ -278,6 +278,7 @@ class MultiImageList(generics.ListCreateAPIView):
     queryset = MultiImage.objects.all()
     serializer_class = MultiImageSerializer
     name = 'multiimage-list'
+    filterset_fields = ['portofolio__slug']
 
 
 class MultiImageDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -290,6 +291,7 @@ class SpecialInvitationList(generics.ListCreateAPIView):
     queryset = SpecialInvitation.objects.all()
     serializer_class = SpecialInvitationSerializer
     name = 'specialinvitation-list'
+    filterset_fields = ['portofolio__slug']
 
 
 class SpecialInvitationDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -314,6 +316,7 @@ class DompetList(generics.ListCreateAPIView):
     queryset = Dompet.objects.all()
     serializer_class = DompetSerializer
     name = 'dompet-list'
+    filterset_fields = ['portofolio__slug']
 
 
 class DompetDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -326,6 +329,7 @@ class QuoteList(generics.ListCreateAPIView):
     queryset = Quote.objects.all()
     serializer_class = QuoteSerializer
     name = 'quote-list'
+    filterset_fields = ['portofolio__slug']
 
 
 class QuoteDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -338,6 +342,7 @@ class UcapanList(generics.ListCreateAPIView):
     queryset = Ucapan.objects.all()
     serializer_class = UcapanSerializer
     name = 'ucapan-list'
+    filterset_fields = ['portofolio__slug']
 
 
 class UcapanDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -350,6 +355,7 @@ class HadirList(generics.ListCreateAPIView):
     queryset = Hadir.objects.all()
     serializer_class = HadirSerializer
     name = 'hadir-list'
+    filterset_fields = ['portofolio__slug']
 
 
 class HadirDetail(generics.RetrieveUpdateDestroyAPIView):

@@ -114,8 +114,8 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     link_gmap_unduhmantu = models.TextField()
 
     # Our moment
-    video = models.CharField(max_length=250)
-    livestream = models.CharField(max_length=250)
+    video = models.TextField()
+    livestream = models.TextField()
 
 
     # Add to calender
@@ -146,11 +146,14 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     # ========== CLEAN METHOD ========== !
     # get link from iframe
     def get_link(self, url):
-        return re.search('(?P<name>"https?://[^\s]+)', url).group('name')
+        return re.search('(?P<name>https?://[^\s]+\w)', url).group('name')
 
     def clean(self):
         if self.link_iframe:
             self.link_iframe = self.get_link(self.link_iframe)
+        if self.video:
+            self.video = self.get_link(self.video)
+
 
     def get_url_path(self):
         return reverse("update", kwargs={
