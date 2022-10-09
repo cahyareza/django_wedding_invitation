@@ -141,7 +141,8 @@ def update(request, slug):
     obj = get_object_or_404(Portofolio, slug=slug)
     # quote instance by porto id
     obj_quote = get_object_or_404(Quote, portofolio= obj)
-
+    # theme product instance by porto id
+    obj_themeproduct = get_object_or_404(ThemeProduct, portofolio= obj)
 
     # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
     SpecialInviteFormSet = modelformset_factory(
@@ -175,8 +176,9 @@ def update(request, slug):
     if request.method == "POST":
         form = PortofolioForm(request.POST or None, request.FILES, instance=obj)
         form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
+        form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
 
-        if form.is_valid() and form2.is_valid() and formset.is_valid():
+        if form.is_valid() and form2.is_valid() and form3.is_valid() and formset.is_valid():
             # create portofolio instance
             instance = form.save(commit=False)
             # save user to porto
@@ -202,6 +204,15 @@ def update(request, slug):
             instance_quote = form2.save(commit=False)
             instance_quote.portofolio = porto_instance
             instance_quote.save()
+
+            # to create theme product
+            instance_order = Order.objects.get(user=user)
+            instance_orderitemfiture = OrderItem.objects.get(order=instance_order)
+
+            instance_orderitem = form3.save(commit=False)
+            instance_orderitem.portofolio = porto_instance
+            instance_orderitem.fitur = instance_orderitemfiture.product
+            instance_orderitem.save()
 
             # to create multiple value instance
             for form in formset:
@@ -231,6 +242,7 @@ def update(request, slug):
     else:
         form = PortofolioForm(instance=obj)
         form2 = QuoteForm(instance=obj_quote)
+        form3 = ThemeProductForm(instance=obj_themeproduct)
         formset = SpecialInviteFormSet(queryset= qs, prefix='invite')
         formset2 = DompetFormSet(queryset= qs2, prefix='dompet')
         formset3 = MultiImageFormSet(queryset= qs3, prefix='multiimage')
@@ -239,6 +251,7 @@ def update(request, slug):
     context = {
         'form': form,
         'form2': form2,
+        'form3': form3,
         'formset': formset,
         'formset2': formset2,
         'formset3': formset3,
