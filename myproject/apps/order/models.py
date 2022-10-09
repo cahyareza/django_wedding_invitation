@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.db import models
 from PIL import Image
-from myproject.apps.portofolio.models import Fitur, FiturProduct, Payment
+from myproject.apps.portofolio.models import Fitur, Payment
 
 from myproject.apps.core.models import CreationModificationDateBase, UrlBase
 

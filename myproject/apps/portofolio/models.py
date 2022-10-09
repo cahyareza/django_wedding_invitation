@@ -271,14 +271,12 @@ class Fitur(CreationModificationDateBase, UrlBase):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
-class FiturProduct(CreationModificationDateBase, UrlBase):
-    fitur = models.ForeignKey(Fitur, on_delete=models.SET_NULL, blank=True, null=True)
-    portofolio = models.OneToOneField(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
+# class FiturProduct(CreationModificationDateBase, UrlBase):
+#     fitur = models.ForeignKey(Fitur, on_delete=models.SET_NULL, blank=True, null=True)
+#     portofolio = models.OneToOneField(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
 
 class Theme(CreationModificationDateBase, UrlBase):
-    fitur = models.ForeignKey(Fitur, on_delete=models.CASCADE, blank=True, null=True)
-    # portofolio = models.OneToOneField(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
-    name = models.CharField(max_length=40, choices=THEME_LIST, blank=True, null=True)
+    name = models.CharField(max_length=40)
     slug = models.SlugField(max_length=255, blank=True)
 
     def __str__(self):
@@ -290,3 +288,11 @@ class Theme(CreationModificationDateBase, UrlBase):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
+
+class ThemeProduct(CreationModificationDateBase, UrlBase):
+    fitur = models.ForeignKey(Fitur, on_delete=models.CASCADE, blank=True, null=True)
+    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
+    theme = models.ForeignKey(Theme, on_delete=models.CASCADE, blank=True, null=True)
+
+    def __str__(self):
+        return self.theme.name

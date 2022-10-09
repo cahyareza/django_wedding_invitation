@@ -1,18 +1,9 @@
-                <form action="{% url 'order:update' order.id %}" method="POST" enctype="multipart/form-data" novalidate>
-                    {% csrf_token %}
-                    <!--   INFORMASI PEMBAYARAN  -->
-                    <div class="notification is-light p-1 has-text-centered mt-4">
-                        INFORMASI PEMBAYARAN
-                    </div>
-                    <div class="columns is-multiline mt-1">
-                        <div class="column is-8 mb-">
-                            {{ orderform.bukti.label_tag }}
-                            {{ orderform.bukti }}
+                porto_instance = Portofolio.objects.get(pk=instance.pk)
+                order_instance = Order.objects.get(pk=instance.pk)
+                # create orderitem
+                for item in cart:
+                    fitur_instance = Fitur.objects.get(pk=item['product'].pk)
+                    OrderItem.objects.create(order=order_instance, price=item['total_price'], product= fitur_instance, quantity=item['quantity'])
 
-                            {% for error in orderform.bukti.errors %}
-                                <p class="help is-danger">{{ error }}</p>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    <button id="submit" type="submit" class="button is-light p-2 mt-1">Submit</button>
-                </form>
+                    # create fitur product
+                    FiturProduct.objects.create(fitur=fitur_instance, portofolio=porto_instance)

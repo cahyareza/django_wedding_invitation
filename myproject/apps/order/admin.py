@@ -1,6 +1,5 @@
 from django.contrib import admin
 from .models import Order, OrderItem
-from myproject.apps.portofolio.models import FiturProduct
 from django.utils.html import format_html
 
 class OrderItemInline(admin.TabularInline):

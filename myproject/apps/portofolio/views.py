@@ -5,7 +5,7 @@ from django.forms import modelformset_factory
 from django.core.exceptions import ValidationError
 from .serializers import PortofolioSerializer, RekeningSerializer, DompetSerializer, \
     MultiImageSerializer, SpecialInvitationSerializer, PaymentSerializer, QuoteSerializer, \
-    UcapanSerializer, HadirSerializer, FiturSerializer, FiturProductSerializer, ThemeSerializer
+    UcapanSerializer, HadirSerializer, FiturSerializer, ThemeSerializer
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -13,13 +13,13 @@ from rest_framework.reverse import reverse
 from rest_framework import filters
 from django_filters import AllValuesFilter, DateTimeFilter, NumberFilter, FilterSet
 
-
+from myproject.apps.order.models import Order, OrderItem
 from .models import MultiImage, Portofolio, SpecialInvitation, Dompet, Quote, Fitur, \
-    Rekening, Payment, MultiImage, SpecialInvitation, Ucapan, Hadir, Fitur, FiturProduct, \
-    Theme
+    Rekening, Payment, MultiImage, SpecialInvitation, Ucapan, Hadir, Fitur, \
+    Theme, ThemeProduct
 
 from .forms import PortofolioForm, MultiImageForm, SpecialInvitationForm, \
-    BaseRegisterFormSet, DompetForm, QuoteForm
+    BaseRegisterFormSet, DompetForm, QuoteForm, ThemeProductForm
 
 def home(request):
     return render(request, 'index.html')
@@ -51,13 +51,15 @@ def register(request, id=None):
         if request.method == "POST":
             form = PortofolioForm(request.POST or None, request.FILES)
             form2 = QuoteForm(request.POST or None, request.FILES)
+            form3 = ThemeProductForm(request.POST or None, request.FILES)
+
             formset = SpecialInviteFormSet(request.POST or None, prefix='invite')
             formset2 = DompetFormSet(request.POST or None, prefix='dompet')
             formset3 = MultiImageFormSet(request.POST or None, request.FILES, prefix='multiimage')
 
             print(request.POST)
             # form validation
-            if form.is_valid() and form2.is_valid() and formset.is_valid():
+            if form.is_valid() and form2.is_valid() and form3.is_valid() and formset.is_valid():
                 # create portofolio instance
                 instance = form.save(commit=False)
                 # save user to porto
@@ -82,6 +84,15 @@ def register(request, id=None):
                 instance_quote = form2.save(commit=False)
                 instance_quote.portofolio = porto_instance
                 instance_quote.save()
+
+                # to create theme product
+                instance_order = Order.objects.get(user=user)
+                instance_orderitem = OrderItem.objects.get(order=instance_order)
+
+                instance_orderitem = form3.save(commit=False)
+                instance_orderitem.portofolio = porto_instance
+                instance_orderitem.fitur = instance_orderitem.fitur
+                instance_orderitem.save()
 
                 # to create multiple value instance
                 for form in formset:
@@ -109,11 +120,12 @@ def register(request, id=None):
                 return HttpResponseRedirect('/')
             else:
                 return render(request, "portofolio/register_porto.html", {'form': form,
-                    'form2': form2, 'formset': formset, 'formset2': formset2, 'formset3': formset3})
+                    'form2': form2, 'form3': form3, 'formset': formset, 'formset2': formset2, 'formset3': formset3})
 
         else:
             form = PortofolioForm()
             form2 = QuoteForm()
+            form3 = ThemeProductForm()
             formset = SpecialInviteFormSet(prefix='invite')
             formset2 = DompetFormSet(prefix='dompet')
             formset3 = MultiImageFormSet(prefix='multiimage')
@@ -122,7 +134,7 @@ def register(request, id=None):
         return render(request, 'portofolio/regis_failed.html')
 
     return render(request, "portofolio/register_porto.html", {'form': form,
-        'form2': form2,'formset': formset, 'formset2': formset2, 'formset3': formset3})
+        'form2': form2, 'form3': form3, 'formset': formset, 'formset2': formset2, 'formset3': formset3})
 
 def update(request, slug):
     # get instance portofolio from id
@@ -374,18 +386,6 @@ class FiturDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Fitur.objects.all()
     serializer_class = FiturSerializer
     name = 'fitur-detail'
-
-# FiturProduct
-class FiturProductList(generics.ListCreateAPIView):
-    queryset = FiturProduct.objects.all()
-    serializer_class = FiturProductSerializer
-    name = 'fiturproduct-list'
-
-
-class FiturProductDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = FiturProduct.objects.all()
-    serializer_class = FiturProductSerializer
-    name = 'fiturproduct-detail'
 
 # Theme
 class ThemeList(generics.ListCreateAPIView):

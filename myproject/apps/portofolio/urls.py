@@ -6,7 +6,7 @@ from .views import (
     DompetList, DompetDetail, MultiImageList, MultiImageDetail, \
     SpecialInvitationList, SpecialInvitationDetail, PaymentList, \
     PaymentDetail, QuoteList, QuoteDetail, UcapanList, UcapanDetail, \
-    HadirList, HadirDetail, FiturList, FiturDetail, FiturProductList, FiturProductDetail, \
+    HadirList, HadirDetail, FiturList, FiturDetail, \
     ThemeList, ThemeDetail, ApiRoot
 )
 
@@ -44,9 +44,6 @@ urlpatterns = [
 
     path('api/fitur/', FiturList.as_view(), name=views.FiturList.name),
     path('api/fitur/<int:pk>', FiturDetail.as_view(), name=views.FiturDetail.name),
-
-    path('api/fiturproduct/', FiturProductList.as_view(), name=views.FiturProductList.name),
-    path('api/fiturproduct/<int:pk>', FiturProductDetail.as_view(), name=views.FiturProductDetail.name),
 
     path('api/theme/', ThemeList.as_view(), name=views.ThemeList.name),
     path('api/theme/<int:pk>', ThemeDetail.as_view(), name=views.ThemeDetail.name),

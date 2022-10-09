@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import (Portofolio, MultiImage, SpecialInvitation, Dompet, Quote,
-     Rekening, Ucapan, Hadir, Fitur, FiturProduct, Payment, )
+     Rekening, Ucapan, Hadir, Fitur, Payment, Theme, ThemeProduct)
 
 # Inline
 class MultiImageInline(admin.TabularInline):
@@ -27,9 +27,8 @@ class UcapanInline(admin.TabularInline):
 class HadirInline(admin.TabularInline):
     model = Hadir
 
-class FiturProductInline(admin.TabularInline):
-    model = FiturProduct
-
+class ThemeProductInline(admin.TabularInline):
+    model = ThemeProduct
 # Register your models here.
 # admin.site.register(Couple)
 
@@ -39,8 +38,8 @@ class PortofolioAdmin(admin.ModelAdmin):
     list_filter = ['tanggal_resepsi']
     list_display = ['porto_name', 'pname', 'lname', 'tanggal_resepsi', 'waktu_resepsi', 'tempat_resepsi', 'created']
     search_fields = ['porto_name', 'tanggal_resepsi', 'created']
-    inlines = [FiturProductInline, MultiImageInline, SpecialInvitationInline, DompetInline, QuoteInline,
-               UcapanInline, HadirInline]
+    inlines = [MultiImageInline, SpecialInvitationInline, DompetInline, QuoteInline,
+               UcapanInline, HadirInline, ThemeProductInline]
     list_per_page = 10
 
     # Fieldset
@@ -102,10 +101,14 @@ class HadirAdmin(admin.ModelAdmin):
 class FiturAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(FiturProduct)
-class FiturProductInlineAdmin(admin.ModelAdmin):
-    pass
-
 @admin.register(Payment)
 class PaymentAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Theme)
+class ThemeAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(ThemeProduct)
+class ThemeProductAdmin(admin.ModelAdmin):
     pass

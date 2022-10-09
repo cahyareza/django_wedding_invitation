@@ -38,8 +38,6 @@ def order_checkout_view(request):
                 for item in cart:
                     fitur_instance = Fitur.objects.get(pk=item['product'].pk)
                     OrderItem.objects.create(order=order_instance, price=item['total_price'], product= fitur_instance, quantity=item['quantity'])
-
-
                 return redirect("cart:clear_cart")
             else:
                 form = OrderForm(request.POST or None, request.FILES)

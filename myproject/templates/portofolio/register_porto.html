@@ -551,6 +551,21 @@
         </div>
       </div>
 
+      <!--   INFORMASI TEMA   -->
+      <div class="notification is-light p-1 has-text-centered">
+        INFORMASI TEMA
+      </div>
+      <div class="columns is-multiline mt-1">
+        <div class="column is-6">
+          {{ form3.theme.label_tag }}
+          {{ form3.theme }}
+
+          {% for error in form3.theme.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+      </div>
+
       <!--  Buttons  -->
       {% block buttons %}
       <button id="submit" type="submit" class="button is-info p-2 mt-1">Submit</button>

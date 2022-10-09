@@ -1,7 +1,7 @@
 from django import forms
 import re
 from django.forms import ClearableFileInput
-from .models import Portofolio, MultiImage, SpecialInvitation, Dompet, Quote, Rekening
+from .models import Portofolio, MultiImage, SpecialInvitation, Dompet, Quote, Rekening, ThemeProduct
 from django.core.validators import RegexValidator
 from django.contrib.admin import widgets
 from django.forms import BaseFormSet
@@ -778,6 +778,33 @@ class QuoteForm(forms.ModelForm):
         for field in require:
             self.fields[field].required = False
 
+class ThemeProductForm(forms.ModelForm):
+    class Meta:
+        model = ThemeProduct
+        fields = ['theme']
+        labels = {
+            'theme': "Tema",
+        }
+        widgets = {
+            'theme': forms.Select(
+                attrs={
+                    'class': 'input',
+                    'style': 'font-size: 13px',
+                }
+            ),
+        }
+
+    # SUPER FUNCTION
+    def __init__(self, *args, **kwargs):
+        super(ThemeProductForm, self).__init__(*args, **kwargs)
+
+        # ========== CONTROL PANEL (Optional method to control ========== !
+        # 1. Input required
+        # self.fields['fitur'].required = False
+        # self.fields['portofolio'].required = False
+
+        # 2. Select option
+        self.fields["theme"].choices = [('', 'Pilih tema'),] + list(self.fields["theme"].choices)[1:]
 
 
 # ================== FORMSET =================== !
