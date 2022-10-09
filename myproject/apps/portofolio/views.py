@@ -22,7 +22,18 @@ from .forms import PortofolioForm, MultiImageForm, SpecialInvitationForm, \
     BaseRegisterFormSet, DompetForm, QuoteForm, ThemeProductForm
 
 def home(request):
-    return render(request, 'index.html')
+    portofolio = Portofolio.objects.all()
+    ucapan = Ucapan.objects.all()
+    dompet = Dompet.objects.all()
+    hadir = Hadir.objects.all()
+
+    context = {
+        'portofolio': portofolio,
+        'ucapan': ucapan,
+        'dompet': dompet,
+        'hadir': hadir,
+    }
+    return render(request, 'index.html', context)
 
 # Portofolio registration
 def register(request, id=None):

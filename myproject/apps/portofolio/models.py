@@ -218,7 +218,7 @@ class Dompet(CreationModificationDateBase, UrlBase):
         verbose_name_plural = "Dompet"
 
     def __str__(self):
-        return self.pemilik
+        return self.portofolio.porto_name
 
 class Quote(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
@@ -233,6 +233,9 @@ class Ucapan(CreationModificationDateBase, UrlBase):
     nama = models.CharField(max_length=40)
     alamat = models.CharField(max_length=40)
     pesan = models.CharField(max_length=60)
+
+    def __str__(self):
+        return self.portofolio.porto_name
 
     class Meta:
         verbose_name_plural = "Ucapan"
@@ -251,10 +254,13 @@ class Hadir(CreationModificationDateBase, UrlBase):
     name = models.CharField(max_length=40)
     hadir = models.CharField(max_length=20, choices=STATUS_CHOICES, default=TIDAK)
 
+    def __str__(self):
+        return self.portofolio.porto_name
+
     class Meta:
         verbose_name_plural = "Hadir"
 
-
+# Fitur (GOLD, SILVER, PLATINUM)
 class Fitur(CreationModificationDateBase, UrlBase):
     name = models.CharField(max_length=40)
     slug = models.SlugField(max_length=255, blank=True)
