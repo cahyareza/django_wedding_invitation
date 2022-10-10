@@ -13,7 +13,6 @@
                     <thead class="has-background-light">
                         <th>No</th>
                         <th>Produk</th>
-                        <th>Harga</th>
                         <th>Status</th>
                     </thead>
                     <tbody>
@@ -21,14 +20,13 @@
                             <tr>
                                 <td>{{ forloop.counter }}</td>
                                 <td>{{ item.product }}</td>
-                                <td>{{ item.price }}</td>
-                                <td>{{ order.status }}</td>
+                                <td></td>
                             </tr>
                         {% endfor %}
                             <tr>
                                 <td>Total</td>
-                                <td></td>
                                 <td>{{ order.paid }}</td>
+                                <td>{{ order.status }}</td>
                             </tr>
                     </tbody>
                 </table>

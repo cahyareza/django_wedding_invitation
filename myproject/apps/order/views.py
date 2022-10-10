@@ -30,7 +30,7 @@ def order_checkout_view(request):
                 instance.user = user
                 instance.phone = form.cleaned_data.get("phone")
                 instance.place = form.cleaned_data.get("place")
-                instance.paid =  cart.get_total_price()
+                instance.paid =  cart.get_total_price_discount()
                 instance.save()
 
                 order_instance = Order.objects.get(pk=instance.pk)

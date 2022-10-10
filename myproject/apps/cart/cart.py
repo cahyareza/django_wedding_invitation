@@ -77,10 +77,10 @@ class Cart():
         return sum(Decimal(item['price']* item['quantity']) for item in self.cart.values())
 
     def get_discount(self):
-        return sum(Decimal(item['price']* item['quantity'] * Decimal(item['coupon']/100)) for item in self.cart.values())
+        return sum(Decimal(item['price']) * Decimal(item['quantity']) * (Decimal(item['coupon'])/Decimal(100)) for item in self.cart.values())
 
     def get_total_price_discount(self):
-        return sum(Decimal(item['price']* item['quantity']) for item in self.cart.values()) - sum(Decimal(item['price']* item['quantity'] * Decimal(item['coupon']/100)) for item in self.cart.values())
+        return sum(Decimal(item['price']* item['quantity']) for item in self.cart.values()) - sum(Decimal(item['price']) * Decimal(item['quantity']) * (Decimal(item['coupon'])/Decimal(100)) for item in self.cart.values())
 
     def get_total_quantity(self):
         return sum(item['quantity'] for item in self.cart.values())
