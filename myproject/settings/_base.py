@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'corsheaders',
+    'mathfilters',
 
     # local
     'myproject.apps.portofolio',

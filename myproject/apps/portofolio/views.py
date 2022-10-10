@@ -9,10 +9,12 @@ from .serializers import PortofolioSerializer, RekeningSerializer, DompetSeriali
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
+from django.utils import timezone
 
 from rest_framework import filters
 from django_filters import AllValuesFilter, DateTimeFilter, NumberFilter, FilterSet
 
+from myproject.apps.coupon.models import Coupon
 from myproject.apps.order.models import Order, OrderItem
 from .models import MultiImage, Portofolio, SpecialInvitation, Dompet, Quote, Fitur, \
     Rekening, Payment, MultiImage, SpecialInvitation, Ucapan, Hadir, Fitur, \
@@ -27,13 +29,55 @@ def home(request):
     dompet = Dompet.objects.all()
     hadir = Hadir.objects.all()
 
-    context = {
-        'portofolio': portofolio,
-        'ucapan': ucapan,
-        'dompet': dompet,
-        'hadir': hadir,
-    }
-    return render(request, 'index.html', context)
+    coupon_obj = Coupon.objects.filter(active=True)
+    current_time = timezone.now()
+    if coupon_obj.exists():
+        obj = Coupon.objects.filter(active=True).first()
+        if obj.valid_to >= current_time:
+            discount_value = obj.discount
+            discount_percent = 1 - discount_value/100
+            discount_str = f"{obj.discount}%"
+
+            context = {
+                'portofolio': portofolio,
+                'ucapan': ucapan,
+                'dompet': dompet,
+                'hadir': hadir,
+                'discount_str': discount_str,
+                'discount_value': discount_value,
+                'discount_percent': discount_percent
+            }
+        else:
+            discount_value = False
+            discount_percent = False
+            discount_str = False
+
+            context = {
+                'portofolio': portofolio,
+                'ucapan': ucapan,
+                'dompet': dompet,
+                'hadir': hadir,
+                'discount_str': discount_str,
+                'discount_value': discount_value,
+                'discount_percent': discount_percent
+            }
+
+        return render(request, 'index.html', context)
+    else:
+        discount_value = False
+        discount_percent = False
+        discount_str = False
+
+        context = {
+            'portofolio': portofolio,
+            'ucapan': ucapan,
+            'dompet': dompet,
+            'hadir': hadir,
+            'discount_str': discount_str,
+            'discount_value': discount_value,
+            'discount_percent': discount_percent
+        }
+        return render(request, 'index.html', context)
 
 # Portofolio registration
 def register(request, id=None):
