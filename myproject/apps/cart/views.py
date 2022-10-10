@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .cart import Cart
 from ..portofolio.models import Fitur, Payment
+from myproject.apps.coupon.models import Coupon
 
 def add_cart(request, product_id):
     # Cart
     cart = Cart(request)
     product = get_object_or_404(Fitur, id=product_id)
+    coupon_obj = Coupon.objects.filter(active=True)
+
     initial_data = {
         'quantity' : 1,
         'override' : False
@@ -13,7 +16,11 @@ def add_cart(request, product_id):
 
     if request.method == "POST":
         # Cart
-        cart.add(product=product, quantity=initial_data['quantity'], override_quantity=initial_data['override'])
+        if coupon_obj.exists() :
+            obj = Coupon.objects.filter(active=True).first()
+            cart.add(product=product, quantity=initial_data['quantity'], coupon=obj.discount, override_quantity=initial_data['override'])
+        else:
+            cart.add(product=product, quantity=initial_data['quantity'], coupon=0, override_quantity=initial_data['override'])
 
         return redirect('cart:cart_detail')
 

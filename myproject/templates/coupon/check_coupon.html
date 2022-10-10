@@ -1,0 +1,30 @@
+<form action="{% url 'coupon:check' %}" method="POST" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+
+    <!--   INFORMASI CHECKOUT  -->
+    <div class="notification is-light p-1 has-text-centered mt-4">
+        INFORMASI COUPON
+    </div>
+
+    <!-- Message from backend (success - views.py) -->
+    {% for message in messages %}
+        {% if message.tags == 'warning' %}
+            <div class="notification has-background-info-light has-text-centered"> {{ message }}
+                <button class="delete"></button>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    <div class="columns is-multiline mt-1">
+        <div class="column is-4">
+          {{ coupon_form.code.label_tag }}
+          {{ coupon_form.code }}
+
+          {% for error in coupon_form.code.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+    </div>
+
+    <button id="submit" type="submit" class="button is-small is-light p-2 mt-1">Check</button>
+</form>

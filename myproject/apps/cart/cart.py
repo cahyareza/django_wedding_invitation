@@ -28,17 +28,19 @@ class Cart():
         self.cart = cart
 
 
-    def add(self, product, quantity=1, override_quantity=False):
+    def add(self, product, quantity=1, coupon=0, override_quantity=False):
         product_id = str(product.id)
 
         if product_id not in self.cart:
-            self.cart[product_id] = {'price': str(product.price), 'quantity': 0}
+            self.cart[product_id] = {'price': str(product.price), 'quantity': 0, 'coupon': coupon}
 
         if override_quantity:
             self.cart[product_id]['quantity'] = quantity
         else:
             # edit logic from += to =
             self.cart[product_id]['quantity'] = quantity
+
+
 
         self.save()
         print(self.cart)
@@ -73,6 +75,12 @@ class Cart():
 
     def get_total_price(self):
         return sum(Decimal(item['price']* item['quantity']) for item in self.cart.values())
+
+    def get_discount(self):
+        return sum(Decimal(item['price']* item['quantity'] * Decimal(item['coupon']/100)) for item in self.cart.values())
+
+    def get_total_price_discount(self):
+        return sum(Decimal(item['price']* item['quantity']) for item in self.cart.values()) - sum(Decimal(item['price']* item['quantity'] * Decimal(item['coupon']/100)) for item in self.cart.values())
 
     def get_total_quantity(self):
         return sum(item['quantity'] for item in self.cart.values())

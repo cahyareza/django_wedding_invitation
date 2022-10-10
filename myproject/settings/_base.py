@@ -76,6 +76,7 @@ INSTALLED_APPS = [
     'myproject.apps.accounts',
     'myproject.apps.cart',
     'myproject.apps.order',
+    'myproject.apps.coupon',
 ]
 
 MIDDLEWARE = [
