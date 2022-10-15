@@ -479,6 +479,7 @@ class ThemeProductDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ThemeProduct.objects.all()
     serializer_class = ThemeProductSerializer
     name = 'themeproduct-detail'
+    filterset_fields = ['portofolio__slug']
 
 class ApiRoot(generics.GenericAPIView):
     name = 'api-root'

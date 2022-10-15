@@ -93,11 +93,9 @@ class FiturSerializer(serializers.ModelSerializer):
 
 # Theme
 class ThemeSerializer(serializers.HyperlinkedModelSerializer):
-    fitur = FiturSerializer()
-
     class Meta:
         model = Theme
-        fields = ("fitur", "name", "slug")
+        fields = ("name", "slug")
 
 # Theme Product
 class ThemeProductSerializer(serializers.HyperlinkedModelSerializer):
