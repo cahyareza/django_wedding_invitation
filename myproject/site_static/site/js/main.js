@@ -35,3 +35,23 @@ var swiper = new Swiper(".mySwiper", {
         }
     }
 });
+
+var swiper = new Swiper(".mySwiperfitur", {
+    spaceBetween: 10,
+    slidesPerView: 1,
+    pagination: {
+      el: ".swiper-pagination",
+      dynamicBullets: true,
+    },
+    autoplay: {
+        delay : 1200
+    },
+    breakpoints: {
+        768: {
+            slidesPerView: 2,
+        },
+        1200:{
+            slidesPerView: 3,
+        }
+    }
+});
