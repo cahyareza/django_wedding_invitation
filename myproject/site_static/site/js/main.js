@@ -14,3 +14,24 @@ productContainers.forEach((item, i) => {
         item.scrollLeft -= containerWidth;
     })
 })
+
+// SWIPER JS
+var swiper = new Swiper(".mySwiper", {
+    spaceBetween: 20,
+    slidesPerView: 1,
+    pagination: {
+      el: ".swiper-pagination",
+      dynamicBullets: true,
+    },
+    autoplay: {
+        delay : 1200
+    },
+    breakpoints: {
+        768: {
+            slidesPerView: 2,
+        },
+        1200:{
+            slidesPerView: 3,
+        }
+    }
+});
