@@ -1,23 +1,31 @@
 from django import forms
-
+from django.core.validators import RegexValidator
 from .models import Order
 
 class OrderForm(forms.ModelForm):
-    phone = forms.CharField(label="Nomor handphone",
+    phone = forms.CharField(label="Nomor handphone", min_length=12, max_length=13,
+        validators= [RegexValidator(r'^[0-9]*$',
+        message="Only numbers is allowed !")],
         widget=forms.TextInput(attrs={
         "class": "input",
-        "placeholder": "Nomor handphone"
+        "placeholder": "Nomor handphone",
+        'style': 'font-size: 13px',
     }))
     place = forms.CharField(label="Kabupaten",
+        validators= [RegexValidator(r'^[a-zA-ZA-y\s]*$',
+        message="Only letters is allowed !")],
         widget=forms.TextInput(attrs={
         "class": "input",
-        "placeholder": "Asal kabupaten"
-
+        "placeholder": "Asal kabupaten",
+        'style': 'font-size: 13px',
     }))
-    nama_rekening = forms.CharField(label="Nama pemilik rekening",
+    nama_rekening = forms.CharField(label="Nama pemilik rekening", min_length=3,
+        validators=[RegexValidator(r'^[a-zA-ZA-y\s]*$',
+        message="Only letters is allowed !")],
         widget=forms.TextInput(attrs={
         "class": "input",
-        "placeholder": "Nama pemilik rekening"
+        "placeholder": "Nama pemilik rekening",
+        'style': 'font-size: 13px',
 
     }))
 
@@ -36,6 +44,7 @@ class OrderForm(forms.ModelForm):
         model = Order
         fields = "__all__"
 
+        # OUTSIDE WIDGET
         widgets = {
             # payment
             'payment': forms.Select(

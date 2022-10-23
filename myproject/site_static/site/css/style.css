@@ -86,7 +86,7 @@
   cursor: pointer;
   opacity: 1;
   color: #fff;
-  background: #ff7d7d;
+  background: hsl(348, 86%, 61%);
 }
 
 .product-card:hover .card-btn {

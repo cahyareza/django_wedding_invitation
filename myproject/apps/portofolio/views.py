@@ -112,7 +112,7 @@ def register(request, id=None):
             formset2 = DompetFormSet(request.POST or None, prefix='dompet')
             formset3 = MultiImageFormSet(request.POST or None, request.FILES, prefix='multiimage')
 
-            print(request.POST)
+            # print(request.POST)
             # form validation
             if form.is_valid() and form2.is_valid() and form3.is_valid() and formset.is_valid():
                 # create portofolio instance

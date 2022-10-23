@@ -58,13 +58,14 @@ def order_checkout_update(request, id):
     user = request.user # Anonuser
     obj = Order.objects.filter(id=id).first()
     # obj = get_object_or_404(Order, id=id)
-    print('jeda')
+    # print(obj)
 
+    # print(request.POST)
     if request.method == "POST":
         form2 = OrderForm(request.POST or None, request.FILES, instance=obj)
-        # print(form)
+        # print(form2)
         if form2.is_valid():
-            # print("valid")
+            print("valid")
             instance = form2.save(commit=False)
             instance.user = user
             instance.phone = instance.phone
@@ -74,9 +75,9 @@ def order_checkout_update(request, id):
             instance.status = obj.mark_paid()
             instance.save()
 
-            return redirect("order:list")
+            return redirect("order:bukti")
     else:
-        form2 = OrderForm()
+        form2 = OrderForm(request.POST or None, request.FILES)
 
     context = {
         'form2': form2,
@@ -93,3 +94,6 @@ def order_delete(request, id):
 
 def status_order(request):
     return render(request, 'order/status_order.html')
+
+def upload_bukti(request):
+    return render(request, 'order/upload_bukti_kirim.html')
