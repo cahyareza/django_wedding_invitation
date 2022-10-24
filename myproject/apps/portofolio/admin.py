@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import (Portofolio, MultiImage, SpecialInvitation, Dompet, Quote,
-     Rekening, Ucapan, Hadir, Fitur, Payment, Theme, ThemeProduct)
+     Rekening, Ucapan, Hadir, Fitur, Payment, Theme, ThemeProduct, Kabupaten)
 
 # Inline
 class MultiImageInline(admin.TabularInline):
@@ -111,4 +111,8 @@ class ThemeAdmin(admin.ModelAdmin):
 
 @admin.register(ThemeProduct)
 class ThemeProductAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Kabupaten)
+class KabupatenAdmin(admin.ModelAdmin):
     pass

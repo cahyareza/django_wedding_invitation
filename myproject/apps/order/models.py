@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.db import models
 from PIL import Image
-from myproject.apps.portofolio.models import Fitur, Payment
+from myproject.apps.portofolio.models import Fitur, Payment, Kabupaten
 
 from myproject.apps.core.models import CreationModificationDateBase, UrlBase
 
@@ -19,7 +19,7 @@ ORDER_STATUS_CHOICES = (
 class Order(CreationModificationDateBase, UrlBase):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     phone = models.CharField(max_length=100)
-    place = models.CharField(max_length=100)
+    place = models.ForeignKey(Kabupaten, null=True, on_delete=models.SET_NULL)
     status = models.CharField(max_length=20, choices=ORDER_STATUS_CHOICES, default='menunggu pembayaran')
     paid = models.FloatField(default=0.00)
     payment = models.ForeignKey(Payment, null=True, on_delete=models.SET_NULL)

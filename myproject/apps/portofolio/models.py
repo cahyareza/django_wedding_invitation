@@ -205,7 +205,8 @@ class Payment(CreationModificationDateBase, UrlBase):
     name = models.CharField(max_length=20)
 
     def __str__(self):
-        return self.rekening.bank
+        # return self.rekening.bank
+        return f"{self.rekening.kode}({self.number}) a/n {self.name}"
 
 class Dompet(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
@@ -302,3 +303,10 @@ class ThemeProduct(CreationModificationDateBase, UrlBase):
 
     def __str__(self):
         return self.portofolio.porto_name
+
+
+class Kabupaten(CreationModificationDateBase, UrlBase):
+    name = models.CharField(max_length=40)
+
+    def __str__(self):
+        return self.name

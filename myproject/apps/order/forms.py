@@ -11,14 +11,7 @@ class OrderForm(forms.ModelForm):
         "placeholder": "Nomor handphone",
         'style': 'font-size: 13px',
     }))
-    place = forms.CharField(label="Kabupaten",
-        validators= [RegexValidator(r'^[a-zA-ZA-y\s]*$',
-        message="Only letters is allowed !")],
-        widget=forms.TextInput(attrs={
-        "class": "input",
-        "placeholder": "Asal kabupaten",
-        'style': 'font-size: 13px',
-    }))
+
     nama_rekening = forms.CharField(label="Nama pemilik rekening", min_length=3,
         validators=[RegexValidator(r'^[a-zA-ZA-y\s]*$',
         message="Only letters is allowed !")],
@@ -43,11 +36,20 @@ class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = "__all__"
+        labels = {
+            'place': 'Kabupaten'
+        }
 
         # OUTSIDE WIDGET
         widgets = {
             # payment
             'payment': forms.Select(
+                attrs={
+                    'class': 'input',
+                    'style': 'font-size: 13px',
+                }
+            ),
+            'place': forms.Select(
                 attrs={
                     'class': 'input',
                     'style': 'font-size: 13px',
@@ -68,3 +70,4 @@ class OrderForm(forms.ModelForm):
 
         # 2. Select option
         self.fields["payment"].choices = [('', 'Pilih payment'),] + list(self.fields["payment"].choices)[1:]
+        self.fields["place"].choices = [('', 'Pilih kabupaten'),] + list(self.fields["place"].choices)[1:]
