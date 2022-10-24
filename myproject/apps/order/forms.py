@@ -71,3 +71,6 @@ class OrderForm(forms.ModelForm):
         # 2. Select option
         self.fields["payment"].choices = [('', 'Pilih payment'),] + list(self.fields["payment"].choices)[1:]
         self.fields["place"].choices = [('', 'Pilih kabupaten'),] + list(self.fields["place"].choices)[1:]
+
+        # 3. Help text
+        self.fields['bukti'].help_text = 'Segera upload bukti pembayaran, agar order terkonfirmasi.'

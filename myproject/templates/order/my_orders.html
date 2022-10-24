@@ -6,9 +6,19 @@
 {% block isi %}
     <div class="container">
         <div class="box">
-            <h1 class="title is-size-3-tablet is-size-4-mobile has-text-centered">Keranjang Belanja</h1>
+            <h1 class="title is-size-3-tablet is-size-4-mobile has-text-centered">Order</h1>
 
             {% if order %}
+                <h2 class="title is-size-4-tablet is-size-5-mobile mt-3">Invoice #{{ order.id }}</h2>
+
+                <p class="subtitle is-size-6-tablet is-size-7-mobile mt-3">
+                    User : {{ order.user }}<br>
+                    Lokasi : {{ order.place }}<br>
+                    Nomor : {{ order.phone }}
+                </p>
+
+                <h2 class="title is-size-4-tablet is-size-5-mobile mt-3">Products</h2>
+
                 <table class="table is-size-5-desktop is-size-6-tablet is-size-7-mobile">
                     <thead class="has-background-light">
                         <th>No</th>
@@ -25,7 +35,7 @@
                         {% endfor %}
                             <tr>
                                 <td>Total</td>
-                                <td>{{ order.paid }}</td>
+                                <td>Rp {{ order.paid|floatformat:"g" }}</td>
                                 <td>{{ order.status }}</td>
                             </tr>
                     </tbody>

@@ -24,7 +24,7 @@
 
                                     <td>{{ product.name }}</td>
                                     <td>{{ item.quantity }}</td>
-                                    <td>{{ item.total_price }}</td>
+                                    <td>{{ item.total_price|floatformat:"g" }}</td>
                                     <td>
                                         <form action="{% url 'cart:remove_cart' product.id %}" method="post">
                                             {% csrf_token %}
@@ -41,19 +41,19 @@
                             <tr>
                                 <td>Total</td>
                                 <td>{{ cart.get_total_quantity }}</td>
-                                <td>{{ cart.get_total_price }}</td>
+                                <td>{{ cart.get_total_price|floatformat:"g" }}</td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <td>Discount</td>
                                 <td></td>
-                                <td>{{ cart.get_discount }}</td>
+                                <td>{{ cart.get_discount|floatformat:"g" }}</td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <td>Total dibayarkan</td>
                                 <td></td>
-                                <td>{{ cart.get_total_price_discount }}</td>
+                                <td>{{ cart.get_total_price_discount|floatformat:"g" }}</td>
                                 <td></td>
                             </tr>
                         </tfoot>

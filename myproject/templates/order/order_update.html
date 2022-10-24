@@ -38,13 +38,20 @@
               <p class="help is-danger">{{ error }}</p>
           {% endfor %}
         </div>
-        <div class="column is-8 mb-">
+        <div class="column is-8">
             {{ orderform2.bukti.label_tag }}
             {{ orderform2.bukti }}
+
+            {% if order.bukti %}
+                <p class="subtitle" style="color: red; font-size: 11px;"></p>
+            {% else %}
+                <p class="subtitle mt-2" style="color: red; font-size: 11px;">{{ orderform2.bukti.help_text }}</p>
+            {% endif %}
 
             {% for error in orderform2.bukti.errors %}
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
+
         </div>
     </div>
 
