@@ -618,13 +618,18 @@ class PortofolioForm(forms.ModelForm):
         #     self.fields[field].required = False
 
     # ========== MeTHOD ========== !
-    # 1) Clean waktu
-    # def clean_waktu(self):
-    #     waktu_akad = self.cleaned_data('waktu_akad')
-    #     waktu_selesai_akad = self.cleaned_data('waktu_selesai_akad')
-    #
-    #     if waktu_akad.hour >= waktu_selesai_akad.hour:
-    #         raise forms.ValidationError('Denied! Waktu selesai harus lebih akhir dari waktu mulai')
+    # 1) IMAGE (Maximum upload size = 2mb)
+    def clean_ppicture(self):
+        ppicture = self.cleaned_data.get('ppicture')
+        if ppicture.size > 2 * 1048476:
+            raise forms.ValidationError('Denied ! Maximum allowed is 2mb.')
+        return ppicture
+    def clean_lpicture(self):
+        lpicture = self.cleaned_data.get('lpicture')
+        if lpicture.size > 2 * 1048476:
+            raise forms.ValidationError('Denied ! Maximum allowed is 2mb.')
+        return lpicture
+
 
 class MultiImageForm(forms.ModelForm):
     image = forms.FileField(
@@ -662,6 +667,13 @@ class MultiImageForm(forms.ModelForm):
         # 2. Help text
         # self.fields['image'].help_text = 'Note: Upload dengan memilih beberapa image secara langsung'
 
+    # ========== MeTHOD ========== !
+    # 1) IMAGE (Maximum upload size = 2mb)
+    def clean_image(self):
+        image = self.cleaned_data.get('image')
+        if image.size > 2 * 1048476:
+            raise forms.ValidationError('Denied ! Maximum allowed is 2mb.')
+        return image
 
 class SpecialInvitationForm(forms.ModelForm):
     class Meta:
