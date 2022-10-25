@@ -223,6 +223,8 @@ SOCIALACCOUNT_PROVIDERS = {
 ACCOUNT_FORMS = {
     'login': 'myproject.apps.accounts.forms.MyCustomLoginForm',
     'signup': 'myproject.apps.accounts.forms.MyCustomSignupForm',
+    'reset_password': 'myproject.apps.accounts.forms.MyCustomResetPasswordForm',
+    'reset_password_from_key': 'myproject.apps.accounts.forms.MyCustomResetPasswordKeyForm'
 
 }
 
@@ -238,3 +240,8 @@ REST_FRAMEWORK = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
 ]
+
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_USERNAME_REQUIRED = False
