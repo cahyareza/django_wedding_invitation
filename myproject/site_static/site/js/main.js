@@ -16,6 +16,51 @@ productContainers.forEach((item, i) => {
 })
 
 // SWIPER JS
+var swiper3 = new Swiper(".swiper3", {
+    effect: "coverflow",
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: "auto",
+    coverflowEffect: {
+      rotate: 20,
+      stretch: 10,
+      depth: 100,
+      modifier: 1,
+      slideShadows: true,
+    },
+//    pagination: {
+//      el: ".swiper-pagination3",
+//    },
+    loop: true,
+    autoplay: {
+        delay:1500,
+        disableOnInteraction: false,
+    }
+});
+
+
+var swiper2 = new Swiper(".swiper2", {
+    effect: "coverflow",
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: "auto",
+    coverflowEffect: {
+      rotate: 20,
+      stretch: 10,
+      depth: 100,
+      modifier: 1,
+      slideShadows: true,
+    },
+//    pagination: {
+//      el: ".swiper-pagination2",
+//    },
+    loop: true,
+    autoplay: {
+        delay:1500,
+        disableOnInteraction: false,
+    }
+});
+
 var swiper = new Swiper(".mySwiper", {
     spaceBetween: 20,
     slidesPerView: 1,

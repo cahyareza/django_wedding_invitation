@@ -51,7 +51,7 @@
   <!---------- RESUME START ---------->
   <section class="hero has-background-danger-light is-small">
     <div class="hero-body mt-6 mb-6">
-      <div class="container" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="700">
+      <div class="container" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
         <div class="columns is-multiline is-vcentered">
           <div class="column
           is-12-mobile
@@ -154,7 +154,7 @@
           <div class="column
           is-12-mobile
           is-12-tablet
-          is-4-desktop
+          is-7-desktop
           is-7-widescreen
           is-4-fullhd is-offset-1-fullhd has-text-centered" data-aos="fade-right">
             <figure class="image center" style="heigth: 400px; width: 300px;">
@@ -168,39 +168,44 @@
           <div class="column
           is-12-mobile
           is-12-tablet
-          is-8-desktop
+          is-5-desktop
           is-5-widescreen
           is-5-fullhd">
-            <section class="product">
-                <button class="pre-btn"><img src="{% static 'site/img/arrow.png' %}" alt=""></button>
-                <button class="nxt-btn"><img src="{% static 'site/img/arrow.png' %}" alt=""></button>
-                <div class="product-container">
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="{% static 'site/img/card1.jpg' %}" class="product-thumb" alt="">
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="{% static 'site/img/card2.jpg' %}" class="product-thumb" alt="">
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="{% static 'site/img/card3.jpg' %}" class="product-thumb" alt="">
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="{% static 'site/img/card4.jpg' %}" class="product-thumb" alt="">
-                        </div>
-                    </div>
-                </div>
 
-                <div class="buttons mt-3 is-centered">
-                    <button class="button is-danger">Lebih banyak portofolio</button>
-                </div>
-            </section>
+            <!---------- PORTO LIST START ---------->
+            {% include 'portofolio/parts/porto_list.html' %}
+            <!---------- PORTO LIST END ---------->
+
+<!--            <section class="product">-->
+<!--                <button class="pre-btn"><img src="{% static 'site/img/arrow.png' %}" alt=""></button>-->
+<!--                <button class="nxt-btn"><img src="{% static 'site/img/arrow.png' %}" alt=""></button>-->
+<!--                <div class="product-container">-->
+<!--                    <div class="product-card">-->
+<!--                        <div class="product-image">-->
+<!--                            <img src="{% static 'site/img/card1.jpg' %}" class="product-thumb" alt="">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="product-card">-->
+<!--                        <div class="product-image">-->
+<!--                            <img src="{% static 'site/img/card2.jpg' %}" class="product-thumb" alt="">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="product-card">-->
+<!--                        <div class="product-image">-->
+<!--                            <img src="{% static 'site/img/card3.jpg' %}" class="product-thumb" alt="">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="product-card">-->
+<!--                        <div class="product-image">-->
+<!--                            <img src="{% static 'site/img/card4.jpg' %}" class="product-thumb" alt="">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="buttons mt-3 is-centered">-->
+<!--                    <button class="button is-danger">Lebih banyak portofolio</button>-->
+<!--                </div>-->
+<!--            </section>-->
           </div>
         </div>
       </div>
@@ -221,42 +226,16 @@
         </h1>
         <p class="is-size-5-tablet px-4 mt-1 block">32 Presets tersedia. Dengan adanya preset kamu tinggal pilih design undangan sesuai dengan yang kamu mau.</p>
         <div class="columns is-multiline is-vcentered">
-          <div class="column
+          <div class="column center
           is-12-mobile
           is-12-tablet
-          is-12-desktop
-          is-12-widescreen
-          is-12-fullhd">
-            <section class="product">
-                <button class="pre-btn"><img src="{% static 'site/img/arrow.png' %}" alt=""></button>
-                <button class="nxt-btn"><img src="{% static 'site/img/arrow.png' %}" alt=""></button>
-                <div class="product-container">
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="{% static 'site/img/card1.jpg' %}" class="product-thumb" alt="">
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="{% static 'site/img/card2.jpg' %}" class="product-thumb" alt="">
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="{% static 'site/img/card3.jpg' %}" class="product-thumb" alt="">
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="{% static 'site/img/card4.jpg' %}" class="product-thumb" alt="">
-                        </div>
-                    </div>
-                </div>
+          is-10-desktop
+          is-10-widescreen
+          is-10-fullhd">
+            <!---------- PRESET LIST START ---------->
+            {% include 'portofolio/parts/preset_list.html' %}
+            <!---------- PRESET LIST END ---------->
 
-                <div class="buttons mt-3 is-centered">
-                    <button class="button is-danger">Lebih banyak preset</button>
-                </div>
-            </section>
           </div>
         </div>
       </div>
@@ -329,46 +308,6 @@
                 <div class="swiper-pagination"></div>
             </div>
           </div>
-
-
-<!--            <section class="product" style="height: 300px;">-->
-<!--                <button class="pre-btn"><img src="{% static 'site/img/arrow.png' %}" alt=""></button>-->
-<!--                <button class="nxt-btn"><img src="{% static 'site/img/arrow.png' %}" alt=""></button>-->
-<!--                <div class="product-container" style="height: 200px;">-->
-<!--                    <div class="product-card" style="height: 200px;">-->
-<!--                        <div class="box">-->
-<!--                          <p class="is-size-7-mobile is-size-6-tablet"><small>dari</small> <strong>Ratih & Aristo</strong></p>-->
-<!--                            &#9733 &#9733 &#9733 &#9733 &#9734-->
-<!--                          <p class="is-size-7-mobile is-size-6-tablet mt-2">Fiturnya bagus banget, dan bisa diedit kapan aja.</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="product-card" style="height: 200px;">-->
-<!--                        <div class="box">-->
-<!--                          <p class="is-size-7-mobile is-size-6-tablet"><small>dari</small> <strong>Ratih & Aristo</strong></p>-->
-<!--                            &#9733 &#9733 &#9733 &#9733 &#9734-->
-<!--                          <p class="is-size-7-mobile is-size-6-tablet mt-2">Fiturnya bagus banget, dan bisa diedit kapan aja.</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="product-card" style="height: 200px;">-->
-<!--                        <div class="box">-->
-<!--                          <p class="is-size-7-mobile is-size-6-tablet"><small>dari</small> <strong>Ratih & Aristo</strong></p>-->
-<!--                            &#9733 &#9733 &#9733 &#9733 &#9734-->
-<!--                          <p class="is-size-7-mobile is-size-6-tablet mt-2">Fiturnya bagus banget, dan bisa diedit kapan aja.</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="product-card" style="height: 200px;">-->
-<!--                        <div class="box">-->
-<!--                          <p class="is-size-7-mobile is-size-6-tablet"><small>dari</small> <strong>Ratih & Aristo</strong></p>-->
-<!--                            &#9733 &#9733 &#9733 &#9733 &#9734-->
-<!--                          <p class="is-size-7-mobile is-size-6-tablet mt-2">Fiturnya bagus banget, dan bisa diedit kapan aja.</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--                <div class="buttons mt-3 is-centered">-->
-<!--                    <button class="button is-danger">Lebih banyak testimoni</button>-->
-<!--                </div>-->
-<!--            </section>-->
         </div>
       </div>
     </div>
