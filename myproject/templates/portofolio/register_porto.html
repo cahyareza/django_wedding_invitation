@@ -562,14 +562,14 @@
                 <div id="ingredient-form-list4">
                     {% for form in formset4 %}
                     <div class="ingredient-form4 mb-5">
-                        {{ form }}
+<!--                        {{ form }}-->
 
-<!--                        {% for field in form %}-->
-<!--                            {{ field.label_tag }} {{ field }}-->
-<!--                            {% for error in field.errors %}-->
-<!--                                <p class="help is-danger">{{ error }}</p>-->
-<!--                            {% endfor %}-->
-<!--                        {% endfor %}-->
+                        {% for field in form %}
+                            {{ field.label_tag }} {{ field }}
+                            {% for error in field.errors %}
+                                <p class="help is-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endfor %}
                     </div>
                     {% endfor %}
                 </div>
@@ -692,7 +692,7 @@
     <!--------------- Formset4--------------->
 
     const addMoreBtn4 = document.getElementById('add-more4')
-    const totalNewForms4 = document.getElementById('id_multiimage-TOTAL_FORMS')
+    const totalNewForms4 = document.getElementById('id_story-TOTAL_FORMS')
 
 
     addMoreBtn4.addEventListener('click', add_new_form4)
@@ -708,7 +708,7 @@
         const formCopyTarget4 = document.getElementById('ingredient-form-list4')
         const copyEmptyFormEl4 = document.getElementById('empty-form4').cloneNode(true)
         copyEmptyFormEl4.setAttribute('class', 'ingredient-form4')
-        copyEmptyFormEl4.setAttribute('id', `multiimage-${currentFormCount4}`)
+        copyEmptyFormEl4.setAttribute('id', `story-${currentFormCount4}`)
         const regex = new RegExp('__prefix__', 'g')
         copyEmptyFormEl4.innerHTML = copyEmptyFormEl4.innerHTML.replace(regex, currentFormCount4)
         totalNewForms4.setAttribute('value', currentFormCount4 + 1)
