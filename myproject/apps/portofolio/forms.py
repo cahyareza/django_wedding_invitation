@@ -1,7 +1,8 @@
 from django import forms
 import re
 from django.forms import ClearableFileInput
-from .models import Portofolio, MultiImage, SpecialInvitation, Dompet, Quote, Rekening, ThemeProduct
+from .models import Portofolio, MultiImage, SpecialInvitation, Dompet, Quote, Rekening, ThemeProduct, \
+    Story
 from django.core.validators import RegexValidator
 from django.contrib.admin import widgets
 from django.forms import BaseFormSet
@@ -402,8 +403,8 @@ class PortofolioForm(forms.ModelForm):
             'tanggal_unduhmantu': "Tanggal unduh mantu",
             'waktu_unduhmantu': "Waktu unduh mantu",
             'waktu_selesai_unduhmantu': "Waktu selesai unduh mantu",
-            'panak_ke': "Anak ke-",
-            'lanak_ke': "Anak ke-",
+            'panak_ke': "Anak Perempuan ke-",
+            'lanak_ke': "Anak Laki-laki ke-",
 
         }
 
@@ -818,7 +819,72 @@ class ThemeProductForm(forms.ModelForm):
         # 2. Select option
         self.fields["theme"].choices = [('', 'Pilih tema'),] + list(self.fields["theme"].choices)[1:]
 
+class StoryForm(forms.ModelForm):
+    image = forms.FileField(
+        label="Foto moment",
+        widget=forms.ClearableFileInput(
+            attrs={
+                'placeholder': 'Select a picture',
+                'class': 'image',
+                'style': 'font-size: 15px',
+                'accept': 'image/png, image/jpeg'
+            }
+        )
+    )
+    cerita = forms.CharField(
+        label='Cerita', min_length=5, max_length=1000,
+        required=True,
+        widget=forms.Textarea(
+            attrs={
+                'placeholder': 'Cerita',
+                'class': 'textarea',
+                'style': 'font-size: 13px',
+            }
+        )
+    )
+    year = forms.CharField(
+        label='Tahun', min_length=4, max_length=5,
+        validators=[RegexValidator(r'^[0-9]*$',
+        message="Only numbers is allowed !")],
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Tahun',
+                'class': 'input',
+                'style': 'font-size: 13px;'
+            }
+        )
+    )
+    class Meta:
+        model = Story
+        fields = ['year', 'cerita', 'image']
+        # widgets = {
+        #     'image': ClearableFileInput(
+        #         attrs={
+        #             'multiple': True,
+        #             'class': 'image',
+        #             'style': 'font-size: 15px',
+        #             'accept': 'image/png, image/jpeg'
+        #        }),
+        # }
 
+    # SUPER FUNCTION
+    def __init__(self, *args, **kwargs):
+        super(StoryForm, self).__init__(*args, **kwargs)
+
+        # ========== CONTROL PANEL (Optional method to control ========== !
+        # 1. Input required
+        # self.fields['image'].required = False
+
+        # 2. Help text
+        # self.fields['image'].help_text = 'Note: Upload dengan memilih beberapa image secara langsung'
+
+    # ========== MeTHOD ========== !
+    # 1) IMAGE (Maximum upload size = 2mb)
+    def clean_image(self):
+        image = self.cleaned_data.get('image')
+        if image.size > 2 * 1048476:
+            raise forms.ValidationError('Denied ! Maximum allowed is 2mb.')
+        return image
 # ================== FORMSET =================== !
 class BaseRegisterFormSet(BaseFormSet):
     def clean(self):
@@ -833,12 +899,12 @@ class BaseRegisterFormSet(BaseFormSet):
             if cd:
                 if self.can_delete and self._should_delete_form(form):
                     continue
-                name_invite = cd['name_invite']
-                if name_invite in name_invites:
-                    raise ValidationError("Name in a set must have distinct title.")
-                name_invites.append(name_invite)
-                if name_invite == "":
-                    raise ValidationError("This field cannot be empty!")
+                # name_invite = cd['name_invite']
+                # if name_invite in name_invites:
+                #     raise ValidationError("Name in a set must have distinct title.")
+                # name_invites.append(name_invite)
+                # if name_invite == "":
+                #     raise ValidationError("This field cannot be empty!")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
