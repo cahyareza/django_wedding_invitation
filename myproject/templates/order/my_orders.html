@@ -14,7 +14,9 @@
                 <p class="subtitle is-size-6-tablet is-size-7-mobile mt-3">
                     User : {{ order.user }}<br>
                     Lokasi : {{ order.place }}<br>
-                    Nomor : {{ order.phone }}
+                    Nomor : {{ order.phone }}<br>
+                    Payment ke: {{ order.payment }}<br>
+                    Jumlah dibayarkan: Rp {{ order.paid|floatformat:"g" }}
                 </p>
 
                 <h2 class="title is-size-4-tablet is-size-5-mobile mt-3">Status</h2>
@@ -69,7 +71,7 @@
                 <h2 class="title is-size-4-tablet is-size-5-mobile mt-3">Products</h2>
 
                 <table class="table is-size-5-desktop is-size-6-tablet is-size-7-mobile">
-                    <thead class="has-background-light">
+                    <thead class="">
                         <th>No</th>
                         <th>Produk</th>
                     </thead>
@@ -80,10 +82,6 @@
                                 <td>{{ item.product }}</td>
                             </tr>
                         {% endfor %}
-                            <tr>
-                                <td>Total</td>
-                                <td>Rp {{ order.paid|floatformat:"g" }}</td>
-                            </tr>
                     </tbody>
                 </table>
 
