@@ -7,7 +7,8 @@ from .views import (
     SpecialInvitationList, SpecialInvitationDetail, PaymentList, \
     PaymentDetail, QuoteList, QuoteDetail, UcapanList, UcapanDetail, \
     HadirList, HadirDetail, FiturList, FiturDetail, \
-    ThemeList, ThemeDetail,ThemeProductList, ThemeProductDetail, ApiRoot
+    ThemeList, ThemeDetail,ThemeProductList, ThemeProductDetail, StoryList, \
+    StoryDetail, ApiRoot
 )
 
 
@@ -50,6 +51,9 @@ urlpatterns = [
 
     path('api/themeproduct/', ThemeProductList.as_view(), name=views.ThemeProductList.name),
     path('api/themeproduct/<int:pk>', ThemeProductDetail.as_view(), name=views.ThemeProductDetail.name),
+
+    path('api/story/', StoryList.as_view(), name=views.StoryList.name),
+    path('api/story/<int:pk>', StoryDetail.as_view(), name=views.StoryDetail.name),
 
     path('api/', ApiRoot.as_view(), name=views.ApiRoot.name),
 ]

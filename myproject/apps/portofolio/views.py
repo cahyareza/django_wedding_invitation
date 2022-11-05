@@ -5,7 +5,8 @@ from django.forms import modelformset_factory
 from django.core.exceptions import ValidationError
 from .serializers import PortofolioSerializer, RekeningSerializer, DompetSerializer, \
     MultiImageSerializer, SpecialInvitationSerializer, PaymentSerializer, QuoteSerializer, \
-    UcapanSerializer, HadirSerializer, FiturSerializer, ThemeSerializer, ThemeProductSerializer
+    UcapanSerializer, HadirSerializer, FiturSerializer, ThemeSerializer, ThemeProductSerializer, \
+    StorySerializer
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -510,14 +511,28 @@ class ThemeProductList(generics.ListCreateAPIView):
     queryset = ThemeProduct.objects.all()
     serializer_class = ThemeProductSerializer
     name = 'themeproduct-list'
+    filterset_fields = ['portofolio__slug']
 
 
 class ThemeProductDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ThemeProduct.objects.all()
     serializer_class = ThemeProductSerializer
     name = 'themeproduct-detail'
+
+# Story
+class StoryList(generics.ListCreateAPIView):
+    queryset = Story.objects.all()
+    serializer_class = StorySerializer
+    name = 'story-list'
     filterset_fields = ['portofolio__slug']
 
+class StoryDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Story.objects.all()
+    serializer_class = StorySerializer
+    name = 'story-detail'
+
+
+# ROOT
 class ApiRoot(generics.GenericAPIView):
     name = 'api-root'
     def get(self, request, *args, **kwargs):
@@ -534,4 +549,5 @@ class ApiRoot(generics.GenericAPIView):
             'fiturs': reverse('portofolio:fitur-list', request=request),
             'themeproducts': reverse('portofolio:themeproduct-list', request=request),
             'themes': reverse('portofolio:theme-list', request=request),
+            'story': reverse('portofolio:story-list', request=request),
             })
