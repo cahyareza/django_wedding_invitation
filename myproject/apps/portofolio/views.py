@@ -234,25 +234,34 @@ def update(request, slug):
         form=MultiImageForm,
         extra=1,
     )
+    StoryFormSet = modelformset_factory(
+        Story,
+        form=StoryForm,
+        extra=1,
+    )
 
-    # create query set for multi image
+    # create query set for specialinvitation
     qs = SpecialInvitation.objects.filter(portofolio=obj)
-    # create query set for multi image
+    # create query set for dompet
     qs2 = Dompet.objects.filter(portofolio=obj)
     # create query set for multi image
     qs3 = MultiImage.objects.filter(portofolio=obj)
+    # create query set for story
+    qs4 = Story.objects.filter(portofolio=obj)
 
     # Define formset
     formset = SpecialInviteFormSet(request.POST or None,queryset= qs, prefix='invite')
     formset2 = DompetFormSet(request.POST or None,queryset= qs2, prefix='dompet')
     formset3 = MultiImageFormSet(request.POST or None, request.FILES, queryset= qs3, prefix='multiimage')
+    formset4 = StoryFormSet(request.POST or None, request.FILES, queryset=qs4, prefix='story')
 
     if request.method == "POST":
         form = PortofolioForm(request.POST or None, request.FILES, instance=obj)
         form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
         form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
 
-        if form.is_valid() and form2.is_valid() and form3.is_valid() and formset.is_valid():
+        if form.is_valid() and form2.is_valid() and form3.is_valid() and formset.is_valid() \
+            and formset2.is_valid() and formset3.is_valid() and formset4.is_valid():
             # create portofolio instance
             instance = form.save(commit=False)
             # save user to porto
@@ -310,6 +319,13 @@ def update(request, slug):
                     child.portofolio = porto_instance
                     child.save()
 
+            for form in formset4:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
             messages.success(request, "Data saved!")
             return redirect("portofolio:update", slug=instance.slug)
 
@@ -320,6 +336,7 @@ def update(request, slug):
         formset = SpecialInviteFormSet(queryset= qs, prefix='invite')
         formset2 = DompetFormSet(queryset= qs2, prefix='dompet')
         formset3 = MultiImageFormSet(queryset= qs3, prefix='multiimage')
+        formset4 = StoryFormSet(queryset=qs4, prefix='story')
 
 
     context = {
@@ -329,6 +346,7 @@ def update(request, slug):
         'formset': formset,
         'formset2': formset2,
         'formset3': formset3,
+        'formset4': formset4,
     }
 
     return render(request, 'portofolio/portofolio_detail.html', context)
