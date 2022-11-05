@@ -298,7 +298,7 @@ class Theme(CreationModificationDateBase, UrlBase):
 
 class ThemeProduct(CreationModificationDateBase, UrlBase):
     fitur = models.ForeignKey(Fitur, on_delete=models.CASCADE, blank=True, null=True)
-    portofolio = models.OneToOneField(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
+    portofolio = models.OneToOneField(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
     theme = models.ForeignKey(Theme, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
