@@ -551,8 +551,38 @@
         </div>
       </div>
 
+      <!--   INFORMASI STORY  -->
+      <div class="notification is-light p-1 has-text-centered mt-4">
+        INFORMASI STORY
+      </div>
+      <div class="columns is-multiline">
+        {% if formset4 %}
+            {{ formset4.management_form }}
+            <div class="column is-4">
+                <div id="ingredient-form-list4">
+                    {% for form in formset4 %}
+                    <div class="ingredient-form4 mb-5">
+                        {{ form }}
+
+<!--                        {% for field in form %}-->
+<!--                            {{ field.label_tag }} {{ field }}-->
+<!--                            {% for error in field.errors %}-->
+<!--                                <p class="help is-danger">{{ error }}</p>-->
+<!--                            {% endfor %}-->
+<!--                        {% endfor %}-->
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div id="empty-form4" class="is-hidden mt-3">{{ formset4.empty_form }}</div>
+        {% endif %}
+      </div>
+
+      <button id="add-more4" type="button" class="button is-small is-outlined pd-1">Tambah</button>
+
       <!--   INFORMASI TEMA   -->
-      <div class="notification is-light p-1 has-text-centered">
+      <div class="notification is-light p-1 has-text-centered mt-4">
         INFORMASI TEMA
       </div>
       <div class="columns is-multiline mt-1">
@@ -605,7 +635,7 @@
         formCopyTarget.append(copyEmptyFormEl)
     }
 
-    <!--------------- Formset12--------------->
+    <!--------------- Formset2--------------->
 
     const addMoreBtn2 = document.getElementById('add-more2')
     const totalNewForms2 = document.getElementById('id_dompet-TOTAL_FORMS')
@@ -632,7 +662,7 @@
         formCopyTarget2.append(copyEmptyFormEl2)
     }
 
-    <!--------------- Formset12--------------->
+    <!--------------- Formset3--------------->
 
     const addMoreBtn3 = document.getElementById('add-more3')
     const totalNewForms3 = document.getElementById('id_multiimage-TOTAL_FORMS')
@@ -657,6 +687,33 @@
         totalNewForms3.setAttribute('value', currentFormCount3 + 1)
         // now add new form element to our html form
         formCopyTarget3.append(copyEmptyFormEl3)
+    }
+
+    <!--------------- Formset4--------------->
+
+    const addMoreBtn4 = document.getElementById('add-more4')
+    const totalNewForms4 = document.getElementById('id_multiimage-TOTAL_FORMS')
+
+
+    addMoreBtn4.addEventListener('click', add_new_form4)
+
+    function add_new_form4(event) {
+        if (event) {
+            event.preventDefault()
+        }
+        const currentIngredientForms4 = document.getElementsByClassName('ingredient-form4')
+        const currentFormCount4 = currentIngredientForms4.length // + 1
+        console.log(currentIngredientForms4.length)
+
+        const formCopyTarget4 = document.getElementById('ingredient-form-list4')
+        const copyEmptyFormEl4 = document.getElementById('empty-form4').cloneNode(true)
+        copyEmptyFormEl4.setAttribute('class', 'ingredient-form4')
+        copyEmptyFormEl4.setAttribute('id', `multiimage-${currentFormCount4}`)
+        const regex = new RegExp('__prefix__', 'g')
+        copyEmptyFormEl4.innerHTML = copyEmptyFormEl4.innerHTML.replace(regex, currentFormCount4)
+        totalNewForms4.setAttribute('value', currentFormCount4 + 1)
+        // now add new form element to our html form
+        formCopyTarget4.append(copyEmptyFormEl4)
     }
 </script>
 {% endblock %}

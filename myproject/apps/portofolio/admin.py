@@ -1,8 +1,11 @@
 from django.contrib import admin
 from .models import (Portofolio, MultiImage, SpecialInvitation, Dompet, Quote,
-     Rekening, Ucapan, Hadir, Fitur, Payment, Theme, ThemeProduct, Kabupaten)
+     Rekening, Ucapan, Hadir, Fitur, Payment, Theme, ThemeProduct, Kabupaten, Story)
 
 # Inline
+class StoryInline(admin.TabularInline):
+    model = Story
+
 class MultiImageInline(admin.TabularInline):
     model = MultiImage
 
@@ -39,7 +42,7 @@ class PortofolioAdmin(admin.ModelAdmin):
     list_display = ['porto_name', 'pname', 'lname', 'tanggal_resepsi', 'waktu_resepsi', 'tempat_resepsi', 'created']
     search_fields = ['porto_name', 'tanggal_resepsi', 'created']
     inlines = [MultiImageInline, SpecialInvitationInline, DompetInline, QuoteInline,
-               UcapanInline, HadirInline, ThemeProductInline]
+               UcapanInline, HadirInline, StoryInline, ThemeProductInline]
     list_per_page = 10
 
     # Fieldset
@@ -115,4 +118,8 @@ class ThemeProductAdmin(admin.ModelAdmin):
 
 @admin.register(Kabupaten)
 class KabupatenAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Story)
+class StoryAdmin(admin.ModelAdmin):
     pass

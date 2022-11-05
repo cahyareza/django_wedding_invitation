@@ -310,3 +310,14 @@ class Kabupaten(CreationModificationDateBase, UrlBase):
 
     def __str__(self):
         return self.name
+
+
+class Story(CreationModificationDateBase, UrlBase):
+    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
+    year = models.CharField(max_length=5)
+    cerita = models.TextField()
+    image = models.FileField(blank=True)
+
+    def __str__(self):
+        return self.portofolio.porto_name
+
