@@ -17,26 +17,72 @@
                     Nomor : {{ order.phone }}
                 </p>
 
+                <h2 class="title is-size-4-tablet is-size-5-mobile mt-3">Status</h2>
+
+                {% if order.status == "menunggu pembayaran" %}
+                    <ul class="step-wizard-list">
+                        <li class="step-wizard-item current-item">
+                            <span class="progress-count">1</span>
+                            <span class="progress-label">Menunggu Pembayaran</span>
+                        </li>
+                        <li class="step-wizard-item">
+                            <span class="progress-count">2</span>
+                            <span class="progress-label">Menunggu Konfirmasi</span>
+                        </li>
+                        <li class="step-wizard-item">
+                            <span class="progress-count">3</span>
+                            <span class="progress-label">Terkonfirmasi</span>
+                        </li>
+                    </ul>
+                {% elif order.status == "menunggu konfirmasi" %}
+                    <ul class="step-wizard-list">
+                        <li class="step-wizard-item">
+                            <span class="progress-count">1</span>
+                            <span class="progress-label">Menunggu Pembayaran</span>
+                        </li>
+                        <li class="step-wizard-item current-item">
+                            <span class="progress-count">2</span>
+                            <span class="progress-label">Menunggu Konfirmasi</span>
+                        </li>
+                        <li class="step-wizard-item">
+                            <span class="progress-count">3</span>
+                            <span class="progress-label">Terkonfirmasi</span>
+                        </li>
+                    </ul>
+                {% else %}
+                    <ul class="step-wizard-list">
+                        <li class="step-wizard-item">
+                            <span class="progress-count">1</span>
+                            <span class="progress-label">Menunggu Pembayaran</span>
+                        </li>
+                        <li class="step-wizard-item">
+                            <span class="progress-count">2</span>
+                            <span class="progress-label">Menunggu Konfirmasi</span>
+                        </li>
+                        <li class="step-wizard-item current-item">
+                            <span class="progress-count">3</span>
+                            <span class="progress-label">Terkonfirmasi</span>
+                        </li>
+                    </ul>
+                {% endif %}
+
                 <h2 class="title is-size-4-tablet is-size-5-mobile mt-3">Products</h2>
 
                 <table class="table is-size-5-desktop is-size-6-tablet is-size-7-mobile">
                     <thead class="has-background-light">
                         <th>No</th>
                         <th>Produk</th>
-                        <th>Status</th>
                     </thead>
                     <tbody>
                         {% for item in order.items.all %}
                             <tr>
                                 <td>{{ forloop.counter }}</td>
                                 <td>{{ item.product }}</td>
-                                <td></td>
                             </tr>
                         {% endfor %}
                             <tr>
                                 <td>Total</td>
                                 <td>Rp {{ order.paid|floatformat:"g" }}</td>
-                                <td>{{ order.status }}</td>
                             </tr>
                     </tbody>
                 </table>
