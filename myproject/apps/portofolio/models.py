@@ -298,7 +298,7 @@ class Theme(CreationModificationDateBase, UrlBase):
 
 class ThemeProduct(CreationModificationDateBase, UrlBase):
     fitur = models.ForeignKey(Fitur, on_delete=models.CASCADE, blank=True, null=True)
-    portofolio = models.OneToOneField(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
+    portofolio = models.OneToOneField(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
     theme = models.ForeignKey(Theme, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
@@ -310,14 +310,3 @@ class Kabupaten(CreationModificationDateBase, UrlBase):
 
     def __str__(self):
         return self.name
-
-
-class Story(CreationModificationDateBase, UrlBase):
-    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
-    year = models.CharField(max_length=5)
-    cerita = models.TextField()
-    image = models.FileField(blank=True)
-
-    def __str__(self):
-        return self.portofolio.porto_name
-

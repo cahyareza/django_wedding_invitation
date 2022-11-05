@@ -18,10 +18,10 @@ from myproject.apps.coupon.models import Coupon
 from myproject.apps.order.models import Order, OrderItem
 from .models import MultiImage, Portofolio, SpecialInvitation, Dompet, Quote, Fitur, \
     Rekening, Payment, MultiImage, SpecialInvitation, Ucapan, Hadir, Fitur, \
-    Theme, ThemeProduct, Story
+    Theme, ThemeProduct
 
 from .forms import PortofolioForm, MultiImageForm, SpecialInvitationForm, \
-    BaseRegisterFormSet, DompetForm, QuoteForm, ThemeProductForm, StoryForm
+    BaseRegisterFormSet, DompetForm, QuoteForm, ThemeProductForm
 
 def home(request):
     portofolio = Portofolio.objects.all()
@@ -82,12 +82,6 @@ def home(request):
 # Portofolio registration
 def register(request, id=None):
     # initiate formset
-    StoryFormSet = modelformset_factory(
-        Story,
-        form=StoryForm,
-        formset=BaseRegisterFormSet,
-        extra=1,
-    )
     SpecialInviteFormSet = modelformset_factory(
         SpecialInvitation,
         form=SpecialInvitationForm,
@@ -117,11 +111,10 @@ def register(request, id=None):
             formset = SpecialInviteFormSet(request.POST or None, prefix='invite')
             formset2 = DompetFormSet(request.POST or None, prefix='dompet')
             formset3 = MultiImageFormSet(request.POST or None, request.FILES, prefix='multiimage')
-            formset4 = StoryFormSet(request.POST or None, request.FILES, prefix='story')
-            print(request.POST)
+
+            # print(request.POST)
             # form validation
-            if form.is_valid() and form2.is_valid() and form3.is_valid() and formset.is_valid() \
-                and formset2.is_valid() and formset3.is_valid() and formset4.is_valid():
+            if form.is_valid() and form2.is_valid() and form3.is_valid() and formset.is_valid():
                 # create portofolio instance
                 instance = form.save(commit=False)
                 # save user to porto
@@ -172,15 +165,6 @@ def register(request, id=None):
                         child.save()
 
                 for form in formset3:
-                    print(form)
-                    # Not save blank field use has_changed()
-                    if form.is_valid() and form.has_changed():
-                        child = form.save(commit=False)
-                        child.portofolio = porto_instance
-                        child.save()
-
-                for form in formset4:
-                    print(form)
                     # Not save blank field use has_changed()
                     if form.is_valid() and form.has_changed():
                         child = form.save(commit=False)
@@ -191,8 +175,7 @@ def register(request, id=None):
                 return HttpResponseRedirect('/')
             else:
                 return render(request, "portofolio/register_porto.html", {'form': form,
-                    'form2': form2, 'form3': form3, 'formset': formset, 'formset2': formset2, 'formset3': formset3,
-                    'formset4': formset4})
+                    'form2': form2, 'form3': form3, 'formset': formset, 'formset2': formset2, 'formset3': formset3})
 
         else:
             form = PortofolioForm()
@@ -201,14 +184,12 @@ def register(request, id=None):
             formset = SpecialInviteFormSet(prefix='invite')
             formset2 = DompetFormSet(prefix='dompet')
             formset3 = MultiImageFormSet(prefix='multiimage')
-            formset4 = StoryFormSet(prefix='story')
 
     else:
         return render(request, 'portofolio/regis_failed.html')
 
     return render(request, "portofolio/register_porto.html", {'form': form,
-        'form2': form2, 'form3': form3, 'formset': formset, 'formset2': formset2, 'formset3': formset3,
-        'formset4': formset4})
+        'form2': form2, 'form3': form3, 'formset': formset, 'formset2': formset2, 'formset3': formset3})
 
 def update(request, slug):
     # get instance portofolio from id
