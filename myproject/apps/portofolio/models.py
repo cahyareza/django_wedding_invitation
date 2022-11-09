@@ -293,6 +293,12 @@ class Fitur(CreationModificationDateBase, UrlBase):
 class Theme(CreationModificationDateBase, UrlBase):
     name = models.CharField(max_length=40)
     slug = models.SlugField(max_length=255, blank=True)
+    open_fitur = models.FileField(blank=True)
+    cover_fitur = models.FileField(blank=True)
+    quote_fitur = models.FileField(blank=True)
+    rundown_fitur = models.FileField(blank=True)
+    line = models.FileField(blank=True)
+    space = models.FileField(blank=True)
 
     def __str__(self):
         return self.name
