@@ -95,7 +95,8 @@ class FiturSerializer(serializers.ModelSerializer):
 class ThemeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Theme
-        fields = ("name", "slug")
+        fields = ("name", "slug", "open_fitur", "cover_fitur", "quote_fitur", \
+                  "rundown_fitur", "line", "space")
 
 # Theme Product
 class ThemeProductSerializer(serializers.HyperlinkedModelSerializer):
@@ -103,8 +104,9 @@ class ThemeProductSerializer(serializers.HyperlinkedModelSerializer):
         slug_field='slug')
     fitur = serializers.SlugRelatedField(queryset=Fitur.objects.all(),
         slug_field='slug')
-    theme = serializers.SlugRelatedField(queryset=Theme.objects.all(),
-        slug_field='slug')
+    # theme = serializers.SlugRelatedField(queryset=Theme.objects.all(),
+    #     slug_field='slug')
+    theme = ThemeSerializer()
 
     class Meta:
         model = ThemeProduct
