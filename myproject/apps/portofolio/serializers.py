@@ -15,7 +15,7 @@ class PortofolioSerializer(serializers.ModelSerializer):
                   "tempat_resepsi", "link_gmap_resepsi", "tanggal_unduhmantu", "waktu_unduhmantu", "waktu_selesai_unduhmantu", \
                   "tempat_unduhmantu", "link_gmap_unduhmantu", "video", "livestream", "name", "description", "startDate",
                   "location", "startTime", "endTime", "options", "timeZone", "trigger", "iCalFileName", "link_iframe", \
-                  "lokasi", "link_gmap")
+                  "lokasi", "link_gmap", "cover_background")
 
 # Multiimage
 class MultiImageSerializer(serializers.HyperlinkedModelSerializer):

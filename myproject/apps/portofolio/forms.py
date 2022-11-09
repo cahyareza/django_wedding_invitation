@@ -873,7 +873,9 @@ class StoryForm(forms.ModelForm):
 
         # ========== CONTROL PANEL (Optional method to control ========== !
         # 1. Input required
-        # self.fields['image'].required = False
+        self.fields['year'].required = False
+        self.fields['cerita'].required = False
+        self.fields['image'].required = False
 
         # 2. Help text
         # self.fields['image'].help_text = 'Note: Upload dengan memilih beberapa image secara langsung'
