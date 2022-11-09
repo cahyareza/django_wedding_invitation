@@ -223,22 +223,22 @@ def update(request, slug):
     SpecialInviteFormSet = modelformset_factory(
         SpecialInvitation,
         form=SpecialInvitationForm,
-        extra=1,
+        extra=0,
     )
     DompetFormSet = modelformset_factory(
         Dompet,
         form=DompetForm,
-        extra=1,
+        extra=0,
     )
     MultiImageFormSet = modelformset_factory(
         MultiImage,
         form=MultiImageForm,
-        extra=1,
+        extra=0,
     )
     StoryFormSet = modelformset_factory(
         Story,
         form=StoryForm,
-        extra=1,
+        extra=0,
     )
 
     # create query set for specialinvitation

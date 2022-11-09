@@ -10,6 +10,8 @@ from django.conf import settings
 from multiselectfield import MultiSelectField
 from PIL import Image
 
+from django_resized import ResizedImageField
+
 from myproject.apps.core.models import CreationModificationDateBase, UrlBase
 
 TIMEZONE_CHOICES = (
@@ -87,13 +89,16 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     panak_ke = models.CharField(max_length=30, choices=ANAK_KE)
     pnama_ayah = models.CharField(max_length=40)
     pnama_ibu = models.CharField(max_length=40)
-    ppicture = models.ImageField(blank=True)
+    # ppicture = models.ImageField(blank=True)
+    ppicture = ResizedImageField(size=[180, 180], crop=['middle', 'center'], upload_to='whatever')
+
     lname = models.CharField(max_length=40)
     linsta_link = models.CharField(max_length=250)
     lanak_ke = models.CharField(max_length=30, choices=ANAK_KE)
     lnama_ayah = models.CharField(max_length=40)
     lnama_ibu = models.CharField(max_length=40)
-    lpicture = models.ImageField(blank=True)
+    # lpicture = models.ImageField(blank=True)
+    lpicture = ResizedImageField(size=[180, 180], crop=['middle', 'center'], upload_to='whatever')
 
     # Acara
     tanggal_akad = models.DateField(auto_now=False, auto_now_add=False)
@@ -136,6 +141,9 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     link_iframe = models.TextField()
     lokasi = models.CharField(max_length=250)
     link_gmap = models.TextField()
+
+    # Tema
+    cover_background = models.ImageField(blank=True)
 
     class Meta:
         verbose_name_plural = "APortofolio"
