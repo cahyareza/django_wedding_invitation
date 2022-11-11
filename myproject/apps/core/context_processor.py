@@ -4,12 +4,23 @@ from myproject.apps.cart.cart import Cart
 from myproject.apps.portofolio.models import Fitur
 from myproject.apps.order.models import Order, OrderItem
 from myproject.apps.order.forms import OrderForm
+from myproject.apps.coupon.models import Coupon
 from django.contrib.auth.decorators import login_required
 
 def listProduct(request):
     objects_fitur = Fitur.objects.all()
 
     return {'fiturs': objects_fitur}
+
+def listCoupon(request):
+    objects_coupon = Coupon.objects.all()
+    obj_silver = Coupon.objects.filter(active=True, silver=True).first()
+    obj_platinum = Coupon.objects.filter(active=True, platinum=True).first()
+    obj_gold = Coupon.objects.filter(active=True, gold=True).first()
+
+    return {'coupon_silver': obj_silver,
+            'coupon_platinum': obj_platinum,
+            'coupon_gold': obj_gold,}
 
 def cart(request):
     return {'cart' : Cart(request)}
