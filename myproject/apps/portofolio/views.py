@@ -44,6 +44,7 @@ def home(request):
                 'ucapan': ucapan,
                 'dompet': dompet,
                 'hadir': hadir,
+                'coupon': obj,
                 'discount_str': discount_str,
                 'discount_value': discount_value,
                 'discount_percent': discount_percent
@@ -58,6 +59,7 @@ def home(request):
                 'ucapan': ucapan,
                 'dompet': dompet,
                 'hadir': hadir,
+                'coupon': obj,
                 'discount_str': discount_str,
                 'discount_value': discount_value,
                 'discount_percent': discount_percent
@@ -74,6 +76,7 @@ def home(request):
             'ucapan': ucapan,
             'dompet': dompet,
             'hadir': hadir,
+            'coupon': obj,
             'discount_str': discount_str,
             'discount_value': discount_value,
             'discount_percent': discount_percent
