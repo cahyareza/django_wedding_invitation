@@ -30,57 +30,85 @@ def home(request):
     dompet = Dompet.objects.all()
     hadir = Hadir.objects.all()
 
-    coupon_obj = Coupon.objects.filter(active=True)
+    obj_silver = Coupon.objects.filter(active=True, silver=True).first()
+    obj_platinum = Coupon.objects.filter(active=True, platinum=True).first()
+    obj_gold = Coupon.objects.filter(active=True, gold=True).first()
+
     current_time = timezone.now()
-    if coupon_obj.exists():
-        obj = Coupon.objects.filter(active=True).first()
-        if obj.valid_to >= current_time:
-            discount_value = obj.discount
-            discount_percent = 1 - discount_value/100
-            discount_str = f"{obj.discount}%"
 
-            context = {
-                'portofolio': portofolio,
-                'ucapan': ucapan,
-                'dompet': dompet,
-                'hadir': hadir,
-                'coupon': obj,
-                'discount_str': discount_str,
-                'discount_value': discount_value,
-                'discount_percent': discount_percent
-            }
-        else:
-            discount_value = False
-            discount_percent = False
-            discount_str = False
-
-            context = {
-                'portofolio': portofolio,
-                'ucapan': ucapan,
-                'dompet': dompet,
-                'hadir': hadir,
-                'coupon': obj,
-                'discount_str': discount_str,
-                'discount_value': discount_value,
-                'discount_percent': discount_percent
-            }
-
-        return render(request, 'index.html', context)
-    else:
-        discount_value = False
-        discount_percent = False
-        discount_str = False
+    if obj_silver.valid_to >= current_time or obj_platinum.valid_to >= current_time or obj_gold.valid_to >= current_time:
 
         context = {
             'portofolio': portofolio,
             'ucapan': ucapan,
             'dompet': dompet,
             'hadir': hadir,
-            'coupon': obj,
-            'discount_str': discount_str,
-            'discount_value': discount_value,
-            'discount_percent': discount_percent
+            'obj_silver': obj_silver,
+            'obj_platinum': obj_platinum,
+            'obj_gold': obj_gold,
+            'discount_str_silver': False,
+            'discount_value_silver': False,
+            'discount_percent_silver': False,
+            'discount_str_platinum': False,
+            'discount_value_platinum': False,
+            'discount_percent_platinum': False,
+            'discount_str_gold': False,
+            'discount_value_gold': False,
+            'discount_percent_gold': False
         }
+
+        # SILVER
+        if obj_silver:
+            discount_value_silver = obj_silver.discount
+            discount_percent_silver = 1 - discount_value_silver/100
+            discount_str_silver = f"{obj_silver.discount}%"
+
+            context['discount_str_silver'] =  discount_str_silver
+            context['discount_value_silver'] = discount_value_silver
+            context['discount_percent_silver'] = discount_percent_silver
+
+        # PLATINUM
+        if obj_platinum:
+            discount_value_platinum = obj_platinum.discount
+            discount_percent_platinum = 1 - discount_value_platinum/100
+            discount_str_platinum = f"{obj_platinum.discount}%"
+
+            context['discount_str_platinum'] = discount_str_platinum
+            context['discount_value_platinum'] = discount_value_platinum
+            context['discount_percent_platinum'] = discount_percent_platinum
+
+        # GOLD
+        if obj_gold:
+            discount_value_gold = obj_gold.discount
+            discount_percent_gold = 1 - discount_value_gold/100
+            discount_str_gold = f"{obj_gold.discount}%"
+
+            context['discount_str_gold'] = discount_str_gold
+            context['discount_value_gold'] = discount_value_gold
+            context['discount_percent_gold'] = discount_percent_gold
+
+        print(context)
+        return render(request, 'index.html', context)
+    else:
+        context = {
+            'portofolio': portofolio,
+            'ucapan': ucapan,
+            'dompet': dompet,
+            'hadir': hadir,
+            'obj_silver': obj_silver,
+            'obj_platinum': obj_platinum,
+            'obj_gold': obj_gold,
+            'discount_str_silver': False,
+            'discount_value_silver': False,
+            'discount_percent_silver': False,
+            'discount_str_platinum': False,
+            'discount_value_platinum': False,
+            'discount_percent_platinum': False,
+            'discount_str_gold': False,
+            'discount_value_gold': False,
+            'discount_percent_gold': False
+        }
+
         return render(request, 'index.html', context)
 
 # Portofolio registration
