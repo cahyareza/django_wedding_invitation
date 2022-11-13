@@ -36,58 +36,84 @@ def home(request):
 
     current_time = timezone.now()
 
-    if obj_silver.valid_to >= current_time or obj_platinum.valid_to >= current_time or obj_gold.valid_to >= current_time:
+    # Check if instance available
+    if obj_silver or obj_platinum or obj_gold:
 
-        context = {
-            'portofolio': portofolio,
-            'ucapan': ucapan,
-            'dompet': dompet,
-            'hadir': hadir,
-            'obj_silver': obj_silver,
-            'obj_platinum': obj_platinum,
-            'obj_gold': obj_gold,
-            'discount_str_silver': False,
-            'discount_value_silver': False,
-            'discount_percent_silver': False,
-            'discount_str_platinum': False,
-            'discount_value_platinum': False,
-            'discount_percent_platinum': False,
-            'discount_str_gold': False,
-            'discount_value_gold': False,
-            'discount_percent_gold': False
-        }
+        if obj_silver.valid_to >= current_time or obj_platinum.valid_to >= current_time or obj_gold.valid_to >= current_time:
 
-        # SILVER
-        if obj_silver:
-            discount_value_silver = obj_silver.discount
-            discount_percent_silver = 1 - discount_value_silver/100
-            discount_str_silver = f"{obj_silver.discount}%"
+            context = {
+                'portofolio': portofolio,
+                'ucapan': ucapan,
+                'dompet': dompet,
+                'hadir': hadir,
+                'obj_silver': obj_silver,
+                'obj_platinum': obj_platinum,
+                'obj_gold': obj_gold,
+                'discount_str_silver': False,
+                'discount_value_silver': False,
+                'discount_percent_silver': False,
+                'discount_str_platinum': False,
+                'discount_value_platinum': False,
+                'discount_percent_platinum': False,
+                'discount_str_gold': False,
+                'discount_value_gold': False,
+                'discount_percent_gold': False
+            }
 
-            context['discount_str_silver'] =  discount_str_silver
-            context['discount_value_silver'] = discount_value_silver
-            context['discount_percent_silver'] = discount_percent_silver
+            # SILVER
+            if obj_silver:
+                discount_value_silver = obj_silver.discount
+                discount_percent_silver = 1 - discount_value_silver/100
+                discount_str_silver = f"{obj_silver.discount}%"
 
-        # PLATINUM
-        if obj_platinum:
-            discount_value_platinum = obj_platinum.discount
-            discount_percent_platinum = 1 - discount_value_platinum/100
-            discount_str_platinum = f"{obj_platinum.discount}%"
+                context['discount_str_silver'] =  discount_str_silver
+                context['discount_value_silver'] = discount_value_silver
+                context['discount_percent_silver'] = discount_percent_silver
 
-            context['discount_str_platinum'] = discount_str_platinum
-            context['discount_value_platinum'] = discount_value_platinum
-            context['discount_percent_platinum'] = discount_percent_platinum
+            # PLATINUM
+            if obj_platinum:
+                discount_value_platinum = obj_platinum.discount
+                discount_percent_platinum = 1 - discount_value_platinum/100
+                discount_str_platinum = f"{obj_platinum.discount}%"
 
-        # GOLD
-        if obj_gold:
-            discount_value_gold = obj_gold.discount
-            discount_percent_gold = 1 - discount_value_gold/100
-            discount_str_gold = f"{obj_gold.discount}%"
+                context['discount_str_platinum'] = discount_str_platinum
+                context['discount_value_platinum'] = discount_value_platinum
+                context['discount_percent_platinum'] = discount_percent_platinum
 
-            context['discount_str_gold'] = discount_str_gold
-            context['discount_value_gold'] = discount_value_gold
-            context['discount_percent_gold'] = discount_percent_gold
+            # GOLD
+            if obj_gold:
+                discount_value_gold = obj_gold.discount
+                discount_percent_gold = 1 - discount_value_gold/100
+                discount_str_gold = f"{obj_gold.discount}%"
 
-        return render(request, 'index.html', context)
+                context['discount_str_gold'] = discount_str_gold
+                context['discount_value_gold'] = discount_value_gold
+                context['discount_percent_gold'] = discount_percent_gold
+
+            return render(request, 'index.html', context)
+        else:
+            context = {
+                'portofolio': portofolio,
+                'ucapan': ucapan,
+                'dompet': dompet,
+                'hadir': hadir,
+                'obj_silver': obj_silver,
+                'obj_platinum': obj_platinum,
+                'obj_gold': obj_gold,
+                'discount_str_silver': False,
+                'discount_value_silver': False,
+                'discount_percent_silver': False,
+                'discount_str_platinum': False,
+                'discount_value_platinum': False,
+                'discount_percent_platinum': False,
+                'discount_str_gold': False,
+                'discount_value_gold': False,
+                'discount_percent_gold': False
+            }
+
+            return render(request, 'index.html', context)
+
+    #  Instance not available
     else:
         context = {
             'portofolio': portofolio,
