@@ -15,6 +15,16 @@ def listProduct(request):
 def cart(request):
     return {'cart' : Cart(request)}
 
+def listCoupon(request):
+    objects_coupon = Coupon.objects.all()
+    obj_silver = Coupon.objects.filter(active=True, silver=True).first()
+    obj_platinum = Coupon.objects.filter(active=True, platinum=True).first()
+    obj_gold = Coupon.objects.filter(active=True, gold=True).first()
+
+    return {'coupon_silver': obj_silver,
+            'coupon_platinum': obj_platinum,
+            'coupon_gold': obj_gold,}
+
 def order_checkout_form(request):
     form = OrderForm(request.POST or None)
 
