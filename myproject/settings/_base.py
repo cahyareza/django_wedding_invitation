@@ -110,7 +110,6 @@ TEMPLATES = [
                 'myproject.apps.core.context_processor.order_checkout_form',
                 'myproject.apps.core.context_processor.order_checkout_update',
                 'myproject.apps.core.context_processor.order',
-                'myproject.apps.core.context_processor.listCoupon',
             ],
         },
     },

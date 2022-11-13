@@ -12,16 +12,6 @@ def listProduct(request):
 
     return {'fiturs': objects_fitur}
 
-def listCoupon(request):
-    objects_coupon = Coupon.objects.all()
-    obj_silver = Coupon.objects.filter(active=True, silver=True).first()
-    obj_platinum = Coupon.objects.filter(active=True, platinum=True).first()
-    obj_gold = Coupon.objects.filter(active=True, gold=True).first()
-
-    return {'coupon_silver': obj_silver,
-            'coupon_platinum': obj_platinum,
-            'coupon_gold': obj_gold,}
-
 def cart(request):
     return {'cart' : Cart(request)}
 
@@ -42,8 +32,15 @@ def order_checkout_update(request):
 def order(request):
     if request.user.is_authenticated:
         order = Order.objects.filter(user=request.user).first()
-        return {'order' : order}
+        if order:
+            orderproduct = str(order.items.first().product)
+            print(orderproduct)
+            return {'order': order, 'orderproduct': orderproduct}
+        else:
+            return {'order' : order, 'orderproduct': None}
 
     else:
         return {}
+
+
 

@@ -193,6 +193,21 @@ class MultiImage(CreationModificationDateBase, UrlBase):
     class Meta:
         verbose_name_plural = "Multiimages"
 
+    def __str__(self):
+        return self.portofolio.porto_name
+
+    # def save(self, *args, **kwargs):
+    #     if self.portofolio.themeproduct == "platinum":
+    #         if sum(self.portofolio) >= 10:
+    #             return
+    #     if self.portofolio.themeproduct == "gold":
+    #         if sum(self.portofolio) >= 20:
+    #             return
+    #     else:
+    #         return
+    #
+    #     super().save(*args, **kwargs)
+
 class SpecialInvitation(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
     name_invite = models.CharField(max_length=100)

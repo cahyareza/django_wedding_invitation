@@ -87,7 +87,6 @@ def home(request):
             context['discount_value_gold'] = discount_value_gold
             context['discount_percent_gold'] = discount_percent_gold
 
-        print(context)
         return render(request, 'index.html', context)
     else:
         context = {
@@ -138,6 +137,12 @@ def register(request, id=None):
         formset=BaseRegisterFormSet,
         extra=1,
     )
+    MultiImageFormSet2 = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        formset=BaseRegisterFormSet,
+        extra=1,
+    )
 
     portofolio = Portofolio.objects.filter(user=request.user).exists()
     if portofolio == False:
@@ -150,10 +155,11 @@ def register(request, id=None):
             formset2 = DompetFormSet(request.POST or None, prefix='dompet')
             formset3 = MultiImageFormSet(request.POST or None, request.FILES, prefix='multiimage')
             formset4 = StoryFormSet(request.POST or None, request.FILES, prefix='story')
+            formset5 = MultiImageFormSet2(request.POST or None, request.FILES, prefix='multiimage2')
             print(request.POST)
             # form validation
             if form.is_valid() and form2.is_valid() and form3.is_valid() and formset.is_valid() \
-                and formset2.is_valid() and formset3.is_valid() and formset4.is_valid():
+                and formset2.is_valid() and formset4.is_valid():
                 # create portofolio instance
                 instance = form.save(commit=False)
                 # save user to porto
@@ -204,7 +210,6 @@ def register(request, id=None):
                         child.save()
 
                 for form in formset3:
-                    print(form)
                     # Not save blank field use has_changed()
                     if form.is_valid() and form.has_changed():
                         child = form.save(commit=False)
@@ -212,7 +217,13 @@ def register(request, id=None):
                         child.save()
 
                 for form in formset4:
-                    print(form)
+                    # Not save blank field use has_changed()
+                    if form.is_valid() and form.has_changed():
+                        child = form.save(commit=False)
+                        child.portofolio = porto_instance
+                        child.save()
+
+                for form in formset5:
                     # Not save blank field use has_changed()
                     if form.is_valid() and form.has_changed():
                         child = form.save(commit=False)
@@ -224,7 +235,7 @@ def register(request, id=None):
             else:
                 return render(request, "portofolio/register_porto.html", {'form': form,
                     'form2': form2, 'form3': form3, 'formset': formset, 'formset2': formset2, 'formset3': formset3,
-                    'formset4': formset4})
+                    'formset4': formset4, 'formset5': formset5})
 
         else:
             form = PortofolioForm()
@@ -234,13 +245,14 @@ def register(request, id=None):
             formset2 = DompetFormSet(prefix='dompet')
             formset3 = MultiImageFormSet(prefix='multiimage')
             formset4 = StoryFormSet(prefix='story')
+            formset5 = MultiImageFormSet2(prefix='multiimage2')
 
     else:
         return render(request, 'portofolio/regis_failed.html')
 
     return render(request, "portofolio/register_porto.html", {'form': form,
         'form2': form2, 'form3': form3, 'formset': formset, 'formset2': formset2, 'formset3': formset3,
-        'formset4': formset4})
+        'formset4': formset4, 'formset5': formset5})
 
 def update(request, slug):
     # get instance portofolio from id
@@ -271,6 +283,11 @@ def update(request, slug):
         form=StoryForm,
         extra=0,
     )
+    MultiImageFormSet2 = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=0,
+    )
 
     # create query set for specialinvitation
     qs = SpecialInvitation.objects.filter(portofolio=obj)
@@ -286,6 +303,7 @@ def update(request, slug):
     formset2 = DompetFormSet(request.POST or None,queryset= qs2, prefix='dompet')
     formset3 = MultiImageFormSet(request.POST or None, request.FILES, queryset= qs3, prefix='multiimage')
     formset4 = StoryFormSet(request.POST or None, request.FILES, queryset=qs4, prefix='story')
+    formset5 = MultiImageFormSet2(request.POST or None, request.FILES, queryset=qs3, prefix='multiimage2')
 
     if request.method == "POST":
         form = PortofolioForm(request.POST or None, request.FILES, instance=obj)
@@ -293,7 +311,7 @@ def update(request, slug):
         form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
 
         if form.is_valid() and form2.is_valid() and form3.is_valid() and formset.is_valid() \
-            and formset2.is_valid() and formset3.is_valid() and formset4.is_valid():
+            and formset2.is_valid() and formset4.is_valid():
             # create portofolio instance
             instance = form.save(commit=False)
             # save user to porto
@@ -358,6 +376,13 @@ def update(request, slug):
                     child.portofolio = porto_instance
                     child.save()
 
+            for form in formset5:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
             messages.success(request, "Data saved!")
             return redirect("portofolio:update", slug=instance.slug)
 
@@ -369,6 +394,7 @@ def update(request, slug):
         formset2 = DompetFormSet(queryset= qs2, prefix='dompet')
         formset3 = MultiImageFormSet(queryset= qs3, prefix='multiimage')
         formset4 = StoryFormSet(queryset=qs4, prefix='story')
+        formset5 = MultiImageFormSet2(queryset=qs3, prefix='multiimage2')
 
 
     context = {
@@ -379,6 +405,7 @@ def update(request, slug):
         'formset2': formset2,
         'formset3': formset3,
         'formset4': formset4,
+        'formset5': formset5,
     }
 
     return render(request, 'portofolio/portofolio_detail.html', context)
