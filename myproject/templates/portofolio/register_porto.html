@@ -323,69 +323,132 @@
       </div>
 
       <!--   INFORMASI OUR MOMENT   -->
-      <div class="notification is-light p-1 has-text-centered">
-        INFORMASI MOMENT
-      </div>
+    {% if orderproduct == "GOLD" %}
+    <div class="notification is-light p-1 has-text-centered">
+       INFORMASI MOMENT
+    </div>
+    <div class="columns is-multiline mt-1">
+        <div class="column is-6">
+          {{ form.video.label_tag }}
+          {{ form.video }}
 
-      {% if orderproduct != "SILVER" %}
-          <div class="columns is-multiline mt-1">
+          {% for error in form.video.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div class="column is-6">
+            {{ form.livestream.label_tag }}
+            {{ form.livestream }}
+
+            {% for error in form.livestream.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+
+        <div class="column is-12">
+          {% if formset5 %}
+            {{ formset5.management_form }}
             <div class="column is-6">
-              {{ form.video.label_tag }}
-              {{ form.video }}
-
-              {% for error in form.video.errors %}
-                  <p class="help is-danger">{{ error }}</p>
-              {% endfor %}
-            </div>
-
-            {% if orderproduct == "PLATINUM" %}
-                <div class="column is-12">
-                  {% if formset3 %}
-                    {{ formset3.management_form }}
-                    <div class="column is-6">
-                        <div id="ingredient-form-list3">
-                            {% for field in formset3 %}
-                            <div class="ingredient-form3 mb-3">
-                                {{ field }}
-                            </div>
-                            {% endfor %}
-                        </div>
+                <div id="ingredient-form-list5">
+                    {% for field in formset5 %}
+                    <div class="ingredient-form5 mb-3">
+                        {{ field }}
                     </div>
-
-                    <div id="empty-form3" class="is-hidden">{{ formset3.empty_form }}</div>
-                  {% endif %}
-                  <button id="add-more3" type="button" class="button is-small is-outlined pd-1">Tambah</button>
-                </div>
-             {% elif orderproduct == "GOLD" %}
-                <div class="column is-6">
-                    {{ form.livestream.label_tag }}
-                    {{ form.livestream }}
-
-                    {% for error in form.livestream.errors %}
-                        <p class="help is-danger">{{ error }}</p>
                     {% endfor %}
                 </div>
+            </div>
 
-                <div class="column is-12">
-                  {% if formset5 %}
-                    {{ formset5.management_form }}
-                    <div class="column is-6">
-                        <div id="ingredient-form-list5">
-                            {% for field in formset5 %}
-                            <div class="ingredient-form5 mb-3">
-                                {{ field }}
-                            </div>
-                            {% endfor %}
-                        </div>
+            <div id="empty-form5" class="is-hidden">{{ formset5.empty_form }}</div>
+        {% endif %}
+        <button id="add-more5" type="button" class="button is-small is-outlined pd-1">Tambah</button>
+      </div>
+    </div>
+
+    {% elif orderproduct == "PLATINUM" %}
+    <div class="notification is-light p-1 has-text-centered">
+       INFORMASI MOMENT
+    </div>
+    <div class="columns is-multiline mt-1">
+        <div class="column is-6">
+          {{ form.video.label_tag }}
+          {{ form.video }}
+
+          {% for error in form.video.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div class="column is-hidden is-6">
+            {{ form.livestream.label_tag }}
+            {{ form.livestream }}
+
+            {% for error in form.livestream.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+
+        <div class="column is-12">
+          {% if formset3 %}
+            {{ formset3.management_form }}
+            <div class="column is-6">
+                <div id="ingredient-form-list3">
+                    {% for field in formset3 %}
+                    <div class="ingredient-form3 mb-3">
+                        {{ field }}
                     </div>
+                    {% endfor %}
+                </div>
+            </div>
 
-                    <div id="empty-form5" class="is-hidden">{{ formset5.empty_form }}</div>
-                {% endif %}
-                <button id="add-more5" type="button" class="button is-small is-outlined pd-1">Tambah</button>
-              </div>
-            {% endif %}
-          </div>
-      {% endif %}
+            <div id="empty-form3" class="is-hidden">{{ formset3.empty_form }}</div>
+          {% endif %}
+          <button id="add-more3" type="button" class="button is-small is-outlined pd-1">Tambah</button>
+        </div>
+     </div>
+
+     {% else %}
+    <div class="notification is-hidden is-light p-1 has-text-centered">
+       INFORMASI MOMENT
+    </div>
+     <div class="columns is-multiline mt-1">
+        <div class="column is-hidden is-6">
+          {{ form.video.label_tag }}
+          {{ form.video }}
+
+          {% for error in form.video.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div class="column is-hidden is-6">
+            {{ form.livestream.label_tag }}
+            {{ form.livestream }}
+
+            {% for error in form.livestream.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+
+        <div class="column is-hidden is-12">
+          {% if formset5 %}
+            {{ formset5.management_form }}
+            <div class="column is-6">
+                <div id="ingredient-form-list5">
+                    {% for field in formset5 %}
+                    <div class="ingredient-form5 mb-3">
+                        {{ field }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div id="empty-form5" class="is-hidden">{{ formset5.empty_form }}</div>
+        {% endif %}
+        <button id="add-more5" type="button" class="button is-hidden is-small is-outlined pd-1">Tambah</button>
+      </div>
+    </div>
+    {% endif %}
 
       <!--   INFORMASI SPECIAL INVITATIOM   -->
       <div class="notification is-light p-1 has-text-centered mt-4">
@@ -551,7 +614,37 @@
           </div>
 
           <button id="add-more2" type="button" class="button is-small is-outlined pd-1">Tambah</button>
-      {% endif %}
+        {% else %}
+          <div class="notification is-hidden is-light p-1 has-text-centered mt-4">
+            INFORMASI DOMPET DIGITAL
+          </div>
+
+          <div class="columns is-hidden is-multiline">
+            {% if formset2 %}
+                {{ formset2.management_form }}
+                <div class="column is-4">
+                    <div id="ingredient-form-list2">
+                        {% for form in formset2 %}
+                        <div class="ingredient-form2 mb-5">
+                            {{ form }}
+
+    <!--                        {% for field in form %}-->
+    <!--                            {{ field.label_tag }} {{ field }}-->
+    <!--                            {% for error in field.errors %}-->
+    <!--                                <p class="help is-danger">{{ error }}</p>-->
+    <!--                            {% endfor %}-->
+    <!--                        {% endfor %}-->
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div id="empty-form2" class="is-hidden mt-3">{{ formset2.empty_form }}</div>
+            {% endif %}
+          </div>
+
+          <button id="add-more2" type="button" class="button is-hidden is-small is-outlined pd-1">Tambah</button>
+        {% endif %}
 
       <!--   INFORMASI QUOTE  -->
       <div class="notification is-light p-1 has-text-centered mt-4">
@@ -606,6 +699,35 @@
           </div>
 
           <button id="add-more4" type="button" class="button is-small is-outlined pd-1">Tambah</button>
+      {% else %}
+          <div class="notification is-hidden is-light p-1 has-text-centered mt-4">
+            INFORMASI STORY
+          </div>
+          <div class="columns is-hidden is-multiline">
+            {% if formset4 %}
+                {{ formset4.management_form }}
+                <div class="column is-4">
+                    <div id="ingredient-form-list4">
+                        {% for form in formset4 %}
+                        <div class="ingredient-form4 mb-5">
+                            {{ form }}
+
+    <!--                        {% for field in form %}-->
+    <!--                            {{ field.label_tag }} {{ field }}-->
+    <!--                            {% for error in field.errors %}-->
+    <!--                                <p class="help is-danger">{{ error }}</p>-->
+    <!--                            {% endfor %}-->
+    <!--                        {% endfor %}-->
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div id="empty-form4" class="is-hidden mt-3">{{ formset4.empty_form }}</div>
+            {% endif %}
+          </div>
+
+          <button id="add-more4" type="button" class="button is-hidden is-small is-outlined pd-1">Tambah</button>
       {% endif %}
 
       <!--   INFORMASI TEMA   -->

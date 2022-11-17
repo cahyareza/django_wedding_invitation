@@ -343,7 +343,7 @@ class Kabupaten(CreationModificationDateBase, UrlBase):
 
 class Story(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
-    year = models.CharField(max_length=5)
+    year = models.CharField(max_length=4)
     cerita = models.TextField()
     image = models.FileField(blank=True)
 
