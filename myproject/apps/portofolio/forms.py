@@ -600,6 +600,10 @@ class PortofolioForm(forms.ModelForm):
 
         self.fields['datetime_resepsi'].required = False
 
+        # PREMIUM and GOLD
+        self.fields['video'].required = False
+        self.fields['livestream'].required = False
+
         # ========== CONTROL PANEL (Optional method to control ========== !
         # 1. Select option
         self.fields["panak_ke"].choices = [('', 'Pilih anak ke-'), ] + list(self.fields["panak_ke"].choices)[1:]
