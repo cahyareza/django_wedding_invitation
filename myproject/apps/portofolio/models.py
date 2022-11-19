@@ -81,69 +81,69 @@ class Portofolio(CreationModificationDateBase, UrlBase):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
-    porto_name = models.CharField(max_length=150, unique=True)
-    slug = models.SlugField(max_length=255)
+    porto_name = models.CharField(max_length=150, unique=True, null=True, blank=True)
+    slug = models.SlugField(max_length=255, null=True, blank=True)
     # Couple
-    pname = models.CharField(max_length=40)
-    pinsta_link = models.CharField(max_length=250)
-    panak_ke = models.CharField(max_length=30, choices=ANAK_KE)
-    pnama_ayah = models.CharField(max_length=40)
-    pnama_ibu = models.CharField(max_length=40)
+    pname = models.CharField(max_length=40, null=True, blank=True)
+    pinsta_link = models.CharField(max_length=250, null=True, blank=True)
+    panak_ke = models.CharField(max_length=30, choices=ANAK_KE, null=True, blank=True)
+    pnama_ayah = models.CharField(max_length=40, null=True, blank=True)
+    pnama_ibu = models.CharField(max_length=40, null=True, blank=True)
     # ppicture = models.ImageField(blank=True)
-    ppicture = ResizedImageField(size=[180, 180], crop=['middle', 'center'], upload_to='whatever')
+    ppicture = ResizedImageField(size=[180, 180], crop=['middle', 'center'], upload_to='whatever', null=True, blank=True)
 
-    lname = models.CharField(max_length=40)
-    linsta_link = models.CharField(max_length=250)
-    lanak_ke = models.CharField(max_length=30, choices=ANAK_KE)
-    lnama_ayah = models.CharField(max_length=40)
-    lnama_ibu = models.CharField(max_length=40)
+    lname = models.CharField(max_length=40, null=True, blank=True)
+    linsta_link = models.CharField(max_length=250, null=True, blank=True)
+    lanak_ke = models.CharField(max_length=30, choices=ANAK_KE, null=True, blank=True)
+    lnama_ayah = models.CharField(max_length=40, null=True, blank=True)
+    lnama_ibu = models.CharField(max_length=40, null=True, blank=True)
     # lpicture = models.ImageField(blank=True)
-    lpicture = ResizedImageField(size=[180, 180], crop=['middle', 'center'], upload_to='whatever')
+    lpicture = ResizedImageField(size=[180, 180], crop=['middle', 'center'], upload_to='whatever', null=True, blank=True)
 
     # Acara
-    tanggal_akad = models.DateField(auto_now=False, auto_now_add=False)
-    waktu_akad = models.TimeField(auto_now=False, auto_now_add=False)
-    waktu_selesai_akad = models.TimeField(auto_now=False, auto_now_add=False)
-    tempat_akad = models.CharField(max_length=250)
-    link_gmap_akad = models.TextField()
-    tanggal_resepsi = models.DateField(auto_now=False, auto_now_add=False)
-    waktu_resepsi = models.TimeField(auto_now=False, auto_now_add=False)
-    waktu_selesai_resepsi = models.TimeField(auto_now=False, auto_now_add=False)
-    datetime_resepsi = models.CharField(max_length=250)
-    tempat_resepsi = models.CharField(max_length=250)
-    link_gmap_resepsi = models.TextField()
-    tanggal_unduhmantu = models.DateField(auto_now=False, auto_now_add=False)
-    waktu_unduhmantu = models.TimeField(auto_now=False, auto_now_add=False)
-    waktu_selesai_unduhmantu = models.TimeField(auto_now=False, auto_now_add=False)
-    tempat_unduhmantu = models.CharField(max_length=250)
-    link_gmap_unduhmantu = models.TextField()
+    tanggal_akad = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
+    waktu_akad = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
+    waktu_selesai_akad = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
+    tempat_akad = models.CharField(max_length=250, null=True, blank=True)
+    link_gmap_akad = models.TextField(null=True, blank=True)
+    tanggal_resepsi = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
+    waktu_resepsi = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
+    waktu_selesai_resepsi = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
+    datetime_resepsi = models.CharField(max_length=250, null=True, blank=True)
+    tempat_resepsi = models.CharField(max_length=250, null=True, blank=True)
+    link_gmap_resepsi = models.TextField(null=True, blank=True)
+    tanggal_unduhmantu = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
+    waktu_unduhmantu = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
+    waktu_selesai_unduhmantu = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
+    tempat_unduhmantu = models.CharField(max_length=250, null=True, blank=True)
+    link_gmap_unduhmantu = models.TextField(null=True, blank=True)
 
     # Our moment
-    video = models.TextField()
-    livestream = models.TextField()
+    video = models.TextField(null=True, blank=True)
+    livestream = models.TextField(null=True, blank=True)
 
 
     # Add to calender
-    name = models.CharField(max_length=250)
-    description = models.TextField()
-    startDate = models.DateField(auto_now=False, auto_now_add=False)
-    location = models.CharField(max_length=250)
-    startTime = models.TimeField(auto_now=False, auto_now_add=False)
-    endTime = models.TimeField(auto_now=False, auto_now_add=False)
+    name = models.CharField(max_length=250, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+    startDate = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
+    location = models.CharField(max_length=250, null=True, blank=True)
+    startTime = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
+    endTime = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
     options = models.CharField(
-        max_length=200
+        max_length=200, null=True, blank=True
     )
-    timeZone = models.CharField(max_length=30, choices=TIMEZONE_CHOICES)
-    trigger = models.CharField(max_length=20)
-    iCalFileName = models.CharField(max_length=50)
+    timeZone = models.CharField(max_length=30, choices=TIMEZONE_CHOICES, default='Asia/Jakarta', null=True, blank=True)
+    trigger = models.CharField(max_length=20, null=True, blank=True)
+    iCalFileName = models.CharField(max_length=50, null=True, blank=True)
 
     # Goto
-    link_iframe = models.TextField()
-    lokasi = models.CharField(max_length=250)
-    link_gmap = models.TextField()
+    link_iframe = models.TextField(null=True, blank=True)
+    lokasi = models.CharField(max_length=250, null=True, blank=True)
+    link_gmap = models.TextField(null=True, blank=True)
 
     # Tema
-    cover_background = models.ImageField(blank=True)
+    cover_background = models.ImageField(blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "APortofolio"
@@ -183,12 +183,13 @@ class Portofolio(CreationModificationDateBase, UrlBase):
         self.trigger = "click"
         self.iCalFileName = "Reminder-Event"
         self.slug = slugify(self.porto_name)
-        self.datetime_resepsi = datetime.combine(self.tanggal_resepsi,self.waktu_resepsi).strftime("%Y-%m-%d %H:%M")
+        if self.tanggal_resepsi and self.waktu_resepsi:
+            self.datetime_resepsi = datetime.combine(self.tanggal_resepsi,self.waktu_resepsi).strftime("%Y-%m-%d %H:%M")
         super().save(*args, **kwargs)
 
 class MultiImage(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
-    image = models.FileField(blank=True)
+    image = models.FileField(blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "Multiimages"
@@ -210,22 +211,22 @@ class MultiImage(CreationModificationDateBase, UrlBase):
 
 class SpecialInvitation(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
-    name_invite = models.CharField(max_length=100)
+    name_invite = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
         return self.name_invite
 
 class Rekening(CreationModificationDateBase, UrlBase):
-    bank = models.CharField(max_length=50)
-    kode = models.CharField(max_length=20)
+    bank = models.CharField(max_length=50, null=True, blank=True)
+    kode = models.CharField(max_length=20, null=True, blank=True)
 
     def __str__(self):
         return self.bank
 
 class Payment(CreationModificationDateBase, UrlBase):
     rekening = models.ForeignKey(Rekening, on_delete=models.SET_NULL, blank=True, null=True)
-    number = models.CharField(max_length=20)
-    name = models.CharField(max_length=20)
+    number = models.CharField(max_length=20, null=True, blank=True)
+    name = models.CharField(max_length=20, null=True, blank=True)
 
     def __str__(self):
         # return self.rekening.bank
@@ -235,8 +236,8 @@ class Dompet(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
     # rekening = models.CharField(max_length=40, choices=DAFTAR_BANK)
     rekening = models.ForeignKey(Rekening, on_delete=models.SET_NULL, blank=True, null=True)
-    nomor = models.CharField(max_length=40)
-    pemilik = models.CharField(max_length=50)
+    nomor = models.CharField(max_length=40, null=True, blank=True)
+    pemilik = models.CharField(max_length=50, null=True, blank=True)
 
     class Meta:
         verbose_name_plural = "Dompet"
@@ -246,17 +247,17 @@ class Dompet(CreationModificationDateBase, UrlBase):
 
 class Quote(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
-    ayat = models.CharField(max_length=250)
-    kutipan = models.TextField()
+    ayat = models.CharField(max_length=250, null=True, blank=True)
+    kutipan = models.TextField(null=True, blank=True)
 
     class Meta:
         verbose_name_plural = "Quotes"
 
 class Ucapan(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
-    nama = models.CharField(max_length=40)
-    alamat = models.CharField(max_length=40)
-    pesan = models.CharField(max_length=60)
+    nama = models.CharField(max_length=40, null=True, blank=True)
+    alamat = models.CharField(max_length=40, null=True, blank=True)
+    pesan = models.CharField(max_length=60, null=True, blank=True)
 
     def __str__(self):
         return self.portofolio.porto_name
@@ -275,8 +276,8 @@ class Hadir(CreationModificationDateBase, UrlBase):
         (TIDAK, 'tidak')
     )
     portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
-    name = models.CharField(max_length=40)
-    hadir = models.CharField(max_length=20, choices=STATUS_CHOICES, default=TIDAK)
+    name = models.CharField(max_length=40, null=True, blank=True)
+    hadir = models.CharField(max_length=20, choices=STATUS_CHOICES, default=TIDAK, null=True, blank=True)
 
     def __str__(self):
         return self.portofolio.porto_name
@@ -286,10 +287,10 @@ class Hadir(CreationModificationDateBase, UrlBase):
 
 # Fitur (GOLD, SILVER, PLATINUM)
 class Fitur(CreationModificationDateBase, UrlBase):
-    name = models.CharField(max_length=40)
-    slug = models.SlugField(max_length=255, blank=True)
-    price = models.FloatField()
-    fitur = MultiSelectField(choices=FITUR_CHOICES)
+    name = models.CharField(max_length=40, null=True, blank=True)
+    slug = models.SlugField(max_length=255, blank=True, null=True)
+    price = models.FloatField(null=True, blank=True)
+    fitur = MultiSelectField(choices=FITUR_CHOICES, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -306,14 +307,14 @@ class Fitur(CreationModificationDateBase, UrlBase):
 #     portofolio = models.OneToOneField(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
 
 class Theme(CreationModificationDateBase, UrlBase):
-    name = models.CharField(max_length=40)
-    slug = models.SlugField(max_length=255, blank=True)
-    open_fitur = models.FileField(blank=True)
-    cover_fitur = models.FileField(blank=True)
-    quote_fitur = models.FileField(blank=True)
-    rundown_fitur = models.FileField(blank=True)
-    line = models.FileField(blank=True)
-    space = models.FileField(blank=True)
+    name = models.CharField(max_length=40, null=True, blank=True)
+    slug = models.SlugField(max_length=255, blank=True, null=True)
+    open_fitur = models.FileField(blank=True, null=True)
+    cover_fitur = models.FileField(blank=True, null=True)
+    quote_fitur = models.FileField(blank=True, null=True)
+    rundown_fitur = models.FileField(blank=True, null=True)
+    line = models.FileField(blank=True, null=True)
+    space = models.FileField(blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -335,7 +336,7 @@ class ThemeProduct(CreationModificationDateBase, UrlBase):
 
 
 class Kabupaten(CreationModificationDateBase, UrlBase):
-    name = models.CharField(max_length=40)
+    name = models.CharField(max_length=40, blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -343,9 +344,9 @@ class Kabupaten(CreationModificationDateBase, UrlBase):
 
 class Story(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
-    year = models.CharField(max_length=4)
-    cerita = models.TextField()
-    image = models.FileField(blank=True)
+    year = models.CharField(max_length=4, null=True, blank=True)
+    cerita = models.TextField(null=True, blank=True)
+    image = models.FileField(blank=True, null=True)
 
     def __str__(self):
         return self.portofolio.porto_name

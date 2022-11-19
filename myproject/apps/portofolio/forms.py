@@ -393,6 +393,19 @@ class PortofolioForm(forms.ModelForm):
     #     )
     # )
 
+    # Background (Upload photo)
+    cover_background = forms.FileField(
+        label="Foto background",
+        widget=forms.ClearableFileInput(
+            attrs={
+                'placeholder': 'Select a picture',
+                'class': 'image',
+                'style': 'font-size: 15px',
+                'accept': 'image/png, image/jpeg'
+            }
+        )
+    )
+
 
 
 
@@ -611,29 +624,31 @@ class PortofolioForm(forms.ModelForm):
 
         # ========== ADVANCE CONTROL PANEL (multiple <Inputs>) ========== !
         # 1. Input required
-        # require = ['pname', 'pinsta_link', 'panak_ke', 'pnama_ayah', 'pnama_ibu',
-        #     'ppicture', 'lname', 'linsta_link', 'lanak_ke', 'lnama_ayah', 'lnama_ibu',
-        #     'lpicture', 'tanggal_akad','waktu_akad', 'waktu_selesai_akad', 'tempat_akad',
-        #     'link_gmap_akad', 'tanggal_resepsi','waktu_resepsi', 'waktu_selesai_resepsi',
-        #     'tempat_resepsi', 'link_gmap_resepsi', 'tanggal_unduhmantu','waktu_unduhmantu',
-        #     'waktu_selesai_unduhmantu', 'tempat_unduhmantu','link_gmap_unduhmantu', 'video',
-        #     'livestream',
-        # ]
-        # for field in require:
-        #     self.fields[field].required = False
+        require = ['pname', 'pinsta_link', 'panak_ke', 'pnama_ayah', 'pnama_ibu',
+            'ppicture', 'lname', 'linsta_link', 'lanak_ke', 'lnama_ayah', 'lnama_ibu',
+            'lpicture', 'tanggal_akad','waktu_akad', 'waktu_selesai_akad', 'tempat_akad',
+            'link_gmap_akad', 'tanggal_resepsi','waktu_resepsi', 'waktu_selesai_resepsi',
+            'tempat_resepsi', 'link_gmap_resepsi', 'tanggal_unduhmantu','waktu_unduhmantu',
+            'waktu_selesai_unduhmantu', 'tempat_unduhmantu','link_gmap_unduhmantu','timeZone',
+            'video', 'livestream', 'cover_background', 'link_gmap', 'link_iframe'
+        ]
+        for field in require:
+            self.fields[field].required = False
 
     # ========== MeTHOD ========== !
     # 1) IMAGE (Maximum upload size = 2mb)
     def clean_ppicture(self):
         ppicture = self.cleaned_data.get('ppicture')
-        if ppicture.size > 2 * 1048476:
-            raise forms.ValidationError('Denied ! Maximum allowed is 2mb.')
-        return ppicture
+        if ppicture:
+            if ppicture.size > 2 * 1048476:
+                raise forms.ValidationError('Denied ! Maximum allowed is 2mb.')
+            return ppicture
     def clean_lpicture(self):
         lpicture = self.cleaned_data.get('lpicture')
-        if lpicture.size > 2 * 1048476:
-            raise forms.ValidationError('Denied ! Maximum allowed is 2mb.')
-        return lpicture
+        if lpicture:
+            if lpicture.size > 2 * 1048476:
+                raise forms.ValidationError('Denied ! Maximum allowed is 2mb.')
+            return lpicture
 
 
 class MultiImageForm(forms.ModelForm):
@@ -817,8 +832,7 @@ class ThemeProductForm(forms.ModelForm):
 
         # ========== CONTROL PANEL (Optional method to control ========== !
         # 1. Input required
-        # self.fields['fitur'].required = False
-        # self.fields['portofolio'].required = False
+        self.fields['theme'].required = False
 
         # 2. Select option
         self.fields["theme"].choices = [('', 'Pilih tema'),] + list(self.fields["theme"].choices)[1:]
@@ -888,9 +902,10 @@ class StoryForm(forms.ModelForm):
     # 1) IMAGE (Maximum upload size = 2mb)
     def clean_image(self):
         image = self.cleaned_data.get('image')
-        if image.size > 2 * 1048476:
-            raise forms.ValidationError('Denied ! Maximum allowed is 2mb.')
-        return image
+        if image:
+            if image.size > 2 * 1048476:
+                raise forms.ValidationError('Denied ! Maximum allowed is 2mb.')
+            return image
 # ================== FORMSET =================== !
 class BaseRegisterFormSet(BaseFormSet):
     def clean(self):

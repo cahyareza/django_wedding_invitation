@@ -1,24 +1,12 @@
-{% extends "base.html" %}
-{% load i18n static %}
+{% extends 'portofolio/register_porto.html' %}
 
-{% block isi %}
-
-    {% for message in messages %}
-        {% if message.tags == 'success' %}
-            <div class="notification has-background-danger-light has-text-centered"> {{ message }}
-            </div>
-        {% endif %}
-    {% endfor %}
-
-  <form method="POST" enctype="multipart/form-data" novalidate>
-    {% csrf_token %}
-    <div class="card p-5 m-5 mt-5">
-      {% block update %}
+<!--  Buttons denied here -->
+{% block update %}
       <!--   INFORMASI UNDANGAN   -->
-      <div class="notification is-light p-1 has-text-centered">
+      <div class="notification is-hidden is-light p-1 has-text-centered">
         INFORMASI UNDANGAN
       </div>
-      <div class="columns is-multiline">
+      <div class="columns is-hidden is-multiline">
         <div class="column is-8">
           {{ form.porto_name.label_tag }}
           {{ form.porto_name }}
@@ -38,11 +26,11 @@
       </div>
       <!--   INFORMASI PASANGAN   -->
       <!--   Perempuan   -->
-      <div class="notification is-light p-1 has-text-centered">
+      <div class="notification is-hidden is-light p-1 has-text-centered">
           INFORMASI PASANGAN
       </div>
-      <p class="title is-size-5 mb-1">Perempuan</p>
-      <div class="columns is-multiline mt-1">
+      <p class="title is-hidden is-size-5 mb-1">Perempuan</p>
+      <div class="columns is-hidden is-multiline mt-1">
         <div class="column is-4">
           {{ form.pname.label_tag }}
           {{ form.pname }}
@@ -93,11 +81,11 @@
         </div>
       </div>
 
-      <hr>
+      <hr class="is-hidden">
 
       <!--   Laki-laki   -->
-      <p class="title is-size-5 mb-1">Laki-laki</p>
-      <div class="columns is-multiline mt-1">
+      <p class="title is-hidden is-size-5 mb-1">Laki-laki</p>
+      <div class="columns is-hidden is-multiline mt-1">
         <div class="column is-4">
           {{ form.lname.label_tag }}
           {{ form.lname }}
@@ -149,12 +137,12 @@
       </div>
 
       <!--   INFORMASI ACARA   -->
-      <div class="notification is-light p-1 has-text-centered">
+      <div class="notification  is-light p-1 has-text-centered">
         INFORMASI ACARA
       </div>
       <!--   AKAD   -->
-      <p class="title is-size-5 mb-1">Akad</p>
-      <div class="columns is-multiline mt-1">
+      <p class="title  is-size-5 mb-1">Akad</p>
+      <div class="columns  is-multiline mt-1">
         <div class="column is-4">
           {{ form.tanggal_akad.label_tag }}
           {{ form.tanggal_akad }}
@@ -202,11 +190,11 @@
 
       </div>
 
-      <hr>
+      <hr class="">
 
       <!--   RESEPSI   -->
-      <p class="title is-size-5 mb-1">Resepsi</p>
-      <div class="columns is-multiline mt-1">
+      <p class="title  is-size-5 mb-1">Resepsi</p>
+      <div class="columns  is-multiline mt-1">
         <div class="column is-4">
           {{ form.tanggal_resepsi.label_tag }}
           {{ form.tanggal_resepsi }}
@@ -263,11 +251,11 @@
 
       </div>
 
-      <hr>
+      <hr class="">
 
       <!--   UNDUH MANTU   -->
-      <p class="title is-size-5 mb-1">Unduh mantu</p>
-      <div class="columns is-multiline mt-1">
+      <p class="title  is-size-5 mb-1">Unduh mantu</p>
+      <div class="columns  is-multiline mt-1">
         <div class="column is-4">
           {{ form.tanggal_unduhmantu.label_tag }}
           {{ form.tanggal_unduhmantu }}
@@ -325,10 +313,10 @@
 
       <!--   INFORMASI OUR MOMENT   -->
     {% if orderproduct == "GOLD" %}
-    <div class="notification is-light p-1 has-text-centered">
+    <div class="notification is-hidden is-light p-1 has-text-centered">
        INFORMASI MOMENT
     </div>
-    <div class="columns is-multiline mt-1">
+    <div class="columns is-hidden is-multiline mt-1">
         <div class="column is-6">
           {{ form.video.label_tag }}
           {{ form.video }}
@@ -367,10 +355,10 @@
     </div>
 
     {% elif orderproduct == "PLATINUM" %}
-    <div class="notification is-light p-1 has-text-centered">
+    <div class="notification is-hidden is-light p-1 has-text-centered">
        INFORMASI MOMENT
     </div>
-    <div class="columns is-multiline mt-1">
+    <div class="columns is-hidden is-multiline mt-1">
         <div class="column is-6">
           {{ form.video.label_tag }}
           {{ form.video }}
@@ -412,7 +400,7 @@
     <div class="notification is-hidden is-light p-1 has-text-centered">
        INFORMASI MOMENT
     </div>
-     <div class="columns is-multiline mt-1">
+     <div class="columns is-hidden is-multiline mt-1">
         <div class="column is-hidden is-6">
           {{ form.video.label_tag }}
           {{ form.video }}
@@ -452,11 +440,11 @@
     {% endif %}
 
       <!--   INFORMASI SPECIAL INVITATIOM   -->
-      <div class="notification is-light p-1 has-text-centered mt-4">
+      <div class="notification is-hidden is-light p-1 has-text-centered mt-4">
         INFORMASI TAMU UNDANGAN KHUSUS
       </div>
 
-      <div class="columns is-multiline">
+      <div class="columns is-hidden is-multiline">
         {% if formset %}
             {{ formset.management_form }}
             <div class="column is-6">
@@ -480,7 +468,7 @@
         {% endif %}
       </div>
 
-      <button id="add-more" type="button" class="button is-small is-outlined pd-1">Tambah</button>
+      <button id="add-more" type="button" class="button is-hidden is-small is-outlined pd-1">Tambah</button>
 
       <!--   INFORMASI CALENDER   -->
       <div class="notification is-hidden is-light p-1 has-text-centered mt-4">
@@ -554,10 +542,10 @@
       </div>
 
       <!--   INFORMASI MAP  -->
-      <div class="notification is-light p-1 has-text-centered mt-4">
+      <div class="notification is-hidden is-light p-1 has-text-centered mt-4">
         INFORMASI MAP
       </div>
-      <div class="columns is-multiline mt-1">
+      <div class="columns is-hidden is-multiline mt-1">
         <div class="column is-hidden is-8">
           {{ form.lokasi.label_tag }}
           {{ form.lokasi }}
@@ -584,323 +572,22 @@
         </div>
       </div>
 
-      <!--   INFORMASI DOMPET DIGITAL  -->
-      {% if orderproduct == "PLATINUM" or orderproduct == "GOLD" %}
-          <div class="notification is-light p-1 has-text-centered mt-4">
-            INFORMASI DOMPET DIGITAL
-          </div>
-
-          <div class="columns is-multiline">
-            {% if formset2 %}
-                {{ formset2.management_form }}
-                <div class="column is-4">
-                    <div id="ingredient-form-list2">
-                        {% for form in formset2 %}
-                        <div class="ingredient-form2 mb-5">
-                            {{ form }}
-
-    <!--                        {% for field in form %}-->
-    <!--                            {{ field.label_tag }} {{ field }}-->
-    <!--                            {% for error in field.errors %}-->
-    <!--                                <p class="help is-danger">{{ error }}</p>-->
-    <!--                            {% endfor %}-->
-    <!--                        {% endfor %}-->
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <div id="empty-form2" class="is-hidden mt-3">{{ formset2.empty_form }}</div>
-            {% endif %}
-          </div>
-
-          <button id="add-more2" type="button" class="button is-small is-outlined pd-1">Tambah</button>
-        {% else %}
-          <div class="notification is-hidden is-light p-1 has-text-centered mt-4">
-            INFORMASI DOMPET DIGITAL
-          </div>
-
-          <div class="columns is-hidden is-multiline">
-            {% if formset2 %}
-                {{ formset2.management_form }}
-                <div class="column is-4">
-                    <div id="ingredient-form-list2">
-                        {% for form in formset2 %}
-                        <div class="ingredient-form2 mb-5">
-                            {{ form }}
-
-    <!--                        {% for field in form %}-->
-    <!--                            {{ field.label_tag }} {{ field }}-->
-    <!--                            {% for error in field.errors %}-->
-    <!--                                <p class="help is-danger">{{ error }}</p>-->
-    <!--                            {% endfor %}-->
-    <!--                        {% endfor %}-->
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <div id="empty-form2" class="is-hidden mt-3">{{ formset2.empty_form }}</div>
-            {% endif %}
-          </div>
-
-          <button id="add-more2" type="button" class="button is-hidden is-small is-outlined pd-1">Tambah</button>
-        {% endif %}
-
-      <!--   INFORMASI QUOTE  -->
-      <div class="notification is-light p-1 has-text-centered mt-4">
-        INFORMASI QUOTE
+      <!--   INFORMASI BACKGROUND   -->
+      <div class="notification is-hidden is-light p-1 has-text-centered mt-4">
+        INFORMASI BACKGROUND
       </div>
-      <div class="columns is-multiline mt-1">
-        <div class="column is-6">
-            {{ form2.kutipan.label_tag }}
-            {{ form2.kutipan }}
+      <div class="column is-hidden is-6">
+        {{ form.cover_background.label_tag }}
+        {{ form.cover_background }}
 
-            {% for error in form2.kutipan.errors %}
-                <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
-        </div>
-        <div class="column is-6">
-          {{ form2.ayat.label_tag }}
-          {{ form2.ayat }}
-
-          {% for error in form2.ayat.errors %}
-              <p class="help is-danger">{{ error }}</p>
-          {% endfor %}
-        </div>
+        {% for error in form.cover_background.errors %}
+            <p class="help is-danger">{{ error }}</p>
+        {% endfor %}
       </div>
+{% endblock update %}
 
-      <!--   INFORMASI STORY  -->
-      {% if orderproduct == "PLATINUM" or orderproduct == "GOLD" %}
-          <div class="notification is-light p-1 has-text-centered mt-4">
-            INFORMASI STORY
-          </div>
-          <div class="columns is-multiline">
-            {% if formset4 %}
-                {{ formset4.management_form }}
-                <div class="column is-4">
-                    <div id="ingredient-form-list4">
-                        {% for form in formset4 %}
-                        <div class="ingredient-form4 mb-5">
-                            {{ form }}
-
-    <!--                        {% for field in form %}-->
-    <!--                            {{ field.label_tag }} {{ field }}-->
-    <!--                            {% for error in field.errors %}-->
-    <!--                                <p class="help is-danger">{{ error }}</p>-->
-    <!--                            {% endfor %}-->
-    <!--                        {% endfor %}-->
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <div id="empty-form4" class="is-hidden mt-3">{{ formset4.empty_form }}</div>
-            {% endif %}
-          </div>
-
-          <button id="add-more4" type="button" class="button is-small is-outlined pd-1">Tambah</button>
-      {% else %}
-          <div class="notification is-hidden is-light p-1 has-text-centered mt-4">
-            INFORMASI STORY
-          </div>
-          <div class="columns is-hidden is-multiline">
-            {% if formset4 %}
-                {{ formset4.management_form }}
-                <div class="column is-4">
-                    <div id="ingredient-form-list4">
-                        {% for form in formset4 %}
-                        <div class="ingredient-form4 mb-5">
-                            {{ form }}
-
-    <!--                        {% for field in form %}-->
-    <!--                            {{ field.label_tag }} {{ field }}-->
-    <!--                            {% for error in field.errors %}-->
-    <!--                                <p class="help is-danger">{{ error }}</p>-->
-    <!--                            {% endfor %}-->
-    <!--                        {% endfor %}-->
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <div id="empty-form4" class="is-hidden mt-3">{{ formset4.empty_form }}</div>
-            {% endif %}
-          </div>
-
-          <button id="add-more4" type="button" class="button is-hidden is-small is-outlined pd-1">Tambah</button>
-      {% endif %}
-
-      <!--   INFORMASI TEMA   -->
-      <div class="notification is-light p-1 has-text-centered mt-4">
-        INFORMASI TEMA
-      </div>
-      <div class="columns is-multiline mt-1">
-        <div class="column is-6">
-          {{ form3.theme.label_tag }}
-          {{ form3.theme }}
-
-          {% for error in form3.theme.errors %}
-              <p class="help is-danger">{{ error }}</p>
-          {% endfor %}
-        </div>
-      </div>
-      {% endblock update %}
-
-      <!--  Buttons  -->
-      {% block buttons %}
-      <button id="submit" type="submit" class="button is-info p-2 mt-1">Submit</button>
-      <a href="{% url 'portofolio:register' %}" class="button is-dark p-2 mt-1">Reset</a>
-      <a href="/" class="button is-dark-light p-2 mt-1">Cancel</a>
-      {% endblock buttons %}
-
-    </div>
-  </form>
-{% endblock %}
-
-{% block script %}
-<script>
-    <!--------------- Formset1--------------->
-    const addMoreBtn = document.getElementById('add-more')
-    const totalNewForms = document.getElementById('id_invite-TOTAL_FORMS')
-
-    if (addMoreBtn) {
-        addMoreBtn.addEventListener('click', add_new_form)
-    }
-
-    function add_new_form(event) {
-        if (event) {
-            event.preventDefault()
-        }
-        const currentIngredientForms = document.getElementsByClassName('ingredient-form')
-        const currentFormCount = currentIngredientForms.length // + 1
-        console.log(currentIngredientForms.length)
-
-        const formCopyTarget = document.getElementById('ingredient-form-list')
-        const copyEmptyFormEl = document.getElementById('empty-form').cloneNode(true)
-        copyEmptyFormEl.setAttribute('class', 'ingredient-form')
-        copyEmptyFormEl.setAttribute('id', `invite-${currentFormCount}`)
-        const regex = new RegExp('__prefix__', 'g')
-        copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, currentFormCount)
-        totalNewForms.setAttribute('value', currentFormCount + 1)
-        // now add new form element to our html form
-        formCopyTarget.append(copyEmptyFormEl)
-    }
-
-    <!--------------- Formset2--------------->
-
-    const addMoreBtn2 = document.getElementById('add-more2')
-    const totalNewForms2 = document.getElementById('id_dompet-TOTAL_FORMS')
-
-    if (addMoreBtn2) {
-        addMoreBtn2.addEventListener('click', add_new_form2);
-    };
-
-    function add_new_form2(event) {
-        if (event) {
-            event.preventDefault()
-        }
-        const currentIngredientForms2 = document.getElementsByClassName('ingredient-form2')
-        const currentFormCount2 = currentIngredientForms2.length // + 1
-        console.log(currentIngredientForms2.length)
-
-        const formCopyTarget2 = document.getElementById('ingredient-form-list2')
-        const copyEmptyFormEl2 = document.getElementById('empty-form2').cloneNode(true)
-        copyEmptyFormEl2.setAttribute('class', 'ingredient-form2')
-        copyEmptyFormEl2.setAttribute('id', `dompet-${currentFormCount2}`)
-        const regex = new RegExp('__prefix__', 'g')
-        copyEmptyFormEl2.innerHTML = copyEmptyFormEl2.innerHTML.replace(regex, currentFormCount2)
-        totalNewForms2.setAttribute('value', currentFormCount2 + 1)
-        // now add new form element to our html form
-        formCopyTarget2.append(copyEmptyFormEl2)
-    }
-
-    <!--------------- Formset3--------------->
-
-    const addMoreBtn3 = document.getElementById('add-more3')
-    const totalNewForms3 = document.getElementById('id_multiimage-TOTAL_FORMS')
-
-    if (addMoreBtn3) {
-        addMoreBtn3.addEventListener('click', add_new_form3)
-    }
-
-    function add_new_form3(event) {
-        if (event) {
-            event.preventDefault()
-        }
-        const currentIngredientForms3 = document.getElementsByClassName('ingredient-form3')
-        const currentFormCount3 = currentIngredientForms3.length // + 1
-        console.log(currentIngredientForms3.length)
-
-        if (currentFormCount3 <= 3) {
-            const formCopyTarget3 = document.getElementById('ingredient-form-list3')
-            const copyEmptyFormEl3 = document.getElementById('empty-form3').cloneNode(true)
-            copyEmptyFormEl3.setAttribute('class', 'ingredient-form3')
-            copyEmptyFormEl3.setAttribute('id', `multiimage-${currentFormCount3}`)
-            const regex = new RegExp('__prefix__', 'g')
-            copyEmptyFormEl3.innerHTML = copyEmptyFormEl3.innerHTML.replace(regex, currentFormCount3)
-            totalNewForms3.setAttribute('value', currentFormCount3 + 1)
-            // now add new form element to our html form
-            formCopyTarget3.append(copyEmptyFormEl3)
-        }
-    }
-
-    <!--------------- Formset4--------------->
-
-    const addMoreBtn4 = document.getElementById('add-more4')
-    const totalNewForms4 = document.getElementById('id_story-TOTAL_FORMS')
-
-    if (addMoreBtn4) {
-        addMoreBtn4.addEventListener('click', add_new_form4)
-    }
-
-    function add_new_form4(event) {
-        if (event) {
-            event.preventDefault()
-        }
-        const currentIngredientForms4 = document.getElementsByClassName('ingredient-form4')
-        const currentFormCount4 = currentIngredientForms4.length // + 1
-        console.log(currentIngredientForms4.length)
-
-        const formCopyTarget4 = document.getElementById('ingredient-form-list4')
-        const copyEmptyFormEl4 = document.getElementById('empty-form4').cloneNode(true)
-        copyEmptyFormEl4.setAttribute('class', 'ingredient-form4')
-        copyEmptyFormEl4.setAttribute('id', `story-${currentFormCount4}`)
-        const regex = new RegExp('__prefix__', 'g')
-        copyEmptyFormEl4.innerHTML = copyEmptyFormEl4.innerHTML.replace(regex, currentFormCount4)
-        totalNewForms4.setAttribute('value', currentFormCount4 + 1)
-        // now add new form element to our html form
-        formCopyTarget4.append(copyEmptyFormEl4)
-    }
-
-    <!--------------- Formset5--------------->
-
-    const addMoreBtn5 = document.getElementById('add-more5')
-    const totalNewForms5 = document.getElementById('id_multiimage2-TOTAL_FORMS')
-
-    if (addMoreBtn5) {
-        addMoreBtn5.addEventListener('click', add_new_form5)
-    }
-
-    function add_new_form5(event) {
-        if (event) {
-            event.preventDefault()
-        }
-        const currentIngredientForms5 = document.getElementsByClassName('ingredient-form5')
-        const currentFormCount5 = currentIngredientForms5.length // + 1
-        console.log(currentIngredientForms5.length)
-
-        if (currentFormCount5 <= 5) {
-            const formCopyTarget5 = document.getElementById('ingredient-form-list5')
-            const copyEmptyFormEl5 = document.getElementById('empty-form5').cloneNode(true)
-            copyEmptyFormEl5.setAttribute('class', 'ingredient-form5')
-            copyEmptyFormEl5.setAttribute('id', `multiimage2-${currentFormCount5}`)
-            const regex = new RegExp('__prefix__', 'g')
-            copyEmptyFormEl5.innerHTML = copyEmptyFormEl5.innerHTML.replace(regex, currentFormCount5)
-            totalNewForms5.setAttribute('value', currentFormCount5 + 1)
-            // now add new form element to our html form
-            formCopyTarget5.append(copyEmptyFormEl5)
-        }
-    }
-</script>
-{% endblock %}
+<!--  Buttons  -->
+{% block buttons %}
+<button id="submit" type="submit" class="button is-info p-2 mt-1">Submit</button>
+<a href="{% url 'portofolio:configurasi' %}"  class="button is-dark-light p-2 mt-1">Cancel</a>
+{% endblock buttons %}

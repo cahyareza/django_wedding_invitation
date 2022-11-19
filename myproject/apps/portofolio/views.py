@@ -136,6 +136,159 @@ def home(request):
 
         return render(request, 'index.html', context)
 
+def configurasi_porto(request):
+    user = request.user
+    portofolio = Portofolio.objects.filter(user=user).first()
+    context = {
+        'portofolio': portofolio,
+    }
+    return render(request, 'portofolio/configurasi/icon_config.html', context)
+
+# Portofolio registration
+def register_awal(request, id=None):
+    # initiate formset
+    StoryFormSet = modelformset_factory(
+        Story,
+        form=StoryForm,
+        formset=BaseRegisterFormSet,
+        extra=1,
+    )
+    SpecialInviteFormSet = modelformset_factory(
+        SpecialInvitation,
+        form=SpecialInvitationForm,
+        formset=BaseRegisterFormSet,
+        extra=1,
+    )
+    DompetFormSet = modelformset_factory(
+        Dompet,
+        form=DompetForm,
+        formset=BaseRegisterFormSet,
+        extra=1,
+    )
+    MultiImageFormSet = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        formset=BaseRegisterFormSet,
+        extra=1,
+    )
+    MultiImageFormSet2 = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        formset=BaseRegisterFormSet,
+        extra=1,
+    )
+
+    portofolio = Portofolio.objects.filter(user=request.user).exists()
+    if portofolio == False:
+        if request.method == "POST":
+            form = PortofolioForm(request.POST or None, request.FILES)
+            form2 = QuoteForm(request.POST or None, request.FILES)
+            form3 = ThemeProductForm(request.POST or None, request.FILES)
+
+            formset = SpecialInviteFormSet(request.POST or None, prefix='invite')
+            formset2 = DompetFormSet(request.POST or None, prefix='dompet')
+            formset3 = MultiImageFormSet(request.POST or None, request.FILES, prefix='multiimage')
+            formset4 = StoryFormSet(request.POST or None, request.FILES, prefix='story')
+            formset5 = MultiImageFormSet2(request.POST or None, request.FILES, prefix='multiimage2')
+            print(request.POST)
+            # form validation
+            if form.is_valid() and form2.is_valid() and form3.is_valid() and formset.is_valid() \
+                and formset2.is_valid() and formset4.is_valid():
+                # create portofolio instance
+                instance = form.save(commit=False)
+                # save user to porto
+                user = request.user
+                instance.user = user
+                # save porto field ke field calender
+                instance.name = instance.porto_name
+                instance.location =  instance.tempat_resepsi
+                instance.startDate = instance.tanggal_resepsi
+                instance.startTime = instance.waktu_resepsi
+                instance.endTime = instance.waktu_selesai_resepsi
+                # save porto field ke field go to
+                instance.lokasi = instance.tempat_resepsi
+
+
+                instance.save()
+
+                # to create multiple image instance
+                porto_instance = Portofolio.objects.get(pk=instance.pk)
+
+                # to create instance quote
+                instance_quote = form2.save(commit=False)
+                instance_quote.portofolio = porto_instance
+                instance_quote.save()
+
+                # to create theme product
+                instance_order = Order.objects.get(user=user)
+                instance_orderitem = OrderItem.objects.get(order=instance_order)
+
+                instance_orderitem = form3.save(commit=False)
+                instance_orderitem.portofolio = porto_instance
+                instance_orderitem.fitur = instance_orderitem.fitur
+                instance_orderitem.save()
+
+                # to create multiple value instance
+                for form in formset:
+                    # Not save blank field use has_changed()
+                    if form.is_valid() and form.has_changed():
+                        child = form.save(commit=False)
+                        child.portofolio = porto_instance
+                        child.save()
+
+                for form in formset2:
+                    # Not save blank field use has_changed()
+                    if form.is_valid() and form.has_changed():
+                        child = form.save(commit=False)
+                        child.portofolio = porto_instance
+                        child.save()
+
+                for form in formset3:
+                    # Not save blank field use has_changed()
+                    if form.is_valid() and form.has_changed():
+                        child = form.save(commit=False)
+                        child.portofolio = porto_instance
+                        child.save()
+
+                for form in formset4:
+                    # Not save blank field use has_changed()
+                    if form.is_valid() and form.has_changed():
+                        child = form.save(commit=False)
+                        child.portofolio = porto_instance
+                        child.save()
+
+                for form in formset5:
+                    # Not save blank field use has_changed()
+                    if form.is_valid() and form.has_changed():
+                        child = form.save(commit=False)
+                        child.portofolio = porto_instance
+                        child.save()
+
+                messages.success(request, "Registered Successfully !")
+                return redirect("portofolio:configurasi")
+
+            else:
+                return render(request, "portofolio/register_porto.html", {'form': form,
+                    'form2': form2, 'form3': form3, 'formset': formset, 'formset2': formset2, 'formset3': formset3,
+                    'formset4': formset4, 'formset5': formset5})
+
+        else:
+            form = PortofolioForm()
+            form2 = QuoteForm()
+            form3 = ThemeProductForm()
+            formset = SpecialInviteFormSet(prefix='invite')
+            formset2 = DompetFormSet(prefix='dompet')
+            formset3 = MultiImageFormSet(prefix='multiimage')
+            formset4 = StoryFormSet(prefix='story')
+            formset5 = MultiImageFormSet2(prefix='multiimage2')
+
+    else:
+        return render(request, 'portofolio/regis_failed.html')
+
+    return render(request, "portofolio/register_porto.html", {'form': form,
+        'form2': form2, 'form3': form3, 'formset': formset, 'formset2': formset2, 'formset3': formset3,
+        'formset4': formset4, 'formset5': formset5})
+
 # Portofolio registration
 def register(request, id=None):
     # initiate formset
@@ -257,7 +410,8 @@ def register(request, id=None):
                         child.save()
 
                 messages.success(request, "Registered Successfully !")
-                return HttpResponseRedirect('/')
+                return redirect("portofolio:configurasi")
+
             else:
                 return render(request, "portofolio/register_porto.html", {'form': form,
                     'form2': form2, 'form3': form3, 'formset': formset, 'formset2': formset2, 'formset3': formset3,
@@ -280,7 +434,67 @@ def register(request, id=None):
         'form2': form2, 'form3': form3, 'formset': formset, 'formset2': formset2, 'formset3': formset3,
         'formset4': formset4, 'formset5': formset5})
 
-def update(request, slug):
+def theme_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+    # theme product instance by porto id
+    obj_themeproduct = get_object_or_404(ThemeProduct, portofolio= obj)
+
+    if request.method == "POST":
+        form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
+        user = request.user
+
+        # to create multiple image instance
+        porto_instance = Portofolio.objects.get(pk=obj.pk)
+
+        # to create theme product
+        instance_order = Order.objects.get(user=user)
+        instance_orderitemfiture = OrderItem.objects.get(order=instance_order)
+
+        instance_orderitem = form3.save(commit=False)
+        instance_orderitem.portofolio = porto_instance
+        instance_orderitem.fitur = instance_orderitemfiture.product
+        instance_orderitem.save()
+
+        return redirect("portofolio:configurasi")
+
+    else:
+        form3 = ThemeProductForm(instance=obj_themeproduct)
+
+    context = {'form3': form3}
+
+    # return redirect("portofolio:update_tampilan", slug=slug)
+    return render(request, 'portofolio/configurasi/tampilan_form.html', context)
+
+def cover_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+
+    if request.method == "POST":
+        form = PortofolioForm(request.POST or None, request.FILES, instance=obj)
+        print(form)
+        if form.is_valid():
+            print("done")
+            # create portofolio instance
+            instance = form.save(commit=False)
+            user = request.user
+            print(user)
+            instance.user = user
+            # save porto field ke field calender
+            instance.name = instance.porto_name
+            instance.save()
+
+            return redirect("portofolio:configurasi")
+
+    else:
+        form = PortofolioForm(instance=obj)
+
+    context = {'form': form}
+
+    # return redirect("portofolio:update_tampilan", slug=slug)
+    return render(request, 'portofolio/configurasi/cover_form.html', context)
+
+def pasangan_update(request, slug):
     # get instance portofolio from id
     obj = get_object_or_404(Portofolio, slug=slug)
     # quote instance by porto id
@@ -313,6 +527,1326 @@ def update(request, slug):
         MultiImage,
         form=MultiImageForm,
         extra=0,
+    )
+
+    # create query set for specialinvitation
+    qs = SpecialInvitation.objects.filter(portofolio=obj)
+    # create query set for dompet
+    qs2 = Dompet.objects.filter(portofolio=obj)
+    # create query set for multi image
+    qs3 = MultiImage.objects.filter(portofolio=obj)
+    # create query set for story
+    qs4 = Story.objects.filter(portofolio=obj)
+
+    # Define formset
+    formset = SpecialInviteFormSet(request.POST or None,queryset= qs, prefix='invite')
+    formset2 = DompetFormSet(request.POST or None,queryset= qs2, prefix='dompet')
+    formset3 = MultiImageFormSet(request.POST or None, request.FILES, queryset= qs3, prefix='multiimage')
+    formset4 = StoryFormSet(request.POST or None, request.FILES, queryset=qs4, prefix='story')
+    formset5 = MultiImageFormSet2(request.POST or None, request.FILES, queryset=qs3, prefix='multiimage2')
+
+    if request.method == "POST":
+        form = PortofolioForm(request.POST or None, request.FILES, instance=obj)
+        form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
+        form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
+
+        if form.is_valid():
+            # create portofolio instance
+            instance = form.save(commit=False)
+            # save user to porto
+            user = request.user
+            print(user)
+            instance.user = user
+            # save porto field ke field calender
+            instance.name = instance.porto_name
+            instance.location =  instance.tempat_resepsi
+            instance.startDate = instance.tanggal_resepsi
+            instance.startTime = instance.waktu_resepsi
+            instance.endTime = instance.waktu_selesai_resepsi
+            # save porto field ke field go to
+            instance.lokasi = instance.tempat_resepsi
+
+
+            instance.save()
+
+            # to create multiple image instance
+            porto_instance = Portofolio.objects.get(pk=instance.pk)
+
+            # to create instance quote
+            instance_quote = form2.save(commit=False)
+            instance_quote.portofolio = porto_instance
+            instance_quote.save()
+
+            # to create theme product
+            instance_order = Order.objects.get(user=user)
+            instance_orderitemfiture = OrderItem.objects.get(order=instance_order)
+
+            instance_orderitem = form3.save(commit=False)
+            instance_orderitem.portofolio = porto_instance
+            instance_orderitem.fitur = instance_orderitemfiture.product
+            instance_orderitem.save()
+
+            # to create multiple value instance
+            for form in formset:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset2:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset3:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset4:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset5:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            messages.success(request, "Data saved!")
+            return redirect("portofolio:configurasi")
+
+    else:
+        form = PortofolioForm(instance=obj)
+        form2 = QuoteForm(instance=obj_quote)
+        form3 = ThemeProductForm(instance=obj_themeproduct)
+        formset = SpecialInviteFormSet(queryset= qs, prefix='invite')
+        formset2 = DompetFormSet(queryset= qs2, prefix='dompet')
+        formset3 = MultiImageFormSet(queryset= qs3, prefix='multiimage')
+        formset4 = StoryFormSet(queryset=qs4, prefix='story')
+        formset5 = MultiImageFormSet2(queryset=qs3, prefix='multiimage2')
+
+
+    context = {
+        'form': form,
+        'form2': form2,
+        'form3': form3,
+        'formset': formset,
+        'formset2': formset2,
+        'formset3': formset3,
+        'formset4': formset4,
+        'formset5': formset5,
+    }
+
+    return render(request, 'portofolio/configurasi/pasangan_form.html', context)
+
+def quote_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+    # quote instance by porto id
+    obj_quote = get_object_or_404(Quote, portofolio= obj)
+    # theme product instance by porto id
+    obj_themeproduct = get_object_or_404(ThemeProduct, portofolio= obj)
+
+    # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
+    SpecialInviteFormSet = modelformset_factory(
+        SpecialInvitation,
+        form=SpecialInvitationForm,
+        extra=0,
+    )
+    DompetFormSet = modelformset_factory(
+        Dompet,
+        form=DompetForm,
+        extra=0,
+    )
+    MultiImageFormSet = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=0,
+    )
+    StoryFormSet = modelformset_factory(
+        Story,
+        form=StoryForm,
+        extra=0,
+    )
+    MultiImageFormSet2 = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=0,
+    )
+
+    # create query set for specialinvitation
+    qs = SpecialInvitation.objects.filter(portofolio=obj)
+    # create query set for dompet
+    qs2 = Dompet.objects.filter(portofolio=obj)
+    # create query set for multi image
+    qs3 = MultiImage.objects.filter(portofolio=obj)
+    # create query set for story
+    qs4 = Story.objects.filter(portofolio=obj)
+
+    # Define formset
+    formset = SpecialInviteFormSet(request.POST or None,queryset= qs, prefix='invite')
+    formset2 = DompetFormSet(request.POST or None,queryset= qs2, prefix='dompet')
+    formset3 = MultiImageFormSet(request.POST or None, request.FILES, queryset= qs3, prefix='multiimage')
+    formset4 = StoryFormSet(request.POST or None, request.FILES, queryset=qs4, prefix='story')
+    formset5 = MultiImageFormSet2(request.POST or None, request.FILES, queryset=qs3, prefix='multiimage2')
+
+    if request.method == "POST":
+        form = PortofolioForm(request.POST or None, request.FILES, instance=obj)
+        form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
+        form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
+
+        if form.is_valid() and form2.is_valid():
+            # create portofolio instance
+            instance = form.save(commit=False)
+            # save user to porto
+            user = request.user
+            print(user)
+            instance.user = user
+            # save porto field ke field calender
+            instance.name = instance.porto_name
+            instance.location =  instance.tempat_resepsi
+            instance.startDate = instance.tanggal_resepsi
+            instance.startTime = instance.waktu_resepsi
+            instance.endTime = instance.waktu_selesai_resepsi
+            # save porto field ke field go to
+            instance.lokasi = instance.tempat_resepsi
+
+
+            instance.save()
+
+            # to create multiple image instance
+            porto_instance = Portofolio.objects.get(pk=instance.pk)
+
+            # to create instance quote
+            instance_quote = form2.save(commit=False)
+            instance_quote.portofolio = porto_instance
+            instance_quote.save()
+
+            # to create theme product
+            instance_order = Order.objects.get(user=user)
+            instance_orderitemfiture = OrderItem.objects.get(order=instance_order)
+
+            instance_orderitem = form3.save(commit=False)
+            instance_orderitem.portofolio = porto_instance
+            instance_orderitem.fitur = instance_orderitemfiture.product
+            instance_orderitem.save()
+
+            # to create multiple value instance
+            for form in formset:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset2:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset3:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset4:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset5:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            messages.success(request, "Data saved!")
+            return redirect("portofolio:configurasi")
+
+    else:
+        form = PortofolioForm(instance=obj)
+        form2 = QuoteForm(instance=obj_quote)
+        form3 = ThemeProductForm(instance=obj_themeproduct)
+        formset = SpecialInviteFormSet(queryset= qs, prefix='invite')
+        formset2 = DompetFormSet(queryset= qs2, prefix='dompet')
+        formset3 = MultiImageFormSet(queryset= qs3, prefix='multiimage')
+        formset4 = StoryFormSet(queryset=qs4, prefix='story')
+        formset5 = MultiImageFormSet2(queryset=qs3, prefix='multiimage2')
+
+
+    context = {
+        'form': form,
+        'form2': form2,
+        'form3': form3,
+        'formset': formset,
+        'formset2': formset2,
+        'formset3': formset3,
+        'formset4': formset4,
+        'formset5': formset5,
+    }
+
+    # return redirect("portofolio:update_tampilan", slug=slug)
+    return render(request, 'portofolio/configurasi/quote_form.html', context)
+
+def acara_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+    # quote instance by porto id
+    obj_quote = get_object_or_404(Quote, portofolio= obj)
+    # theme product instance by porto id
+    obj_themeproduct = get_object_or_404(ThemeProduct, portofolio= obj)
+
+    # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
+    SpecialInviteFormSet = modelformset_factory(
+        SpecialInvitation,
+        form=SpecialInvitationForm,
+        extra=0,
+    )
+    DompetFormSet = modelformset_factory(
+        Dompet,
+        form=DompetForm,
+        extra=0,
+    )
+    MultiImageFormSet = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=0,
+    )
+    StoryFormSet = modelformset_factory(
+        Story,
+        form=StoryForm,
+        extra=0,
+    )
+    MultiImageFormSet2 = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=0,
+    )
+
+    # create query set for specialinvitation
+    qs = SpecialInvitation.objects.filter(portofolio=obj)
+    # create query set for dompet
+    qs2 = Dompet.objects.filter(portofolio=obj)
+    # create query set for multi image
+    qs3 = MultiImage.objects.filter(portofolio=obj)
+    # create query set for story
+    qs4 = Story.objects.filter(portofolio=obj)
+
+    # Define formset
+    formset = SpecialInviteFormSet(request.POST or None,queryset= qs, prefix='invite')
+    formset2 = DompetFormSet(request.POST or None,queryset= qs2, prefix='dompet')
+    formset3 = MultiImageFormSet(request.POST or None, request.FILES, queryset= qs3, prefix='multiimage')
+    formset4 = StoryFormSet(request.POST or None, request.FILES, queryset=qs4, prefix='story')
+    formset5 = MultiImageFormSet2(request.POST or None, request.FILES, queryset=qs3, prefix='multiimage2')
+
+    if request.method == "POST":
+        form = PortofolioForm(request.POST or None, request.FILES, instance=obj)
+        form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
+        form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
+
+        if form.is_valid():
+            # create portofolio instance
+            instance = form.save(commit=False)
+            # save user to porto
+            user = request.user
+            print(user)
+            instance.user = user
+            # save porto field ke field calender
+            instance.name = instance.porto_name
+            instance.location =  instance.tempat_resepsi
+            instance.startDate = instance.tanggal_resepsi
+            instance.startTime = instance.waktu_resepsi
+            instance.endTime = instance.waktu_selesai_resepsi
+            # save porto field ke field go to
+            instance.lokasi = instance.tempat_resepsi
+
+
+            instance.save()
+
+            # to create multiple image instance
+            porto_instance = Portofolio.objects.get(pk=instance.pk)
+
+            # to create instance quote
+            instance_quote = form2.save(commit=False)
+            instance_quote.portofolio = porto_instance
+            instance_quote.save()
+
+            # to create theme product
+            instance_order = Order.objects.get(user=user)
+            instance_orderitemfiture = OrderItem.objects.get(order=instance_order)
+
+            instance_orderitem = form3.save(commit=False)
+            instance_orderitem.portofolio = porto_instance
+            instance_orderitem.fitur = instance_orderitemfiture.product
+            instance_orderitem.save()
+
+            # to create multiple value instance
+            for form in formset:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset2:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset3:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset4:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset5:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            messages.success(request, "Data saved!")
+            return redirect("portofolio:configurasi")
+
+    else:
+        form = PortofolioForm(instance=obj)
+        form2 = QuoteForm(instance=obj_quote)
+        form3 = ThemeProductForm(instance=obj_themeproduct)
+        formset = SpecialInviteFormSet(queryset= qs, prefix='invite')
+        formset2 = DompetFormSet(queryset= qs2, prefix='dompet')
+        formset3 = MultiImageFormSet(queryset= qs3, prefix='multiimage')
+        formset4 = StoryFormSet(queryset=qs4, prefix='story')
+        formset5 = MultiImageFormSet2(queryset=qs3, prefix='multiimage2')
+
+
+    context = {
+        'form': form,
+        'form2': form2,
+        'form3': form3,
+        'formset': formset,
+        'formset2': formset2,
+        'formset3': formset3,
+        'formset4': formset4,
+        'formset5': formset5,
+    }
+
+    # return redirect("portofolio:update_tampilan", slug=slug)
+    return render(request, 'portofolio/configurasi/acara_form.html', context)
+
+def moment_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+
+    MultiImageFormSet = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=1,
+    )
+
+    MultiImageFormSet2 = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=1,
+    )
+
+    # create query set for multi image
+    qs3 = MultiImage.objects.filter(portofolio=obj)
+
+    # Define formset
+    formset3 = MultiImageFormSet(request.POST or None, request.FILES, queryset= qs3, prefix='multiimage')
+    formset5 = MultiImageFormSet2(request.POST or None, request.FILES, queryset=qs3, prefix='multiimage2')
+
+
+    if request.method == "POST":
+        form = PortofolioForm(request.POST or None, request.FILES, instance=obj)
+        print(form)
+        if form.is_valid():
+            print("done")
+            # create portofolio instance
+            instance = form.save(commit=False)
+            user = request.user
+            print(user)
+            instance.user = user
+            # save porto field ke field calender
+            instance.name = instance.porto_name
+            instance.save()
+
+            # to create multiple image instance
+            porto_instance = Portofolio.objects.get(pk=obj.pk)
+
+            for form in formset3:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset5:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            return redirect("portofolio:configurasi")
+
+    else:
+        form = PortofolioForm(instance=obj)
+        formset3 = MultiImageFormSet(queryset= qs3, prefix='multiimage')
+        formset5 = MultiImageFormSet2(queryset=qs3, prefix='multiimage2')
+
+    context = {
+        'form': form,
+        'formset3': formset3,
+        'formset5': formset5,
+    }
+
+    # return redirect("portofolio:update_tampilan", slug=slug)
+    return render(request, 'portofolio/configurasi/moment_form.html', context)
+
+def stories_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+    # quote instance by porto id
+    obj_quote = get_object_or_404(Quote, portofolio= obj)
+    # theme product instance by porto id
+    obj_themeproduct = get_object_or_404(ThemeProduct, portofolio= obj)
+
+    # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
+    SpecialInviteFormSet = modelformset_factory(
+        SpecialInvitation,
+        form=SpecialInvitationForm,
+        extra=1,
+    )
+    DompetFormSet = modelformset_factory(
+        Dompet,
+        form=DompetForm,
+        extra=1,
+    )
+    MultiImageFormSet = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=1,
+    )
+    StoryFormSet = modelformset_factory(
+        Story,
+        form=StoryForm,
+        extra=1,
+    )
+    MultiImageFormSet2 = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=1,
+    )
+
+    # create query set for specialinvitation
+    qs = SpecialInvitation.objects.filter(portofolio=obj)
+    # create query set for dompet
+    qs2 = Dompet.objects.filter(portofolio=obj)
+    # create query set for multi image
+    qs3 = MultiImage.objects.filter(portofolio=obj)
+    # create query set for story
+    qs4 = Story.objects.filter(portofolio=obj)
+
+    # Define formset
+    formset = SpecialInviteFormSet(request.POST or None,queryset= qs, prefix='invite')
+    formset2 = DompetFormSet(request.POST or None,queryset= qs2, prefix='dompet')
+    formset3 = MultiImageFormSet(request.POST or None, request.FILES, queryset= qs3, prefix='multiimage')
+    formset4 = StoryFormSet(request.POST or None, request.FILES, queryset=qs4, prefix='story')
+    formset5 = MultiImageFormSet2(request.POST or None, request.FILES, queryset=qs3, prefix='multiimage2')
+
+    if request.method == "POST":
+        form = PortofolioForm(request.POST or None, request.FILES, instance=obj)
+        form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
+        form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
+
+        if form.is_valid():
+            # create portofolio instance
+            instance = form.save(commit=False)
+            # save user to porto
+            user = request.user
+            print(user)
+            instance.user = user
+            # save porto field ke field calender
+            instance.name = instance.porto_name
+            instance.location =  instance.tempat_resepsi
+            instance.startDate = instance.tanggal_resepsi
+            instance.startTime = instance.waktu_resepsi
+            instance.endTime = instance.waktu_selesai_resepsi
+            # save porto field ke field go to
+            instance.lokasi = instance.tempat_resepsi
+
+
+            instance.save()
+
+            # to create multiple image instance
+            porto_instance = Portofolio.objects.get(pk=instance.pk)
+
+            # to create instance quote
+            instance_quote = form2.save(commit=False)
+            instance_quote.portofolio = porto_instance
+            instance_quote.save()
+
+            # to create theme product
+            instance_order = Order.objects.get(user=user)
+            instance_orderitemfiture = OrderItem.objects.get(order=instance_order)
+
+            instance_orderitem = form3.save(commit=False)
+            instance_orderitem.portofolio = porto_instance
+            instance_orderitem.fitur = instance_orderitemfiture.product
+            instance_orderitem.save()
+
+            # to create multiple value instance
+            for form in formset:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset2:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset3:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset4:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset5:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            messages.success(request, "Data saved!")
+            return redirect("portofolio:configurasi")
+
+    else:
+        form = PortofolioForm(instance=obj)
+        form2 = QuoteForm(instance=obj_quote)
+        form3 = ThemeProductForm(instance=obj_themeproduct)
+        formset = SpecialInviteFormSet(queryset= qs, prefix='invite')
+        formset2 = DompetFormSet(queryset= qs2, prefix='dompet')
+        formset3 = MultiImageFormSet(queryset= qs3, prefix='multiimage')
+        formset4 = StoryFormSet(queryset=qs4, prefix='story')
+        formset5 = MultiImageFormSet2(queryset=qs3, prefix='multiimage2')
+
+
+    context = {
+        'form': form,
+        'form2': form2,
+        'form3': form3,
+        'formset': formset,
+        'formset2': formset2,
+        'formset3': formset3,
+        'formset4': formset4,
+        'formset5': formset5,
+    }
+
+    # return redirect("portofolio:update_tampilan", slug=slug)
+    return render(request, 'portofolio/configurasi/story_form.html', context)
+
+def map_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+    # quote instance by porto id
+    obj_quote = get_object_or_404(Quote, portofolio= obj)
+    # theme product instance by porto id
+    obj_themeproduct = get_object_or_404(ThemeProduct, portofolio= obj)
+
+    # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
+    SpecialInviteFormSet = modelformset_factory(
+        SpecialInvitation,
+        form=SpecialInvitationForm,
+        extra=1,
+    )
+    DompetFormSet = modelformset_factory(
+        Dompet,
+        form=DompetForm,
+        extra=1,
+    )
+    MultiImageFormSet = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=1,
+    )
+    StoryFormSet = modelformset_factory(
+        Story,
+        form=StoryForm,
+        extra=1,
+    )
+    MultiImageFormSet2 = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=1,
+    )
+
+    # create query set for specialinvitation
+    qs = SpecialInvitation.objects.filter(portofolio=obj)
+    # create query set for dompet
+    qs2 = Dompet.objects.filter(portofolio=obj)
+    # create query set for multi image
+    qs3 = MultiImage.objects.filter(portofolio=obj)
+    # create query set for story
+    qs4 = Story.objects.filter(portofolio=obj)
+
+    # Define formset
+    formset = SpecialInviteFormSet(request.POST or None,queryset= qs, prefix='invite')
+    formset2 = DompetFormSet(request.POST or None,queryset= qs2, prefix='dompet')
+    formset3 = MultiImageFormSet(request.POST or None, request.FILES, queryset= qs3, prefix='multiimage')
+    formset4 = StoryFormSet(request.POST or None, request.FILES, queryset=qs4, prefix='story')
+    formset5 = MultiImageFormSet2(request.POST or None, request.FILES, queryset=qs3, prefix='multiimage2')
+
+    if request.method == "POST":
+        form = PortofolioForm(request.POST or None, request.FILES, instance=obj)
+        form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
+        form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
+
+        if form.is_valid():
+            # create portofolio instance
+            instance = form.save(commit=False)
+            # save user to porto
+            user = request.user
+            print(user)
+            instance.user = user
+            # save porto field ke field calender
+            instance.name = instance.porto_name
+            instance.location =  instance.tempat_resepsi
+            instance.startDate = instance.tanggal_resepsi
+            instance.startTime = instance.waktu_resepsi
+            instance.endTime = instance.waktu_selesai_resepsi
+            # save porto field ke field go to
+            instance.lokasi = instance.tempat_resepsi
+
+
+            instance.save()
+
+            # to create multiple image instance
+            porto_instance = Portofolio.objects.get(pk=instance.pk)
+
+            # to create instance quote
+            instance_quote = form2.save(commit=False)
+            instance_quote.portofolio = porto_instance
+            instance_quote.save()
+
+            # to create theme product
+            instance_order = Order.objects.get(user=user)
+            instance_orderitemfiture = OrderItem.objects.get(order=instance_order)
+
+            instance_orderitem = form3.save(commit=False)
+            instance_orderitem.portofolio = porto_instance
+            instance_orderitem.fitur = instance_orderitemfiture.product
+            instance_orderitem.save()
+
+            # to create multiple value instance
+            for form in formset:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset2:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset3:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset4:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset5:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            messages.success(request, "Data saved!")
+            return redirect("portofolio:configurasi")
+
+    else:
+        form = PortofolioForm(instance=obj)
+        form2 = QuoteForm(instance=obj_quote)
+        form3 = ThemeProductForm(instance=obj_themeproduct)
+        formset = SpecialInviteFormSet(queryset= qs, prefix='invite')
+        formset2 = DompetFormSet(queryset= qs2, prefix='dompet')
+        formset3 = MultiImageFormSet(queryset= qs3, prefix='multiimage')
+        formset4 = StoryFormSet(queryset=qs4, prefix='story')
+        formset5 = MultiImageFormSet2(queryset=qs3, prefix='multiimage2')
+
+
+    context = {
+        'form': form,
+        'form2': form2,
+        'form3': form3,
+        'formset': formset,
+        'formset2': formset2,
+        'formset3': formset3,
+        'formset4': formset4,
+        'formset5': formset5,
+    }
+
+    # return redirect("portofolio:update_tampilan", slug=slug)
+    return render(request, 'portofolio/configurasi/map_form.html', context)
+
+def dompet_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+    # quote instance by porto id
+    obj_quote = get_object_or_404(Quote, portofolio= obj)
+    # theme product instance by porto id
+    obj_themeproduct = get_object_or_404(ThemeProduct, portofolio= obj)
+
+    # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
+    SpecialInviteFormSet = modelformset_factory(
+        SpecialInvitation,
+        form=SpecialInvitationForm,
+        extra=1,
+    )
+    DompetFormSet = modelformset_factory(
+        Dompet,
+        form=DompetForm,
+        extra=1,
+    )
+    MultiImageFormSet = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=1,
+    )
+    StoryFormSet = modelformset_factory(
+        Story,
+        form=StoryForm,
+        extra=1,
+    )
+    MultiImageFormSet2 = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=1,
+    )
+
+    # create query set for specialinvitation
+    qs = SpecialInvitation.objects.filter(portofolio=obj)
+    # create query set for dompet
+    qs2 = Dompet.objects.filter(portofolio=obj)
+    # create query set for multi image
+    qs3 = MultiImage.objects.filter(portofolio=obj)
+    # create query set for story
+    qs4 = Story.objects.filter(portofolio=obj)
+
+    # Define formset
+    formset = SpecialInviteFormSet(request.POST or None,queryset= qs, prefix='invite')
+    formset2 = DompetFormSet(request.POST or None,queryset= qs2, prefix='dompet')
+    formset3 = MultiImageFormSet(request.POST or None, request.FILES, queryset= qs3, prefix='multiimage')
+    formset4 = StoryFormSet(request.POST or None, request.FILES, queryset=qs4, prefix='story')
+    formset5 = MultiImageFormSet2(request.POST or None, request.FILES, queryset=qs3, prefix='multiimage2')
+
+    if request.method == "POST":
+        form = PortofolioForm(request.POST or None, request.FILES, instance=obj)
+        form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
+        form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
+
+        if form.is_valid():
+            # create portofolio instance
+            instance = form.save(commit=False)
+            # save user to porto
+            user = request.user
+            print(user)
+            instance.user = user
+            # save porto field ke field calender
+            instance.name = instance.porto_name
+            instance.location =  instance.tempat_resepsi
+            instance.startDate = instance.tanggal_resepsi
+            instance.startTime = instance.waktu_resepsi
+            instance.endTime = instance.waktu_selesai_resepsi
+            # save porto field ke field go to
+            instance.lokasi = instance.tempat_resepsi
+
+
+            instance.save()
+
+            # to create multiple image instance
+            porto_instance = Portofolio.objects.get(pk=instance.pk)
+
+            # to create instance quote
+            instance_quote = form2.save(commit=False)
+            instance_quote.portofolio = porto_instance
+            instance_quote.save()
+
+            # to create theme product
+            instance_order = Order.objects.get(user=user)
+            instance_orderitemfiture = OrderItem.objects.get(order=instance_order)
+
+            instance_orderitem = form3.save(commit=False)
+            instance_orderitem.portofolio = porto_instance
+            instance_orderitem.fitur = instance_orderitemfiture.product
+            instance_orderitem.save()
+
+            # to create multiple value instance
+            for form in formset:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset2:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset3:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset4:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset5:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            messages.success(request, "Data saved!")
+            return redirect("portofolio:configurasi")
+
+    else:
+        form = PortofolioForm(instance=obj)
+        form2 = QuoteForm(instance=obj_quote)
+        form3 = ThemeProductForm(instance=obj_themeproduct)
+        formset = SpecialInviteFormSet(queryset= qs, prefix='invite')
+        formset2 = DompetFormSet(queryset= qs2, prefix='dompet')
+        formset3 = MultiImageFormSet(queryset= qs3, prefix='multiimage')
+        formset4 = StoryFormSet(queryset=qs4, prefix='story')
+        formset5 = MultiImageFormSet2(queryset=qs3, prefix='multiimage2')
+
+
+    context = {
+        'form': form,
+        'form2': form2,
+        'form3': form3,
+        'formset': formset,
+        'formset2': formset2,
+        'formset3': formset3,
+        'formset4': formset4,
+        'formset5': formset5,
+    }
+
+    # return redirect("portofolio:update_tampilan", slug=slug)
+    return render(request, 'portofolio/configurasi/dompet_form.html', context)
+
+def specialinvite_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+    # quote instance by porto id
+    obj_quote = get_object_or_404(Quote, portofolio= obj)
+    # theme product instance by porto id
+    obj_themeproduct = get_object_or_404(ThemeProduct, portofolio= obj)
+
+    # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
+    SpecialInviteFormSet = modelformset_factory(
+        SpecialInvitation,
+        form=SpecialInvitationForm,
+        extra=1,
+    )
+    DompetFormSet = modelformset_factory(
+        Dompet,
+        form=DompetForm,
+        extra=1,
+    )
+    MultiImageFormSet = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=1,
+    )
+    StoryFormSet = modelformset_factory(
+        Story,
+        form=StoryForm,
+        extra=1,
+    )
+    MultiImageFormSet2 = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=1,
+    )
+
+    # create query set for specialinvitation
+    qs = SpecialInvitation.objects.filter(portofolio=obj)
+    # create query set for dompet
+    qs2 = Dompet.objects.filter(portofolio=obj)
+    # create query set for multi image
+    qs3 = MultiImage.objects.filter(portofolio=obj)
+    # create query set for story
+    qs4 = Story.objects.filter(portofolio=obj)
+
+    # Define formset
+    formset = SpecialInviteFormSet(request.POST or None,queryset= qs, prefix='invite')
+    formset2 = DompetFormSet(request.POST or None,queryset= qs2, prefix='dompet')
+    formset3 = MultiImageFormSet(request.POST or None, request.FILES, queryset= qs3, prefix='multiimage')
+    formset4 = StoryFormSet(request.POST or None, request.FILES, queryset=qs4, prefix='story')
+    formset5 = MultiImageFormSet2(request.POST or None, request.FILES, queryset=qs3, prefix='multiimage2')
+
+    if request.method == "POST":
+        form = PortofolioForm(request.POST or None, request.FILES, instance=obj)
+        form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
+        form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
+
+        if form.is_valid():
+            # create portofolio instance
+            instance = form.save(commit=False)
+            # save user to porto
+            user = request.user
+            print(user)
+            instance.user = user
+            # save porto field ke field calender
+            instance.name = instance.porto_name
+            instance.location =  instance.tempat_resepsi
+            instance.startDate = instance.tanggal_resepsi
+            instance.startTime = instance.waktu_resepsi
+            instance.endTime = instance.waktu_selesai_resepsi
+            # save porto field ke field go to
+            instance.lokasi = instance.tempat_resepsi
+
+
+            instance.save()
+
+            # to create multiple image instance
+            porto_instance = Portofolio.objects.get(pk=instance.pk)
+
+            # to create instance quote
+            instance_quote = form2.save(commit=False)
+            instance_quote.portofolio = porto_instance
+            instance_quote.save()
+
+            # to create theme product
+            instance_order = Order.objects.get(user=user)
+            instance_orderitemfiture = OrderItem.objects.get(order=instance_order)
+
+            instance_orderitem = form3.save(commit=False)
+            instance_orderitem.portofolio = porto_instance
+            instance_orderitem.fitur = instance_orderitemfiture.product
+            instance_orderitem.save()
+
+            # to create multiple value instance
+            for form in formset:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset2:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset3:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset4:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset5:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            messages.success(request, "Data saved!")
+            return redirect("portofolio:configurasi")
+
+    else:
+        form = PortofolioForm(instance=obj)
+        form2 = QuoteForm(instance=obj_quote)
+        form3 = ThemeProductForm(instance=obj_themeproduct)
+        formset = SpecialInviteFormSet(queryset= qs, prefix='invite')
+        formset2 = DompetFormSet(queryset= qs2, prefix='dompet')
+        formset3 = MultiImageFormSet(queryset= qs3, prefix='multiimage')
+        formset4 = StoryFormSet(queryset=qs4, prefix='story')
+        formset5 = MultiImageFormSet2(queryset=qs3, prefix='multiimage2')
+
+
+    context = {
+        'form': form,
+        'form2': form2,
+        'form3': form3,
+        'formset': formset,
+        'formset2': formset2,
+        'formset3': formset3,
+        'formset4': formset4,
+        'formset5': formset5,
+    }
+
+    # return redirect("portofolio:update_tampilan", slug=slug)
+    return render(request, 'portofolio/configurasi/specialinvite_form.html', context)
+
+
+def info_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+    # quote instance by porto id
+    obj_quote = get_object_or_404(Quote, portofolio= obj)
+    # theme product instance by porto id
+    obj_themeproduct = get_object_or_404(ThemeProduct, portofolio= obj)
+
+    # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
+    SpecialInviteFormSet = modelformset_factory(
+        SpecialInvitation,
+        form=SpecialInvitationForm,
+        extra=1,
+    )
+    DompetFormSet = modelformset_factory(
+        Dompet,
+        form=DompetForm,
+        extra=1,
+    )
+    MultiImageFormSet = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=1,
+    )
+    StoryFormSet = modelformset_factory(
+        Story,
+        form=StoryForm,
+        extra=1,
+    )
+    MultiImageFormSet2 = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=1,
+    )
+
+    # create query set for specialinvitation
+    qs = SpecialInvitation.objects.filter(portofolio=obj)
+    # create query set for dompet
+    qs2 = Dompet.objects.filter(portofolio=obj)
+    # create query set for multi image
+    qs3 = MultiImage.objects.filter(portofolio=obj)
+    # create query set for story
+    qs4 = Story.objects.filter(portofolio=obj)
+
+    # Define formset
+    formset = SpecialInviteFormSet(request.POST or None,queryset= qs, prefix='invite')
+    formset2 = DompetFormSet(request.POST or None,queryset= qs2, prefix='dompet')
+    formset3 = MultiImageFormSet(request.POST or None, request.FILES, queryset= qs3, prefix='multiimage')
+    formset4 = StoryFormSet(request.POST or None, request.FILES, queryset=qs4, prefix='story')
+    formset5 = MultiImageFormSet2(request.POST or None, request.FILES, queryset=qs3, prefix='multiimage2')
+
+    if request.method == "POST":
+        form = PortofolioForm(request.POST or None, request.FILES, instance=obj)
+        form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
+        form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
+
+        if form.is_valid():
+            # create portofolio instance
+            instance = form.save(commit=False)
+            # save user to porto
+            user = request.user
+            print(user)
+            instance.user = user
+            # save porto field ke field calender
+            instance.name = instance.porto_name
+            instance.location =  instance.tempat_resepsi
+            instance.startDate = instance.tanggal_resepsi
+            instance.startTime = instance.waktu_resepsi
+            instance.endTime = instance.waktu_selesai_resepsi
+            # save porto field ke field go to
+            instance.lokasi = instance.tempat_resepsi
+
+
+            instance.save()
+
+            # to create multiple image instance
+            porto_instance = Portofolio.objects.get(pk=instance.pk)
+
+            # to create instance quote
+            instance_quote = form2.save(commit=False)
+            instance_quote.portofolio = porto_instance
+            instance_quote.save()
+
+            # to create theme product
+            instance_order = Order.objects.get(user=user)
+            instance_orderitemfiture = OrderItem.objects.get(order=instance_order)
+
+            instance_orderitem = form3.save(commit=False)
+            instance_orderitem.portofolio = porto_instance
+            instance_orderitem.fitur = instance_orderitemfiture.product
+            instance_orderitem.save()
+
+            # to create multiple value instance
+            for form in formset:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset2:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset3:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset4:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset5:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            messages.success(request, "Data saved!")
+            return redirect("portofolio:configurasi")
+
+    else:
+        form = PortofolioForm(instance=obj)
+        form2 = QuoteForm(instance=obj_quote)
+        form3 = ThemeProductForm(instance=obj_themeproduct)
+        formset = SpecialInviteFormSet(queryset= qs, prefix='invite')
+        formset2 = DompetFormSet(queryset= qs2, prefix='dompet')
+        formset3 = MultiImageFormSet(queryset= qs3, prefix='multiimage')
+        formset4 = StoryFormSet(queryset=qs4, prefix='story')
+        formset5 = MultiImageFormSet2(queryset=qs3, prefix='multiimage2')
+
+
+    context = {
+        'form': form,
+        'form2': form2,
+        'form3': form3,
+        'formset': formset,
+        'formset2': formset2,
+        'formset3': formset3,
+        'formset4': formset4,
+        'formset5': formset5,
+    }
+
+    # return redirect("portofolio:update_tampilan", slug=slug)
+    return render(request, 'portofolio/configurasi/info_form.html', context)
+
+
+def update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+    # quote instance by porto id
+    obj_quote = get_object_or_404(Quote, portofolio= obj)
+    # theme product instance by porto id
+    obj_themeproduct = get_object_or_404(ThemeProduct, portofolio= obj)
+
+    # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
+    SpecialInviteFormSet = modelformset_factory(
+        SpecialInvitation,
+        form=SpecialInvitationForm,
+        extra=1,
+    )
+    DompetFormSet = modelformset_factory(
+        Dompet,
+        form=DompetForm,
+        extra=1,
+    )
+    MultiImageFormSet = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=1,
+    )
+    StoryFormSet = modelformset_factory(
+        Story,
+        form=StoryForm,
+        extra=1,
+    )
+    MultiImageFormSet2 = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=1,
     )
 
     # create query set for specialinvitation
@@ -410,7 +1944,7 @@ def update(request, slug):
                     child.save()
 
             messages.success(request, "Data saved!")
-            return redirect("portofolio:update", slug=instance.slug)
+            return redirect("portofolio:configurasi")
 
     else:
         form = PortofolioForm(instance=obj)

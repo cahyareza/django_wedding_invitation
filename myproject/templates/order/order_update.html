@@ -39,8 +39,8 @@
           {% endfor %}
         </div>
         <div class="column is-8">
-            {{ orderform2.bukti.label_tag }}
-            {{ orderform2.bukti }}
+            <p class="subtitle is-size-6-tablet is-size-7-mobile mb-3">{{ orderform2.bukti.label_tag }}</p>
+            <p class="subtitle is-size-6-tablet is-size-7-mobile mt-3 mb-3">{{ orderform2.bukti }}</p>
 
             {% if order.bukti %}
                 <p class="subtitle" style="color: red; font-size: 11px;"></p>
@@ -55,5 +55,6 @@
         </div>
     </div>
 
-    <button id="submit" type="submit" class="button is-small is-light p-2 mt-1">Submit</button>
+    <button id="submit" type="submit" class="button is-small is-danger p-2">Submit</button>
+
 </form>
