@@ -11,6 +11,7 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from django.utils import timezone
+from django.utils.timezone import now
 
 from rest_framework import filters
 from django_filters import AllValuesFilter, DateTimeFilter, NumberFilter, FilterSet
@@ -177,8 +178,7 @@ def register_awal(request, id=None):
             formset6 = AcaraFormSet(request.POST or None, request.FILES, prefix='acara')
             print(request.POST)
             # form validation
-            if form.is_valid() and form2.is_valid() and form3.is_valid() and formset.is_valid() \
-                and formset2.is_valid() and formset4.is_valid():
+            if form.is_valid():
                 # create portofolio instance
                 instance = form.save(commit=False)
                 # save user to porto
@@ -259,11 +259,6 @@ def register_awal(request, id=None):
                 messages.success(request, "Registered Successfully !")
                 return redirect("portofolio:configurasi")
 
-            else:
-                return render(request, "portofolio/register_porto.html", {'form': form,
-                    'form2': form2, 'form3': form3, 'formset': formset, 'formset2': formset2, 'formset3': formset3,
-                    'formset4': formset4, 'formset5': formset5, 'formset6': formset6})
-
         else:
             form = PortofolioForm()
             form2 = QuoteForm()
@@ -278,7 +273,7 @@ def register_awal(request, id=None):
     else:
         return render(request, 'portofolio/regis_failed.html')
 
-    return render(request, "portofolio/register_porto.html", {'form': form,
+    return render(request, "portofolio/configurasi/register_awal_form.html", {'form': form,
         'form2': form2, 'form3': form3, 'formset': formset, 'formset2': formset2, 'formset3': formset3,
         'formset4': formset4, 'formset5': formset5, 'formset6': formset6})
 
@@ -2692,6 +2687,7 @@ def myportofolio(request):
     portofolios = Portofolio.objects.filter(user=user)
     context = {
         'portofolios': portofolios,
+        'today': now().date()
     }
     return render(request, 'portofolio/myportofolio.html', context)
 

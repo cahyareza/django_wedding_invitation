@@ -1,5 +1,6 @@
 from django import forms
 import re
+import datetime
 from django.forms import ClearableFileInput
 from .models import Portofolio, MultiImage, SpecialInvitation, Dompet, Quote, Rekening, ThemeProduct, \
     Story, Acara
@@ -511,6 +512,14 @@ class PortofolioForm(forms.ModelForm):
             if lpicture.size > 2 * 1048476:
                 raise forms.ValidationError('Denied ! Maximum allowed is 2mb.')
             return lpicture
+
+    # B) COUNTDOWN
+    def clean_tanggal_countdown(self):
+        tanggal_countdown = self.cleaned_data['tanggal_countdown']
+        if tanggal_countdown:
+            if tanggal_countdown < datetime.date.today():
+                raise forms.ValidationError('Tanggal acara usang!')
+            return tanggal_countdown
 
 
 class MultiImageForm(forms.ModelForm):

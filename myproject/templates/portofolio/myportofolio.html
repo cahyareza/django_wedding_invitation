@@ -24,11 +24,19 @@
                         {% for data in portofolios %}
                         <tr>
                             <td class="has-text-centered">{{ data.porto_name }}</td>
-                            <td class="has-text-centered">{{ data.tanggal_resepsi }}</td>
+                            <td class="has-text-centered">{{ data.tanggal_countdown }}</td>
                             <td class="has-text-centered">
-                                <a href="{% url 'portofolio:configurasi' %}" class="button is-small">
-                                    <i class="fas fa-user-alt"></i>
-                                </a>
+                                {% if data.tanggal_countdown == none %}
+                                    <a href="{% url 'portofolio:configurasi' %}" class="button is-small">
+                                        <i class="fas fa-user-alt"></i>
+                                    </a>
+                                {% elif data.tanggal_countdown >= today %}
+                                    <a href="{% url 'portofolio:configurasi' %}" class="button is-small">
+                                        <i class="fas fa-user-alt"></i>
+                                    </a>
+                                {% else %}
+                                    <i class="fa-solid fa-ban"></i>
+                                {% endif %}
                             </td>
                             {% empty %}
                             <td class="has-text-danger has-text-centered">No records found</td>
