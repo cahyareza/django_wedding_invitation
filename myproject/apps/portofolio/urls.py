@@ -3,7 +3,7 @@ from django.urls import path
 from .views import (
     register, register_awal, configurasi_porto, theme_update, cover_update, pasangan_update, quote_update, update, \
     myportofolio, acara_update, moment_update, stories_update, map_update, dompet_update, specialinvite_update,\
-    info_update, PortofolioList, PortofolioDetail, RekeningList, RekeningDetail, \
+    info_update, countdown_update, PortofolioList, PortofolioDetail, RekeningList, RekeningDetail, \
     DompetList, DompetDetail, MultiImageList, MultiImageDetail, \
     SpecialInvitationList, SpecialInvitationDetail, PaymentList, \
     PaymentDetail, QuoteList, QuoteDetail, UcapanList, UcapanDetail, \
@@ -17,6 +17,7 @@ urlpatterns = [
     path("register/", register, name="register"),
     path("register_awal/", register_awal, name="register_awal"),
     path("configurasi/", configurasi_porto, name="configurasi"),
+    path('info_update/<slug:slug>/', info_update, name='info_update'),
     path('update/<slug:slug>/', update, name='update'),
     path('tampilan_update/<slug:slug>/', theme_update, name='tampilan_update'),
     path('cover_update/<slug:slug>/', cover_update, name='cover_update'),
@@ -28,7 +29,7 @@ urlpatterns = [
     path('map_update/<slug:slug>/', map_update, name='map_update'),
     path('dompet_update/<slug:slug>/', dompet_update, name='dompet_update'),
     path('specialinvite_update/<slug:slug>/', specialinvite_update, name='specialinvite_update'),
-    path('info_update/<slug:slug>/', info_update, name='info_update'),
+    path('countdown_update/<slug:slug>/', countdown_update, name='countdown_update'),
     path('myportofolio/', myportofolio, name='myportofolio'),
 
     path('api/portofolio/', PortofolioList.as_view(), name=views.PortofolioList.name),

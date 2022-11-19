@@ -166,67 +166,12 @@ class PortofolioForm(forms.ModelForm):
         )
     )
 
-    # INFORMASI ACARA
-    tempat_akad = forms.CharField(
-        label='Tempat akad', min_length=3, max_length=100,
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Tempat akad',
-                'class': 'input',
-                'style': 'font-size: 13px; text-transform: capitalize'
-            }
-        )
-    )
-
-    link_gmap_akad = forms.CharField(
-        label='Link google map lokasi akad',
+    # INFORMASI COUNTDOWN
+    location_countdown = forms.CharField(
+        label='Lokasi acara', min_length=10, max_length=1000,
         widget=forms.Textarea(
             attrs={
-                'placeholder': 'Link ke google maps',
-                'class': 'textarea',
-                'style': 'font-size: 13px',
-            }
-        )
-    )
-
-    tempat_resepsi = forms.CharField(
-        label='Tempat resepsi', min_length=3, max_length=100,
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Tempat resepsi',
-                'class': 'input',
-                'style': 'font-size: 13px; text-transform: capitalize'
-            }
-        )
-    )
-
-    link_gmap_resepsi = forms.CharField(
-        label='Link google map lokasi resepsi',
-        widget=forms.Textarea(
-            attrs={
-                'placeholder': 'Link ke google maps',
-                'class': 'textarea',
-                'style': 'font-size: 13px',
-            }
-        )
-    )
-
-    tempat_unduhmantu = forms.CharField(
-        label='Tempat unduh mantu', min_length=3, max_length=100,
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Tempat unduh mantu',
-                'class': 'input',
-                'style': 'font-size: 13px; text-transform: capitalize'
-            }
-        )
-    )
-
-    link_gmap_unduhmantu = forms.CharField(
-        label='Link google map lokasi unduh mantu',
-        widget=forms.Textarea(
-            attrs={
-                'placeholder': 'Link ke google maps',
+                'placeholder': 'Lokasi acara',
                 'class': 'textarea',
                 'style': 'font-size: 13px',
             }
@@ -234,7 +179,6 @@ class PortofolioForm(forms.ModelForm):
     )
 
     # INFORMASI OUR MOMENT
-
     video = forms.CharField(
         label='Link video',
         required=True,
@@ -413,9 +357,9 @@ class PortofolioForm(forms.ModelForm):
         model = Portofolio
         fields = "__all__"
         labels = {
-            'tanggal_unduhmantu': "Tanggal unduh mantu",
-            'waktu_unduhmantu': "Waktu unduh mantu",
-            'waktu_selesai_unduhmantu': "Waktu selesai unduh mantu",
+            'tanggal_countdown': "Tanggal acara",
+            'waktu_countdown': "Waktu acara",
+            'waktu_countdown_selesai': "Waktu selesai acara",
             'panak_ke': "Anak Perempuan ke-",
             'lanak_ke': "Anak Laki-laki ke-",
 
@@ -423,8 +367,8 @@ class PortofolioForm(forms.ModelForm):
 
         # OUTSIDE WIDGET
         widgets = {
-            # Tanggal akad
-            'tanggal_akad': forms.DateInput(
+            # Tanggal countdown
+            'tanggal_countdown': forms.DateInput(
                 format='%d-%m-%Y',
                 attrs={
                     'placeholder': 'dd-mm-yyyy',
@@ -437,8 +381,8 @@ class PortofolioForm(forms.ModelForm):
                     'data-mask': '00-00-0000'
                 },
             ),
-            # Waktu akad
-            'waktu_akad': forms.TimeInput(
+            # Waktu countdown
+            'waktu_countdown': forms.TimeInput(
                 attrs={
                     'placeholder': 'Misal: 09:00',
                     'style': 'font-size: 13px; cursor: pointer;',
@@ -446,88 +390,10 @@ class PortofolioForm(forms.ModelForm):
                     'data-mask': '00:00'
                 }
             ),
-            # Waktu selesai akad
-            'waktu_selesai_akad': forms.TimeInput(
-                attrs={
-                    'placeholder': 'Misal: 11:00',
-                    'style': 'font-size: 13px; cursor: pointer;',
-                    'class': 'input',
-                    'data-mask': '00:00'
-                }
-            ),
-            # Tanggal resepsi
-            'tanggal_resepsi': forms.DateInput(
-                format='%d-%m-%Y',
-                attrs={
-                    'placeholder': 'dd-mm-yyyy',
-                    'style': 'font-size: 13px; cursor: pointer;',
-                    # 'type': 'date',
-                    'class': 'input',
-                    # 'onkeydown': 'return false',  # Block typing inside field
-                    # 'min': '2022-01-01',
-                    # 'max': '2030-01-01',
-                    'data-mask': '00-00-0000'
-                },
-            ),
-            # Waktu resepsi
-            'waktu_resepsi': forms.TimeInput(
-                attrs={
-                    'placeholder': 'Misal: 13:00',
-                    'style': 'font-size: 13px; cursor: pointer;',
-                    'class': 'input',
-                    'data-mask': '00:00'
-                }
-            ),
-            # Datetime resepsi
-            'datetime_resepsi': forms.DateTimeInput(
-                format='%d-%m-%Y %H:%M',
-                attrs={
-                    'placeholder': 'dd-mm-yyyy hh:mm',
-                    'style': 'font-size: 13px; cursor: pointer;',
-                    # 'type': 'date',
-                    'class': 'input',
-                    # 'onkeydown': 'return false',  # Block typing inside field
-                    # 'min': '2022-01-01',
-                    # 'max': '2030-01-01',
-                    'data-mask': '00-00-0000 00:00'
-                },
-            ),
-            # Waktu selesai resepsi
-            'waktu_selesai_resepsi': forms.TimeInput(
-                attrs={
-                    'placeholder': 'Misal: 15:00',
-                    'style': 'font-size: 13px; cursor: pointer;',
-                    'class': 'input',
-                    'data-mask': '00:00'
-                }
-            ),
-            # Tanggal unduh mantu
-            'tanggal_unduhmantu': forms.DateInput(
-                format='%d-%m-%Y',
-                attrs={
-                    'placeholder': 'dd-mm-yyyy',
-                    'style': 'font-size: 13px; cursor: pointer;',
-                    # 'type': 'date',
-                    'class': 'input',
-                    # 'onkeydown': 'return false',  # Block typing inside field
-                    # 'min': '2022-01-01',
-                    # 'max': '2030-01-01',
-                    'data-mask': '00-00-0000'
-                },
-            ),
-            # Waktu unduh mantu
-            'waktu_unduhmantu': forms.TimeInput(
+            # Waktu countdown
+            'waktu_countdown_selesai': forms.TimeInput(
                 attrs={
                     'placeholder': 'Misal: 09:00',
-                    'style': 'font-size: 13px; cursor: pointer;',
-                    'class': 'input',
-                    'data-mask': '00:00'
-                }
-            ),
-            # Waktu selesai unduh mantu
-            'waktu_selesai_unduhmantu': forms.TimeInput(
-                attrs={
-                    'placeholder': 'Misal: 12:00',
                     'style': 'font-size: 13px; cursor: pointer;',
                     'class': 'input',
                     'data-mask': '00:00'
@@ -611,8 +477,6 @@ class PortofolioForm(forms.ModelForm):
         self.fields['user'].required = False
         self.fields['slug'].required = False
 
-        self.fields['datetime_resepsi'].required = False
-
         # PREMIUM and GOLD
         self.fields['video'].required = False
         self.fields['livestream'].required = False
@@ -626,10 +490,8 @@ class PortofolioForm(forms.ModelForm):
         # 1. Input required
         require = ['pname', 'pinsta_link', 'panak_ke', 'pnama_ayah', 'pnama_ibu',
             'ppicture', 'lname', 'linsta_link', 'lanak_ke', 'lnama_ayah', 'lnama_ibu',
-            'lpicture', 'tanggal_akad','waktu_akad', 'waktu_selesai_akad', 'tempat_akad',
-            'link_gmap_akad', 'tanggal_resepsi','waktu_resepsi', 'waktu_selesai_resepsi',
-            'tempat_resepsi', 'link_gmap_resepsi', 'tanggal_unduhmantu','waktu_unduhmantu',
-            'waktu_selesai_unduhmantu', 'tempat_unduhmantu','link_gmap_unduhmantu','timeZone',
+            'lpicture', 'tanggal_countdown', 'waktu_countdown', 'datetime_countdown',
+            'location_countdown', 'waktu_countdown_selesai', 'timeZone',
             'video', 'livestream', 'cover_background', 'link_gmap', 'link_iframe'
         ]
         for field in require:

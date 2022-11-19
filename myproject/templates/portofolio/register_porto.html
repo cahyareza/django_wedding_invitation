@@ -149,166 +149,73 @@
       </div>
 
       <!--   INFORMASI ACARA   -->
-      <div class="notification is-light p-1 has-text-centered">
+      <div class="notification is-light p-1 has-text-centered mt-4">
         INFORMASI ACARA
       </div>
-      <!--   AKAD   -->
-      <p class="title is-size-5 mb-1">Akad</p>
-      <div class="columns is-multiline mt-1">
-        <div class="column is-4">
-          {{ form.tanggal_akad.label_tag }}
-          {{ form.tanggal_akad }}
 
-          {% for error in form.tanggal_akad.errors %}
-              <p class="help is-danger">{{ error }}</p>
-          {% endfor %}
-        </div>
+      <div class="columns is-multiline">
+        {% if formset6 %}
+            {{ formset6.management_form }}
+            <div class="column is-6">
+                <div id="ingredient-form-list6">
+                    {% for form in formset6 %}
+                    <div class="ingredient-form6 mb-3">
+                        {{ form }}
 
-        <div class="column is-4">
-            {{ form.waktu_akad.label_tag }}
-            {{ form.waktu_akad }}
+<!--                        {% for field in form %}-->
+<!--                            {{ field.label_tag }} {{ field }}-->
+<!--                            {% for error in field.errors %}-->
+<!--                                <p class="help is-danger">{{ error }}</p>-->
+<!--                            {% endfor %}-->
+<!--                        {% endfor %}-->
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
 
-            {% for error in form.waktu_akad.errors %}
-                <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
-        </div>
-
-        <div class="column is-4">
-            {{ form.waktu_selesai_akad.label_tag }}
-            {{ form.waktu_selesai_akad }}
-
-            {% for error in form.waktu_selesai_akad.errors %}
-                <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
-        </div>
-
-        <div class="column is-6">
-            {{ form.link_gmap_akad.label_tag }}
-            {{ form.link_gmap_akad }}
-
-            {% for error in form.link_gmap_akad.errors %}
-                <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
-        </div>
-
-        <div class="column is-6">
-            {{ form.tempat_akad.label_tag }}
-            {{ form.tempat_akad }}
-
-            {% for error in form.tempat_akad.errors %}
-                <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
-        </div>
-
+            <div id="empty-form6" class="is-hidden">{{ formset6.empty_form }}</div>
+        {% endif %}
       </div>
 
-      <hr>
+      <button id="add-more6" type="button" class="button is-small is-outlined pd-1 mb-4">Tambah</button>
 
-      <!--   RESEPSI   -->
-      <p class="title is-size-5 mb-1">Resepsi</p>
-      <div class="columns is-multiline mt-1">
-        <div class="column is-4">
-          {{ form.tanggal_resepsi.label_tag }}
-          {{ form.tanggal_resepsi }}
-
-          {% for error in form.tanggal_resepsi.errors %}
-              <p class="help is-danger">{{ error }}</p>
-          {% endfor %}
-        </div>
-
-        <div class="column is-4">
-            {{ form.waktu_resepsi.label_tag }}
-            {{ form.waktu_resepsi }}
-
-            {% for error in form.waktu_resepsi.errors %}
-                <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
-        </div>
-
-        <div class="column is-4">
-            {{ form.waktu_selesai_resepsi.label_tag }}
-            {{ form.waktu_selesai_resepsi }}
-
-            {% for error in form.waktu_selesai_resepsi.errors %}
-                <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
-        </div>
-
-        <div class="column is-hidden is-4">
-            {{ form.datetime_resepsi.label_tag }}
-            {{ form.datetime_resepsi }}
-
-            {% for error in form.datetime_resepsi.errors %}
-                <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
-        </div>
-
-        <div class="column is-6">
-            {{ form.link_gmap_resepsi.label_tag }}
-            {{ form.link_gmap_resepsi }}
-
-            {% for error in form.link_gmap_resepsi.errors %}
-                <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
-        </div>
-
-        <div class="column is-6">
-            {{ form.tempat_resepsi.label_tag }}
-            {{ form.tempat_resepsi }}
-
-            {% for error in form.tempat_resepsi.errors %}
-                <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
-        </div>
-
+      <!--   INFORMASI COUNTDOWN   -->
+      <div class="notification is-light p-1 has-text-centered">
+        INFORMASI CALENDER
       </div>
-
-      <hr>
-
-      <!--   UNDUH MANTU   -->
-      <p class="title is-size-5 mb-1">Unduh mantu</p>
       <div class="columns is-multiline mt-1">
         <div class="column is-4">
-          {{ form.tanggal_unduhmantu.label_tag }}
-          {{ form.tanggal_unduhmantu }}
+          {{ form.tanggal_countdown.label_tag }}
+          {{ form.tanggal_countdown }}
 
-          {% for error in form.tanggal_unduhmantu.errors %}
+          {% for error in form.tanggal_countdown.errors %}
               <p class="help is-danger">{{ error }}</p>
           {% endfor %}
         </div>
 
         <div class="column is-4">
-            {{ form.waktu_unduhmantu.label_tag }}
-            {{ form.waktu_unduhmantu }}
+            {{ form.waktu_countdown.label_tag }}
+            {{ form.waktu_countdown }}
 
-            {% for error in form.waktu_unduhmantu.errors %}
+            {% for error in form.waktu_countdown.errors %}
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
         </div>
 
         <div class="column is-4">
-            {{ form.waktu_selesai_unduhmantu.label_tag }}
-            {{ form.waktu_selesai_unduhmantu }}
+          {{ form.location_countdown.label_tag }}
+          {{ form.location_countdown }}
 
-            {% for error in form.waktu_selesai_unduhmantu.errors %}
-                <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
+          {% for error in form.location_countdown.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
         </div>
 
-        <div class="column is-6">
-            {{ form.link_gmap_unduhmantu.label_tag }}
-            {{ form.link_gmap_unduhmantu }}
+        <div class="column is-4">
+            {{ form.waktu_countdown_selesai.label_tag }}
+            {{ form.waktu_countdown_selesai }}
 
-            {% for error in form.link_gmap_unduhmantu.errors %}
-                <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
-        </div>
-
-        <div class="column is-6">
-            {{ form.tempat_unduhmantu.label_tag }}
-            {{ form.tempat_unduhmantu }}
-
-            {% for error in form.tempat_unduhmantu.errors %}
+            {% for error in form.waktu_countdown_selesai.errors %}
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
         </div>
@@ -323,133 +230,133 @@
         </div>
       </div>
 
-      <!--   INFORMASI OUR MOMENT   -->
-    {% if orderproduct == "GOLD" %}
-    <div class="notification is-light p-1 has-text-centered">
-       INFORMASI MOMENT
-    </div>
-    <div class="columns is-multiline mt-1">
-        <div class="column is-6">
-          {{ form.video.label_tag }}
-          {{ form.video }}
-
-          {% for error in form.video.errors %}
-              <p class="help is-danger">{{ error }}</p>
-          {% endfor %}
+          <!--   INFORMASI OUR MOMENT   -->
+        {% if orderproduct == "GOLD" %}
+        <div class="notification is-light p-1 has-text-centered">
+           INFORMASI MOMENT
         </div>
-
-        <div class="column is-6">
-            {{ form.livestream.label_tag }}
-            {{ form.livestream }}
-
-            {% for error in form.livestream.errors %}
-                <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
-        </div>
-
-        <div class="column is-12">
-          {% if formset5 %}
-            {{ formset5.management_form }}
+        <div class="columns is-multiline mt-1">
             <div class="column is-6">
-                <div id="ingredient-form-list5">
-                    {% for field in formset5 %}
-                    <div class="ingredient-form5 mb-3">
-                        {{ field }}
-                    </div>
-                    {% endfor %}
-                </div>
+              {{ form.video.label_tag }}
+              {{ form.video }}
+
+              {% for error in form.video.errors %}
+                  <p class="help is-danger">{{ error }}</p>
+              {% endfor %}
             </div>
 
-            <div id="empty-form5" class="is-hidden">{{ formset5.empty_form }}</div>
+            <div class="column is-6">
+                {{ form.livestream.label_tag }}
+                {{ form.livestream }}
+
+                {% for error in form.livestream.errors %}
+                    <p class="help is-danger">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="column is-12">
+              {% if formset5 %}
+                {{ formset5.management_form }}
+                <div class="column is-6">
+                    <div id="ingredient-form-list5">
+                        {% for field in formset5 %}
+                        <div class="ingredient-form5 mb-3">
+                            {{ field }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div id="empty-form5" class="is-hidden">{{ formset5.empty_form }}</div>
+            {% endif %}
+            <button id="add-more5" type="button" class="button is-small is-outlined pd-1">Tambah</button>
+          </div>
+        </div>
+
+        {% elif orderproduct == "PLATINUM" %}
+        <div class="notification is-light p-1 has-text-centered">
+           INFORMASI MOMENT
+        </div>
+        <div class="columns is-multiline mt-1">
+            <div class="column is-6">
+              {{ form.video.label_tag }}
+              {{ form.video }}
+
+              {% for error in form.video.errors %}
+                  <p class="help is-danger">{{ error }}</p>
+              {% endfor %}
+            </div>
+
+            <div class="column is-hidden is-6">
+                {{ form.livestream.label_tag }}
+                {{ form.livestream }}
+
+                {% for error in form.livestream.errors %}
+                    <p class="help is-danger">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="column is-12">
+              {% if formset3 %}
+                {{ formset3.management_form }}
+                <div class="column is-6">
+                    <div id="ingredient-form-list3">
+                        {% for field in formset3 %}
+                        <div class="ingredient-form3 mb-3">
+                            {{ field }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div id="empty-form3" class="is-hidden">{{ formset3.empty_form }}</div>
+              {% endif %}
+              <button id="add-more3" type="button" class="button is-small is-outlined pd-1">Tambah</button>
+            </div>
+         </div>
+
+         {% else %}
+        <div class="notification is-hidden is-light p-1 has-text-centered">
+           INFORMASI MOMENT
+        </div>
+         <div class="columns is-multiline mt-1">
+            <div class="column is-hidden is-6">
+              {{ form.video.label_tag }}
+              {{ form.video }}
+
+              {% for error in form.video.errors %}
+                  <p class="help is-danger">{{ error }}</p>
+              {% endfor %}
+            </div>
+
+            <div class="column is-hidden is-6">
+                {{ form.livestream.label_tag }}
+                {{ form.livestream }}
+
+                {% for error in form.livestream.errors %}
+                    <p class="help is-danger">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="column is-hidden is-12">
+              {% if formset5 %}
+                {{ formset5.management_form }}
+                <div class="column is-6">
+                    <div id="ingredient-form-list5">
+                        {% for field in formset5 %}
+                        <div class="ingredient-form5 mb-3">
+                            {{ field }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div id="empty-form5" class="is-hidden">{{ formset5.empty_form }}</div>
+            {% endif %}
+            <button id="add-more5" type="button" class="button is-hidden is-small is-outlined pd-1">Tambah</button>
+          </div>
+        </div>
         {% endif %}
-        <button id="add-more5" type="button" class="button is-small is-outlined pd-1">Tambah</button>
-      </div>
-    </div>
-
-    {% elif orderproduct == "PLATINUM" %}
-    <div class="notification is-light p-1 has-text-centered">
-       INFORMASI MOMENT
-    </div>
-    <div class="columns is-multiline mt-1">
-        <div class="column is-6">
-          {{ form.video.label_tag }}
-          {{ form.video }}
-
-          {% for error in form.video.errors %}
-              <p class="help is-danger">{{ error }}</p>
-          {% endfor %}
-        </div>
-
-        <div class="column is-hidden is-6">
-            {{ form.livestream.label_tag }}
-            {{ form.livestream }}
-
-            {% for error in form.livestream.errors %}
-                <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
-        </div>
-
-        <div class="column is-12">
-          {% if formset3 %}
-            {{ formset3.management_form }}
-            <div class="column is-6">
-                <div id="ingredient-form-list3">
-                    {% for field in formset3 %}
-                    <div class="ingredient-form3 mb-3">
-                        {{ field }}
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-
-            <div id="empty-form3" class="is-hidden">{{ formset3.empty_form }}</div>
-          {% endif %}
-          <button id="add-more3" type="button" class="button is-small is-outlined pd-1">Tambah</button>
-        </div>
-     </div>
-
-     {% else %}
-    <div class="notification is-hidden is-light p-1 has-text-centered">
-       INFORMASI MOMENT
-    </div>
-     <div class="columns is-multiline mt-1">
-        <div class="column is-hidden is-6">
-          {{ form.video.label_tag }}
-          {{ form.video }}
-
-          {% for error in form.video.errors %}
-              <p class="help is-danger">{{ error }}</p>
-          {% endfor %}
-        </div>
-
-        <div class="column is-hidden is-6">
-            {{ form.livestream.label_tag }}
-            {{ form.livestream }}
-
-            {% for error in form.livestream.errors %}
-                <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
-        </div>
-
-        <div class="column is-hidden is-12">
-          {% if formset5 %}
-            {{ formset5.management_form }}
-            <div class="column is-6">
-                <div id="ingredient-form-list5">
-                    {% for field in formset5 %}
-                    <div class="ingredient-form5 mb-3">
-                        {{ field }}
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-
-            <div id="empty-form5" class="is-hidden">{{ formset5.empty_form }}</div>
-        {% endif %}
-        <button id="add-more5" type="button" class="button is-hidden is-small is-outlined pd-1">Tambah</button>
-      </div>
-    </div>
-    {% endif %}
 
       <!--   INFORMASI SPECIAL INVITATIOM   -->
       <div class="notification is-light p-1 has-text-centered mt-4">
@@ -746,39 +653,18 @@
         </div>
       </div>
 
-      <!--   INFORMASI ACARAFORMSET   -->
+      <!--   INFORMASI BACKGROUND   -->
       <div class="notification is-light p-1 has-text-centered mt-4">
-        INFORMASI ACARA
+        INFORMASI BACKGROUND
       </div>
+      <div class="column px-0 is-6">
+        {{ form.cover_background.label_tag }}
+        {{ form.cover_background }}
 
-      <div class="columns is-multiline">
-        {% if formset6 %}
-            {{ formset6.management_form }}
-            <div class="column is-6">
-                <div id="ingredient-form-list6">
-                    {% for form in formset6 %}
-                    <div class="ingredient-form6 mb-3">
-                        {{ form }}
-
-<!--                        {% for field in form %}-->
-<!--                            {{ field.label_tag }} {{ field }}-->
-<!--                            {% for error in field.errors %}-->
-<!--                                <p class="help is-danger">{{ error }}</p>-->
-<!--                            {% endfor %}-->
-<!--                        {% endfor %}-->
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-
-            <div id="empty-form6" class="is-hidden">{{ formset6.empty_form }}</div>
-        {% endif %}
+        {% for error in form.cover_background.errors %}
+            <p class="help is-danger">{{ error }}</p>
+        {% endfor %}
       </div>
-
-      <button id="add-more6" type="button" class="button is-small is-outlined pd-1 mb-4">Tambah</button>
-
-      <br>
-
 
       {% endblock update %}
 

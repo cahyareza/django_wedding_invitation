@@ -41,9 +41,9 @@ class ThemeProductInline(admin.TabularInline):
 
 @admin.register(Portofolio)
 class PortofolioAdmin(admin.ModelAdmin):
-    list_filter = ['tanggal_resepsi']
-    list_display = ['porto_name', 'pname', 'lname', 'tanggal_resepsi', 'waktu_resepsi', 'tempat_resepsi', 'created']
-    search_fields = ['porto_name', 'tanggal_resepsi', 'created']
+    list_filter = ['tanggal_countdown']
+    list_display = ['porto_name', 'pname', 'lname', 'tanggal_countdown', 'waktu_countdown', 'created']
+    search_fields = ['porto_name', 'tanggal_countdown', 'created']
     inlines = [AcaraInline, MultiImageInline, SpecialInvitationInline, DompetInline, QuoteInline,
                UcapanInline, HadirInline, StoryInline, ThemeProductInline]
     list_per_page = 10
@@ -56,11 +56,9 @@ class PortofolioAdmin(admin.ModelAdmin):
         ('INFORMASI PASANGAN', {'fields': ['pname', 'pinsta_link', 'panak_ke', 'pnama_ayah', 'pnama_ibu',
          'ppicture', 'lname', 'linsta_link', 'lanak_ke', 'lnama_ayah', 'lnama_ibu', 'lpicture']}
          ),
-        # INFORMASI ACARA
-        ('INFORMASI ACARA', {"fields": ['tanggal_akad','waktu_akad', 'waktu_selesai_akad',
-        'tempat_akad', 'link_gmap_akad', 'tanggal_resepsi','waktu_resepsi', 'datetime_resepsi', 'waktu_selesai_resepsi',
-        'tempat_resepsi', 'link_gmap_resepsi', 'tanggal_unduhmantu','waktu_unduhmantu',
-        'waktu_selesai_unduhmantu', 'tempat_unduhmantu','link_gmap_unduhmantu']}
+        # INFORMASI COUNTDOWN
+        ('INFORMASI COUNTDOWN', {"fields": ['tanggal_countdown', 'waktu_countdown', 'datetime_countdown', \
+          'location_countdown', 'waktu_countdown_selesai']}
         ),
         # INFORMASI OUR MOMENT
         ('INFORMASI OUR MOMENT ', {"fields": ['video', 'livestream']}
