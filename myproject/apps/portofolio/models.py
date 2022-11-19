@@ -351,3 +351,14 @@ class Story(CreationModificationDateBase, UrlBase):
     def __str__(self):
         return self.portofolio.porto_name
 
+class Acara(CreationModificationDateBase, UrlBase):
+    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
+    nama_acara = models.CharField(max_length=250, null=True, blank=True)
+    tanggal_acara = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
+    waktu_mulai_acara = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
+    waktu_selesai_acara = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
+    tempat_acara = models.CharField(max_length=250, null=True, blank=True)
+    link_gmap_acara = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.portofolio.porto_name

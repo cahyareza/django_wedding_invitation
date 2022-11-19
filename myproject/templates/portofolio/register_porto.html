@@ -745,6 +745,41 @@
           {% endfor %}
         </div>
       </div>
+
+      <!--   INFORMASI ACARAFORMSET   -->
+      <div class="notification is-light p-1 has-text-centered mt-4">
+        INFORMASI ACARA
+      </div>
+
+      <div class="columns is-multiline">
+        {% if formset6 %}
+            {{ formset6.management_form }}
+            <div class="column is-6">
+                <div id="ingredient-form-list6">
+                    {% for form in formset6 %}
+                    <div class="ingredient-form6 mb-3">
+                        {{ form }}
+
+<!--                        {% for field in form %}-->
+<!--                            {{ field.label_tag }} {{ field }}-->
+<!--                            {% for error in field.errors %}-->
+<!--                                <p class="help is-danger">{{ error }}</p>-->
+<!--                            {% endfor %}-->
+<!--                        {% endfor %}-->
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div id="empty-form6" class="is-hidden">{{ formset6.empty_form }}</div>
+        {% endif %}
+      </div>
+
+      <button id="add-more6" type="button" class="button is-small is-outlined pd-1 mb-4">Tambah</button>
+
+      <br>
+
+
       {% endblock update %}
 
       <!--  Buttons  -->
@@ -900,6 +935,36 @@
             totalNewForms5.setAttribute('value', currentFormCount5 + 1)
             // now add new form element to our html form
             formCopyTarget5.append(copyEmptyFormEl5)
+        }
+    }
+
+    <!--------------- Formset6--------------->
+
+    const addMoreBtn6 = document.getElementById('add-more6')
+    const totalNewForms6 = document.getElementById('id_acara-TOTAL_FORMS')
+
+    if (addMoreBtn6) {
+        addMoreBtn6.addEventListener('click', add_new_form6)
+    }
+
+    function add_new_form6(event) {
+        if (event) {
+            event.preventDefault()
+        }
+        const currentIngredientForms6 = document.getElementsByClassName('ingredient-form6')
+        const currentFormCount6 = currentIngredientForms6.length // + 1
+        console.log(currentIngredientForms6.length)
+
+        if (currentFormCount6 <= 2) {
+            const formCopyTarget6 = document.getElementById('ingredient-form-list6')
+            const copyEmptyFormEl6 = document.getElementById('empty-form6').cloneNode(true)
+            copyEmptyFormEl6.setAttribute('class', 'ingredient-form6')
+            copyEmptyFormEl6.setAttribute('id', `acara-${currentFormCount6}`)
+            const regex = new RegExp('__prefix__', 'g')
+            copyEmptyFormEl6.innerHTML = copyEmptyFormEl6.innerHTML.replace(regex, currentFormCount6)
+            totalNewForms6.setAttribute('value', currentFormCount6 + 1)
+            // now add new form element to our html form
+            formCopyTarget6.append(copyEmptyFormEl6)
         }
     }
 </script>
