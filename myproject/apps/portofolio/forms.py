@@ -2,7 +2,7 @@ from django import forms
 import re
 from django.forms import ClearableFileInput
 from .models import Portofolio, MultiImage, SpecialInvitation, Dompet, Quote, Rekening, ThemeProduct, \
-    Story
+    Story, Acara
 from django.core.validators import RegexValidator
 from django.contrib.admin import widgets
 from django.forms import BaseFormSet
@@ -906,6 +906,101 @@ class StoryForm(forms.ModelForm):
             if image.size > 2 * 1048476:
                 raise forms.ValidationError('Denied ! Maximum allowed is 2mb.')
             return image
+
+class AcaraForm(forms.ModelForm):
+    tempat_acara = forms.CharField(
+        label='Tempat acara', min_length=3, max_length=100,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Tempat acara',
+                'class': 'input',
+                'style': 'font-size: 13px; text-transform: capitalize'
+            }
+        )
+    )
+
+    nama_acara = forms.CharField(
+        label='Nama acara',
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Misal: Akad/Resepsi/Unduh mantu',
+                'class': 'input',
+                'style': 'font-size: 13px; text-transform: capitalize'
+            }
+        )
+    )
+
+    link_gmap_acara = forms.CharField(
+        label='Link google map acara',
+        widget=forms.Textarea(
+            attrs={
+                'placeholder': 'Link ke google maps',
+                'class': 'textarea',
+                'style': 'font-size: 13px',
+            }
+        )
+    )
+
+    class Meta:
+        model = Acara
+        fields = ['nama_acara', 'tanggal_acara', 'waktu_mulai_acara', 'waktu_selesai_acara', 'tempat_acara', 'link_gmap_acara']
+        widgets = {
+            # Tanggal akad
+            'tanggal_acara': forms.DateInput(
+                format='%d-%m-%Y',
+                attrs={
+                    'placeholder': 'dd-mm-yyyy',
+                    'style': 'font-size: 13px; cursor: pointer;',
+                    # 'type': 'date',
+                    'class': 'input',
+                    # 'onkeydown': 'return false',  # Block typing inside field
+                    # 'min': '2022-01-01',
+                    # 'max': '2030-01-01',
+                    'data-mask': '00-00-0000'
+                },
+            ),
+            # Waktu akad
+            'waktu_mulai_acara': forms.TimeInput(
+                attrs={
+                    'placeholder': 'Misal: 09:00',
+                    'style': 'font-size: 13px; cursor: pointer;',
+                    'class': 'input',
+                    'data-mask': '00:00'
+                }
+            ),
+            # Waktu selesai akad
+            'waktu_selesai_acara': forms.TimeInput(
+                attrs={
+                    'placeholder': 'Misal: 11:00',
+                    'style': 'font-size: 13px; cursor: pointer;',
+                    'class': 'input',
+                    'data-mask': '00:00'
+                }
+            ),
+        }
+
+    # SUPER FUNCTION
+    def __init__(self, *args, **kwargs):
+        super(AcaraForm, self).__init__(*args, **kwargs)
+
+        # ========== CONTROL PANEL (Optional method to control ========== !
+        # 1. Input required
+        # self.fields['year'].required = False
+        # self.fields['cerita'].required = False
+        # self.fields['image'].required = False
+
+        # 2. Help text
+        # self.fields['image'].help_text = 'Note: Upload dengan memilih beberapa image secara langsung'
+
+    # ========== MeTHOD ========== !
+    # 1) IMAGE (Maximum upload size = 2mb)
+    # def clean_image(self):
+    #     image = self.cleaned_data.get('image')
+    #     if image:
+    #         if image.size > 2 * 1048476:
+    #             raise forms.ValidationError('Denied ! Maximum allowed is 2mb.')
+    #         return image
+
 # ================== FORMSET =================== !
 class BaseRegisterFormSet(BaseFormSet):
     def clean(self):

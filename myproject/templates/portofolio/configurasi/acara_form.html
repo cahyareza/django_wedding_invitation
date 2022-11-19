@@ -137,12 +137,12 @@
       </div>
 
       <!--   INFORMASI ACARA   -->
-      <div class="notification  is-light p-1 has-text-centered">
+      <div class="notification  is-hidden is-light p-1 has-text-centered">
         INFORMASI ACARA
       </div>
       <!--   AKAD   -->
-      <p class="title  is-size-5 mb-1">Akad</p>
-      <div class="columns  is-multiline mt-1">
+      <p class="title  is-hidden is-size-5 mb-1">Akad</p>
+      <div class="columns  is-hidden is-multiline mt-1">
         <div class="column is-4">
           {{ form.tanggal_akad.label_tag }}
           {{ form.tanggal_akad }}
@@ -190,11 +190,11 @@
 
       </div>
 
-      <hr class="">
+      <hr class="is-hidden">
 
       <!--   RESEPSI   -->
-      <p class="title  is-size-5 mb-1">Resepsi</p>
-      <div class="columns  is-multiline mt-1">
+      <p class="title  is-hidden is-size-5 mb-1">Resepsi</p>
+      <div class="columns  is-hidden is-multiline mt-1">
         <div class="column is-4">
           {{ form.tanggal_resepsi.label_tag }}
           {{ form.tanggal_resepsi }}
@@ -251,11 +251,11 @@
 
       </div>
 
-      <hr class="">
+      <hr class="is-hidden">
 
       <!--   UNDUH MANTU   -->
-      <p class="title  is-size-5 mb-1">Unduh mantu</p>
-      <div class="columns  is-multiline mt-1">
+      <p class="title  is-hidden is-size-5 mb-1">Unduh mantu</p>
+      <div class="columns  is-hidden is-multiline mt-1">
         <div class="column is-4">
           {{ form.tanggal_unduhmantu.label_tag }}
           {{ form.tanggal_unduhmantu }}
@@ -584,6 +584,39 @@
             <p class="help is-danger">{{ error }}</p>
         {% endfor %}
       </div>
+
+      <!--   INFORMASI ACARAFORMSET   -->
+      <div class="notification is-light p-1 has-text-centered mt-4">
+        INFORMASI ACARA
+      </div>
+
+      <div class="columns is-multiline">
+        {% if formset6 %}
+            {{ formset6.management_form }}
+            <div class="column is-6">
+                <div id="ingredient-form-list6">
+                    {% for form in formset6 %}
+                    <div class="ingredient-form6 mb-3">
+                        {{ form }}
+
+<!--                        {% for field in form %}-->
+<!--                            {{ field.label_tag }} {{ field }}-->
+<!--                            {% for error in field.errors %}-->
+<!--                                <p class="help is-danger">{{ error }}</p>-->
+<!--                            {% endfor %}-->
+<!--                        {% endfor %}-->
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div id="empty-form6" class="is-hidden">{{ formset6.empty_form }}</div>
+        {% endif %}
+      </div>
+
+      <button id="add-more6" type="button" class="button is-small is-outlined pd-1 mb-4">Tambah</button>
+
+      <br>
 {% endblock update %}
 
 <!--  Buttons  -->

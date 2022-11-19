@@ -1,58 +1,160 @@
+# Portofolio registration
+def register(request, id=None):
+    # initiate formset
+    StoryFormSet = modelformset_factory(
+        Story,
+        form=StoryForm,
+        formset=BaseRegisterFormSet,
+        extra=1,
+    )
+    SpecialInviteFormSet = modelformset_factory(
+        SpecialInvitation,
+        form=SpecialInvitationForm,
+        formset=BaseRegisterFormSet,
+        extra=1,
+    )
+    DompetFormSet = modelformset_factory(
+        Dompet,
+        form=DompetForm,
+        formset=BaseRegisterFormSet,
+        extra=1,
+    )
+    MultiImageFormSet = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        formset=BaseRegisterFormSet,
+        extra=1,
+    )
+    MultiImageFormSet2 = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        formset=BaseRegisterFormSet,
+        extra=1,
+    )
+
+    AcaraFormSet = modelformset_factory(
+        Acara,
+        form=AcaraForm,
+        formset=BaseRegisterFormSet,
+        extra=1,
+    )
+
+    portofolio = Portofolio.objects.filter(user=request.user).exists()
+    if portofolio == False:
+        if request.method == "POST":
+            form = PortofolioForm(request.POST or None, request.FILES)
+            form2 = QuoteForm(request.POST or None, request.FILES)
+            form3 = ThemeProductForm(request.POST or None, request.FILES)
+
+            formset = SpecialInviteFormSet(request.POST or None, prefix='invite')
+            formset2 = DompetFormSet(request.POST or None, prefix='dompet')
+            formset3 = MultiImageFormSet(request.POST or None, request.FILES, prefix='multiimage')
+            formset4 = StoryFormSet(request.POST or None, request.FILES, prefix='story')
+            formset5 = MultiImageFormSet2(request.POST or None, request.FILES, prefix='multiimage2')
+            formset6 = AcaraFormSet(request.POST or None, request.FILES, prefix='acara')
+            print(request.POST)
+            # form validation
+            if form.is_valid() and form2.is_valid() and form3.is_valid() and formset.is_valid() \
+                and formset2.is_valid() and formset4.is_valid():
+                # create portofolio instance
+                instance = form.save(commit=False)
+                # save user to porto
+                user = request.user
+                instance.user = user
+                # save porto field ke field calender
+                instance.name = instance.porto_name
+                instance.location =  instance.tempat_resepsi
+                instance.startDate = instance.tanggal_resepsi
+                instance.startTime = instance.waktu_resepsi
+                instance.endTime = instance.waktu_selesai_resepsi
+                # save porto field ke field go to
+                instance.lokasi = instance.tempat_resepsi
 
 
+                instance.save()
 
-.progress-count{
-    height: 40px;
-    width: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    font-weight: 600;
-    margin: 0 auto;
-    position: relative;
-    z-index: 10;
-    color: transparent;
-}
+                # to create multiple image instance
+                porto_instance = Portofolio.objects.get(pk=instance.pk)
 
-.progress-count:after{
-    content: "";
-    height: 40px;
-    width: 40px;
-    background: #21d4fd;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    border-radius: 50%;
-    z-index: -10;
-}
+                # to create instance quote
+                instance_quote = form2.save(commit=False)
+                instance_quote.portofolio = porto_instance
+                instance_quote.save()
 
-.progress-count:before{
-    content: "";
-    height: 10px;
-    width: 20px;;
-    border-left: 2px solid #fff;
-    border-right: 2px solid #fff;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -60%) rotate(-45deg);
-    transform-origin: center center;
-}
+                # to create theme product
+                instance_order = Order.objects.get(user=user)
+                instance_orderitem = OrderItem.objects.get(order=instance_order)
 
-.progress-label{
-    font-size: 14px;
-    font-weight: 600;
-    margin-top: 10px;
-}
+                instance_orderitem = form3.save(commit=False)
+                instance_orderitem.portofolio = porto_instance
+                instance_orderitem.fitur = instance_orderitem.fitur
+                instance_orderitem.save()
 
-.current-item .progress-count:before,
-.current-item ~ .step-wizard-item .progress-count:before{
-    display: none;
-}
+                # to create multiple value instance
+                for form in formset:
+                    # Not save blank field use has_changed()
+                    if form.is_valid() and form.has_changed():
+                        child = form.save(commit=False)
+                        child.portofolio = porto_instance
+                        child.save()
 
-.current-item ~ .step-wizard-item .progress-count:after{
-    height: 10px;
-    width: 10px;
-}
+                for form in formset2:
+                    # Not save blank field use has_changed()
+                    if form.is_valid() and form.has_changed():
+                        child = form.save(commit=False)
+                        child.portofolio = porto_instance
+                        child.save()
+
+                for form in formset3:
+                    # Not save blank field use has_changed()
+                    if form.is_valid() and form.has_changed():
+                        child = form.save(commit=False)
+                        child.portofolio = porto_instance
+                        child.save()
+
+                for form in formset4:
+                    # Not save blank field use has_changed()
+                    if form.is_valid() and form.has_changed():
+                        child = form.save(commit=False)
+                        child.portofolio = porto_instance
+                        child.save()
+
+                for form in formset5:
+                    # Not save blank field use has_changed()
+                    if form.is_valid() and form.has_changed():
+                        child = form.save(commit=False)
+                        child.portofolio = porto_instance
+                        child.save()
+
+                for form in formset6:
+                    # Not save blank field use has_changed()
+                    if form.is_valid() and form.has_changed():
+                        child = form.save(commit=False)
+                        child.portofolio = porto_instance
+                        child.save()
+
+                messages.success(request, "Registered Successfully !")
+                return redirect("portofolio:configurasi")
+
+            else:
+                return render(request, "portofolio/register_porto.html", {'form': form,
+                    'form2': form2, 'form3': form3, 'formset': formset, 'formset2': formset2, 'formset3': formset3,
+                    'formset4': formset4, 'formset5': formset5, 'formset6': formset6})
+
+        else:
+            form = PortofolioForm()
+            form2 = QuoteForm()
+            form3 = ThemeProductForm()
+            formset = SpecialInviteFormSet(prefix='invite')
+            formset2 = DompetFormSet(prefix='dompet')
+            formset3 = MultiImageFormSet(prefix='multiimage')
+            formset4 = StoryFormSet(prefix='story')
+            formset5 = MultiImageFormSet2(prefix='multiimage2')
+            formset6 = AcaraFormSet(prefix='acara')
+
+    else:
+        return render(request, 'portofolio/regis_failed.html')
+
+    return render(request, "portofolio/register_porto.html", {'form': form,
+        'form2': form2, 'form3': form3, 'formset': formset, 'formset2': formset2, 'formset3': formset3,
+        'formset4': formset4, 'formset5': formset5, 'formset6': formset6})
