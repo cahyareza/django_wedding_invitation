@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from .serializers import PortofolioSerializer, RekeningSerializer, DompetSerializer, \
     MultiImageSerializer, SpecialInvitationSerializer, PaymentSerializer, QuoteSerializer, \
     UcapanSerializer, HadirSerializer, FiturSerializer, ThemeSerializer, ThemeProductSerializer, \
-    StorySerializer
+    StorySerializer, AcaraSerializer
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -2176,6 +2176,20 @@ class StoryDetail(generics.RetrieveUpdateDestroyAPIView):
     name = 'story-detail'
 
 
+# Acara
+class AcaraList(generics.ListCreateAPIView):
+    queryset = Acara.objects.all()
+    serializer_class = AcaraSerializer
+    name = 'acara-list'
+    filterset_fields = ['portofolio__slug']
+
+
+class AcaraDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Acara.objects.all()
+    serializer_class = AcaraSerializer
+    name = 'acara-detail'
+
+
 # ROOT
 class ApiRoot(generics.GenericAPIView):
     name = 'api-root'
@@ -2194,4 +2208,5 @@ class ApiRoot(generics.GenericAPIView):
             'themeproducts': reverse('portofolio:themeproduct-list', request=request),
             'themes': reverse('portofolio:theme-list', request=request),
             'story': reverse('portofolio:story-list', request=request),
+            'acara': reverse('portofolio:acara-list', request=request),
             })
