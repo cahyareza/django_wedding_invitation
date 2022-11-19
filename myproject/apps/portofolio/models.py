@@ -100,23 +100,12 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     # lpicture = models.ImageField(blank=True)
     lpicture = ResizedImageField(size=[180, 180], crop=['middle', 'center'], upload_to='whatever', null=True, blank=True)
 
-    # Acara
-    tanggal_akad = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
-    waktu_akad = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
-    waktu_selesai_akad = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
-    tempat_akad = models.CharField(max_length=250, null=True, blank=True)
-    link_gmap_akad = models.TextField(null=True, blank=True)
-    tanggal_resepsi = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
-    waktu_resepsi = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
-    waktu_selesai_resepsi = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
-    datetime_resepsi = models.CharField(max_length=250, null=True, blank=True)
-    tempat_resepsi = models.CharField(max_length=250, null=True, blank=True)
-    link_gmap_resepsi = models.TextField(null=True, blank=True)
-    tanggal_unduhmantu = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
-    waktu_unduhmantu = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
-    waktu_selesai_unduhmantu = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
-    tempat_unduhmantu = models.CharField(max_length=250, null=True, blank=True)
-    link_gmap_unduhmantu = models.TextField(null=True, blank=True)
+    # Countdown
+    tanggal_countdown = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
+    waktu_countdown = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
+    location_countdown = models.CharField(max_length=250, null=True, blank=True)
+    waktu_countdown_selesai = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
+    datetime_countdown = models.CharField(max_length=250, null=True, blank=True)
 
     # Our moment
     video = models.TextField(null=True, blank=True)
@@ -183,8 +172,8 @@ class Portofolio(CreationModificationDateBase, UrlBase):
         self.trigger = "click"
         self.iCalFileName = "Reminder-Event"
         self.slug = slugify(self.porto_name)
-        if self.tanggal_resepsi and self.waktu_resepsi:
-            self.datetime_resepsi = datetime.combine(self.tanggal_resepsi,self.waktu_resepsi).strftime("%Y-%m-%d %H:%M")
+        if self.tanggal_countdown and self.waktu_countdown:
+            self.datetime_countdown = datetime.combine(self.tanggal_countdown,self.waktu_countdown).strftime("%Y-%m-%d %H:%M")
         super().save(*args, **kwargs)
 
 class MultiImage(CreationModificationDateBase, UrlBase):

@@ -178,12 +178,12 @@ def register_awal(request, id=None):
                 instance.user = user
                 # save porto field ke field calender
                 instance.name = instance.porto_name
-                instance.location =  instance.tempat_resepsi
-                instance.startDate = instance.tanggal_resepsi
-                instance.startTime = instance.waktu_resepsi
-                instance.endTime = instance.waktu_selesai_resepsi
+                instance.location = instance.location_countdown
+                instance.startDate = instance.tanggal_countdown
+                instance.startTime = instance.waktu_countdown
+                instance.endTime = instance.waktu_countdown_selesai
                 # save porto field ke field go to
-                instance.lokasi = instance.tempat_resepsi
+                instance.lokasi = instance.location_countdown
 
 
                 instance.save()
@@ -331,12 +331,12 @@ def register(request, id=None):
                 instance.user = user
                 # save porto field ke field calender
                 instance.name = instance.porto_name
-                instance.location =  instance.tempat_resepsi
-                instance.startDate = instance.tanggal_resepsi
-                instance.startTime = instance.waktu_resepsi
-                instance.endTime = instance.waktu_selesai_resepsi
+                instance.location = instance.location_countdown
+                instance.startDate = instance.tanggal_countdown
+                instance.startTime = instance.waktu_countdown
+                instance.endTime = instance.waktu_countdown_selesai
                 # save porto field ke field go to
-                instance.lokasi = instance.tempat_resepsi
+                instance.lokasi = instance.location_countdown
 
 
                 instance.save()
@@ -430,31 +430,172 @@ def register(request, id=None):
 def theme_update(request, slug):
     # get instance portofolio from id
     obj = get_object_or_404(Portofolio, slug=slug)
+    # quote instance by porto id
+    obj_quote = get_object_or_404(Quote, portofolio= obj)
     # theme product instance by porto id
     obj_themeproduct = get_object_or_404(ThemeProduct, portofolio= obj)
 
+    # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
+    SpecialInviteFormSet = modelformset_factory(
+        SpecialInvitation,
+        form=SpecialInvitationForm,
+        extra=1,
+    )
+    DompetFormSet = modelformset_factory(
+        Dompet,
+        form=DompetForm,
+        extra=1,
+    )
+    MultiImageFormSet = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=1,
+    )
+    StoryFormSet = modelformset_factory(
+        Story,
+        form=StoryForm,
+        extra=1,
+    )
+    MultiImageFormSet2 = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=1,
+    )
+    AcaraFormSet = modelformset_factory(
+        Acara,
+        form=AcaraForm,
+        extra=1,
+    )
+
+    # create query set for specialinvitation
+    qs = SpecialInvitation.objects.filter(portofolio=obj)
+    # create query set for dompet
+    qs2 = Dompet.objects.filter(portofolio=obj)
+    # create query set for multi image
+    qs3 = MultiImage.objects.filter(portofolio=obj)
+    # create query set for story
+    qs4 = Story.objects.filter(portofolio=obj)
+    # create query set for acara
+    qs5 = Acara.objects.filter(portofolio=obj)
+
+    # Define formset
+    formset = SpecialInviteFormSet(request.POST or None,queryset= qs, prefix='invite')
+    formset2 = DompetFormSet(request.POST or None,queryset= qs2, prefix='dompet')
+    formset3 = MultiImageFormSet(request.POST or None, request.FILES, queryset= qs3, prefix='multiimage')
+    formset4 = StoryFormSet(request.POST or None, request.FILES, queryset=qs4, prefix='story')
+    formset5 = MultiImageFormSet2(request.POST or None, request.FILES, queryset=qs3, prefix='multiimage2')
+    formset6 = AcaraFormSet(request.POST or None, request.FILES, queryset=qs5, prefix='acara')
+
     if request.method == "POST":
+        form = PortofolioForm(request.POST or None, request.FILES, instance=obj)
+        form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
         form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
-        user = request.user
 
-        # to create multiple image instance
-        porto_instance = Portofolio.objects.get(pk=obj.pk)
+        if form.is_valid() and form3.is_valid() :
+            # create portofolio instance
+            instance = form.save(commit=False)
+            # save user to porto
+            user = request.user
+            print(user)
+            instance.user = user
+            # save porto field ke field calender
+            instance.name = instance.porto_name
+            instance.location =  instance.location_countdown
+            instance.startDate = instance.tanggal_countdown
+            instance.startTime = instance.waktu_countdown
+            instance.endTime = instance.waktu_countdown_selesai
+            # save porto field ke field go to
+            instance.lokasi = instance.location_countdown
 
-        # to create theme product
-        instance_order = Order.objects.get(user=user)
-        instance_orderitemfiture = OrderItem.objects.get(order=instance_order)
 
-        instance_orderitem = form3.save(commit=False)
-        instance_orderitem.portofolio = porto_instance
-        instance_orderitem.fitur = instance_orderitemfiture.product
-        instance_orderitem.save()
+            instance.save()
 
-        return redirect("portofolio:configurasi")
+            # to create multiple image instance
+            porto_instance = Portofolio.objects.get(pk=instance.pk)
+
+            # to create instance quote
+            instance_quote = form2.save(commit=False)
+            instance_quote.portofolio = porto_instance
+            instance_quote.save()
+
+            # to create theme product
+            instance_order = Order.objects.get(user=user)
+            instance_orderitemfiture = OrderItem.objects.get(order=instance_order)
+
+            instance_orderitem = form3.save(commit=False)
+            instance_orderitem.portofolio = porto_instance
+            instance_orderitem.fitur = instance_orderitemfiture.product
+            instance_orderitem.save()
+
+            # to create multiple value instance
+            for form in formset:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset2:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset3:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset4:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset5:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset6:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            messages.success(request, "Data saved!")
+            return redirect("portofolio:configurasi")
 
     else:
+        form = PortofolioForm(instance=obj)
+        form2 = QuoteForm(instance=obj_quote)
         form3 = ThemeProductForm(instance=obj_themeproduct)
+        formset = SpecialInviteFormSet(queryset= qs, prefix='invite')
+        formset2 = DompetFormSet(queryset= qs2, prefix='dompet')
+        formset3 = MultiImageFormSet(queryset= qs3, prefix='multiimage')
+        formset4 = StoryFormSet(queryset=qs4, prefix='story')
+        formset5 = MultiImageFormSet2(queryset=qs3, prefix='multiimage2')
+        formset6 = AcaraFormSet(queryset=qs5, prefix='acara')
 
-    context = {'form3': form3}
+
+    context = {
+        'form': form,
+        'form2': form2,
+        'form3': form3,
+        'formset': formset,
+        'formset2': formset2,
+        'formset3': formset3,
+        'formset4': formset4,
+        'formset5': formset5,
+        'formset6': formset6
+    }
 
     # return redirect("portofolio:update_tampilan", slug=slug)
     return render(request, 'portofolio/configurasi/tampilan_form.html', context)
@@ -462,27 +603,155 @@ def theme_update(request, slug):
 def cover_update(request, slug):
     # get instance portofolio from id
     obj = get_object_or_404(Portofolio, slug=slug)
+    # quote instance by porto id
+    obj_quote = get_object_or_404(Quote, portofolio= obj)
+    # theme product instance by porto id
+    obj_themeproduct = get_object_or_404(ThemeProduct, portofolio= obj)
+
+    # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
+    SpecialInviteFormSet = modelformset_factory(
+        SpecialInvitation,
+        form=SpecialInvitationForm,
+        extra=0,
+    )
+    DompetFormSet = modelformset_factory(
+        Dompet,
+        form=DompetForm,
+        extra=0,
+    )
+    MultiImageFormSet = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=0,
+    )
+    StoryFormSet = modelformset_factory(
+        Story,
+        form=StoryForm,
+        extra=0,
+    )
+    MultiImageFormSet2 = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=0,
+    )
+
+    # create query set for specialinvitation
+    qs = SpecialInvitation.objects.filter(portofolio=obj)
+    # create query set for dompet
+    qs2 = Dompet.objects.filter(portofolio=obj)
+    # create query set for multi image
+    qs3 = MultiImage.objects.filter(portofolio=obj)
+    # create query set for story
+    qs4 = Story.objects.filter(portofolio=obj)
+
+    # Define formset
+    formset = SpecialInviteFormSet(request.POST or None,queryset= qs, prefix='invite')
+    formset2 = DompetFormSet(request.POST or None,queryset= qs2, prefix='dompet')
+    formset3 = MultiImageFormSet(request.POST or None, request.FILES, queryset= qs3, prefix='multiimage')
+    formset4 = StoryFormSet(request.POST or None, request.FILES, queryset=qs4, prefix='story')
+    formset5 = MultiImageFormSet2(request.POST or None, request.FILES, queryset=qs3, prefix='multiimage2')
 
     if request.method == "POST":
         form = PortofolioForm(request.POST or None, request.FILES, instance=obj)
-        print(form)
+        form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
+        form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
+
         if form.is_valid():
-            print("done")
             # create portofolio instance
             instance = form.save(commit=False)
+            # save user to porto
             user = request.user
             print(user)
             instance.user = user
             # save porto field ke field calender
             instance.name = instance.porto_name
+            instance.location =  instance.location_countdown
+            instance.startDate = instance.tanggal_countdown
+            instance.startTime = instance.waktu_countdown
+            instance.endTime = instance.waktu_countdown_selesai
+            # save porto field ke field go to
+            instance.lokasi = instance.location_countdown
+
+
             instance.save()
 
+            # to create multiple image instance
+            porto_instance = Portofolio.objects.get(pk=instance.pk)
+
+            # to create instance quote
+            instance_quote = form2.save(commit=False)
+            instance_quote.portofolio = porto_instance
+            instance_quote.save()
+
+            # to create theme product
+            instance_order = Order.objects.get(user=user)
+            instance_orderitemfiture = OrderItem.objects.get(order=instance_order)
+
+            instance_orderitem = form3.save(commit=False)
+            instance_orderitem.portofolio = porto_instance
+            instance_orderitem.fitur = instance_orderitemfiture.product
+            instance_orderitem.save()
+
+            # to create multiple value instance
+            for form in formset:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset2:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset3:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset4:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset5:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            messages.success(request, "Data saved!")
             return redirect("portofolio:configurasi")
 
     else:
         form = PortofolioForm(instance=obj)
+        form2 = QuoteForm(instance=obj_quote)
+        form3 = ThemeProductForm(instance=obj_themeproduct)
+        formset = SpecialInviteFormSet(queryset= qs, prefix='invite')
+        formset2 = DompetFormSet(queryset= qs2, prefix='dompet')
+        formset3 = MultiImageFormSet(queryset= qs3, prefix='multiimage')
+        formset4 = StoryFormSet(queryset=qs4, prefix='story')
+        formset5 = MultiImageFormSet2(queryset=qs3, prefix='multiimage2')
 
-    context = {'form': form}
+
+    context = {
+        'form': form,
+        'form2': form2,
+        'form3': form3,
+        'formset': formset,
+        'formset2': formset2,
+        'formset3': formset3,
+        'formset4': formset4,
+        'formset5': formset5,
+    }
 
     # return redirect("portofolio:update_tampilan", slug=slug)
     return render(request, 'portofolio/configurasi/cover_form.html', context)
@@ -552,12 +821,12 @@ def pasangan_update(request, slug):
             instance.user = user
             # save porto field ke field calender
             instance.name = instance.porto_name
-            instance.location =  instance.tempat_resepsi
-            instance.startDate = instance.tanggal_resepsi
-            instance.startTime = instance.waktu_resepsi
-            instance.endTime = instance.waktu_selesai_resepsi
+            instance.location =  instance.location_countdown
+            instance.startDate = instance.tanggal_countdown
+            instance.startTime = instance.waktu_countdown
+            instance.endTime = instance.waktu_countdown_selesai
             # save porto field ke field go to
-            instance.lokasi = instance.tempat_resepsi
+            instance.lokasi = instance.location_countdown
 
 
             instance.save()
@@ -707,12 +976,12 @@ def quote_update(request, slug):
             instance.user = user
             # save porto field ke field calender
             instance.name = instance.porto_name
-            instance.location =  instance.tempat_resepsi
-            instance.startDate = instance.tanggal_resepsi
-            instance.startTime = instance.waktu_resepsi
-            instance.endTime = instance.waktu_selesai_resepsi
+            instance.location =  instance.location_countdown
+            instance.startDate = instance.tanggal_countdown
+            instance.startTime = instance.waktu_countdown
+            instance.endTime = instance.waktu_countdown_selesai
             # save porto field ke field go to
-            instance.lokasi = instance.tempat_resepsi
+            instance.lokasi = instance.location_countdown
 
 
             instance.save()
@@ -871,12 +1140,12 @@ def acara_update(request, slug):
             instance.user = user
             # save porto field ke field calender
             instance.name = instance.porto_name
-            instance.location =  instance.tempat_resepsi
-            instance.startDate = instance.tanggal_resepsi
-            instance.startTime = instance.waktu_resepsi
-            instance.endTime = instance.waktu_selesai_resepsi
+            instance.location =  instance.location_countdown
+            instance.startDate = instance.tanggal_countdown
+            instance.startTime = instance.waktu_countdown
+            instance.endTime = instance.waktu_countdown_selesai
             # save porto field ke field go to
-            instance.lokasi = instance.tempat_resepsi
+            instance.lokasi = instance.location_countdown
 
 
             instance.save()
@@ -973,45 +1242,126 @@ def acara_update(request, slug):
 def moment_update(request, slug):
     # get instance portofolio from id
     obj = get_object_or_404(Portofolio, slug=slug)
+    # quote instance by porto id
+    obj_quote = get_object_or_404(Quote, portofolio= obj)
+    # theme product instance by porto id
+    obj_themeproduct = get_object_or_404(ThemeProduct, portofolio= obj)
 
+    # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
+    SpecialInviteFormSet = modelformset_factory(
+        SpecialInvitation,
+        form=SpecialInvitationForm,
+        extra=1,
+    )
+    DompetFormSet = modelformset_factory(
+        Dompet,
+        form=DompetForm,
+        extra=1,
+    )
     MultiImageFormSet = modelformset_factory(
         MultiImage,
         form=MultiImageForm,
         extra=1,
     )
-
+    StoryFormSet = modelformset_factory(
+        Story,
+        form=StoryForm,
+        extra=1,
+    )
     MultiImageFormSet2 = modelformset_factory(
         MultiImage,
         form=MultiImageForm,
         extra=1,
     )
+    AcaraFormSet = modelformset_factory(
+        Acara,
+        form=AcaraForm,
+        extra=1,
+    )
 
+    # create query set for specialinvitation
+    qs = SpecialInvitation.objects.filter(portofolio=obj)
+    # create query set for dompet
+    qs2 = Dompet.objects.filter(portofolio=obj)
     # create query set for multi image
     qs3 = MultiImage.objects.filter(portofolio=obj)
+    # create query set for story
+    qs4 = Story.objects.filter(portofolio=obj)
+    # create query set for acara
+    qs5 = Acara.objects.filter(portofolio=obj)
 
     # Define formset
+    formset = SpecialInviteFormSet(request.POST or None,queryset= qs, prefix='invite')
+    formset2 = DompetFormSet(request.POST or None,queryset= qs2, prefix='dompet')
     formset3 = MultiImageFormSet(request.POST or None, request.FILES, queryset= qs3, prefix='multiimage')
+    formset4 = StoryFormSet(request.POST or None, request.FILES, queryset=qs4, prefix='story')
     formset5 = MultiImageFormSet2(request.POST or None, request.FILES, queryset=qs3, prefix='multiimage2')
-
+    formset6 = AcaraFormSet(request.POST or None, request.FILES, queryset=qs5, prefix='acara')
 
     if request.method == "POST":
         form = PortofolioForm(request.POST or None, request.FILES, instance=obj)
-        print(form)
+        form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
+        form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
+
         if form.is_valid():
-            print("done")
             # create portofolio instance
             instance = form.save(commit=False)
+            # save user to porto
             user = request.user
             print(user)
             instance.user = user
             # save porto field ke field calender
             instance.name = instance.porto_name
+            instance.location =  instance.location_countdown
+            instance.startDate = instance.tanggal_countdown
+            instance.startTime = instance.waktu_countdown
+            instance.endTime = instance.waktu_countdown_selesai
+            # save porto field ke field go to
+            instance.lokasi = instance.location_countdown
+
+
             instance.save()
 
             # to create multiple image instance
-            porto_instance = Portofolio.objects.get(pk=obj.pk)
+            porto_instance = Portofolio.objects.get(pk=instance.pk)
+
+            # to create instance quote
+            instance_quote = form2.save(commit=False)
+            instance_quote.portofolio = porto_instance
+            instance_quote.save()
+
+            # to create theme product
+            instance_order = Order.objects.get(user=user)
+            instance_orderitemfiture = OrderItem.objects.get(order=instance_order)
+
+            instance_orderitem = form3.save(commit=False)
+            instance_orderitem.portofolio = porto_instance
+            instance_orderitem.fitur = instance_orderitemfiture.product
+            instance_orderitem.save()
+
+            # to create multiple value instance
+            for form in formset:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset2:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
 
             for form in formset3:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset4:
                 # Not save blank field use has_changed()
                 if form.is_valid() and form.has_changed():
                     child = form.save(commit=False)
@@ -1025,17 +1375,38 @@ def moment_update(request, slug):
                     child.portofolio = porto_instance
                     child.save()
 
+            for form in formset6:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            messages.success(request, "Data saved!")
             return redirect("portofolio:configurasi")
 
     else:
         form = PortofolioForm(instance=obj)
+        form2 = QuoteForm(instance=obj_quote)
+        form3 = ThemeProductForm(instance=obj_themeproduct)
+        formset = SpecialInviteFormSet(queryset= qs, prefix='invite')
+        formset2 = DompetFormSet(queryset= qs2, prefix='dompet')
         formset3 = MultiImageFormSet(queryset= qs3, prefix='multiimage')
+        formset4 = StoryFormSet(queryset=qs4, prefix='story')
         formset5 = MultiImageFormSet2(queryset=qs3, prefix='multiimage2')
+        formset6 = AcaraFormSet(queryset=qs5, prefix='acara')
+
 
     context = {
         'form': form,
+        'form2': form2,
+        'form3': form3,
+        'formset': formset,
+        'formset2': formset2,
         'formset3': formset3,
+        'formset4': formset4,
         'formset5': formset5,
+        'formset6': formset6
     }
 
     # return redirect("portofolio:update_tampilan", slug=slug)
@@ -1106,12 +1477,12 @@ def stories_update(request, slug):
             instance.user = user
             # save porto field ke field calender
             instance.name = instance.porto_name
-            instance.location =  instance.tempat_resepsi
-            instance.startDate = instance.tanggal_resepsi
-            instance.startTime = instance.waktu_resepsi
-            instance.endTime = instance.waktu_selesai_resepsi
+            instance.location =  instance.location_countdown
+            instance.startDate = instance.tanggal_countdown
+            instance.startTime = instance.waktu_countdown
+            instance.endTime = instance.waktu_countdown_selesai
             # save porto field ke field go to
-            instance.lokasi = instance.tempat_resepsi
+            instance.lokasi = instance.location_countdown
 
 
             instance.save()
@@ -1262,12 +1633,12 @@ def map_update(request, slug):
             instance.user = user
             # save porto field ke field calender
             instance.name = instance.porto_name
-            instance.location =  instance.tempat_resepsi
-            instance.startDate = instance.tanggal_resepsi
-            instance.startTime = instance.waktu_resepsi
-            instance.endTime = instance.waktu_selesai_resepsi
+            instance.location =  instance.location_countdown
+            instance.startDate = instance.tanggal_countdown
+            instance.startTime = instance.waktu_countdown
+            instance.endTime = instance.waktu_countdown_selesai
             # save porto field ke field go to
-            instance.lokasi = instance.tempat_resepsi
+            instance.lokasi = instance.location_countdown
 
 
             instance.save()
@@ -1418,12 +1789,12 @@ def dompet_update(request, slug):
             instance.user = user
             # save porto field ke field calender
             instance.name = instance.porto_name
-            instance.location =  instance.tempat_resepsi
-            instance.startDate = instance.tanggal_resepsi
-            instance.startTime = instance.waktu_resepsi
-            instance.endTime = instance.waktu_selesai_resepsi
+            instance.location =  instance.location_countdown
+            instance.startDate = instance.tanggal_countdown
+            instance.startTime = instance.waktu_countdown
+            instance.endTime = instance.waktu_countdown_selesai
             # save porto field ke field go to
-            instance.lokasi = instance.tempat_resepsi
+            instance.lokasi = instance.location_countdown
 
 
             instance.save()
@@ -1574,12 +1945,12 @@ def specialinvite_update(request, slug):
             instance.user = user
             # save porto field ke field calender
             instance.name = instance.porto_name
-            instance.location =  instance.tempat_resepsi
-            instance.startDate = instance.tanggal_resepsi
-            instance.startTime = instance.waktu_resepsi
-            instance.endTime = instance.waktu_selesai_resepsi
+            instance.location =  instance.location_countdown
+            instance.startDate = instance.tanggal_countdown
+            instance.startTime = instance.waktu_countdown
+            instance.endTime = instance.waktu_countdown_selesai
             # save porto field ke field go to
-            instance.lokasi = instance.tempat_resepsi
+            instance.lokasi = instance.location_countdown
 
 
             instance.save()
@@ -1731,12 +2102,12 @@ def info_update(request, slug):
             instance.user = user
             # save porto field ke field calender
             instance.name = instance.porto_name
-            instance.location =  instance.tempat_resepsi
-            instance.startDate = instance.tanggal_resepsi
-            instance.startTime = instance.waktu_resepsi
-            instance.endTime = instance.waktu_selesai_resepsi
+            instance.location =  instance.location_countdown
+            instance.startDate = instance.tanggal_countdown
+            instance.startTime = instance.waktu_countdown
+            instance.endTime = instance.waktu_countdown_selesai
             # save porto field ke field go to
-            instance.lokasi = instance.tempat_resepsi
+            instance.lokasi = instance.location_countdown
 
 
             instance.save()
@@ -1822,6 +2193,177 @@ def info_update(request, slug):
     # return redirect("portofolio:update_tampilan", slug=slug)
     return render(request, 'portofolio/configurasi/info_form.html', context)
 
+def countdown_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+    # quote instance by porto id
+    obj_quote = get_object_or_404(Quote, portofolio= obj)
+    # theme product instance by porto id
+    obj_themeproduct = get_object_or_404(ThemeProduct, portofolio= obj)
+
+    # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
+    SpecialInviteFormSet = modelformset_factory(
+        SpecialInvitation,
+        form=SpecialInvitationForm,
+        extra=1,
+    )
+    DompetFormSet = modelformset_factory(
+        Dompet,
+        form=DompetForm,
+        extra=1,
+    )
+    MultiImageFormSet = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=1,
+    )
+    StoryFormSet = modelformset_factory(
+        Story,
+        form=StoryForm,
+        extra=1,
+    )
+    MultiImageFormSet2 = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=1,
+    )
+    AcaraFormSet = modelformset_factory(
+        Acara,
+        form=AcaraForm,
+        extra=1,
+    )
+
+    # create query set for specialinvitation
+    qs = SpecialInvitation.objects.filter(portofolio=obj)
+    # create query set for dompet
+    qs2 = Dompet.objects.filter(portofolio=obj)
+    # create query set for multi image
+    qs3 = MultiImage.objects.filter(portofolio=obj)
+    # create query set for story
+    qs4 = Story.objects.filter(portofolio=obj)
+    # create query set for acara
+    qs5 = Acara.objects.filter(portofolio=obj)
+
+    # Define formset
+    formset = SpecialInviteFormSet(request.POST or None,queryset= qs, prefix='invite')
+    formset2 = DompetFormSet(request.POST or None,queryset= qs2, prefix='dompet')
+    formset3 = MultiImageFormSet(request.POST or None, request.FILES, queryset= qs3, prefix='multiimage')
+    formset4 = StoryFormSet(request.POST or None, request.FILES, queryset=qs4, prefix='story')
+    formset5 = MultiImageFormSet2(request.POST or None, request.FILES, queryset=qs3, prefix='multiimage2')
+    formset6 = AcaraFormSet(request.POST or None, request.FILES, queryset=qs5, prefix='acara')
+
+    if request.method == "POST":
+        form = PortofolioForm(request.POST or None, request.FILES, instance=obj)
+        form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
+        form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
+
+        if form.is_valid():
+            # create portofolio instance
+            instance = form.save(commit=False)
+            # save user to porto
+            user = request.user
+            print(user)
+            instance.user = user
+            # save porto field ke field calender
+            instance.name = instance.porto_name
+            instance.location =  instance.location_countdown
+            instance.startDate = instance.tanggal_countdown
+            instance.startTime = instance.waktu_countdown
+            instance.endTime = instance.waktu_countdown_selesai
+            # save porto field ke field go to
+            instance.lokasi = instance.location_countdown
+
+
+            instance.save()
+
+            # to create multiple image instance
+            porto_instance = Portofolio.objects.get(pk=instance.pk)
+
+            # to create instance quote
+            instance_quote = form2.save(commit=False)
+            instance_quote.portofolio = porto_instance
+            instance_quote.save()
+
+            # to create theme product
+            instance_order = Order.objects.get(user=user)
+            instance_orderitemfiture = OrderItem.objects.get(order=instance_order)
+
+            instance_orderitem = form3.save(commit=False)
+            instance_orderitem.portofolio = porto_instance
+            instance_orderitem.fitur = instance_orderitemfiture.product
+            instance_orderitem.save()
+
+            # to create multiple value instance
+            for form in formset:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset2:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset3:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset4:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset5:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            for form in formset6:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+
+            messages.success(request, "Data saved!")
+            return redirect("portofolio:configurasi")
+
+    else:
+        form = PortofolioForm(instance=obj)
+        form2 = QuoteForm(instance=obj_quote)
+        form3 = ThemeProductForm(instance=obj_themeproduct)
+        formset = SpecialInviteFormSet(queryset= qs, prefix='invite')
+        formset2 = DompetFormSet(queryset= qs2, prefix='dompet')
+        formset3 = MultiImageFormSet(queryset= qs3, prefix='multiimage')
+        formset4 = StoryFormSet(queryset=qs4, prefix='story')
+        formset5 = MultiImageFormSet2(queryset=qs3, prefix='multiimage2')
+        formset6 = AcaraFormSet(queryset=qs5, prefix='acara')
+
+
+    context = {
+        'form': form,
+        'form2': form2,
+        'form3': form3,
+        'formset': formset,
+        'formset2': formset2,
+        'formset3': formset3,
+        'formset4': formset4,
+        'formset5': formset5,
+        'formset6': formset6
+    }
+
+    return render(request, 'portofolio/configurasi/countdown_form.html', context)
 
 def update(request, slug):
     # get instance portofolio from id
@@ -1897,12 +2439,12 @@ def update(request, slug):
             instance.user = user
             # save porto field ke field calender
             instance.name = instance.porto_name
-            instance.location =  instance.tempat_resepsi
-            instance.startDate = instance.tanggal_resepsi
-            instance.startTime = instance.waktu_resepsi
-            instance.endTime = instance.waktu_selesai_resepsi
+            instance.location =  instance.location_countdown
+            instance.startDate = instance.tanggal_countdown
+            instance.startTime = instance.waktu_countdown
+            instance.endTime = instance.waktu_countdown_selesai
             # save porto field ke field go to
-            instance.lokasi = instance.tempat_resepsi
+            instance.lokasi = instance.location_countdown
 
 
             instance.save()
