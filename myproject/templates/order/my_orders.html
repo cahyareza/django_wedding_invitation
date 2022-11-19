@@ -78,8 +78,8 @@
                     <tbody>
                         {% for item in order.items.all %}
                             <tr>
-                                <td>{{ forloop.counter }}</td>
-                                <td>{{ item.product }}</td>
+                                <td class="subtitle is-size-6-tablet is-size-7-mobile">{{ forloop.counter }}</td>
+                                <td class="subtitle is-size-6-tablet is-size-7-mobile">{{ item.product }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>

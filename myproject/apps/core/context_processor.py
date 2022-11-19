@@ -44,7 +44,6 @@ def order(request):
         order = Order.objects.filter(user=request.user).first()
         if order:
             orderproduct = str(order.items.first().product)
-            print(orderproduct)
             return {'order': order, 'orderproduct': orderproduct}
         else:
             return {'order' : order, 'orderproduct': None}

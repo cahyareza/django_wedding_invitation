@@ -1,8 +1,9 @@
 from myproject.apps.portofolio import views
 from django.urls import path
 from .views import (
-    register, update, myportofolio, \
-    PortofolioList, PortofolioDetail, RekeningList, RekeningDetail, \
+    register, register_awal, configurasi_porto, theme_update, cover_update, pasangan_update, quote_update, update, \
+    myportofolio, acara_update, moment_update, stories_update, map_update, dompet_update, specialinvite_update,\
+    info_update, PortofolioList, PortofolioDetail, RekeningList, RekeningDetail, \
     DompetList, DompetDetail, MultiImageList, MultiImageDetail, \
     SpecialInvitationList, SpecialInvitationDetail, PaymentList, \
     PaymentDetail, QuoteList, QuoteDetail, UcapanList, UcapanDetail, \
@@ -14,7 +15,20 @@ from .views import (
 
 urlpatterns = [
     path("register/", register, name="register"),
+    path("register_awal/", register_awal, name="register_awal"),
+    path("configurasi/", configurasi_porto, name="configurasi"),
     path('update/<slug:slug>/', update, name='update'),
+    path('tampilan_update/<slug:slug>/', theme_update, name='tampilan_update'),
+    path('cover_update/<slug:slug>/', cover_update, name='cover_update'),
+    path('pasangan_update/<slug:slug>/', pasangan_update, name='pasangan_update'),
+    path('quote_update/<slug:slug>/', quote_update, name='quote_update'),
+    path('acara_update/<slug:slug>/', acara_update, name='acara_update'),
+    path('moment_update/<slug:slug>/', moment_update, name='moment_update'),
+    path('stories_update/<slug:slug>/', stories_update, name='stories_update'),
+    path('map_update/<slug:slug>/', map_update, name='map_update'),
+    path('dompet_update/<slug:slug>/', dompet_update, name='dompet_update'),
+    path('specialinvite_update/<slug:slug>/', specialinvite_update, name='specialinvite_update'),
+    path('info_update/<slug:slug>/', info_update, name='info_update'),
     path('myportofolio/', myportofolio, name='myportofolio'),
 
     path('api/portofolio/', PortofolioList.as_view(), name=views.PortofolioList.name),

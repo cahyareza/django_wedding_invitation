@@ -16,7 +16,7 @@
                         <tr>
                             <th class="has-text-centered">Portofolio</th>
                             <th class="has-text-centered">Tanggal Acara</th>
-                            <th class="has-text-centered">Detail</th>
+                            <th class="has-text-centered">Konfigurasi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -26,7 +26,7 @@
                             <td class="has-text-centered">{{ data.porto_name }}</td>
                             <td class="has-text-centered">{{ data.tanggal_resepsi }}</td>
                             <td class="has-text-centered">
-                                <a href="{% url 'portofolio:update' data.slug %}" class="button is-small">
+                                <a href="{% url 'portofolio:configurasi' %}" class="button is-small">
                                     <i class="fas fa-user-alt"></i>
                                 </a>
                             </td>
