@@ -479,83 +479,210 @@
         </div>
       </div>
 
-      <!--   INFORMASI ACARA   -->
-      <div class="notification is-hidden is-light p-1 has-text-centered mt-4">
-        INFORMASI ACARA
-      </div>
+      <!--   INFORMASI DOMPET DIGITAL  -->
+      {% if orderproduct == "PLATINUM" or orderproduct == "GOLD" %}
+          <div class="notification is-light p-1 is-hidden has-text-centered mt-4">
+            INFORMASI DOMPET DIGITAL
+          </div>
 
-      <div class="columns is-hidden is-multiline">
-        {% if formset6 %}
-            {{ formset6.management_form }}
-            <div class="column is-6">
-                <div id="ingredient-form-list6">
-                    {% for form in formset6 %}
-                    <div class="ingredient-form6 mb-3">
-                        {{ form }}
+          <div class="columns is-hidden is-multiline">
+            {% if formset2 %}
+                {{ formset2.management_form }}
+                <div class="column is-4">
+                    <div id="ingredient-form-list2">
+                        {% for form in formset2 %}
+                        <div class="ingredient-form2 mb-5">
+                            {{ form }}
 
-<!--                        {% for field in form %}-->
-<!--                            {{ field.label_tag }} {{ field }}-->
-<!--                            {% for error in field.errors %}-->
-<!--                                <p class="help is-danger">{{ error }}</p>-->
-<!--                            {% endfor %}-->
-<!--                        {% endfor %}-->
+    <!--                        {% for field in form %}-->
+    <!--                            {{ field.label_tag }} {{ field }}-->
+    <!--                            {% for error in field.errors %}-->
+    <!--                                <p class="help is-danger">{{ error }}</p>-->
+    <!--                            {% endfor %}-->
+    <!--                        {% endfor %}-->
+                        </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
-            </div>
 
-            <div id="empty-form6" class="is-hidden">{{ formset6.empty_form }}</div>
+                <div id="empty-form2" class="is-hidden mt-3">{{ formset2.empty_form }}</div>
+            {% endif %}
+          </div>
+
+          <button id="add-more2" type="button" class="button is-hidden is-small is-outlined pd-1">Tambah</button>
+        {% else %}
+          <div class="notification is-hidden is-light p-1 has-text-centered mt-4">
+            INFORMASI DOMPET DIGITAL
+          </div>
+
+          <div class="columns is-hidden is-multiline">
+            {% if formset2 %}
+                {{ formset2.management_form }}
+                <div class="column is-4">
+                    <div id="ingredient-form-list2">
+                        {% for form in formset2 %}
+                        <div class="ingredient-form2 mb-5">
+                            {{ form }}
+
+    <!--                        {% for field in form %}-->
+    <!--                            {{ field.label_tag }} {{ field }}-->
+    <!--                            {% for error in field.errors %}-->
+    <!--                                <p class="help is-danger">{{ error }}</p>-->
+    <!--                            {% endfor %}-->
+    <!--                        {% endfor %}-->
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div id="empty-form2" class="is-hidden mt-3">{{ formset2.empty_form }}</div>
+            {% endif %}
+          </div>
+
+          <button id="add-more2" type="button" class="button is-hidden is-small is-outlined pd-1">Tambah</button>
         {% endif %}
-      </div>
 
-      <button id="add-more6" type="button" class="button is-hidden is-small is-outlined pd-1 mb-4">Tambah</button>
-
-      <!--   INFORMASI COUNTDOWN   -->
-      <div class="notification is-hidden is-light p-1 has-text-centered">
-        INFORMASI CALENDER
+      <!--   INFORMASI QUOTE  -->
+      <div class="notification  is-hidden is-light p-1 has-text-centered mt-4">
+        INFORMASI QUOTE
       </div>
       <div class="columns is-hidden is-multiline mt-1">
-        <div class="column is-4">
-          {{ form.tanggal_countdown.label_tag }}
-          {{ form.tanggal_countdown }}
+        <div class="column is-6">
+            {{ form2.kutipan.label_tag }}
+            {{ form2.kutipan }}
 
-          {% for error in form.tanggal_countdown.errors %}
+            {% for error in form2.kutipan.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div class="column is-6">
+          {{ form2.ayat.label_tag }}
+          {{ form2.ayat }}
+
+          {% for error in form2.ayat.errors %}
               <p class="help is-danger">{{ error }}</p>
           {% endfor %}
         </div>
+      </div>
 
-        <div class="column is-4">
-            {{ form.waktu_countdown.label_tag }}
-            {{ form.waktu_countdown }}
+      <!--   INFORMASI STORY  -->
+      {% if orderproduct == "PLATINUM" or orderproduct == "GOLD" %}
+          <div class="notification is-hidden is-light p-1 has-text-centered mt-4">
+            INFORMASI STORY
+          </div>
+          <div class="columns is-hidden is-multiline">
+            {% if formset4 %}
+                {{ formset4.management_form }}
+                <div class="column is-4">
+                    <div id="ingredient-form-list4">
+                        {% for form in formset4 %}
+                        <div class="ingredient-form4 mb-5">
+                            {{ form }}
 
-            {% for error in form.waktu_countdown.errors %}
+    <!--                        {% for field in form %}-->
+    <!--                            {{ field.label_tag }} {{ field }}-->
+    <!--                            {% for error in field.errors %}-->
+    <!--                                <p class="help is-danger">{{ error }}</p>-->
+    <!--                            {% endfor %}-->
+    <!--                        {% endfor %}-->
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div id="empty-form4" class="is-hidden mt-3">{{ formset4.empty_form }}</div>
+            {% endif %}
+          </div>
+
+          <button id="add-more4" type="button" class="button is-hidden is-small is-outlined pd-1">Tambah</button>
+      {% else %}
+          <div class="notification is-hidden is-light p-1 has-text-centered mt-4">
+            INFORMASI STORY
+          </div>
+          <div class="columns is-hidden is-multiline">
+            {% if formset4 %}
+                {{ formset4.management_form }}
+                <div class="column is-4">
+                    <div id="ingredient-form-list4">
+                        {% for form in formset4 %}
+                        <div class="ingredient-form4 mb-5">
+                            {{ form }}
+
+    <!--                        {% for field in form %}-->
+    <!--                            {{ field.label_tag }} {{ field }}-->
+    <!--                            {% for error in field.errors %}-->
+    <!--                                <p class="help is-danger">{{ error }}</p>-->
+    <!--                            {% endfor %}-->
+    <!--                        {% endfor %}-->
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div id="empty-form4" class="is-hidden mt-3">{{ formset4.empty_form }}</div>
+            {% endif %}
+          </div>
+
+          <button id="add-more4" type="button" class="button is-hidden is-small is-outlined pd-1">Tambah</button>
+      {% endif %}
+
+      <!--   INFORMASI TEMA   -->
+      <div class="notification is-hidden is-light p-1 has-text-centered mt-4">
+        INFORMASI TEMA
+      </div>
+      <div class="columns is-hidden is-multiline mt-1">
+        <div class="column is-6">
+          {{ form3.theme.label_tag }}
+          {{ form3.theme }}
+
+          {% for error in form3.theme.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!--   INFORMASI BACKGROUND   -->
+      <div class="notification is-hidden is-light p-1 has-text-centered mt-4">
+        INFORMASI BACKGROUND
+      </div>
+      <div class="column is-hidden px-0 is-6">
+        {{ form.cover_background.label_tag }}
+        {{ form.cover_background }}
+
+        {% for error in form.cover_background.errors %}
+            <p class="help is-danger">{{ error }}</p>
+        {% endfor %}
+      </div>
+
+      <!--   INFORMASI KATA   -->
+      <div class="notification is-hidden is-light p-1 has-text-centered mt-4">
+        INFORMASI KALIMAT
+      </div>
+
+      <div class="columns is-hidden is-multiline mt-1">
+        <div class="column is-6">
+            {{ form.kata_special_invite.label_tag }}
+            {{ form.kata_special_invite }}
+
+            {% for error in form.kata_special_invite.errors %}
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
         </div>
 
-        <div class="column is-4">
-            {{ form.waktu_countdown_selesai.label_tag }}
-            {{ form.waktu_countdown_selesai }}
+        <div class="column is-6">
+            {{ form.kata_live_streaming.label_tag }}
+            {{ form.kata_live_streaming }}
 
-            {% for error in form.waktu_countdown_selesai.errors %}
+            {% for error in form.kata_live_streaming.errors %}
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
         </div>
 
-        <div class="column is-4">
-          {{ form.location_countdown.label_tag }}
-          {{ form.location_countdown }}
+        <div class="column is-6">
+            {{ form.kata_moment.label_tag }}
+            {{ form.kata_moment }}
 
-          {% for error in form.location_countdown.errors %}
-              <p class="help is-danger">{{ error }}</p>
-          {% endfor %}
-        </div>
-
-        <div class="column is-3">
-            {{ form.timeZone.label_tag }}
-            {{ form.timeZone }}
-
-            {% for error in form.timeZone.errors %}
+            {% for error in form.kata_moment.errors %}
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
         </div>
