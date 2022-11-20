@@ -451,31 +451,43 @@ def theme_update(request, slug):
         SpecialInvitation,
         form=SpecialInvitationForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     DompetFormSet = modelformset_factory(
         Dompet,
         form=DompetForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     MultiImageFormSet = modelformset_factory(
         MultiImage,
         form=MultiImageForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     StoryFormSet = modelformset_factory(
         Story,
         form=StoryForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     MultiImageFormSet2 = modelformset_factory(
         MultiImage,
         form=MultiImageForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     AcaraFormSet = modelformset_factory(
         Acara,
         form=AcaraForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
 
     # create query set for specialinvitation
@@ -502,7 +514,8 @@ def theme_update(request, slug):
         form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
         form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
 
-        if form.is_valid() and form3.is_valid() :
+        if form.is_valid() and form2.is_valid() and form3.is_valid() and formset.is_valid() \
+            and formset2.is_valid() and formset4.is_valid():
             # create portofolio instance
             instance = form.save(commit=False)
             # save user to porto
@@ -545,6 +558,10 @@ def theme_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset.save(commit=False)
+            for obj in formset.deleted_objects:
+                obj.delete()
 
             for form in formset2:
                 # Not save blank field use has_changed()
@@ -552,6 +569,10 @@ def theme_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset2.save(commit=False)
+            for obj in formset2.deleted_objects:
+                obj.delete()
 
             for form in formset3:
                 # Not save blank field use has_changed()
@@ -559,6 +580,10 @@ def theme_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset3.save(commit=False)
+            for obj in formset3.deleted_objects:
+                obj.delete()
 
             for form in formset4:
                 # Not save blank field use has_changed()
@@ -566,6 +591,10 @@ def theme_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset4.save(commit=False)
+            for obj in formset4.deleted_objects:
+                obj.delete()
 
             for form in formset5:
                 # Not save blank field use has_changed()
@@ -573,6 +602,10 @@ def theme_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset5.save(commit=False)
+            for obj in formset5.deleted_objects:
+                obj.delete()
 
             for form in formset6:
                 # Not save blank field use has_changed()
@@ -580,6 +613,10 @@ def theme_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset6.save(commit=False)
+            for obj in formset6.deleted_objects:
+                obj.delete()
 
             messages.success(request, "Data saved!")
             return redirect("portofolio:configurasi")
@@ -624,31 +661,43 @@ def cover_update(request, slug):
         SpecialInvitation,
         form=SpecialInvitationForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     DompetFormSet = modelformset_factory(
         Dompet,
         form=DompetForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     MultiImageFormSet = modelformset_factory(
         MultiImage,
         form=MultiImageForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     StoryFormSet = modelformset_factory(
         Story,
         form=StoryForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     MultiImageFormSet2 = modelformset_factory(
         MultiImage,
         form=MultiImageForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     AcaraFormSet = modelformset_factory(
         Acara,
         form=AcaraForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
 
     # create query set for specialinvitation
@@ -675,7 +724,8 @@ def cover_update(request, slug):
         form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
         form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
 
-        if form.is_valid() and form3.is_valid() :
+        if form.is_valid() and form2.is_valid() and form3.is_valid() and formset.is_valid() \
+            and formset2.is_valid() and formset4.is_valid():
             # create portofolio instance
             instance = form.save(commit=False)
             # save user to porto
@@ -718,6 +768,10 @@ def cover_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset.save(commit=False)
+            for obj in formset.deleted_objects:
+                obj.delete()
 
             for form in formset2:
                 # Not save blank field use has_changed()
@@ -725,6 +779,10 @@ def cover_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset2.save(commit=False)
+            for obj in formset2.deleted_objects:
+                obj.delete()
 
             for form in formset3:
                 # Not save blank field use has_changed()
@@ -732,6 +790,10 @@ def cover_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset3.save(commit=False)
+            for obj in formset3.deleted_objects:
+                obj.delete()
 
             for form in formset4:
                 # Not save blank field use has_changed()
@@ -739,6 +801,10 @@ def cover_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset4.save(commit=False)
+            for obj in formset4.deleted_objects:
+                obj.delete()
 
             for form in formset5:
                 # Not save blank field use has_changed()
@@ -746,6 +812,10 @@ def cover_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset5.save(commit=False)
+            for obj in formset5.deleted_objects:
+                obj.delete()
 
             for form in formset6:
                 # Not save blank field use has_changed()
@@ -753,6 +823,10 @@ def cover_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset6.save(commit=False)
+            for obj in formset6.deleted_objects:
+                obj.delete()
 
             messages.success(request, "Data saved!")
             return redirect("portofolio:configurasi")
@@ -788,176 +862,6 @@ def pasangan_update(request, slug):
     # get instance portofolio from id
     obj = get_object_or_404(Portofolio, slug=slug)
     # quote instance by porto id
-    obj_quote = get_object_or_404(Quote, portofolio=obj)
-    # theme product instance by porto id
-    obj_themeproduct = get_object_or_404(ThemeProduct, portofolio=obj)
-
-    # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
-    SpecialInviteFormSet = modelformset_factory(
-        SpecialInvitation,
-        form=SpecialInvitationForm,
-        extra=1,
-    )
-    DompetFormSet = modelformset_factory(
-        Dompet,
-        form=DompetForm,
-        extra=1,
-    )
-    MultiImageFormSet = modelformset_factory(
-        MultiImage,
-        form=MultiImageForm,
-        extra=1,
-    )
-    StoryFormSet = modelformset_factory(
-        Story,
-        form=StoryForm,
-        extra=1,
-    )
-    MultiImageFormSet2 = modelformset_factory(
-        MultiImage,
-        form=MultiImageForm,
-        extra=1,
-    )
-    AcaraFormSet = modelformset_factory(
-        Acara,
-        form=AcaraForm,
-        extra=1,
-    )
-
-    # create query set for specialinvitation
-    qs = SpecialInvitation.objects.filter(portofolio=obj)
-    # create query set for dompet
-    qs2 = Dompet.objects.filter(portofolio=obj)
-    # create query set for multi image
-    qs3 = MultiImage.objects.filter(portofolio=obj)
-    # create query set for story
-    qs4 = Story.objects.filter(portofolio=obj)
-    # create query set for acara
-    qs5 = Acara.objects.filter(portofolio=obj)
-
-    # Define formset
-    formset = SpecialInviteFormSet(request.POST or None, queryset=qs, prefix='invite')
-    formset2 = DompetFormSet(request.POST or None, queryset=qs2, prefix='dompet')
-    formset3 = MultiImageFormSet(request.POST or None, request.FILES, queryset=qs3, prefix='multiimage')
-    formset4 = StoryFormSet(request.POST or None, request.FILES, queryset=qs4, prefix='story')
-    formset5 = MultiImageFormSet2(request.POST or None, request.FILES, queryset=qs3, prefix='multiimage2')
-    formset6 = AcaraFormSet(request.POST or None, request.FILES, queryset=qs5, prefix='acara')
-
-    if request.method == "POST":
-        form = PortofolioForm(request.POST or None, request.FILES, instance=obj)
-        form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
-        form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
-
-        if form.is_valid() and form3.is_valid():
-            # create portofolio instance
-            instance = form.save(commit=False)
-            # save user to porto
-            user = request.user
-            print(user)
-            instance.user = user
-            # save porto field ke field calender
-            instance.name = instance.porto_name
-            instance.location = instance.location_countdown
-            instance.startDate = instance.tanggal_countdown
-            instance.startTime = instance.waktu_countdown
-            instance.endTime = instance.waktu_countdown_selesai
-            # save porto field ke field go to
-            instance.lokasi = instance.location_countdown
-
-            instance.save()
-
-            # to create multiple image instance
-            porto_instance = Portofolio.objects.get(pk=instance.pk)
-
-            # to create instance quote
-            instance_quote = form2.save(commit=False)
-            instance_quote.portofolio = porto_instance
-            instance_quote.save()
-
-            # to create theme product
-            instance_order = Order.objects.get(user=user)
-            instance_orderitemfiture = OrderItem.objects.get(order=instance_order)
-
-            instance_orderitem = form3.save(commit=False)
-            instance_orderitem.portofolio = porto_instance
-            instance_orderitem.fitur = instance_orderitemfiture.product
-            instance_orderitem.save()
-
-            # to create multiple value instance
-            for form in formset:
-                # Not save blank field use has_changed()
-                if form.is_valid() and form.has_changed():
-                    child = form.save(commit=False)
-                    child.portofolio = porto_instance
-                    child.save()
-
-            for form in formset2:
-                # Not save blank field use has_changed()
-                if form.is_valid() and form.has_changed():
-                    child = form.save(commit=False)
-                    child.portofolio = porto_instance
-                    child.save()
-
-            for form in formset3:
-                # Not save blank field use has_changed()
-                if form.is_valid() and form.has_changed():
-                    child = form.save(commit=False)
-                    child.portofolio = porto_instance
-                    child.save()
-
-            for form in formset4:
-                # Not save blank field use has_changed()
-                if form.is_valid() and form.has_changed():
-                    child = form.save(commit=False)
-                    child.portofolio = porto_instance
-                    child.save()
-
-            for form in formset5:
-                # Not save blank field use has_changed()
-                if form.is_valid() and form.has_changed():
-                    child = form.save(commit=False)
-                    child.portofolio = porto_instance
-                    child.save()
-
-            for form in formset6:
-                # Not save blank field use has_changed()
-                if form.is_valid() and form.has_changed():
-                    child = form.save(commit=False)
-                    child.portofolio = porto_instance
-                    child.save()
-
-            messages.success(request, "Data saved!")
-            return redirect("portofolio:configurasi")
-
-    else:
-        form = PortofolioForm(instance=obj)
-        form2 = QuoteForm(instance=obj_quote)
-        form3 = ThemeProductForm(instance=obj_themeproduct)
-        formset = SpecialInviteFormSet(queryset=qs, prefix='invite')
-        formset2 = DompetFormSet(queryset=qs2, prefix='dompet')
-        formset3 = MultiImageFormSet(queryset=qs3, prefix='multiimage')
-        formset4 = StoryFormSet(queryset=qs4, prefix='story')
-        formset5 = MultiImageFormSet2(queryset=qs3, prefix='multiimage2')
-        formset6 = AcaraFormSet(queryset=qs5, prefix='acara')
-
-    context = {
-        'form': form,
-        'form2': form2,
-        'form3': form3,
-        'formset': formset,
-        'formset2': formset2,
-        'formset3': formset3,
-        'formset4': formset4,
-        'formset5': formset5,
-        'formset6': formset6
-    }
-
-    return render(request, 'portofolio/configurasi/pasangan_form.html', context)
-
-def quote_update(request, slug):
-    # get instance portofolio from id
-    obj = get_object_or_404(Portofolio, slug=slug)
-    # quote instance by porto id
     obj_quote = get_object_or_404(Quote, portofolio= obj)
     # theme product instance by porto id
     obj_themeproduct = get_object_or_404(ThemeProduct, portofolio= obj)
@@ -967,31 +871,43 @@ def quote_update(request, slug):
         SpecialInvitation,
         form=SpecialInvitationForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     DompetFormSet = modelformset_factory(
         Dompet,
         form=DompetForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     MultiImageFormSet = modelformset_factory(
         MultiImage,
         form=MultiImageForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     StoryFormSet = modelformset_factory(
         Story,
         form=StoryForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     MultiImageFormSet2 = modelformset_factory(
         MultiImage,
         form=MultiImageForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     AcaraFormSet = modelformset_factory(
         Acara,
         form=AcaraForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
 
     # create query set for specialinvitation
@@ -1018,7 +934,8 @@ def quote_update(request, slug):
         form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
         form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
 
-        if form.is_valid() and form3.is_valid() :
+        if form.is_valid() and form2.is_valid() and form3.is_valid() and formset.is_valid() \
+            and formset2.is_valid() and formset4.is_valid():
             # create portofolio instance
             instance = form.save(commit=False)
             # save user to porto
@@ -1061,6 +978,10 @@ def quote_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset.save(commit=False)
+            for obj in formset.deleted_objects:
+                obj.delete()
 
             for form in formset2:
                 # Not save blank field use has_changed()
@@ -1068,6 +989,10 @@ def quote_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset2.save(commit=False)
+            for obj in formset2.deleted_objects:
+                obj.delete()
 
             for form in formset3:
                 # Not save blank field use has_changed()
@@ -1075,6 +1000,10 @@ def quote_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset3.save(commit=False)
+            for obj in formset3.deleted_objects:
+                obj.delete()
 
             for form in formset4:
                 # Not save blank field use has_changed()
@@ -1082,6 +1011,10 @@ def quote_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset4.save(commit=False)
+            for obj in formset4.deleted_objects:
+                obj.delete()
 
             for form in formset5:
                 # Not save blank field use has_changed()
@@ -1089,6 +1022,10 @@ def quote_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset5.save(commit=False)
+            for obj in formset5.deleted_objects:
+                obj.delete()
 
             for form in formset6:
                 # Not save blank field use has_changed()
@@ -1096,6 +1033,219 @@ def quote_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset6.save(commit=False)
+            for obj in formset6.deleted_objects:
+                obj.delete()
+
+            messages.success(request, "Data saved!")
+            return redirect("portofolio:configurasi")
+
+    else:
+        form = PortofolioForm(instance=obj)
+        form2 = QuoteForm(instance=obj_quote)
+        form3 = ThemeProductForm(instance=obj_themeproduct)
+        formset = SpecialInviteFormSet(queryset= qs, prefix='invite')
+        formset2 = DompetFormSet(queryset= qs2, prefix='dompet')
+        formset3 = MultiImageFormSet(queryset= qs3, prefix='multiimage')
+        formset4 = StoryFormSet(queryset=qs4, prefix='story')
+        formset5 = MultiImageFormSet2(queryset=qs3, prefix='multiimage2')
+        formset6 = AcaraFormSet(queryset=qs5, prefix='acara')
+
+
+    context = {
+        'form': form,
+        'form2': form2,
+        'form3': form3,
+        'formset': formset,
+        'formset2': formset2,
+        'formset3': formset3,
+        'formset4': formset4,
+        'formset5': formset5,
+        'formset6': formset6
+    }
+
+    return render(request, 'portofolio/configurasi/pasangan_form.html', context)
+
+def quote_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+    # quote instance by porto id
+    obj_quote = get_object_or_404(Quote, portofolio= obj)
+    # theme product instance by porto id
+    obj_themeproduct = get_object_or_404(ThemeProduct, portofolio= obj)
+
+    # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
+    SpecialInviteFormSet = modelformset_factory(
+        SpecialInvitation,
+        form=SpecialInvitationForm,
+        extra=1,
+        can_delete=True,
+        can_delete_extra=True
+    )
+    DompetFormSet = modelformset_factory(
+        Dompet,
+        form=DompetForm,
+        extra=1,
+        can_delete=True,
+        can_delete_extra=True
+    )
+    MultiImageFormSet = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=1,
+        can_delete=True,
+        can_delete_extra=True
+    )
+    StoryFormSet = modelformset_factory(
+        Story,
+        form=StoryForm,
+        extra=1,
+        can_delete=True,
+        can_delete_extra=True
+    )
+    MultiImageFormSet2 = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=1,
+        can_delete=True,
+        can_delete_extra=True
+    )
+    AcaraFormSet = modelformset_factory(
+        Acara,
+        form=AcaraForm,
+        extra=1,
+        can_delete=True,
+        can_delete_extra=True
+    )
+
+    # create query set for specialinvitation
+    qs = SpecialInvitation.objects.filter(portofolio=obj)
+    # create query set for dompet
+    qs2 = Dompet.objects.filter(portofolio=obj)
+    # create query set for multi image
+    qs3 = MultiImage.objects.filter(portofolio=obj)
+    # create query set for story
+    qs4 = Story.objects.filter(portofolio=obj)
+    # create query set for acara
+    qs5 = Acara.objects.filter(portofolio=obj)
+
+    # Define formset
+    formset = SpecialInviteFormSet(request.POST or None,queryset= qs, prefix='invite')
+    formset2 = DompetFormSet(request.POST or None,queryset= qs2, prefix='dompet')
+    formset3 = MultiImageFormSet(request.POST or None, request.FILES, queryset= qs3, prefix='multiimage')
+    formset4 = StoryFormSet(request.POST or None, request.FILES, queryset=qs4, prefix='story')
+    formset5 = MultiImageFormSet2(request.POST or None, request.FILES, queryset=qs3, prefix='multiimage2')
+    formset6 = AcaraFormSet(request.POST or None, request.FILES, queryset=qs5, prefix='acara')
+
+    if request.method == "POST":
+        form = PortofolioForm(request.POST or None, request.FILES, instance=obj)
+        form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
+        form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
+
+        if form.is_valid() and form2.is_valid() and form3.is_valid() and formset.is_valid() \
+            and formset2.is_valid() and formset4.is_valid():
+            # create portofolio instance
+            instance = form.save(commit=False)
+            # save user to porto
+            user = request.user
+            print(user)
+            instance.user = user
+            # save porto field ke field calender
+            instance.name = instance.porto_name
+            instance.location =  instance.location_countdown
+            instance.startDate = instance.tanggal_countdown
+            instance.startTime = instance.waktu_countdown
+            instance.endTime = instance.waktu_countdown_selesai
+            # save porto field ke field go to
+            instance.lokasi = instance.location_countdown
+
+
+            instance.save()
+
+            # to create multiple image instance
+            porto_instance = Portofolio.objects.get(pk=instance.pk)
+
+            # to create instance quote
+            instance_quote = form2.save(commit=False)
+            instance_quote.portofolio = porto_instance
+            instance_quote.save()
+
+            # to create theme product
+            instance_order = Order.objects.get(user=user)
+            instance_orderitemfiture = OrderItem.objects.get(order=instance_order)
+
+            instance_orderitem = form3.save(commit=False)
+            instance_orderitem.portofolio = porto_instance
+            instance_orderitem.fitur = instance_orderitemfiture.product
+            instance_orderitem.save()
+
+            # to create multiple value instance
+            for form in formset:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+            # Save deleted obj
+            instances = formset.save(commit=False)
+            for obj in formset.deleted_objects:
+                obj.delete()
+
+            for form in formset2:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+            # Save deleted obj
+            instances = formset2.save(commit=False)
+            for obj in formset2.deleted_objects:
+                obj.delete()
+
+            for form in formset3:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+            # Save deleted obj
+            instances = formset3.save(commit=False)
+            for obj in formset3.deleted_objects:
+                obj.delete()
+
+            for form in formset4:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+            # Save deleted obj
+            instances = formset4.save(commit=False)
+            for obj in formset4.deleted_objects:
+                obj.delete()
+
+            for form in formset5:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+            # Save deleted obj
+            instances = formset5.save(commit=False)
+            for obj in formset5.deleted_objects:
+                obj.delete()
+
+            for form in formset6:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+            # Save deleted obj
+            instances = formset6.save(commit=False)
+            for obj in formset6.deleted_objects:
+                obj.delete()
 
             messages.success(request, "Data saved!")
             return redirect("portofolio:configurasi")
@@ -1140,31 +1290,43 @@ def acara_update(request, slug):
         SpecialInvitation,
         form=SpecialInvitationForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     DompetFormSet = modelformset_factory(
         Dompet,
         form=DompetForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     MultiImageFormSet = modelformset_factory(
         MultiImage,
         form=MultiImageForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     StoryFormSet = modelformset_factory(
         Story,
         form=StoryForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     MultiImageFormSet2 = modelformset_factory(
         MultiImage,
         form=MultiImageForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     AcaraFormSet = modelformset_factory(
         Acara,
         form=AcaraForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
 
     # create query set for specialinvitation
@@ -1191,7 +1353,8 @@ def acara_update(request, slug):
         form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
         form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
 
-        if form.is_valid() and formset6.is_valid():
+        if form.is_valid() and form2.is_valid() and form3.is_valid() and formset.is_valid() \
+            and formset2.is_valid() and formset4.is_valid():
             # create portofolio instance
             instance = form.save(commit=False)
             # save user to porto
@@ -1234,6 +1397,10 @@ def acara_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset.save(commit=False)
+            for obj in formset.deleted_objects:
+                obj.delete()
 
             for form in formset2:
                 # Not save blank field use has_changed()
@@ -1241,6 +1408,10 @@ def acara_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset2.save(commit=False)
+            for obj in formset2.deleted_objects:
+                obj.delete()
 
             for form in formset3:
                 # Not save blank field use has_changed()
@@ -1248,6 +1419,10 @@ def acara_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset3.save(commit=False)
+            for obj in formset3.deleted_objects:
+                obj.delete()
 
             for form in formset4:
                 # Not save blank field use has_changed()
@@ -1255,6 +1430,10 @@ def acara_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset4.save(commit=False)
+            for obj in formset4.deleted_objects:
+                obj.delete()
 
             for form in formset5:
                 # Not save blank field use has_changed()
@@ -1262,6 +1441,10 @@ def acara_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset5.save(commit=False)
+            for obj in formset5.deleted_objects:
+                obj.delete()
 
             for form in formset6:
                 # Not save blank field use has_changed()
@@ -1269,6 +1452,10 @@ def acara_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset6.save(commit=False)
+            for obj in formset6.deleted_objects:
+                obj.delete()
 
             messages.success(request, "Data saved!")
             return redirect("portofolio:configurasi")
@@ -1312,31 +1499,43 @@ def moment_update(request, slug):
         SpecialInvitation,
         form=SpecialInvitationForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     DompetFormSet = modelformset_factory(
         Dompet,
         form=DompetForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     MultiImageFormSet = modelformset_factory(
         MultiImage,
         form=MultiImageForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     StoryFormSet = modelformset_factory(
         Story,
         form=StoryForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     MultiImageFormSet2 = modelformset_factory(
         MultiImage,
         form=MultiImageForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     AcaraFormSet = modelformset_factory(
         Acara,
         form=AcaraForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
 
     # create query set for specialinvitation
@@ -1363,7 +1562,8 @@ def moment_update(request, slug):
         form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
         form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
 
-        if form.is_valid():
+        if form.is_valid() and form2.is_valid() and form3.is_valid() and formset.is_valid() \
+            and formset2.is_valid() and formset4.is_valid():
             # create portofolio instance
             instance = form.save(commit=False)
             # save user to porto
@@ -1406,6 +1606,10 @@ def moment_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset.save(commit=False)
+            for obj in formset.deleted_objects:
+                obj.delete()
 
             for form in formset2:
                 # Not save blank field use has_changed()
@@ -1413,6 +1617,10 @@ def moment_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset2.save(commit=False)
+            for obj in formset2.deleted_objects:
+                obj.delete()
 
             for form in formset3:
                 # Not save blank field use has_changed()
@@ -1420,6 +1628,10 @@ def moment_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset3.save(commit=False)
+            for obj in formset3.deleted_objects:
+                obj.delete()
 
             for form in formset4:
                 # Not save blank field use has_changed()
@@ -1427,6 +1639,10 @@ def moment_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset4.save(commit=False)
+            for obj in formset4.deleted_objects:
+                obj.delete()
 
             for form in formset5:
                 # Not save blank field use has_changed()
@@ -1434,6 +1650,10 @@ def moment_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset5.save(commit=False)
+            for obj in formset5.deleted_objects:
+                obj.delete()
 
             for form in formset6:
                 # Not save blank field use has_changed()
@@ -1441,6 +1661,10 @@ def moment_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset6.save(commit=False)
+            for obj in formset6.deleted_objects:
+                obj.delete()
 
             messages.success(request, "Data saved!")
             return redirect("portofolio:configurasi")
@@ -1485,31 +1709,43 @@ def stories_update(request, slug):
         SpecialInvitation,
         form=SpecialInvitationForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     DompetFormSet = modelformset_factory(
         Dompet,
         form=DompetForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     MultiImageFormSet = modelformset_factory(
         MultiImage,
         form=MultiImageForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     StoryFormSet = modelformset_factory(
         Story,
         form=StoryForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     MultiImageFormSet2 = modelformset_factory(
         MultiImage,
         form=MultiImageForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     AcaraFormSet = modelformset_factory(
         Acara,
         form=AcaraForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
 
     # create query set for specialinvitation
@@ -1536,7 +1772,8 @@ def stories_update(request, slug):
         form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
         form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
 
-        if form.is_valid() and form3.is_valid() :
+        if form.is_valid() and form2.is_valid() and form3.is_valid() and formset.is_valid() \
+            and formset2.is_valid() and formset4.is_valid():
             # create portofolio instance
             instance = form.save(commit=False)
             # save user to porto
@@ -1579,6 +1816,10 @@ def stories_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset.save(commit=False)
+            for obj in formset.deleted_objects:
+                obj.delete()
 
             for form in formset2:
                 # Not save blank field use has_changed()
@@ -1586,6 +1827,10 @@ def stories_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset2.save(commit=False)
+            for obj in formset2.deleted_objects:
+                obj.delete()
 
             for form in formset3:
                 # Not save blank field use has_changed()
@@ -1593,6 +1838,10 @@ def stories_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset3.save(commit=False)
+            for obj in formset3.deleted_objects:
+                obj.delete()
 
             for form in formset4:
                 # Not save blank field use has_changed()
@@ -1600,6 +1849,10 @@ def stories_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset4.save(commit=False)
+            for obj in formset4.deleted_objects:
+                obj.delete()
 
             for form in formset5:
                 # Not save blank field use has_changed()
@@ -1607,6 +1860,10 @@ def stories_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset5.save(commit=False)
+            for obj in formset5.deleted_objects:
+                obj.delete()
 
             for form in formset6:
                 # Not save blank field use has_changed()
@@ -1614,6 +1871,10 @@ def stories_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset6.save(commit=False)
+            for obj in formset6.deleted_objects:
+                obj.delete()
 
             messages.success(request, "Data saved!")
             return redirect("portofolio:configurasi")
@@ -1657,31 +1918,43 @@ def map_update(request, slug):
         SpecialInvitation,
         form=SpecialInvitationForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     DompetFormSet = modelformset_factory(
         Dompet,
         form=DompetForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     MultiImageFormSet = modelformset_factory(
         MultiImage,
         form=MultiImageForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     StoryFormSet = modelformset_factory(
         Story,
         form=StoryForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     MultiImageFormSet2 = modelformset_factory(
         MultiImage,
         form=MultiImageForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     AcaraFormSet = modelformset_factory(
         Acara,
         form=AcaraForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
 
     # create query set for specialinvitation
@@ -1708,7 +1981,8 @@ def map_update(request, slug):
         form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
         form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
 
-        if form.is_valid() and form3.is_valid() :
+        if form.is_valid() and form2.is_valid() and form3.is_valid() and formset.is_valid() \
+            and formset2.is_valid() and formset4.is_valid():
             # create portofolio instance
             instance = form.save(commit=False)
             # save user to porto
@@ -1751,6 +2025,10 @@ def map_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset.save(commit=False)
+            for obj in formset.deleted_objects:
+                obj.delete()
 
             for form in formset2:
                 # Not save blank field use has_changed()
@@ -1758,6 +2036,10 @@ def map_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset2.save(commit=False)
+            for obj in formset2.deleted_objects:
+                obj.delete()
 
             for form in formset3:
                 # Not save blank field use has_changed()
@@ -1765,6 +2047,10 @@ def map_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset3.save(commit=False)
+            for obj in formset3.deleted_objects:
+                obj.delete()
 
             for form in formset4:
                 # Not save blank field use has_changed()
@@ -1772,6 +2058,10 @@ def map_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset4.save(commit=False)
+            for obj in formset4.deleted_objects:
+                obj.delete()
 
             for form in formset5:
                 # Not save blank field use has_changed()
@@ -1779,6 +2069,10 @@ def map_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset5.save(commit=False)
+            for obj in formset5.deleted_objects:
+                obj.delete()
 
             for form in formset6:
                 # Not save blank field use has_changed()
@@ -1786,6 +2080,10 @@ def map_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset6.save(commit=False)
+            for obj in formset6.deleted_objects:
+                obj.delete()
 
             messages.success(request, "Data saved!")
             return redirect("portofolio:configurasi")
@@ -1829,31 +2127,43 @@ def dompet_update(request, slug):
         SpecialInvitation,
         form=SpecialInvitationForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     DompetFormSet = modelformset_factory(
         Dompet,
         form=DompetForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     MultiImageFormSet = modelformset_factory(
         MultiImage,
         form=MultiImageForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     StoryFormSet = modelformset_factory(
         Story,
         form=StoryForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     MultiImageFormSet2 = modelformset_factory(
         MultiImage,
         form=MultiImageForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     AcaraFormSet = modelformset_factory(
         Acara,
         form=AcaraForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
 
     # create query set for specialinvitation
@@ -1880,7 +2190,8 @@ def dompet_update(request, slug):
         form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
         form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
 
-        if form.is_valid() and form3.is_valid() :
+        if form.is_valid() and form2.is_valid() and form3.is_valid() and formset.is_valid() \
+            and formset2.is_valid() and formset4.is_valid():
             # create portofolio instance
             instance = form.save(commit=False)
             # save user to porto
@@ -1923,6 +2234,10 @@ def dompet_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset.save(commit=False)
+            for obj in formset.deleted_objects:
+                obj.delete()
 
             for form in formset2:
                 # Not save blank field use has_changed()
@@ -1930,6 +2245,10 @@ def dompet_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset2.save(commit=False)
+            for obj in formset2.deleted_objects:
+                obj.delete()
 
             for form in formset3:
                 # Not save blank field use has_changed()
@@ -1937,6 +2256,10 @@ def dompet_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset3.save(commit=False)
+            for obj in formset3.deleted_objects:
+                obj.delete()
 
             for form in formset4:
                 # Not save blank field use has_changed()
@@ -1944,6 +2267,10 @@ def dompet_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset4.save(commit=False)
+            for obj in formset4.deleted_objects:
+                obj.delete()
 
             for form in formset5:
                 # Not save blank field use has_changed()
@@ -1951,6 +2278,10 @@ def dompet_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset5.save(commit=False)
+            for obj in formset5.deleted_objects:
+                obj.delete()
 
             for form in formset6:
                 # Not save blank field use has_changed()
@@ -1958,6 +2289,10 @@ def dompet_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset6.save(commit=False)
+            for obj in formset6.deleted_objects:
+                obj.delete()
 
             messages.success(request, "Data saved!")
             return redirect("portofolio:configurasi")
@@ -2002,205 +2337,43 @@ def specialinvite_update(request, slug):
         SpecialInvitation,
         form=SpecialInvitationForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     DompetFormSet = modelformset_factory(
         Dompet,
         form=DompetForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     MultiImageFormSet = modelformset_factory(
         MultiImage,
         form=MultiImageForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     StoryFormSet = modelformset_factory(
         Story,
         form=StoryForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     MultiImageFormSet2 = modelformset_factory(
         MultiImage,
         form=MultiImageForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     AcaraFormSet = modelformset_factory(
         Acara,
         form=AcaraForm,
         extra=1,
-    )
-
-    # create query set for specialinvitation
-    qs = SpecialInvitation.objects.filter(portofolio=obj)
-    # create query set for dompet
-    qs2 = Dompet.objects.filter(portofolio=obj)
-    # create query set for multi image
-    qs3 = MultiImage.objects.filter(portofolio=obj)
-    # create query set for story
-    qs4 = Story.objects.filter(portofolio=obj)
-    # create query set for acara
-    qs5 = Acara.objects.filter(portofolio=obj)
-
-    # Define formset
-    formset = SpecialInviteFormSet(request.POST or None,queryset= qs, prefix='invite')
-    formset2 = DompetFormSet(request.POST or None,queryset= qs2, prefix='dompet')
-    formset3 = MultiImageFormSet(request.POST or None, request.FILES, queryset= qs3, prefix='multiimage')
-    formset4 = StoryFormSet(request.POST or None, request.FILES, queryset=qs4, prefix='story')
-    formset5 = MultiImageFormSet2(request.POST or None, request.FILES, queryset=qs3, prefix='multiimage2')
-    formset6 = AcaraFormSet(request.POST or None, request.FILES, queryset=qs5, prefix='acara')
-
-    if request.method == "POST":
-        form = PortofolioForm(request.POST or None, request.FILES, instance=obj)
-        form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
-        form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
-
-        if form.is_valid() and form3.is_valid() :
-            # create portofolio instance
-            instance = form.save(commit=False)
-            # save user to porto
-            user = request.user
-            print(user)
-            instance.user = user
-            # save porto field ke field calender
-            instance.name = instance.porto_name
-            instance.location =  instance.location_countdown
-            instance.startDate = instance.tanggal_countdown
-            instance.startTime = instance.waktu_countdown
-            instance.endTime = instance.waktu_countdown_selesai
-            # save porto field ke field go to
-            instance.lokasi = instance.location_countdown
-
-
-            instance.save()
-
-            # to create multiple image instance
-            porto_instance = Portofolio.objects.get(pk=instance.pk)
-
-            # to create instance quote
-            instance_quote = form2.save(commit=False)
-            instance_quote.portofolio = porto_instance
-            instance_quote.save()
-
-            # to create theme product
-            instance_order = Order.objects.get(user=user)
-            instance_orderitemfiture = OrderItem.objects.get(order=instance_order)
-
-            instance_orderitem = form3.save(commit=False)
-            instance_orderitem.portofolio = porto_instance
-            instance_orderitem.fitur = instance_orderitemfiture.product
-            instance_orderitem.save()
-
-            # to create multiple value instance
-            for form in formset:
-                # Not save blank field use has_changed()
-                if form.is_valid() and form.has_changed():
-                    child = form.save(commit=False)
-                    child.portofolio = porto_instance
-                    child.save()
-
-            for form in formset2:
-                # Not save blank field use has_changed()
-                if form.is_valid() and form.has_changed():
-                    child = form.save(commit=False)
-                    child.portofolio = porto_instance
-                    child.save()
-
-            for form in formset3:
-                # Not save blank field use has_changed()
-                if form.is_valid() and form.has_changed():
-                    child = form.save(commit=False)
-                    child.portofolio = porto_instance
-                    child.save()
-
-            for form in formset4:
-                # Not save blank field use has_changed()
-                if form.is_valid() and form.has_changed():
-                    child = form.save(commit=False)
-                    child.portofolio = porto_instance
-                    child.save()
-
-            for form in formset5:
-                # Not save blank field use has_changed()
-                if form.is_valid() and form.has_changed():
-                    child = form.save(commit=False)
-                    child.portofolio = porto_instance
-                    child.save()
-
-            for form in formset6:
-                # Not save blank field use has_changed()
-                if form.is_valid() and form.has_changed():
-                    child = form.save(commit=False)
-                    child.portofolio = porto_instance
-                    child.save()
-
-            messages.success(request, "Data saved!")
-            return redirect("portofolio:configurasi")
-
-    else:
-        form = PortofolioForm(instance=obj)
-        form2 = QuoteForm(instance=obj_quote)
-        form3 = ThemeProductForm(instance=obj_themeproduct)
-        formset = SpecialInviteFormSet(queryset= qs, prefix='invite')
-        formset2 = DompetFormSet(queryset= qs2, prefix='dompet')
-        formset3 = MultiImageFormSet(queryset= qs3, prefix='multiimage')
-        formset4 = StoryFormSet(queryset=qs4, prefix='story')
-        formset5 = MultiImageFormSet2(queryset=qs3, prefix='multiimage2')
-        formset6 = AcaraFormSet(queryset=qs5, prefix='acara')
-
-
-    context = {
-        'form': form,
-        'form2': form2,
-        'form3': form3,
-        'formset': formset,
-        'formset2': formset2,
-        'formset3': formset3,
-        'formset4': formset4,
-        'formset5': formset5,
-        'formset6': formset6
-    }
-
-    # return redirect("portofolio:update_tampilan", slug=slug)
-    return render(request, 'portofolio/configurasi/specialinvite_form.html', context)
-
-
-def info_update(request, slug):
-    # get instance portofolio from id
-    obj = get_object_or_404(Portofolio, slug=slug)
-    # quote instance by porto id
-    obj_quote = get_object_or_404(Quote, portofolio= obj)
-    # theme product instance by porto id
-    obj_themeproduct = get_object_or_404(ThemeProduct, portofolio= obj)
-
-    # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
-    SpecialInviteFormSet = modelformset_factory(
-        SpecialInvitation,
-        form=SpecialInvitationForm,
-        extra=1,
-    )
-    DompetFormSet = modelformset_factory(
-        Dompet,
-        form=DompetForm,
-        extra=1,
-    )
-    MultiImageFormSet = modelformset_factory(
-        MultiImage,
-        form=MultiImageForm,
-        extra=1,
-    )
-    StoryFormSet = modelformset_factory(
-        Story,
-        form=StoryForm,
-        extra=1,
-    )
-    MultiImageFormSet2 = modelformset_factory(
-        MultiImage,
-        form=MultiImageForm,
-        extra=1,
-    )
-    AcaraFormSet = modelformset_factory(
-        Acara,
-        form=AcaraForm,
-        extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
 
     # create query set for specialinvitation
@@ -2271,6 +2444,10 @@ def info_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset.save(commit=False)
+            for obj in formset.deleted_objects:
+                obj.delete()
 
             for form in formset2:
                 # Not save blank field use has_changed()
@@ -2278,6 +2455,10 @@ def info_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset2.save(commit=False)
+            for obj in formset2.deleted_objects:
+                obj.delete()
 
             for form in formset3:
                 # Not save blank field use has_changed()
@@ -2285,6 +2466,10 @@ def info_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset3.save(commit=False)
+            for obj in formset3.deleted_objects:
+                obj.delete()
 
             for form in formset4:
                 # Not save blank field use has_changed()
@@ -2292,6 +2477,10 @@ def info_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset4.save(commit=False)
+            for obj in formset4.deleted_objects:
+                obj.delete()
 
             for form in formset5:
                 # Not save blank field use has_changed()
@@ -2299,6 +2488,10 @@ def info_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset5.save(commit=False)
+            for obj in formset5.deleted_objects:
+                obj.delete()
 
             for form in formset6:
                 # Not save blank field use has_changed()
@@ -2306,6 +2499,220 @@ def info_update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset6.save(commit=False)
+            for obj in formset6.deleted_objects:
+                obj.delete()
+
+            messages.success(request, "Data saved!")
+            return redirect("portofolio:configurasi")
+
+    else:
+        form = PortofolioForm(instance=obj)
+        form2 = QuoteForm(instance=obj_quote)
+        form3 = ThemeProductForm(instance=obj_themeproduct)
+        formset = SpecialInviteFormSet(queryset= qs, prefix='invite')
+        formset2 = DompetFormSet(queryset= qs2, prefix='dompet')
+        formset3 = MultiImageFormSet(queryset= qs3, prefix='multiimage')
+        formset4 = StoryFormSet(queryset=qs4, prefix='story')
+        formset5 = MultiImageFormSet2(queryset=qs3, prefix='multiimage2')
+        formset6 = AcaraFormSet(queryset=qs5, prefix='acara')
+
+
+    context = {
+        'form': form,
+        'form2': form2,
+        'form3': form3,
+        'formset': formset,
+        'formset2': formset2,
+        'formset3': formset3,
+        'formset4': formset4,
+        'formset5': formset5,
+        'formset6': formset6
+    }
+    # return redirect("portofolio:update_tampilan", slug=slug)
+    return render(request, 'portofolio/configurasi/specialinvite_form.html', context)
+
+
+def info_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+    # quote instance by porto id
+    obj_quote = get_object_or_404(Quote, portofolio= obj)
+    # theme product instance by porto id
+    obj_themeproduct = get_object_or_404(ThemeProduct, portofolio= obj)
+
+    # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
+    SpecialInviteFormSet = modelformset_factory(
+        SpecialInvitation,
+        form=SpecialInvitationForm,
+        extra=1,
+        can_delete=True,
+        can_delete_extra=True
+    )
+    DompetFormSet = modelformset_factory(
+        Dompet,
+        form=DompetForm,
+        extra=1,
+        can_delete=True,
+        can_delete_extra=True
+    )
+    MultiImageFormSet = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=1,
+        can_delete=True,
+        can_delete_extra=True
+    )
+    StoryFormSet = modelformset_factory(
+        Story,
+        form=StoryForm,
+        extra=1,
+        can_delete=True,
+        can_delete_extra=True
+    )
+    MultiImageFormSet2 = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=1,
+        can_delete=True,
+        can_delete_extra=True
+    )
+    AcaraFormSet = modelformset_factory(
+        Acara,
+        form=AcaraForm,
+        extra=1,
+        can_delete=True,
+        can_delete_extra=True
+    )
+
+    # create query set for specialinvitation
+    qs = SpecialInvitation.objects.filter(portofolio=obj)
+    # create query set for dompet
+    qs2 = Dompet.objects.filter(portofolio=obj)
+    # create query set for multi image
+    qs3 = MultiImage.objects.filter(portofolio=obj)
+    # create query set for story
+    qs4 = Story.objects.filter(portofolio=obj)
+    # create query set for acara
+    qs5 = Acara.objects.filter(portofolio=obj)
+
+    # Define formset
+    formset = SpecialInviteFormSet(request.POST or None,queryset= qs, prefix='invite')
+    formset2 = DompetFormSet(request.POST or None,queryset= qs2, prefix='dompet')
+    formset3 = MultiImageFormSet(request.POST or None, request.FILES, queryset= qs3, prefix='multiimage')
+    formset4 = StoryFormSet(request.POST or None, request.FILES, queryset=qs4, prefix='story')
+    formset5 = MultiImageFormSet2(request.POST or None, request.FILES, queryset=qs3, prefix='multiimage2')
+    formset6 = AcaraFormSet(request.POST or None, request.FILES, queryset=qs5, prefix='acara')
+
+    if request.method == "POST":
+        form = PortofolioForm(request.POST or None, request.FILES, instance=obj)
+        form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
+        form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
+
+        if form.is_valid() and form2.is_valid() and form3.is_valid() and formset.is_valid() \
+            and formset2.is_valid() and formset4.is_valid():
+            # create portofolio instance
+            instance = form.save(commit=False)
+            # save user to porto
+            user = request.user
+            print(user)
+            instance.user = user
+            # save porto field ke field calender
+            instance.name = instance.porto_name
+            instance.location =  instance.location_countdown
+            instance.startDate = instance.tanggal_countdown
+            instance.startTime = instance.waktu_countdown
+            instance.endTime = instance.waktu_countdown_selesai
+            # save porto field ke field go to
+            instance.lokasi = instance.location_countdown
+
+
+            instance.save()
+
+            # to create multiple image instance
+            porto_instance = Portofolio.objects.get(pk=instance.pk)
+
+            # to create instance quote
+            instance_quote = form2.save(commit=False)
+            instance_quote.portofolio = porto_instance
+            instance_quote.save()
+
+            # to create theme product
+            instance_order = Order.objects.get(user=user)
+            instance_orderitemfiture = OrderItem.objects.get(order=instance_order)
+
+            instance_orderitem = form3.save(commit=False)
+            instance_orderitem.portofolio = porto_instance
+            instance_orderitem.fitur = instance_orderitemfiture.product
+            instance_orderitem.save()
+
+            # to create multiple value instance
+            for form in formset:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+            # Save deleted obj
+            instances = formset.save(commit=False)
+            for obj in formset.deleted_objects:
+                obj.delete()
+
+            for form in formset2:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+            # Save deleted obj
+            instances = formset2.save(commit=False)
+            for obj in formset2.deleted_objects:
+                obj.delete()
+
+            for form in formset3:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+            # Save deleted obj
+            instances = formset3.save(commit=False)
+            for obj in formset3.deleted_objects:
+                obj.delete()
+
+            for form in formset4:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+            # Save deleted obj
+            instances = formset4.save(commit=False)
+            for obj in formset4.deleted_objects:
+                obj.delete()
+
+            for form in formset5:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+            # Save deleted obj
+            instances = formset5.save(commit=False)
+            for obj in formset5.deleted_objects:
+                obj.delete()
+
+            for form in formset6:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+            # Save deleted obj
+            instances = formset6.save(commit=False)
+            for obj in formset6.deleted_objects:
+                obj.delete()
 
             messages.success(request, "Data saved!")
             return redirect("portofolio:configurasi")
@@ -2350,203 +2757,43 @@ def countdown_update(request, slug):
         SpecialInvitation,
         form=SpecialInvitationForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     DompetFormSet = modelformset_factory(
         Dompet,
         form=DompetForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     MultiImageFormSet = modelformset_factory(
         MultiImage,
         form=MultiImageForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     StoryFormSet = modelformset_factory(
         Story,
         form=StoryForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     MultiImageFormSet2 = modelformset_factory(
         MultiImage,
         form=MultiImageForm,
         extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
     AcaraFormSet = modelformset_factory(
         Acara,
         form=AcaraForm,
         extra=1,
-    )
-
-    # create query set for specialinvitation
-    qs = SpecialInvitation.objects.filter(portofolio=obj)
-    # create query set for dompet
-    qs2 = Dompet.objects.filter(portofolio=obj)
-    # create query set for multi image
-    qs3 = MultiImage.objects.filter(portofolio=obj)
-    # create query set for story
-    qs4 = Story.objects.filter(portofolio=obj)
-    # create query set for acara
-    qs5 = Acara.objects.filter(portofolio=obj)
-
-    # Define formset
-    formset = SpecialInviteFormSet(request.POST or None,queryset= qs, prefix='invite')
-    formset2 = DompetFormSet(request.POST or None,queryset= qs2, prefix='dompet')
-    formset3 = MultiImageFormSet(request.POST or None, request.FILES, queryset= qs3, prefix='multiimage')
-    formset4 = StoryFormSet(request.POST or None, request.FILES, queryset=qs4, prefix='story')
-    formset5 = MultiImageFormSet2(request.POST or None, request.FILES, queryset=qs3, prefix='multiimage2')
-    formset6 = AcaraFormSet(request.POST or None, request.FILES, queryset=qs5, prefix='acara')
-
-    if request.method == "POST":
-        form = PortofolioForm(request.POST or None, request.FILES, instance=obj)
-        form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
-        form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
-
-        if form.is_valid():
-            # create portofolio instance
-            instance = form.save(commit=False)
-            # save user to porto
-            user = request.user
-            print(user)
-            instance.user = user
-            # save porto field ke field calender
-            instance.name = instance.porto_name
-            instance.location =  instance.location_countdown
-            instance.startDate = instance.tanggal_countdown
-            instance.startTime = instance.waktu_countdown
-            instance.endTime = instance.waktu_countdown_selesai
-            # save porto field ke field go to
-            instance.lokasi = instance.location_countdown
-
-
-            instance.save()
-
-            # to create multiple image instance
-            porto_instance = Portofolio.objects.get(pk=instance.pk)
-
-            # to create instance quote
-            instance_quote = form2.save(commit=False)
-            instance_quote.portofolio = porto_instance
-            instance_quote.save()
-
-            # to create theme product
-            instance_order = Order.objects.get(user=user)
-            instance_orderitemfiture = OrderItem.objects.get(order=instance_order)
-
-            instance_orderitem = form3.save(commit=False)
-            instance_orderitem.portofolio = porto_instance
-            instance_orderitem.fitur = instance_orderitemfiture.product
-            instance_orderitem.save()
-
-            # to create multiple value instance
-            for form in formset:
-                # Not save blank field use has_changed()
-                if form.is_valid() and form.has_changed():
-                    child = form.save(commit=False)
-                    child.portofolio = porto_instance
-                    child.save()
-
-            for form in formset2:
-                # Not save blank field use has_changed()
-                if form.is_valid() and form.has_changed():
-                    child = form.save(commit=False)
-                    child.portofolio = porto_instance
-                    child.save()
-
-            for form in formset3:
-                # Not save blank field use has_changed()
-                if form.is_valid() and form.has_changed():
-                    child = form.save(commit=False)
-                    child.portofolio = porto_instance
-                    child.save()
-
-            for form in formset4:
-                # Not save blank field use has_changed()
-                if form.is_valid() and form.has_changed():
-                    child = form.save(commit=False)
-                    child.portofolio = porto_instance
-                    child.save()
-
-            for form in formset5:
-                # Not save blank field use has_changed()
-                if form.is_valid() and form.has_changed():
-                    child = form.save(commit=False)
-                    child.portofolio = porto_instance
-                    child.save()
-
-            for form in formset6:
-                # Not save blank field use has_changed()
-                if form.is_valid() and form.has_changed():
-                    child = form.save(commit=False)
-                    child.portofolio = porto_instance
-                    child.save()
-
-            messages.success(request, "Data saved!")
-            return redirect("portofolio:configurasi")
-
-    else:
-        form = PortofolioForm(instance=obj)
-        form2 = QuoteForm(instance=obj_quote)
-        form3 = ThemeProductForm(instance=obj_themeproduct)
-        formset = SpecialInviteFormSet(queryset= qs, prefix='invite')
-        formset2 = DompetFormSet(queryset= qs2, prefix='dompet')
-        formset3 = MultiImageFormSet(queryset= qs3, prefix='multiimage')
-        formset4 = StoryFormSet(queryset=qs4, prefix='story')
-        formset5 = MultiImageFormSet2(queryset=qs3, prefix='multiimage2')
-        formset6 = AcaraFormSet(queryset=qs5, prefix='acara')
-
-
-    context = {
-        'form': form,
-        'form2': form2,
-        'form3': form3,
-        'formset': formset,
-        'formset2': formset2,
-        'formset3': formset3,
-        'formset4': formset4,
-        'formset5': formset5,
-        'formset6': formset6
-    }
-
-    return render(request, 'portofolio/configurasi/countdown_form.html', context)
-
-def update(request, slug):
-    # get instance portofolio from id
-    obj = get_object_or_404(Portofolio, slug=slug)
-    # quote instance by porto id
-    obj_quote = get_object_or_404(Quote, portofolio= obj)
-    # theme product instance by porto id
-    obj_themeproduct = get_object_or_404(ThemeProduct, portofolio= obj)
-
-    # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
-    SpecialInviteFormSet = modelformset_factory(
-        SpecialInvitation,
-        form=SpecialInvitationForm,
-        extra=1,
-    )
-    DompetFormSet = modelformset_factory(
-        Dompet,
-        form=DompetForm,
-        extra=1,
-    )
-    MultiImageFormSet = modelformset_factory(
-        MultiImage,
-        form=MultiImageForm,
-        extra=1,
-    )
-    StoryFormSet = modelformset_factory(
-        Story,
-        form=StoryForm,
-        extra=1,
-    )
-    MultiImageFormSet2 = modelformset_factory(
-        MultiImage,
-        form=MultiImageForm,
-        extra=1,
-    )
-    AcaraFormSet = modelformset_factory(
-        Acara,
-        form=AcaraForm,
-        extra=1,
+        can_delete=True,
+        can_delete_extra=True
     )
 
     # create query set for specialinvitation
@@ -2617,6 +2864,10 @@ def update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset.save(commit=False)
+            for obj in formset.deleted_objects:
+                obj.delete()
 
             for form in formset2:
                 # Not save blank field use has_changed()
@@ -2624,6 +2875,10 @@ def update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset2.save(commit=False)
+            for obj in formset2.deleted_objects:
+                obj.delete()
 
             for form in formset3:
                 # Not save blank field use has_changed()
@@ -2631,6 +2886,10 @@ def update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset3.save(commit=False)
+            for obj in formset3.deleted_objects:
+                obj.delete()
 
             for form in formset4:
                 # Not save blank field use has_changed()
@@ -2638,6 +2897,10 @@ def update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset4.save(commit=False)
+            for obj in formset4.deleted_objects:
+                obj.delete()
 
             for form in formset5:
                 # Not save blank field use has_changed()
@@ -2645,6 +2908,10 @@ def update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset5.save(commit=False)
+            for obj in formset5.deleted_objects:
+                obj.delete()
 
             for form in formset6:
                 # Not save blank field use has_changed()
@@ -2652,6 +2919,219 @@ def update(request, slug):
                     child = form.save(commit=False)
                     child.portofolio = porto_instance
                     child.save()
+            # Save deleted obj
+            instances = formset6.save(commit=False)
+            for obj in formset6.deleted_objects:
+                obj.delete()
+
+            messages.success(request, "Data saved!")
+            return redirect("portofolio:configurasi")
+
+    else:
+        form = PortofolioForm(instance=obj)
+        form2 = QuoteForm(instance=obj_quote)
+        form3 = ThemeProductForm(instance=obj_themeproduct)
+        formset = SpecialInviteFormSet(queryset= qs, prefix='invite')
+        formset2 = DompetFormSet(queryset= qs2, prefix='dompet')
+        formset3 = MultiImageFormSet(queryset= qs3, prefix='multiimage')
+        formset4 = StoryFormSet(queryset=qs4, prefix='story')
+        formset5 = MultiImageFormSet2(queryset=qs3, prefix='multiimage2')
+        formset6 = AcaraFormSet(queryset=qs5, prefix='acara')
+
+
+    context = {
+        'form': form,
+        'form2': form2,
+        'form3': form3,
+        'formset': formset,
+        'formset2': formset2,
+        'formset3': formset3,
+        'formset4': formset4,
+        'formset5': formset5,
+        'formset6': formset6
+    }
+
+    return render(request, 'portofolio/configurasi/countdown_form.html', context)
+
+def update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+    # quote instance by porto id
+    obj_quote = get_object_or_404(Quote, portofolio= obj)
+    # theme product instance by porto id
+    obj_themeproduct = get_object_or_404(ThemeProduct, portofolio= obj)
+
+    # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
+    SpecialInviteFormSet = modelformset_factory(
+        SpecialInvitation,
+        form=SpecialInvitationForm,
+        extra=1,
+        can_delete=True,
+        can_delete_extra=True
+    )
+    DompetFormSet = modelformset_factory(
+        Dompet,
+        form=DompetForm,
+        extra=1,
+        can_delete=True,
+        can_delete_extra=True
+    )
+    MultiImageFormSet = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=1,
+        can_delete=True,
+        can_delete_extra=True
+    )
+    StoryFormSet = modelformset_factory(
+        Story,
+        form=StoryForm,
+        extra=1,
+        can_delete=True,
+        can_delete_extra=True
+    )
+    MultiImageFormSet2 = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=1,
+        can_delete=True,
+        can_delete_extra=True
+    )
+    AcaraFormSet = modelformset_factory(
+        Acara,
+        form=AcaraForm,
+        extra=1,
+        can_delete=True,
+        can_delete_extra=True
+    )
+
+    # create query set for specialinvitation
+    qs = SpecialInvitation.objects.filter(portofolio=obj)
+    # create query set for dompet
+    qs2 = Dompet.objects.filter(portofolio=obj)
+    # create query set for multi image
+    qs3 = MultiImage.objects.filter(portofolio=obj)
+    # create query set for story
+    qs4 = Story.objects.filter(portofolio=obj)
+    # create query set for acara
+    qs5 = Acara.objects.filter(portofolio=obj)
+
+    # Define formset
+    formset = SpecialInviteFormSet(request.POST or None,queryset= qs, prefix='invite')
+    formset2 = DompetFormSet(request.POST or None,queryset= qs2, prefix='dompet')
+    formset3 = MultiImageFormSet(request.POST or None, request.FILES, queryset= qs3, prefix='multiimage')
+    formset4 = StoryFormSet(request.POST or None, request.FILES, queryset=qs4, prefix='story')
+    formset5 = MultiImageFormSet2(request.POST or None, request.FILES, queryset=qs3, prefix='multiimage2')
+    formset6 = AcaraFormSet(request.POST or None, request.FILES, queryset=qs5, prefix='acara')
+
+    if request.method == "POST":
+        form = PortofolioForm(request.POST or None, request.FILES, instance=obj)
+        form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
+        form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
+
+        if form.is_valid() and form2.is_valid() and form3.is_valid() and formset.is_valid() \
+            and formset2.is_valid() and formset4.is_valid():
+            # create portofolio instance
+            instance = form.save(commit=False)
+            # save user to porto
+            user = request.user
+            print(user)
+            instance.user = user
+            # save porto field ke field calender
+            instance.name = instance.porto_name
+            instance.location =  instance.location_countdown
+            instance.startDate = instance.tanggal_countdown
+            instance.startTime = instance.waktu_countdown
+            instance.endTime = instance.waktu_countdown_selesai
+            # save porto field ke field go to
+            instance.lokasi = instance.location_countdown
+
+
+            instance.save()
+
+            # to create multiple image instance
+            porto_instance = Portofolio.objects.get(pk=instance.pk)
+
+            # to create instance quote
+            instance_quote = form2.save(commit=False)
+            instance_quote.portofolio = porto_instance
+            instance_quote.save()
+
+            # to create theme product
+            instance_order = Order.objects.get(user=user)
+            instance_orderitemfiture = OrderItem.objects.get(order=instance_order)
+
+            instance_orderitem = form3.save(commit=False)
+            instance_orderitem.portofolio = porto_instance
+            instance_orderitem.fitur = instance_orderitemfiture.product
+            instance_orderitem.save()
+
+            # to create multiple value instance
+            for form in formset:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+            # Save deleted obj
+            instances = formset.save(commit=False)
+            for obj in formset.deleted_objects:
+                obj.delete()
+
+            for form in formset2:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+            # Save deleted obj
+            instances = formset2.save(commit=False)
+            for obj in formset2.deleted_objects:
+                obj.delete()
+
+            for form in formset3:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+            # Save deleted obj
+            instances = formset3.save(commit=False)
+            for obj in formset3.deleted_objects:
+                obj.delete()
+
+            for form in formset4:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+            # Save deleted obj
+            instances = formset4.save(commit=False)
+            for obj in formset4.deleted_objects:
+                obj.delete()
+
+            for form in formset5:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+            # Save deleted obj
+            instances = formset5.save(commit=False)
+            for obj in formset5.deleted_objects:
+                obj.delete()
+
+            for form in formset6:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+            # Save deleted obj
+            instances = formset6.save(commit=False)
+            for obj in formset6.deleted_objects:
+                obj.delete()
 
             messages.success(request, "Data saved!")
             return redirect("portofolio:configurasi")

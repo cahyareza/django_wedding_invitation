@@ -884,19 +884,9 @@ class BaseRegisterFormSet(BaseFormSet):
         if any(self.errors):
             # Don't bother validating the formset unless each form is valid on its own
             return
-        name_invites = []
         for form in self.forms:
-            cd = form.cleaned_data
-            if cd:
-                if self.can_delete and self._should_delete_form(form):
-                    continue
-                # name_invite = cd['name_invite']
-                # if name_invite in name_invites:
-                #     raise ValidationError("Name in a set must have distinct title.")
-                # name_invites.append(name_invite)
-                # if name_invite == "":
-                #     raise ValidationError("This field cannot be empty!")
-
+            if self.can_delete and self._should_delete_form(form):
+                continue
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # self.queryset = SpecialInvitation.objects.filter(pk=id)
