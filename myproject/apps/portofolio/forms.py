@@ -178,6 +178,39 @@ class PortofolioForm(forms.ModelForm):
             }
         )
     )
+    # INFORMASI OUR KATA
+    kata_special_invite = forms.CharField(
+        label='Kalimat invitation', min_length=30, max_length=1000,
+        widget=forms.Textarea(
+            attrs={
+                'placeholder': 'Tuliskan kalimat invitation',
+                'class': 'textarea',
+                'style': 'font-size: 13px',
+            }
+        )
+    )
+
+    kata_live_streaming = forms.CharField(
+        label='Kalimat live streaming', min_length=30, max_length=1000,
+        widget=forms.Textarea(
+            attrs={
+                'placeholder': 'Tuliskan kalimat live streaming',
+                'class': 'textarea',
+                'style': 'font-size: 13px',
+            }
+        )
+    )
+
+    kata_moment = forms.CharField(
+        label='Kalimat moment', min_length=30, max_length=1000,
+        widget=forms.Textarea(
+            attrs={
+                'placeholder': 'Tuliskan kalimat moment',
+                'class': 'textarea',
+                'style': 'font-size: 13px',
+            }
+        )
+    )
 
     # INFORMASI OUR MOMENT
     video = forms.CharField(
@@ -493,7 +526,8 @@ class PortofolioForm(forms.ModelForm):
             'ppicture', 'lname', 'linsta_link', 'lanak_ke', 'lnama_ayah', 'lnama_ibu',
             'lpicture', 'tanggal_countdown', 'waktu_countdown', 'datetime_countdown',
             'location_countdown', 'waktu_countdown_selesai', 'timeZone',
-            'video', 'livestream', 'cover_background', 'link_gmap', 'link_iframe'
+            'video', 'livestream', 'kata_special_invite','kata_live_streaming',
+            'kata_moment', 'cover_background', 'link_gmap', 'link_iframe'
         ]
         for field in require:
             self.fields[field].required = False

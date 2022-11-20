@@ -67,6 +67,9 @@ class PortofolioAdmin(admin.ModelAdmin):
         ('INFORMASI CALENDER', {"fields": ['name','description', 'startDate', 'location','startTime', 'endTime',
         'options', 'timeZone', 'trigger','iCalFileName']}
         ),
+        # INFORMASI KATA
+        ('INFORMASI KATA', {"fields": ['kata_special_invite', 'kata_live_streaming', 'kata_moment']}
+         ),
         # INFORMASI MAP
         ('INFORMASI MAP', {"fields": ['link_iframe', 'lokasi', 'link_gmap']}
         ),

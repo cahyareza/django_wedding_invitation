@@ -656,6 +656,40 @@
             <p class="help is-danger">{{ error }}</p>
         {% endfor %}
       </div>
+
+      <!--   INFORMASI KATA   -->
+      <div class="notification is-hidden is-light p-1 has-text-centered mt-4">
+        INFORMASI KALIMAT
+      </div>
+
+      <div class="columns is-hidden is-multiline mt-1">
+        <div class="column is-6">
+            {{ form.kata_special_invite.label_tag }}
+            {{ form.kata_special_invite }}
+
+            {% for error in form.kata_special_invite.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+
+        <div class="column is-6">
+            {{ form.kata_live_streaming.label_tag }}
+            {{ form.kata_live_streaming }}
+
+            {% for error in form.kata_live_streaming.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+
+        <div class="column is-6">
+            {{ form.kata_moment.label_tag }}
+            {{ form.kata_moment }}
+
+            {% for error in form.kata_moment.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+      </div>
 {% endblock update %}
 
 <!--  Buttons  -->

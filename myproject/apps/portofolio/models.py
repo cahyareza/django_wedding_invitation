@@ -111,6 +111,11 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     video = models.TextField(null=True, blank=True)
     livestream = models.TextField(null=True, blank=True)
 
+    # Kata2
+    kata_special_invite = models.TextField(null=True, blank=True)
+    kata_live_streaming = models.TextField(null=True, blank=True)
+    kata_moment = models.TextField(null=True, blank=True)
+
 
     # Add to calender
     name = models.CharField(max_length=250, null=True, blank=True)
