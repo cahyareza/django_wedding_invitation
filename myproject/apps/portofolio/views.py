@@ -3171,8 +3171,6 @@ def myportofolio(request):
     }
     return render(request, 'portofolio/myportofolio.html', context)
 
-
-
 #################### SERIALIZER #######################
 
 # Portofolio

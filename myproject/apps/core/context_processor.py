@@ -1,11 +1,20 @@
 from myproject.apps.portofolio.models import Fitur
 from myproject.apps.cart.cart import Cart
 
-from myproject.apps.portofolio.models import Fitur
+from myproject.apps.portofolio.models import Fitur, Portofolio
 from myproject.apps.order.models import Order, OrderItem
 from myproject.apps.order.forms import OrderForm
 from myproject.apps.coupon.models import Coupon
 from django.contrib.auth.decorators import login_required
+
+def portofolio(request):
+    if request.user.is_authenticated:
+        obj = Portofolio.objects.filter(user=request.user).first()
+        porto_slug = obj.slug
+        theme = obj.items.theme
+        return {"porto_slug": porto_slug, "theme": theme}
+    else:
+        return {}
 
 def listProduct(request):
     objects_fitur = Fitur.objects.all()

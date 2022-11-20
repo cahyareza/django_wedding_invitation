@@ -13,7 +13,7 @@ class PortofolioSerializer(serializers.ModelSerializer):
                   "lnama_ayah", "lnama_ibu", "lpicture", "tanggal_countdown", "waktu_countdown", "location_countdown", \
                   "waktu_countdown_selesai", "datetime_countdown", "video", "livestream", "name", "description", "startDate",\
                   "location", "startTime", "endTime", "options", "timeZone", "trigger", "iCalFileName", "link_iframe", \
-                  "lokasi", "link_gmap", "cover_background")
+                  "lokasi", "link_gmap", "cover_background", "kata_special_invite", "kata_live_streaming", "kata_moment")
 
 # Multiimage
 class MultiImageSerializer(serializers.HyperlinkedModelSerializer):
