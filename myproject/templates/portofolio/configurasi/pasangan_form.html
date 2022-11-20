@@ -46,6 +46,8 @@
           {% for error in form.pinsta_link.errors %}
               <p class="help is-danger">{{ error }}</p>
           {% endfor %}
+
+          <p class="subtitle mt-2" style="font-size: 11px;">{{ form.pinsta_link.help_text }}</p>
         </div>
         <div class="column is-3">
           {{ form.panak_ke.label_tag }}
@@ -101,6 +103,8 @@
           {% for error in form.linsta_link.errors %}
               <p class="help is-danger">{{ error }}</p>
           {% endfor %}
+
+          <p class="subtitle mt-2" style="font-size: 11px;">{{ form.linsta_link.help_text }}</p>
         </div>
         <div class="column is-3">
           {{ form.lanak_ke.label_tag }}

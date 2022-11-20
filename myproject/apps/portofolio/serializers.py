@@ -10,10 +10,8 @@ class PortofolioSerializer(serializers.ModelSerializer):
         model = Portofolio
         fields = ("user", "porto_name", "slug", "pname", "pinsta_link", "panak_ke",\
                   "pnama_ayah", "pnama_ibu", "ppicture", "lname", "linsta_link", "lanak_ke", \
-                  "lnama_ayah", "lnama_ibu", "lpicture", "tanggal_akad", "waktu_akad", "waktu_selesai_akad", \
-                  "tempat_akad", "link_gmap_akad", "tanggal_resepsi", "waktu_resepsi", "waktu_selesai_resepsi", "datetime_resepsi",\
-                  "tempat_resepsi", "link_gmap_resepsi", "tanggal_unduhmantu", "waktu_unduhmantu", "waktu_selesai_unduhmantu", \
-                  "tempat_unduhmantu", "link_gmap_unduhmantu", "video", "livestream", "name", "description", "startDate",
+                  "lnama_ayah", "lnama_ibu", "lpicture", "tanggal_countdown", "waktu_countdown", "location_countdown", \
+                  "waktu_countdown_selesai", "datetime_countdown", "video", "livestream", "name", "description", "startDate",\
                   "location", "startTime", "endTime", "options", "timeZone", "trigger", "iCalFileName", "link_iframe", \
                   "lokasi", "link_gmap", "cover_background")
 

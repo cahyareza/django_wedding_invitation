@@ -498,6 +498,10 @@ class PortofolioForm(forms.ModelForm):
         for field in require:
             self.fields[field].required = False
 
+        # 2. Help text
+        self.fields['pinsta_link'].help_text = 'Jika instagram tidak ingin ditampilkan cukup dengan mengosongi form'
+        self.fields['linsta_link'].help_text = 'Jika instagram tidak ingin ditampilkan cukup dengan mengosongi form'
+
     # ========== MeTHOD ========== !
     # 1) IMAGE (Maximum upload size = 2mb)
     def clean_ppicture(self):
