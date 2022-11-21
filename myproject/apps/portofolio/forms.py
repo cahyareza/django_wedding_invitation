@@ -535,6 +535,10 @@ class PortofolioForm(forms.ModelForm):
         # 2. Help text
         self.fields['pinsta_link'].help_text = 'Jika instagram tidak ingin ditampilkan cukup dengan mengosongi form'
         self.fields['linsta_link'].help_text = 'Jika instagram tidak ingin ditampilkan cukup dengan mengosongi form'
+        self.fields['kata_special_invite'].help_text = 'Jika ingin menggunakan kalimat bawaan cukup dengan mengosongi form'
+        self.fields['kata_live_streaming'].help_text = 'Jika ingin menggunakan kalimat bawaan cukup dengan mengosongi form'
+        self.fields['kata_moment'].help_text = 'Jika ingin menggunakan kalimat bawaan cukup dengan mengosongi form'
+
 
     # ========== MeTHOD ========== !
     # 1) IMAGE (Maximum upload size = 2mb)

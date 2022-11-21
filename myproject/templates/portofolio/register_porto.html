@@ -258,7 +258,7 @@
                 {% endfor %}
             </div>
 
-            <div class="column is-12">
+            <div class="column px-0 is-12">
               {% if formset5 %}
                 {{ formset5.management_form }}
                 <div class="column is-6">
@@ -300,7 +300,7 @@
                 {% endfor %}
             </div>
 
-            <div class="column is-12">
+            <div class="column px-0 is-12">
               {% if formset3 %}
                 {{ formset3.management_form }}
                 <div class="column is-6">
@@ -342,7 +342,7 @@
                 {% endfor %}
             </div>
 
-            <div class="column is-hidden is-12">
+            <div class="column px-0 is-hidden is-12">
               {% if formset5 %}
                 {{ formset5.management_form }}
                 <div class="column is-6">
@@ -683,6 +683,8 @@
             {% for error in form.kata_special_invite.errors %}
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
+
+            <p class="subtitle mt-2" style="font-size: 11px;">{{ form.kata_special_invite.help_text }}</p>
         </div>
 
         <div class="column is-6">
@@ -692,6 +694,8 @@
             {% for error in form.kata_live_streaming.errors %}
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
+
+            <p class="subtitle mt-2" style="font-size: 11px;">{{ form.kata_live_streaming.help_text }}</p>
         </div>
 
         <div class="column is-6">
@@ -701,6 +705,8 @@
             {% for error in form.kata_moment.errors %}
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
+
+            <p class="subtitle mt-2" style="font-size: 11px;">{{ form.kata_moment.help_text }}</p>
         </div>
       </div>
 

@@ -667,6 +667,8 @@
             {% for error in form.kata_special_invite.errors %}
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
+
+            <p class="subtitle mt-2" style="font-size: 11px;">{{ form.kata_special_invite.help_text }}</p>
         </div>
 
         <div class="column is-hidden is-6">

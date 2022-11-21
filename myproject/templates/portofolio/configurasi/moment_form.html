@@ -249,6 +249,8 @@
             {% for error in form.kata_live_streaming.errors %}
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
+
+            <p class="subtitle mt-2" style="font-size: 11px;">{{ form.kata_live_streaming.help_text }}</p>
         </div>
 
         <div class="column is-6">
@@ -258,6 +260,8 @@
             {% for error in form.kata_moment.errors %}
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
+
+            <p class="subtitle mt-2" style="font-size: 11px;">{{ form.kata_moment.help_text }}</p>
         </div>
 
         <div class="column is-12">
@@ -306,6 +310,8 @@
             {% for error in form.kata_live_streaming.errors %}
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
+
+            <p class="subtitle is-hidden mt-2" style="font-size: 11px;">{{ form.kata_live_streaming.help_text }}</p>
         </div>
         <div class="column is-6">
             {{ form.kata_moment.label_tag }}
@@ -314,6 +320,8 @@
             {% for error in form.kata_moment.errors %}
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
+
+            <p class="subtitle mt-2" style="font-size: 11px;">{{ form.kata_moment.help_text }}</p>
         </div>
 
         <div class="column is-12">
@@ -363,6 +371,8 @@
             {% for error in form.kata_live_streaming.errors %}
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
+
+             <p class="subtitle is-hidden mt-2" style="font-size: 11px;">{{ form.kata_live_streaming.help_text }}
         </div>
 
         <div class="column is-hidden is-6">
@@ -372,6 +382,8 @@
             {% for error in form.kata_moment.errors %}
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
+
+            <p class="subtitle is-hidden mt-2" style="font-size: 11px;">{{ form.kata_moment.help_text }}</p>
         </div>
 
         <div class="column is-hidden is-12">
