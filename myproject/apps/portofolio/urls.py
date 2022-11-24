@@ -1,9 +1,9 @@
 from myproject.apps.portofolio import views
 from django.urls import path
 from .views import (
-    register, register_awal, configurasi_porto, theme_update, cover_update, pasangan_update, quote_update, update, \
-    myportofolio, acara_update, moment_update, stories_update, map_update, dompet_update, specialinvite_update,\
-    info_update, countdown_update, PortofolioList, PortofolioDetail, RekeningList, RekeningDetail, \
+    register_awal,configurasi_porto, myportofolio, step1, step2, step3, step4, step5, step6,\
+    step7, step8, step9, step10, step11, step12,\
+    PortofolioList, PortofolioDetail, RekeningList, RekeningDetail, \
     DompetList, DompetDetail, MultiImageList, MultiImageDetail, \
     SpecialInvitationList, SpecialInvitationDetail, PaymentList, \
     PaymentDetail, QuoteList, QuoteDetail, UcapanList, UcapanDetail, \
@@ -14,22 +14,35 @@ from .views import (
 
 
 urlpatterns = [
-    path("register/", register, name="register"),
+    # path("register/", register, name="register"),
     path("register_awal/", register_awal, name="register_awal"),
     path("configurasi/", configurasi_porto, name="configurasi"),
-    path('info_update/<slug:slug>/', info_update, name='info_update'),
-    path('update/<slug:slug>/', update, name='update'),
-    path('tampilan_update/<slug:slug>/', theme_update, name='tampilan_update'),
-    path('cover_update/<slug:slug>/', cover_update, name='cover_update'),
-    path('pasangan_update/<slug:slug>/', pasangan_update, name='pasangan_update'),
-    path('quote_update/<slug:slug>/', quote_update, name='quote_update'),
-    path('acara_update/<slug:slug>/', acara_update, name='acara_update'),
-    path('moment_update/<slug:slug>/', moment_update, name='moment_update'),
-    path('stories_update/<slug:slug>/', stories_update, name='stories_update'),
-    path('map_update/<slug:slug>/', map_update, name='map_update'),
-    path('dompet_update/<slug:slug>/', dompet_update, name='dompet_update'),
-    path('specialinvite_update/<slug:slug>/', specialinvite_update, name='specialinvite_update'),
-    path('countdown_update/<slug:slug>/', countdown_update, name='countdown_update'),
+
+    path("step1/", step1, name="step1"),
+    path("step2/", step2, name="step2"),
+    path("step3/", step3, name="step3"),
+    path("step4/", step4, name="step4"),
+    path("step5/", step5, name="step5"),
+    path("step6/", step6, name="step6"),
+    path("step7/", step7, name="step7"),
+    path("step8/", step8, name="step8"),
+    path("step9/", step9, name="step9"),
+    path("step10/", step10, name="step10"),
+    path("step11/", step11, name="step11"),
+    path("step12/", step12, name="step12"),
+    # path('info_update/<slug:slug>/', info_update, name='info_update'),
+    # path('update/<slug:slug>/', update, name='update'),
+    # path('tampilan_update/<slug:slug>/', theme_update, name='tampilan_update'),
+    # path('cover_update/<slug:slug>/', cover_update, name='cover_update'),
+    # path('pasangan_update/<slug:slug>/', pasangan_update, name='pasangan_update'),
+    # path('quote_update/<slug:slug>/', quote_update, name='quote_update'),
+    # path('acara_update/<slug:slug>/', acara_update, name='acara_update'),
+    # path('moment_update/<slug:slug>/', moment_update, name='moment_update'),
+    # path('stories_update/<slug:slug>/', stories_update, name='stories_update'),
+    # path('map_update/<slug:slug>/', map_update, name='map_update'),
+    # path('dompet_update/<slug:slug>/', dompet_update, name='dompet_update'),
+    # path('specialinvite_update/<slug:slug>/', specialinvite_update, name='specialinvite_update'),
+    # path('countdown_update/<slug:slug>/', countdown_update, name='countdown_update'),
     path('myportofolio/', myportofolio, name='myportofolio'),
 
     path('api/portofolio/', PortofolioList.as_view(), name=views.PortofolioList.name),

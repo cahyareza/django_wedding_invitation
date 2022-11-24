@@ -10,9 +10,11 @@ from django.contrib.auth.decorators import login_required
 def portofolio(request):
     if request.user.is_authenticated:
         obj = Portofolio.objects.filter(user=request.user).first()
-        porto_slug = obj.slug
-        theme = obj.items.theme
-        return {"porto_slug": porto_slug, "theme": theme}
+        if obj:
+            porto_slug = obj.slug
+            return {"porto_slug": porto_slug}
+        else:
+            return {"porto_slug": None}
     else:
         return {}
 

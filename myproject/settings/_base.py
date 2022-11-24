@@ -18,6 +18,23 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 SESSION_COOKIE_AGE = 86400
 CART_SESSION_ID = 'cart'
 
+# Acara
+ACARAFORM_SESSION_ID = 'acaraform'
+
+# Pasangan
+PASANGAN_SESSION_ID = 'pasanganform'
+
+# Pasangan
+MULTIIMAGE_SESSION_ID = 'multiimageform'
+
+# Story
+STORY_SESSION_ID = 'storyform'
+
+# Dompet
+DOMPET_SESSION_ID = 'dompetform'
+
+# Dompet
+SPECIALINVITE_SESSION_ID = 'specialinviteform'
 
 EXTERNAL_BASE = os.path.join(BASE_DIR, "externals")
 EXTERNAL_LIBS_PATH = os.path.join(EXTERNAL_BASE, "libs")
@@ -256,3 +273,6 @@ DJANGORESIZED_DEFAULT_KEEP_META = True
 DJANGORESIZED_DEFAULT_FORCE_FORMAT = 'JPEG'
 DJANGORESIZED_DEFAULT_FORMAT_EXTENSIONS = {'JPEG': ".jpg"}
 DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
+
+
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
