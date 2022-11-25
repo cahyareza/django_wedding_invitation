@@ -145,10 +145,6 @@ def step1(request):
     if request.method == 'POST':
         form = PortoInfoForm(request.POST or None)
         if form.is_valid():
-            # JSONfify the form values
-            clean_form = json.dumps(form.cleaned_data, default=str)
-            request.session['step1'] = clean_form
-
             # create session
             request.session['porto_name'] = form.cleaned_data.get('porto_name')
             request.session['description'] = form.cleaned_data.get('description')
@@ -156,12 +152,7 @@ def step1(request):
 
             return redirect("portofolio:step2")
     else:
-        if 'step1' in request.session:
-            saved_form = json.loads(request.session.get('step1', ""))
-            print(saved_form)
-            form = PortoInfoForm(initial=saved_form)
-        else:
-            form = PortoInfoForm()
+        form = PortoInfoForm()
     return render(request, "portofolio/configurasi/register_awal_form.html", {'form': form})
 
 def step2(request):
@@ -169,19 +160,10 @@ def step2(request):
         pasanganform = PasanganFormSESSION(request)
         form = PasanganForm(request.POST or None, request.FILES)
         if form.is_valid():
-            # JSONfify the form values
-            clean_form = json.dumps(form.cleaned_data, default=str)
-            request.session['step2'] = clean_form
-
             pasanganform.add(1,form)
             return redirect("portofolio:step3")
     else:
-        if 'step2' in request.session:
-            saved_form = json.loads(request.session.get('step2', ""))
-            print(saved_form)
-            form = PasanganForm(initial=saved_form)
-        else:
-            form = PasanganForm()
+        form = PasanganForm()
     return render(request, "portofolio/configurasi/pasangan_form.html", {'form': form})
 
 
@@ -259,22 +241,13 @@ def step3(request):
         acaraform = AcaraFormSESSION(request)
         formset6 = AcaraFormSet(request.POST or None, request.FILES, prefix='acara')
         if formset6.is_valid():
-            # JSONfify the form values
-            clean_form = json.dumps(formset6.cleaned_data, default=str)
-            request.session['step3'] = clean_form
-
             for count,form in enumerate(formset6):
                 # Not save blank field use has_changed()
                 if form.is_valid() and form.has_changed():
                     acaraform.add(id=count, form=form)
             return redirect("portofolio:step4")
     else:
-        if 'step3' in request.session:
-            saved_form = json.loads(request.session.get('step3', ""))
-            print(saved_form)
-            formset6 = AcaraFormSet(initial=saved_form, prefix='acara')
-        else:
-            formset6 = AcaraFormSet(prefix='acara')
+        formset6 = AcaraFormSet(prefix='acara')
 
     return render(request, "portofolio/configurasi/acara_form.html", {'formset6': formset6})
 
@@ -355,10 +328,6 @@ def step4(request):
     if request.method == 'POST':
         form2 = QuoteForm(request.POST or None, request.FILES)
         if form2.is_valid():
-            # JSONfify the form values
-            clean_form = json.dumps(form2.cleaned_data, default=str)
-            request.session['step4'] = clean_form
-
             # ============== QUOTE ===============!
             request.session['ayat'] = form2.cleaned_data.get('ayat')
             request.session['kutipan'] = form2.cleaned_data.get('kutipan')
@@ -366,11 +335,7 @@ def step4(request):
 
             return redirect("portofolio:step5")
     else:
-        if 'step4' in request.session:
-            saved_form = json.loads(request.session.get('step4', ""))
-            form2 = QuoteForm(initial=saved_form,)
-        else:
-            form2 = QuoteForm()
+        form2 = QuoteForm()
 
     return render(request, "portofolio/configurasi/quote_form.html", {'form2': form2})
 
@@ -393,24 +358,13 @@ def step5(request):
         formset3 = MultiImageFormSet(request.POST or None, request.FILES, prefix='multiimage')
         formset5 = MultiImageFormSet2(request.POST or None, request.FILES, prefix='multiimage2')
         if form2.is_valid() and (formset3.is_valid() or formset5.is_valid()):
-            # JSONfify the form values
-            clean_form = json.dumps(form2.cleaned_data, default=str)
-            request.session['step5'] = clean_form
 
             if formset5:
-                # JSONfify the form values
-                clean_form = json.dumps(formset5.cleaned_data, default=str)
-                request.session['step51'] = clean_form
-
                 for count,form in enumerate(formset5):
                     # Not save blank field use has_changed()
                     if form.is_valid() and form.has_changed():
                         multiimageform.add(id=count, form=form)
             else:
-                # JSONfify the form values
-                clean_form = json.dumps(formset5.cleaned_data, default=str)
-                request.session['step51'] = clean_form
-
                 for count,form in enumerate(formset3):
                     # Not save blank field use has_changed()
                     if form.is_valid() and form.has_changed():
@@ -425,18 +379,9 @@ def step5(request):
 
             return redirect("portofolio:step6")
     else:
-        if 'step5' and 'step51' in request.session:
-            saved_form = json.loads(request.session.get('step5', ""))
-            saved_form1 = json.loads(request.session.get('step51', ""))
-
-            form2 = PortoInfo2Form(initial=saved_form)
-            formset3 = MultiImageFormSet(initial=saved_form1, prefix='multiimage')
-            formset5 = MultiImageFormSet2(initial=saved_form1, prefix='multiimage2')
-        else:
-            form2 = PortoInfo2Form()
-            formset3 = MultiImageFormSet(prefix='multiimage')
-            formset5 = MultiImageFormSet2(prefix='multiimage2')
-
+        form2 = PortoInfo2Form()
+        formset3 = MultiImageFormSet(prefix='multiimage')
+        formset5 = MultiImageFormSet2(prefix='multiimage2')
 
     return render(request, "portofolio/configurasi/moment_form.html", {'form2': form2, 'formset3': formset3, 'formset5': formset5})
 
@@ -451,21 +396,13 @@ def step6(request):
         storyform = StoryFormSESSION(request)
         formset4 = StoryFormSet(request.POST or None, request.FILES, prefix='story')
         if formset4.is_valid():
-            # JSONfify the form values
-            clean_form = json.dumps(formset4.cleaned_data, default=str)
-            request.session['step6'] = clean_form
-
             for count,form in enumerate(formset4):
                 # Not save blank field use has_changed()
                 if form.is_valid() and form.has_changed():
                     storyform.add(id=count, form=form)
             return redirect("portofolio:step7")
     else:
-        if 'step6' in request.session:
-            saved_form = json.loads(request.session.get('step6', ""))
-            formset4 = StoryFormSet(initial=saved_form, prefix='story')
-        else:
-            formset4 = StoryFormSet(prefix='story')
+        formset4 = StoryFormSet(prefix='story')
 
     return render(request, "portofolio/configurasi/story_form.html", {'formset4': formset4})
 
@@ -473,21 +410,13 @@ def step7(request):
     if request.method == 'POST':
         form = NavigasiForm(request.POST or None)
         if form.is_valid():
-            # JSONfify the form values
-            clean_form = json.dumps(form.cleaned_data, default=str)
-            request.session['step7'] = clean_form
-
             request.session['link_iframe'] = form.cleaned_data.get('link_iframe')
             request.session['link_gmap'] = form.cleaned_data.get('link_gmap')
             request.session.modified = True
 
             return redirect("portofolio:step8")
     else:
-        if 'step7' in request.session:
-            saved_form = json.loads(request.session.get('step7', ""))
-            form = NavigasiForm(initial=saved_form,)
-        else:
-            form = NavigasiForm()
+        form = NavigasiForm()
 
     return render(request, "portofolio/configurasi/map_form.html", {'form': form})
 
@@ -502,9 +431,6 @@ def step8(request):
         dompetform = DompetFormSESSION(request)
         formset2 = DompetFormSet(request.POST or None, prefix='dompet')
         if formset2.is_valid():
-            # JSONfify the form values
-            clean_form = json.dumps(formset2.cleaned_data, default=str)
-            request.session['step8'] = clean_form
 
             for count,form in enumerate(formset2):
                 # Not save blank field use has_changed()
@@ -512,11 +438,7 @@ def step8(request):
                     dompetform.add(id=count, form=form)
             return redirect("portofolio:step9")
     else:
-        if 'step8' in request.session:
-            saved_form = json.loads(request.session.get('step8', ""))
-            formset2 = DompetFormSet(initial=saved_form, prefix='dompet')
-        else:
-            formset2 = DompetFormSet(prefix='dompet')
+        formset2 = DompetFormSet(prefix='dompet')
 
     return render(request, "portofolio/configurasi/dompet_form.html", {'formset2': formset2})
 
@@ -532,13 +454,6 @@ def step9(request):
         form2 = PortoInfo3Form(request.POST or None)
         formset = SpecialInviteFormSet(request.POST or None, prefix='invite')
         if form2.is_valid() and formset.is_valid():
-            # JSONfify the form values
-            clean_form = json.dumps(form2.cleaned_data, default=str)
-            request.session['step9'] = clean_form
-
-            clean_form = json.dumps(formset.cleaned_data, default=str)
-            request.session['step91'] = clean_form
-
             for count,form in enumerate(formset):
                 # Not save blank field use has_changed()
                 if form.is_valid() and form.has_changed():
@@ -550,15 +465,8 @@ def step9(request):
 
             return redirect("portofolio:step10")
     else:
-        if 'step9' and 'step91' in request.session:
-            saved_form = json.loads(request.session.get('step9', ""))
-            saved_form1 = json.loads(request.session.get('step91', ""))
-
-            form2 = PortoInfo3Form(initial=saved_form)
-            formset = SpecialInviteFormSet(initial=saved_form1, prefix='invite')
-        else:
-            form2 = PortoInfo2Form()
-            formset = SpecialInviteFormSet(prefix='invite')
+        form2 = PortoInfo2Form()
+        formset = SpecialInviteFormSet(prefix='invite')
 
     return render(request, "portofolio/configurasi/specialinvite_form.html", {'formset': formset, 'form2': form2})
 
@@ -566,12 +474,6 @@ def step10(request):
     if request.method == 'POST':
         form = CalenderForm(request.POST or None)
         if form.is_valid():
-            # JSONfify the form values
-            # form.cleaned_data['tanggal_countdown'] = form.cleaned_data['tanggal_countdown'].strftime("%d-%m-%Y")
-            print(form.cleaned_data)
-            clean_form = json.dumps(form.cleaned_data, default=str)
-            request.session['step10'] = clean_form
-
             request.session['location_countdown'] = form.cleaned_data.get('location_countdown')
             request.session['tanggal_countdown'] = form.cleaned_data.get('tanggal_countdown')
             request.session['waktu_countdown'] = form.cleaned_data.get('waktu_countdown')
@@ -581,13 +483,7 @@ def step10(request):
 
             return redirect("portofolio:step11")
     else:
-        if 'step10' in request.session:
-            saved_form = json.loads(request.session.get('step10', ""))
-            # print(saved_form['tanggal_countdown'].strftime("%d-%m-%Y"))
-            # print(saved_form)
-            form = CalenderForm(initial=saved_form)
-        else:
-            form = CalenderForm()
+        form = CalenderForm()
 
     return render(request, "portofolio/configurasi/countdown_form.html", {'form': form})
 
@@ -595,20 +491,13 @@ def step11(request):
     if request.method == 'POST':
         form = PortoInfo4Form(request.POST or None, request.FILES)
         if form.is_valid():
-            # JSONfify the form values
-            clean_form = json.dumps(form.cleaned_data, default=str)
-            request.session['step11'] = clean_form
 
             request.session['cover_background'] = form.cleaned_data.get('cover_background')
             request.session.modified = True
 
             return redirect("portofolio:step12")
     else:
-        if 'step11' in request.session:
-            saved_form = json.loads(request.session.get('step11', ""))
-            form = PortoInfo4Form(initial=saved_form)
-        else:
-            form = PortoInfo4Form()
+        form = PortoInfo4Form()
 
     return render(request, "portofolio/configurasi/cover_form.html", {'form': form})
 
@@ -804,10 +693,6 @@ def step12(request):
 
         form3 = ThemeProductForm(request.POST or None, request.FILES)
         if form3.is_valid():
-            # JSONfify the form values
-            clean_form = json.dumps(form3.cleaned_data, default=str)
-            request.session['step12'] = clean_form
-
             request.session['theme'] = form3.cleaned_data.get('theme')
             request.session.modified = True
 
@@ -829,11 +714,7 @@ def step12(request):
 
             return redirect("portofolio:configurasi")
     else:
-        if 'step12' in request.session:
-            saved_form = json.loads(request.session.get('step12', ""))
-            form3 = ThemeProductForm(initial=saved_form)
-        else:
-            form3 = ThemeProductForm()
+        form3 = ThemeProductForm()
 
     return render(request, "portofolio/configurasi/tampilan_form.html", {'form3': form3})
 
