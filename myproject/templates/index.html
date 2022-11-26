@@ -32,7 +32,7 @@
             <div class="buttons mt-3">
               {% if user.is_authenticated %}
                   {% if order.status == 'terkonfirmasi' %}
-                    <a class="button is-danger" href="{% url 'portofolio:register_awal' %}">Buat undangan sekarang</a>
+                    <a class="button is-danger" href="{% url 'portofolio:step1' %}">Buat undangan sekarang</a>
                   {% else %}
                     <a class="button is-danger" href="{% url 'order:status' %}">Buat undangan sekarang</a>
                   {% endif %}

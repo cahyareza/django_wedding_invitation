@@ -109,7 +109,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
 
     # Our moment
     video = models.TextField(null=True, blank=True)
-    livestream = models.TextField(null=True, blank=True)
+    livestream = models.URLField(max_length=1000, null=True, blank=True)
 
     # Kata2
     kata_special_invite = models.TextField(null=True, blank=True)
@@ -134,7 +134,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     # Goto
     link_iframe = models.TextField(null=True, blank=True)
     lokasi = models.CharField(max_length=250, null=True, blank=True)
-    link_gmap = models.TextField(null=True, blank=True)
+    link_gmap = models.URLField(max_length=1000, null=True, blank=True)
 
     # Tema
     cover_background = models.ImageField(blank=True, null=True)
@@ -352,7 +352,7 @@ class Acara(CreationModificationDateBase, UrlBase):
     waktu_mulai_acara = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
     waktu_selesai_acara = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
     tempat_acara = models.CharField(max_length=250, null=True, blank=True)
-    link_gmap_acara = models.TextField(null=True, blank=True)
+    link_gmap_acara = models.URLField(max_length=1000, null=True, blank=True)
 
     def __str__(self):
         return self.portofolio.porto_name
