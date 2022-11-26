@@ -33,20 +33,20 @@ def validate_url(value):
     if not ('www.google') in obj.netloc:
         raise ValidationError('Only urls from google map is allowed !')
 
-def validate_iframe(value):
-    if not value:
-        return  # Required error is done the field
-    obj = urlparse(value)
-    if not obj.netloc in ('<iframe src="https:'):
-        raise ValidationError('Only embed a google map is allowed !')
+# def validate_iframe(value):
+#     if not value:
+#         return  # Required error is done the field
+#     obj = urlparse(value)
+#     if not obj.netloc in ('<iframe src="https:'):
+#         raise ValidationError('Only embed a google map is allowed !')
 
-def validate_iframe_video(value):
-    if not value:
-        return  # Required error is done the field
-    obj = urlparse(value)
-    print(obj)
-    if not ('<iframe') in obj.path:
-        raise ValidationError('Only embed a video is allowed !')
+# def validate_iframe_video(value):
+#     if not value:
+#         return  # Required error is done the field
+#     obj = urlparse(value)
+#     print(obj)
+#     if not ('<iframe') in obj.path:
+#         raise ValidationError('Only embed a video is allowed !')
 
 # ============== PORTO INFO ===============!
 class PortoInfoForm(forms.ModelForm):
@@ -471,7 +471,6 @@ class MultiImageForm(forms.ModelForm):
 class PortoInfo2Form(forms.ModelForm):
     video = forms.CharField(
         label='Link video',
-        validators=[validate_iframe_video],
         required=True,
         widget=forms.Textarea(
             attrs={
@@ -620,7 +619,6 @@ class StoryForm(forms.ModelForm):
 class NavigasiForm(forms.ModelForm):
     link_iframe = forms.CharField(
         label='Link embed map tempat acara di google map', min_length=50, max_length=1000,
-        validators=[validate_iframe],
         required=True,
         widget=forms.Textarea(
             attrs={

@@ -155,6 +155,27 @@ def step1(request):
         form = PortoInfoForm()
     return render(request, "portofolio/configurasi/register_awal_form.html", {'form': form})
 
+def step1_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+
+    if request.method == "POST":
+        form = PortoInfoForm(request.POST or None, request.FILES, instance=obj)
+
+        if form.is_valid():
+            # create portofolio instance
+            instance = form.save(commit=False)
+            instance.save()
+            return redirect("portofolio:configurasi")
+
+    else:
+        form = PortoInfoForm(instance=obj)
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'portofolio/configurasi/register_awal_form.html', context)
+
 def step2(request):
     if request.method == 'POST':
         pasanganform = PasanganFormSESSION(request)
@@ -166,69 +187,26 @@ def step2(request):
         form = PasanganForm()
     return render(request, "portofolio/configurasi/pasangan_form.html", {'form': form})
 
+def step2_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
 
-# def step3(request):
-#     AcaraFormSet = modelformset_factory(
-#         Acara,
-#         form=AcaraForm,
-#         formset=BaseRegisterFormSet,
-#         extra=1,
-#     )
-#     if request.method == 'POST':
-#         formset6 = AcaraFormSet(request.POST or None, request.FILES, prefix='acara')
-#         if formset6.is_valid():
-#             user = request.user
-#             Portofolio.objects.create(
-#                 user = user,
-#                 porto_name = request.session['porto_name'],
-#                 description = request.session['description'],
-#                 pname = request.session['pname'],
-#                 pinsta_link = request.session['pinsta_link'],
-#                 panak_ke = request.session['panak_ke'],
-#                 pnama_ayah = request.session['pnama_ayah'],
-#                 pnama_ibu = request.session['pnama_ibu'],
-#                 ppicture = request.session['ppicture'],
-#                 lname = request.session['lname'],
-#                 linsta_link = request.session['linsta_link'],
-#                 lanak_ke=request.session['lanak_ke'],
-#                 lnama_ayah = request.session['lnama_ayah'],
-#                 lnama_ibu = request.session['lnama_ibu'],
-#                 lpicture = request.session['lpicture'],
-#             )
-#
-#             del request.session['porto_name']
-#             del request.session['description']
-#             del request.session['pname']
-#             del request.session['pinsta_link']
-#             del request.session['panak_ke'],
-#             del request.session['pnama_ayah']
-#             del request.session['pnama_ibu']
-#             del request.session['ppicture']
-#             del request.session['lname']
-#             del request.session['linsta_link']
-#             del request.session['lanak_ke'],
-#             del request.session['lnama_ayah']
-#             del request.session['lnama_ibu']
-#             del request.session['lpicture']
-#             request.session.modified = True
-#
-#             # to create multiple image instance
-#             porto_instance = Portofolio.objects.filter(user=user).first()
-#
-#
-#             for form in formset6:
-#                 # Not save blank field use has_changed()
-#                 if form.is_valid() and form.has_changed():
-#                     child = form.save(commit=False)
-#                     child.portofolio = porto_instance
-#                     child.save()
-#
-#             return redirect("portofolio:configurasi")
-#     else:
-#         formset6 = AcaraFormSet(prefix='acara')
-#
-#     return render(request, "portofolio/configurasi/acara_form.html", {'formset6': formset6})
-#
+    if request.method == "POST":
+        form = PasanganForm(request.POST or None, request.FILES, instance=obj)
+
+        if form.is_valid():
+            # create portofolio instance
+            instance = form.save(commit=False)
+            instance.save()
+            return redirect("portofolio:configurasi")
+
+    else:
+        form = PasanganForm(instance=obj)
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'portofolio/configurasi/pasangan_form.html', context)
 
 def step3(request):
     AcaraFormSet = modelformset_factory(
@@ -251,80 +229,54 @@ def step3(request):
 
     return render(request, "portofolio/configurasi/acara_form.html", {'formset6': formset6})
 
+def step3_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
 
-# def step4(request):
-#     acaraform = AcaraFormSESSION(request)
-#     pasanganform = PasanganFormSESSION(request)
-#     form2 = QuoteForm(request.POST or None, request.FILES)
-#     if request.method == 'POST':
-#         if form2.is_valid():
-#             # ============== PASANGAN ===============!
-#             for item in pasanganform:
-#                 user = request.user
-#                 Portofolio.objects.create(
-#                     user = user,
-#                     porto_name = request.session['porto_name'],
-#                     description = request.session['description'],
-#                     pname = item.get('pname'),
-#                     pinsta_link = item.get('pinsta_link'),
-#                     panak_ke = item.get('panak_ke'),
-#                     pnama_ayah = item.get('pnama_ayah'),
-#                     pnama_ibu = item.get('pnama_ibu'),
-#                     ppicture = item.get('ppicture'),
-#                     lname = item.get('lname'),
-#                     linsta_link = item.get('linsta_link'),
-#                     lanak_ke=item.get('lanak_ke'),
-#                     lnama_ayah = item.get('lnama_ayah'),
-#                     lnama_ibu = item.get('lnama_ibu'),
-#                     lpicture = item.get('lpicture'),
-#                 )
-#             del request.session[settings.PASANGAN_SESSION_ID]
-#             request.session.modified = True
-#
-#             # to create multiple image instance
-#             porto_instance = Portofolio.objects.filter(user=user).first()
-#
-#             # ============== ACARA ===============!
-#             for item in acaraform:
-#                 Acara.objects.create(
-#                     portofolio = porto_instance,
-#                     tempat_acara = item.get('tempat_acara'),
-#                     nama_acara = item.get('nama_acara'),
-#                     tanggal_acara = item.get('tanggal_acara'),
-#                     waktu_mulai_acara = item.get('waktu_mulai_acara'),
-#                     waktu_selesai_acara = item.get('waktu_selesai_acara'),
-#                     link_gmap_acara = item.get('link_gmap_acara'),
-#
-#                 )
-#             del request.session[settings.ACARAFORM_SESSION_ID]
-#             request.session.modified = True
-#
-#             # ============== QUOTE ===============!
-#             request.session['ayat'] = form2.cleaned_data.get('ayat')
-#             request.session['kutipan'] = form2.cleaned_data.get('kutipan')
-#
-#             Quote.objects.create(
-#                 portofolio = porto_instance,
-#                 ayat = request.session['ayat'],
-#                 kutipan = request.session['kutipan'],
-#             )
-#
-#             # del portiinfo sessions
-#             del request.session['porto_name']
-#             del request.session['description']
-#
-#             # del quote sessions
-#             del request.session['ayat']
-#             del request.session['kutipan']
-#             request.session.modified = True
-#
-#             return redirect("portofolio:configurasi")
-#     return render(request, "portofolio/configurasi/quote_form.html", {'form2': form2})
+    # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
+    AcaraFormSet = modelformset_factory(
+        Acara,
+        form=AcaraForm,
+        extra=1,
+        can_delete=True,
+        can_delete_extra=True
+    )
 
+    qs5 = Acara.objects.filter(portofolio=obj)
+
+    # Define formset
+    formset6 = AcaraFormSet(request.POST or None, request.FILES, queryset=qs5, prefix='acara')
+
+    if request.method == "POST":
+        if formset6.is_valid():
+            # to create multiple image instance
+            porto_instance = Portofolio.objects.filter(user=request.user).first()
+
+            for form in formset6:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+            # Save deleted obj
+            instances = formset6.save(commit=False)
+            for obj in formset6.deleted_objects:
+                obj.delete()
+
+            return redirect("portofolio:configurasi")
+
+    else:
+        formset6 = AcaraFormSet(queryset=qs5, prefix='acara')
+
+
+    context = {
+        'formset6': formset6
+    }
+
+    # return redirect("portofolio:update_tampilan", slug=slug)
+    return render(request, 'portofolio/configurasi/acara_form.html', context)
 
 def step4(request):
-    acaraform = AcaraFormSESSION(request)
-    pasanganform = PasanganFormSESSION(request)
     if request.method == 'POST':
         form2 = QuoteForm(request.POST or None, request.FILES)
         if form2.is_valid():
@@ -338,6 +290,36 @@ def step4(request):
         form2 = QuoteForm()
 
     return render(request, "portofolio/configurasi/quote_form.html", {'form2': form2})
+
+def step4_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+    # quote instance by porto id
+    obj_quote = get_object_or_404(Quote, portofolio= obj)
+
+    if request.method == "POST":
+        form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
+
+        if form2.is_valid():
+            # to create multiple image instance
+            porto_instance = Portofolio.objects.filter(user=request.user).first()
+
+            # to create instance quote
+            instance_quote = form2.save(commit=False)
+            instance_quote.portofolio = porto_instance
+            instance_quote.save()
+
+            return redirect("portofolio:configurasi")
+
+    else:
+        form2 = QuoteForm(instance=obj_quote)
+
+    context = {
+        'form2': form2,
+    }
+
+    # return redirect("portofolio:update_tampilan", slug=slug)
+    return render(request, 'portofolio/configurasi/quote_form.html', context)
 
 def step5(request):
     MultiImageFormSet = modelformset_factory(
@@ -385,6 +367,83 @@ def step5(request):
 
     return render(request, "portofolio/configurasi/moment_form.html", {'form2': form2, 'formset3': formset3, 'formset5': formset5})
 
+def step5_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+
+    # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
+    MultiImageFormSet = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=1,
+        can_delete=True,
+        can_delete_extra=True
+    )
+    MultiImageFormSet2 = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=1,
+        can_delete=True,
+        can_delete_extra=True
+    )
+
+    # create query set for multi image
+    qs3 = MultiImage.objects.filter(portofolio=obj)
+
+    # Define formset
+    formset3 = MultiImageFormSet(request.POST or None, request.FILES, queryset= qs3, prefix='multiimage')
+    formset5 = MultiImageFormSet2(request.POST or None, request.FILES, queryset=qs3, prefix='multiimage2')
+
+    if request.method == "POST":
+        form2 = PortoInfo2Form(request.POST or None, request.FILES, instance=obj)
+
+        if form2.is_valid() and (formset3.is_valid() or formset5.is_valid()):
+            # create portofolio instance
+            instance = form2.save(commit=False)
+            instance.save()
+
+            # to create multiple image instance
+            porto_instance = Portofolio.objects.get(pk=instance.pk)
+
+            for form in formset3:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+            # Save deleted obj
+            instances = formset3.save(commit=False)
+            for obj in formset3.deleted_objects:
+                obj.delete()
+
+            for form in formset5:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+            # Save deleted obj
+            instances = formset5.save(commit=False)
+            for obj in formset5.deleted_objects:
+                obj.delete()
+
+            return redirect("portofolio:configurasi")
+
+    else:
+        form2 = PortoInfo2Form(instance=obj)
+        formset3 = MultiImageFormSet(queryset= qs3, prefix='multiimage')
+        formset5 = MultiImageFormSet2(queryset=qs3, prefix='multiimage2')
+
+    context = {
+        'form2': form2,
+        'formset3': formset3,
+        'formset5': formset5,
+    }
+
+    # return redirect("portofolio:update_tampilan", slug=slug)
+    return render(request, 'portofolio/configurasi/moment_form.html', context)
+
+
 def step6(request):
     StoryFormSet = modelformset_factory(
         Story,
@@ -406,6 +465,52 @@ def step6(request):
 
     return render(request, "portofolio/configurasi/story_form.html", {'formset4': formset4})
 
+def step6_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+
+    StoryFormSet = modelformset_factory(
+        Story,
+        form=StoryForm,
+        extra=1,
+        can_delete=True,
+        can_delete_extra=True
+    )
+
+    # create query set for story
+    qs4 = Story.objects.filter(portofolio=obj)
+
+    # Define formset
+    formset4 = StoryFormSet(request.POST or None, request.FILES, queryset=qs4, prefix='story')
+
+    if request.method == "POST":
+        if formset4.is_valid():
+            # to create multiple image instance
+            porto_instance = Portofolio.objects.filter(user=request.user).first()
+
+            for form in formset4:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+            # Save deleted obj
+            instances = formset4.save(commit=False)
+            for obj in formset4.deleted_objects:
+                obj.delete()
+
+            return redirect("portofolio:configurasi")
+
+    else:
+        formset4 = StoryFormSet(queryset=qs4, prefix='story')
+
+    context = {
+        'formset4': formset4,
+    }
+
+    return render(request, 'portofolio/configurasi/story_form.html', context)
+
+
 def step7(request):
     if request.method == 'POST':
         form = NavigasiForm(request.POST or None)
@@ -419,6 +524,27 @@ def step7(request):
         form = NavigasiForm()
 
     return render(request, "portofolio/configurasi/map_form.html", {'form': form})
+
+def step7_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+
+    if request.method == "POST":
+        form = NavigasiForm(request.POST or None, request.FILES, instance=obj)
+
+        if form.is_valid():
+            # create portofolio instance
+            instance = form.save(commit=False)
+            instance.save()
+            return redirect("portofolio:configurasi")
+
+    else:
+        form = NavigasiForm(instance=obj)
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'portofolio/configurasi/map_form.html', context)
 
 def step8(request):
     DompetFormSet = modelformset_factory(
@@ -441,6 +567,54 @@ def step8(request):
         formset2 = DompetFormSet(prefix='dompet')
 
     return render(request, "portofolio/configurasi/dompet_form.html", {'formset2': formset2})
+
+def step8_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+
+    # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
+    DompetFormSet = modelformset_factory(
+        Dompet,
+        form=DompetForm,
+        extra=1,
+        can_delete=True,
+        can_delete_extra=True
+    )
+
+    # create query set for specialinvitation
+    qs2 = Dompet.objects.filter(portofolio=obj)
+
+    # Define formset
+    formset2 = DompetFormSet(request.POST or None,queryset= qs2, prefix='dompet')
+
+    if request.method == "POST":
+        if formset2.is_valid():
+            # to create multiple image instance
+            porto_instance = Portofolio.objects.filter(user=request.user).first()
+
+            for form in formset2:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+            # Save deleted obj
+            instances = formset2.save(commit=False)
+            for obj in formset2.deleted_objects:
+                obj.delete()
+
+            return redirect("portofolio:configurasi")
+
+    else:
+        formset2 = DompetFormSet(queryset= qs2, prefix='dompet')
+
+
+    context = {
+        'formset2': formset2,
+    }
+
+    # return redirect("portofolio:update_tampilan", slug=slug)
+    return render(request, 'portofolio/configurasi/dompet_form.html', context)
 
 def step9(request):
     SpecialInviteFormSet = modelformset_factory(
@@ -470,6 +644,65 @@ def step9(request):
 
     return render(request, "portofolio/configurasi/specialinvite_form.html", {'formset': formset, 'form2': form2})
 
+def step9_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+
+    # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
+    SpecialInviteFormSet = modelformset_factory(
+        SpecialInvitation,
+        form=SpecialInvitationForm,
+        extra=1,
+        can_delete=True,
+        can_delete_extra=True
+    )
+
+    # create query set for specialinvitation
+    qs = SpecialInvitation.objects.filter(portofolio=obj)
+
+    # Define formset
+    formset = SpecialInviteFormSet(request.POST or None,queryset= qs, prefix='invite')
+
+    if request.method == "POST":
+        form2 = PortoInfo2Form(request.POST or None, request.FILES, instance=obj)
+
+        if form2.is_valid() and formset.is_valid():
+            # create portofolio instance
+            instance = form2.save(commit=False)
+            instance.save()
+
+            # to create multiple image instance
+            porto_instance = Portofolio.objects.get(pk=instance.pk)
+
+            # to create multiple value instance
+            for form in formset:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+            # Save deleted obj
+            instances = formset.save(commit=False)
+            for obj in formset.deleted_objects:
+                obj.delete()
+
+            return redirect("portofolio:configurasi")
+
+    else:
+        form2 = PortoInfo2Form(instance=obj)
+        formset = SpecialInviteFormSet(queryset= qs, prefix='invite')
+
+
+    context = {
+        'form2': form2,
+        'formset': formset,
+    }
+
+    # return redirect("portofolio:update_tampilan", slug=slug)
+    return render(request, 'portofolio/configurasi/specialinvite_form.html', context)
+
+
+
 def step10(request):
     if request.method == 'POST':
         form = CalenderForm(request.POST or None)
@@ -487,6 +720,42 @@ def step10(request):
 
     return render(request, "portofolio/configurasi/countdown_form.html", {'form': form})
 
+def step10_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+
+    if request.method == "POST":
+        form = CalenderForm(request.POST or None, request.FILES, instance=obj)
+
+        if form.is_valid():
+            # create portofolio instance
+            instance = form.save(commit=False)
+            # save porto field ke field calender
+            instance.name = instance.porto_name
+            instance.location =  instance.location_countdown
+            instance.startDate = instance.tanggal_countdown
+            instance.startTime = instance.waktu_countdown
+            instance.endTime = instance.waktu_countdown_selesai
+            # save porto field ke field go to
+            instance.lokasi = instance.location_countdown
+
+
+            instance.save()
+
+            return redirect("portofolio:configurasi")
+
+    else:
+        form = CalenderForm(instance=obj)
+
+
+    context = {
+        'form': form,
+    }
+
+    # return redirect("portofolio:update_tampilan", slug=slug)
+    return render(request, 'portofolio/configurasi/countdown_form.html', context)
+
+
 def step11(request):
     if request.method == 'POST':
         form = PortoInfo4Form(request.POST or None, request.FILES)
@@ -500,6 +769,27 @@ def step11(request):
         form = PortoInfo4Form()
 
     return render(request, "portofolio/configurasi/cover_form.html", {'form': form})
+
+def step11_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+
+    if request.method == "POST":
+        form = PortoInfo4Form(request.POST or None, request.FILES, instance=obj)
+
+        if form.is_valid():
+            # create portofolio instance
+            instance = form.save(commit=False)
+            instance.save()
+            return redirect("portofolio:configurasi")
+
+    else:
+        form = PortoInfo4Form(instance=obj)
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'portofolio/configurasi/cover_form.html', context)
 
 def step12(request):
     acaraform = AcaraFormSESSION(request)
@@ -717,6 +1007,43 @@ def step12(request):
         form3 = ThemeProductForm()
 
     return render(request, "portofolio/configurasi/tampilan_form.html", {'form3': form3})
+
+def step12_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+    # theme product instance by porto id
+    obj_themeproduct = get_object_or_404(ThemeProduct, portofolio= obj)
+
+    if request.method == "POST":
+        form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
+
+        if form3.is_valid():
+            # to create multiple image instance
+            porto_instance = Portofolio.objects.filter(user=request.user).first()
+
+            # to create theme product
+            user = request.user
+            instance_order = Order.objects.get(user=user)
+            instance_orderitemfiture = OrderItem.objects.get(order=instance_order)
+
+            instance_orderitem = form3.save(commit=False)
+            instance_orderitem.portofolio = porto_instance
+            instance_orderitem.product = instance_orderitemfiture.product
+            instance_orderitem.save()
+
+            return redirect("portofolio:configurasi")
+
+    else:
+        form3 = ThemeProductForm(instance=obj_themeproduct)
+
+
+    context = {
+        'form3': form3,
+    }
+
+    # return redirect("portofolio:update_tampilan", slug=slug)
+    return render(request, 'portofolio/configurasi/tampilan_form.html', context)
+
 
 
 # ============== REGISTER AWAL ===============!
