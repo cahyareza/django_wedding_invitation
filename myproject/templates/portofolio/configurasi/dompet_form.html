@@ -17,13 +17,21 @@
                         <div class="ingredient-form2 mb-5">
 <!--                            {{ form }}-->
 
-                            {% for field in form %}
+                            {% for field in form.visible_fields %}
                                 {{ field.label_tag }} {{ field }}
                                 {% for error in field.errors %}
                                     <p class="help is-danger">{{ error }}</p>
                                 {% endfor %}
                                 <p class="subtitle mt-2" style="font-size: 11px;">{{ field.help_text }}</p>
                             {% endfor %}
+                            <div class="is-hidden">
+                                {% for field in form.hidden_fields %}
+                                    {{ field.label_tag }} {{ field }}
+                                    {% for error in field.errors %}
+                                        <p class="help is-danger">{{ error }}</p>
+                                    {% endfor %}
+                                {% endfor %}
+                            </div>
                         </div>
                         {% endfor %}
                     </div>
@@ -48,14 +56,21 @@
                         <div class="ingredient-form2 mb-5">
 <!--                            {{ form }}-->
 
-                            {% for field in form %}
+                            {% for field in form.visible_fields %}
                                 {{ field.label_tag }} {{ field }}
                                 {% for error in field.errors %}
                                     <p class="help is-danger">{{ error }}</p>
                                 {% endfor %}
-
                                 <p class="subtitle mt-2" style="font-size: 11px;">{{ field.help_text }}</p>
                             {% endfor %}
+                            <div class="is-hidden">
+                                {% for field in form.hidden_fields %}
+                                    {{ field.label_tag }} {{ field }}
+                                    {% for error in field.errors %}
+                                        <p class="help is-danger">{{ error }}</p>
+                                    {% endfor %}
+                                {% endfor %}
+                            </div>
                         </div>
                         {% endfor %}
                     </div>

@@ -15,13 +15,21 @@
                 {% for form in formset6 %}
                 <div class="ingredient-form6 mb-3">
 <!--                    {{ form }}-->
-
-                    {% for field in form %}
+                    {% for field in form.visible_fields %}
                         {{ field.label_tag }} {{ field }}
                         {% for error in field.errors %}
                             <p class="help is-danger">{{ error }}</p>
                         {% endfor %}
+
                     {% endfor %}
+                    <div class="is-hidden">
+                        {% for field in form.hidden_fields %}
+                            {{ field.label_tag }} {{ field }}
+                            {% for error in field.errors %}
+                                <p class="help is-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
                 </div>
                 {% endfor %}
             </div>

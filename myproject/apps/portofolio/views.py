@@ -482,7 +482,7 @@ def step6_update(request, slug):
 
     # Define formset
     formset4 = StoryFormSet(request.POST or None, request.FILES, queryset=qs4, prefix='story')
-
+    print(formset4)
     if request.method == "POST":
         if formset4.is_valid():
             # to create multiple image instance

@@ -56,9 +56,24 @@
           {% if formset5 %}
             {{ formset5.management_form }}
                 <div id="ingredient-form-list5">
-                    {% for field in formset5 %}
+                    {% for form in formset5 %}
                     <div class="ingredient-form5 mb-3">
-                        {{ field }}
+<!--                        {{ form }}-->
+                        {% for field in form.visible_fields %}
+                            {{ field.label_tag }} {{ field }}
+                            {% for error in field.errors %}
+                                <p class="help is-danger">{{ error }}</p>
+                            {% endfor %}
+
+                        {% endfor %}
+                        <div class="is-hidden">
+                            {% for field in form.hidden_fields %}
+                                {{ field.label_tag }} {{ field }}
+                                {% for error in field.errors %}
+                                    <p class="help is-danger">{{ error }}</p>
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
                     </div>
                     {% endfor %}
                 </div>
@@ -120,9 +135,24 @@
           {% if formset3 %}
             {{ formset3.management_form }}
             <div id="ingredient-form-list3">
-                {% for field in formset3 %}
+                {% for form in formset3 %}
                 <div class="ingredient-form3 mb-3">
-                    {{ field }}
+<!--                    {{ form }}-->
+                    {% for field in form.visible_fields %}
+                        {{ field.label_tag }} {{ field }}
+                        {% for error in field.errors %}
+                            <p class="help is-danger">{{ error }}</p>
+                        {% endfor %}
+
+                    {% endfor %}
+                    <div class="is-hidden">
+                        {% for field in form.hidden_fields %}
+                            {{ field.label_tag }} {{ field }}
+                            {% for error in field.errors %}
+                                <p class="help is-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
                 </div>
                 {% endfor %}
             </div>
@@ -186,9 +216,24 @@
           {% if formset5 %}
             {{ formset5.management_form }}
                 <div id="ingredient-form-list5">
-                    {% for field in formset5 %}
+                    {% for form in formset5 %}
                     <div class="ingredient-form5 mb-3">
-                        {{ field }}
+<!--                        {{ form }}-->
+                        {% for field in form.visible_fields %}
+                            {{ field.label_tag }} {{ field }}
+                            {% for error in field.errors %}
+                                <p class="help is-danger">{{ error }}</p>
+                            {% endfor %}
+
+                        {% endfor %}
+                        <div class="is-hidden">
+                            {% for field in form.hidden_fields %}
+                                {{ field.label_tag }} {{ field }}
+                                {% for error in field.errors %}
+                                    <p class="help is-danger">{{ error }}</p>
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
                     </div>
                     {% endfor %}
                 </div>
