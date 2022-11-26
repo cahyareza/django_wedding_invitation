@@ -12,9 +12,13 @@ def portofolio(request):
         obj = Portofolio.objects.filter(user=request.user).first()
         if obj:
             porto_slug = obj.slug
-            return {"porto_slug": porto_slug}
+            if obj.items.theme:
+                theme = obj.items.theme
+                return {"porto_slug": porto_slug, "theme": theme}
+            else:
+                return {"porto_slug": porto_slug, "theme": None}
         else:
-            return {"porto_slug": None}
+            return {"porto_slug": None, "theme": None}
     else:
         return {}
 
