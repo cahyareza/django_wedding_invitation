@@ -277,6 +277,12 @@ def step3_update(request, slug):
     return render(request, 'portofolio/configurasi/acara_form.html', context)
 
 def step4(request):
+    user = request.user
+    # get instance order
+    order = get_object_or_404(Order, user=user)
+    # orderitem instance by order
+    orderitem = get_object_or_404(OrderItem, order= order)
+
     if request.method == 'POST':
         form2 = QuoteForm(request.POST or None, request.FILES)
         if form2.is_valid():
@@ -285,7 +291,10 @@ def step4(request):
             request.session['kutipan'] = form2.cleaned_data.get('kutipan')
             request.session.modified = True
 
-            return redirect("portofolio:step5")
+            if orderitem.product == "PLATINUM" or orderitem.product == "GOLD":
+                return redirect("portofolio:step5")
+            else:
+                return redirect("portofolio:step7")
     else:
         form2 = QuoteForm()
 
@@ -512,6 +521,12 @@ def step6_update(request, slug):
 
 
 def step7(request):
+    user = request.user
+    # get instance order
+    order = get_object_or_404(Order, user=user)
+    # orderitem instance by order
+    orderitem = get_object_or_404(OrderItem, order= order)
+
     if request.method == 'POST':
         form = NavigasiForm(request.POST or None)
         if form.is_valid():
@@ -519,7 +534,10 @@ def step7(request):
             request.session['link_gmap'] = form.cleaned_data.get('link_gmap')
             request.session.modified = True
 
-            return redirect("portofolio:step8")
+            if orderitem.product == "PLATINUM" or orderitem.product == "GOLD":
+                return redirect("portofolio:step8")
+            else:
+                return redirect("portofolio:step9")
     else:
         form = NavigasiForm()
 
@@ -792,12 +810,23 @@ def step11_update(request, slug):
     return render(request, 'portofolio/configurasi/cover_form.html', context)
 
 def step12(request):
-    acaraform = AcaraFormSESSION(request)
-    pasanganform = PasanganFormSESSION(request)
-    multiimageform = MultiImageFormSESSION(request)
-    storyform = StoryFormSESSION(request)
-    dompetform = DompetFormSESSION(request)
-    specialinviteform = SpecialinviteFormSESSION(request)
+    user = request.user
+    # get instance order
+    order = get_object_or_404(Order, user=user)
+    # orderitem instance by order
+    orderitem = get_object_or_404(OrderItem, order= order)
+
+    if orderitem.product == "PLATINUM" or orderitem.product == "GOLD":
+        acaraform = AcaraFormSESSION(request)
+        pasanganform = PasanganFormSESSION(request)
+        multiimageform = MultiImageFormSESSION(request)
+        storyform = StoryFormSESSION(request)
+        dompetform = DompetFormSESSION(request)
+        specialinviteform = SpecialinviteFormSESSION(request)
+    else:
+        acaraform = AcaraFormSESSION(request)
+        pasanganform = PasanganFormSESSION(request)
+        specialinviteform = SpecialinviteFormSESSION(request)
 
     if request.method == 'POST':
         # ============== PASANGAN ===============!
@@ -855,47 +884,65 @@ def step12(request):
         del request.session['porto_name']
         del request.session['description']
 
-        # del quote sessions
-        del request.session['ayat']
-        del request.session['kutipan']
-        request.session.modified = True
+        if 'ayat' and 'kutipan' in request.session:
+            # del quote sessions
+            del request.session['ayat']
+            del request.session['kutipan']
+            request.session.modified = True
 
         # ============== QUOTE END ===============!
 
-        # ============== MOMENT ===============!
-        for item in multiimageform:
-            MultiImage.objects.create(
-                portofolio = porto_instance,
-                image = item.get('image'),
+        if orderitem.product == "PLATINUM" or orderitem.product == "GOLD":
+            # ============== MOMENT ===============!
+            for item in multiimageform:
+                MultiImage.objects.create(
+                    portofolio = porto_instance,
+                    image = item.get('image'),
+                )
+            multiimageform.clear()
+
+
+            Portofolio.objects.filter(user=user).update(
+                video=request.session.get('video', None),
+                livestream=request.session.get('livestream', None),
+                kata_live_streaming=request.session.get('kata_live_streaming', None),
+                kata_moment=request.session.get('kata_moment', None),
             )
-        multiimageform.clear()
+
+            # del portiinfo sessions
+            if 'video' in request.session:
+                del request.session['video']
+            if 'livestream' in request.session:
+                if orderitem.product == "GOLD":
+                    del request.session['livestream']
+            if 'kata_live_streaming' in request.session:
+                del request.session['kata_live_streaming']
+            if 'kata_live_streaming' in request.session:
+                del request.session['kata_live_streaming']
+            # ============== MOMENT END ===============!
 
 
-        Portofolio.objects.filter(user=user).update(
-            video=request.session.get('video', None),
-            livestream=request.session.get('livestream', None),
-            kata_live_streaming=request.session.get('kata_live_streaming', None),
-            kata_moment=request.session.get('kata_moment', None),
-        )
+            # ============== STORY ===============!
+            for item in storyform:
+                Story.objects.create(
+                    portofolio = porto_instance,
+                    image = item.get('image'),
+                    cerita = item.get('cerita'),
+                    year = item.get('year'),
+                )
+            storyform.clear()
+            # ============== STORY END ===============!
 
-        # del portiinfo sessions
-        del request.session['video']
-        del request.session['livestream']
-        del request.session['kata_live_streaming']
-        del request.session['kata_moment']
-        # ============== MOMENT END ===============!
-
-
-        # ============== STORY ===============!
-        for item in storyform:
-            Story.objects.create(
-                portofolio = porto_instance,
-                image = item.get('image'),
-                cerita = item.get('cerita'),
-                year = item.get('year'),
-            )
-        storyform.clear()
-        # ============== STORY END ===============!
+            # ============== DOMPET ===============!
+            for item in dompetform:
+                Dompet.objects.create(
+                    portofolio = porto_instance,
+                    nomor = item.get('nomor'),
+                    pemilik = item.get('pemilik'),
+                    rekening = item.get('rekening'),
+                )
+            dompetform.clear()
+            # ============== DOMPET END ===============!
 
 
         # ============== NAVIGASI ===============!
@@ -905,22 +952,11 @@ def step12(request):
         )
 
         # del portiinfo sessions
-        del request.session['link_iframe']
-        del request.session['link_gmap']
+        if 'link_iframe' in request.session:
+            del request.session['link_iframe']
+        if 'link_gmap' in request.session:
+            del request.session['link_gmap']
         # ============== NAVIGASI END ===============!
-
-
-        # ============== DOMPET ===============!
-        for item in dompetform:
-            Dompet.objects.create(
-                portofolio = porto_instance,
-                nomor = item.get('nomor'),
-                pemilik = item.get('pemilik'),
-                rekening = item.get('rekening'),
-            )
-        dompetform.clear()
-        # ============== DOMPET END ===============!
-
 
         # ============== SPECIAL INVITE ===============!
         for item in specialinviteform:
@@ -936,7 +972,8 @@ def step12(request):
         )
 
         # del portiinfo sessions
-        del request.session['kata_special_invite']
+        if 'kata_special_invite' in request.session:
+            del request.session['kata_special_invite']
         # ============== SPECIAL INVITE END ===============!
 
         # ============== CALENDER ===============!
