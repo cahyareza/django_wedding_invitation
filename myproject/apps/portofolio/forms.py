@@ -114,10 +114,10 @@ class PasanganForm(forms.ModelForm):
     )
 
     pinsta_link = Lowercase(
-        label='Link instagram', min_length=25, max_length=50,
+        label='Username instagram',
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'https://www.instagram.com/cahya_rez/',
+                'placeholder': 'Misal: cahya_rez',
                 'class': 'input',
                 'style': 'font-size: 13px;'
             }
@@ -179,10 +179,10 @@ class PasanganForm(forms.ModelForm):
     )
 
     linsta_link = Lowercase(
-        label='Link instagram', min_length=25, max_length=50,
+        label='Username instagram',
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'https://www.instagram.com/cahya_rez/',
+                'placeholder': 'Misal: cahya_rez',
                 'class': 'input',
                 'style': 'font-size: 13px;'
             }
