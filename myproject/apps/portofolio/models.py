@@ -182,7 +182,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
         super().save(*args, **kwargs)
 
 class MultiImage(CreationModificationDateBase, UrlBase):
-    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
+    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE)
     image = models.FileField(blank=True, null=True)
 
     class Meta:
@@ -204,7 +204,7 @@ class MultiImage(CreationModificationDateBase, UrlBase):
     #     super().save(*args, **kwargs)
 
 class SpecialInvitation(CreationModificationDateBase, UrlBase):
-    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
+    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE)
     name_invite = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
@@ -227,7 +227,7 @@ class Payment(CreationModificationDateBase, UrlBase):
         return f"{self.rekening.kode}({self.number}) a/n {self.name}"
 
 class Dompet(CreationModificationDateBase, UrlBase):
-    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
+    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE)
     # rekening = models.CharField(max_length=40, choices=DAFTAR_BANK)
     rekening = models.ForeignKey(Rekening, on_delete=models.SET_NULL, blank=True, null=True)
     nomor = models.CharField(max_length=40, null=True, blank=True)
@@ -240,7 +240,7 @@ class Dompet(CreationModificationDateBase, UrlBase):
         return self.portofolio.porto_name
 
 class Quote(CreationModificationDateBase, UrlBase):
-    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
+    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE)
     ayat = models.CharField(max_length=250, null=True, blank=True)
     kutipan = models.TextField(null=True, blank=True)
 
@@ -251,7 +251,7 @@ class Quote(CreationModificationDateBase, UrlBase):
         verbose_name_plural = "Quotes"
 
 class Ucapan(CreationModificationDateBase, UrlBase):
-    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
+    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE)
     nama = models.CharField(max_length=40, null=True, blank=True)
     alamat = models.CharField(max_length=40, null=True, blank=True)
     pesan = models.CharField(max_length=60, null=True, blank=True)
@@ -272,7 +272,7 @@ class Hadir(CreationModificationDateBase, UrlBase):
         (IYA, 'iya'),
         (TIDAK, 'tidak')
     )
-    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
+    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE)
     name = models.CharField(max_length=40, null=True, blank=True)
     hadir = models.CharField(max_length=20, choices=STATUS_CHOICES, default=TIDAK, null=True, blank=True)
 
@@ -325,7 +325,7 @@ class Theme(CreationModificationDateBase, UrlBase):
 
 class ThemeProduct(CreationModificationDateBase, UrlBase):
     fitur = models.ForeignKey(Fitur, on_delete=models.CASCADE, blank=True, null=True)
-    portofolio = models.OneToOneField(Portofolio,related_name='items', on_delete=models.CASCADE, blank=True, null=True)
+    portofolio = models.OneToOneField(Portofolio,related_name='items', on_delete=models.CASCADE)
     theme = models.ForeignKey(Theme, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
@@ -340,7 +340,7 @@ class Kabupaten(CreationModificationDateBase, UrlBase):
 
 
 class Story(CreationModificationDateBase, UrlBase):
-    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
+    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE)
     year = models.CharField(max_length=4, null=True, blank=True)
     cerita = models.TextField(null=True, blank=True)
     image = models.FileField(blank=True, null=True)
@@ -349,7 +349,7 @@ class Story(CreationModificationDateBase, UrlBase):
         return self.portofolio.porto_name
 
 class Acara(CreationModificationDateBase, UrlBase):
-    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE, blank=True, null=True)
+    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE)
     nama_acara = models.CharField(max_length=250, null=True, blank=True)
     tanggal_acara = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
     waktu_mulai_acara = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
