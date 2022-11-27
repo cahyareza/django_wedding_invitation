@@ -840,7 +840,7 @@ class CalenderForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Alamat acara',
-                'class': 'textarea',
+                'class': 'input',
                 'style': 'font-size: 13px',
             }
         )

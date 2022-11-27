@@ -244,6 +244,9 @@ class Quote(CreationModificationDateBase, UrlBase):
     ayat = models.CharField(max_length=250, null=True, blank=True)
     kutipan = models.TextField(null=True, blank=True)
 
+    def __str__(self):
+        return self.portofolio.porto_name
+
     class Meta:
         verbose_name_plural = "Quotes"
 

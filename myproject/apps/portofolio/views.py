@@ -237,7 +237,7 @@ def step3_update(request, slug):
     AcaraFormSet = modelformset_factory(
         Acara,
         form=AcaraForm,
-        extra=1,
+        extra=0,
         can_delete=True,
         can_delete_extra=True
     )
@@ -375,14 +375,14 @@ def step5_update(request, slug):
     MultiImageFormSet = modelformset_factory(
         MultiImage,
         form=MultiImageForm,
-        extra=1,
+        extra=0,
         can_delete=True,
         can_delete_extra=True
     )
     MultiImageFormSet2 = modelformset_factory(
         MultiImage,
         form=MultiImageForm,
-        extra=1,
+        extra=0,
         can_delete=True,
         can_delete_extra=True
     )
@@ -472,7 +472,7 @@ def step6_update(request, slug):
     StoryFormSet = modelformset_factory(
         Story,
         form=StoryForm,
-        extra=1,
+        extra=0,
         can_delete=True,
         can_delete_extra=True
     )
@@ -576,7 +576,7 @@ def step8_update(request, slug):
     DompetFormSet = modelformset_factory(
         Dompet,
         form=DompetForm,
-        extra=1,
+        extra=0,
         can_delete=True,
         can_delete_extra=True
     )
@@ -652,7 +652,7 @@ def step9_update(request, slug):
     SpecialInviteFormSet = modelformset_factory(
         SpecialInvitation,
         form=SpecialInvitationForm,
-        extra=1,
+        extra=0,
         can_delete=True,
         can_delete_extra=True
     )
