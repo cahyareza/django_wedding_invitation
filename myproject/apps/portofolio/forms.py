@@ -364,13 +364,18 @@ class AcaraForm(forms.ModelForm):
             ),
         }
 
-        # SUPER FUNCTION
-        def __init__(self, *args, **kwargs):
-            super(AcaraForm, self).__init__(*args, **kwargs)
+    # SUPER FUNCTION
+    def __init__(self, *args, **kwargs):
+        super(AcaraForm, self).__init__(*args, **kwargs)
 
-            # 1. Input required
-            self.fields['tanggal_acara'].required = True
-            # self.fields['lanak_ke'].required = True
+        # 1. Input required
+        self.fields['tanggal_acara'].required = True
+        self.fields['waktu_selesai_acara'].required = False
+
+        # 2. Help text
+        self.fields['waktu_selesai_acara'].help_text = 'Jika waktu selesai acara ingin ditampilkan "s/d selesai" cukup dengan mengosongi form'
+
+
 # ============== ACARA END ===============!
 
 
