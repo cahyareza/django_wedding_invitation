@@ -40,7 +40,7 @@ class AcaraFormSESSION():
 
 
         self.save()
-        print(self.acaraform)
+        # print(self.acaraform)
 
     def __iter__(self):
         acaraform = self.acaraform.copy()
@@ -104,7 +104,7 @@ class PasanganFormSESSION():
 
 
         self.save()
-        print(self.pasanganform)
+        # print(self.pasanganform)
 
     def __iter__(self):
         pasanganform = self.pasanganform.copy()
@@ -158,7 +158,7 @@ class MultiImageFormSESSION():
             }
 
         self.save()
-        print(self.multiimageform)
+        # print(self.multiimageform)
 
     def __iter__(self):
         multiimageform = self.multiimageform.copy()
@@ -212,7 +212,7 @@ class StoryFormSESSION():
             }
 
         self.save()
-        print(self.storyform)
+        # print(self.storyform)
 
     def __iter__(self):
         storyform = self.storyform.copy()
@@ -267,7 +267,7 @@ class DompetFormSESSION():
             }
 
         self.save()
-        print(self.dompetform)
+        # print(self.dompetform)
 
     def __iter__(self):
         dompetform = self.dompetform.copy()
@@ -319,7 +319,7 @@ class SpecialinviteFormSESSION():
             }
 
         self.save()
-        print(self.specialinviteform)
+        # print(self.specialinviteform)
 
     def __iter__(self):
         specialinviteform = self.specialinviteform.copy()

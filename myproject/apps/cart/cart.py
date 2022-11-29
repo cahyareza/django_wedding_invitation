@@ -43,7 +43,7 @@ class Cart():
 
 
         self.save()
-        print(self.cart)
+        # print(self.cart)
 
     def save(self):
         self.session.modified = True
