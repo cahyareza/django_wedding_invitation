@@ -810,216 +810,209 @@ def step11_update(request, slug):
     return render(request, 'portofolio/configurasi/cover_form.html', context)
 
 def step12(request):
-    user = request.user
-    # get instance order
-    order = get_object_or_404(Order, user=user)
-    # orderitem instance by order
-    orderitem = get_object_or_404(OrderItem, order= order)
-
-    if orderitem.product == "PLATINUM" or orderitem.product == "GOLD":
-        acaraform = AcaraFormSESSION(request)
-        pasanganform = PasanganFormSESSION(request)
-        multiimageform = MultiImageFormSESSION(request)
-        storyform = StoryFormSESSION(request)
-        dompetform = DompetFormSESSION(request)
-        specialinviteform = SpecialinviteFormSESSION(request)
-    else:
-        acaraform = AcaraFormSESSION(request)
-        pasanganform = PasanganFormSESSION(request)
-        specialinviteform = SpecialinviteFormSESSION(request)
-
     if request.method == 'POST':
-        # ============== PASANGAN ===============!
-        for item in pasanganform:
+        form3 = ThemeProductForm(request.POST or None, request.FILES)
+        if form3.is_valid():
             user = request.user
-            Portofolio.objects.create(
-                user = user,
-                porto_name = request.session.get('porto_name', None),
-                description = request.session.get('description', None),
-                pname = item.get('pname'),
-                pinsta_link = f"https://www.instagram.com/{item.get('pinsta_link')}/",
-                panak_ke = item.get('panak_ke'),
-                pnama_ayah = item.get('pnama_ayah'),
-                pnama_ibu = item.get('pnama_ibu'),
-                ppicture = item.get('ppicture'),
-                lname = item.get('lname'),
-                linsta_link = f"https://www.instagram.com/{item.get('linsta_link')}/",
-                lanak_ke=item.get('lanak_ke'),
-                lnama_ayah = item.get('lnama_ayah'),
-                lnama_ibu = item.get('lnama_ibu'),
-                lpicture = item.get('lpicture'),
-                # add to calender
-                name = request.session.get('porto_name', None),
-        )
-        pasanganform.clear()
-        # ============== PASANGAN END ===============!
+            # get instance order
+            order = get_object_or_404(Order, user=user)
+            # orderitem instance by order
+            orderitem = get_object_or_404(OrderItem, order=order)
 
-        # to create multiple image instance
-        user = request.user
-        porto_instance = Portofolio.objects.filter(user=user).first()
+            if orderitem.product == "PLATINUM" or orderitem.product == "GOLD":
+                acaraform = AcaraFormSESSION(request)
+                pasanganform = PasanganFormSESSION(request)
+                multiimageform = MultiImageFormSESSION(request)
+                storyform = StoryFormSESSION(request)
+                dompetform = DompetFormSESSION(request)
+                specialinviteform = SpecialinviteFormSESSION(request)
+            else:
+                acaraform = AcaraFormSESSION(request)
+                pasanganform = PasanganFormSESSION(request)
+                specialinviteform = SpecialinviteFormSESSION(request)
 
-        # ============== ACARA ===============!
-        for item in acaraform:
-            Acara.objects.create(
-                portofolio = porto_instance,
-                tempat_acara = item.get('tempat_acara'),
-                nama_acara = item.get('nama_acara'),
-                tanggal_acara = item.get('tanggal_acara'),
-                waktu_mulai_acara = item.get('waktu_mulai_acara'),
-                waktu_selesai_acara = item.get('waktu_selesai_acara'),
-                link_gmap_acara = item.get('link_gmap_acara'),
-
-            )
-        acaraform.clear()
-        # ============== ACARA END ===============!
-
-        # ============== QUOTE ===============!
-        Quote.objects.create(
-            portofolio = porto_instance,
-            ayat = request.session.get('ayat', None),
-            kutipan = request.session.get('kutipan', None),
-        )
-
-        # del portiinfo sessions
-        del request.session['porto_name']
-        del request.session['description']
-
-        if 'ayat' and 'kutipan' in request.session:
-            # del quote sessions
-            del request.session['ayat']
-            del request.session['kutipan']
-            request.session.modified = True
-
-        # ============== QUOTE END ===============!
-
-        if orderitem.product == "PLATINUM" or orderitem.product == "GOLD":
-            # ============== MOMENT ===============!
-            for item in multiimageform:
-                MultiImage.objects.create(
-                    portofolio = porto_instance,
-                    image = item.get('image'),
+            # ============== PASANGAN ===============!
+            for item in pasanganform:
+                user = request.user
+                Portofolio.objects.create(
+                    user=user,
+                    porto_name=request.session.get('porto_name', None),
+                    description=request.session.get('description', None),
+                    pname=item.get('pname'),
+                    pinsta_link=f"https://www.instagram.com/{item.get('pinsta_link')}/",
+                    panak_ke=item.get('panak_ke'),
+                    pnama_ayah=item.get('pnama_ayah'),
+                    pnama_ibu=item.get('pnama_ibu'),
+                    ppicture=item.get('ppicture'),
+                    lname=item.get('lname'),
+                    linsta_link=f"https://www.instagram.com/{item.get('linsta_link')}/",
+                    lanak_ke=item.get('lanak_ke'),
+                    lnama_ayah=item.get('lnama_ayah'),
+                    lnama_ibu=item.get('lnama_ibu'),
+                    lpicture=item.get('lpicture'),
+                    # add to calender
+                    name=request.session.get('porto_name', None),
                 )
-            multiimageform.clear()
+            pasanganform.clear()
+            # ============== PASANGAN END ===============!
 
+            # to create multiple image instance
+            user = request.user
+            porto_instance = Portofolio.objects.filter(user=user).first()
 
-            Portofolio.objects.filter(user=user).update(
-                video=request.session.get('video', None),
-                livestream=request.session.get('livestream', None),
-                kata_live_streaming=request.session.get('kata_live_streaming', None),
-                kata_moment=request.session.get('kata_moment', None),
+            # ============== ACARA ===============!
+            for item in acaraform:
+                Acara.objects.create(
+                    portofolio=porto_instance,
+                    tempat_acara=item.get('tempat_acara'),
+                    nama_acara=item.get('nama_acara'),
+                    tanggal_acara=item.get('tanggal_acara'),
+                    waktu_mulai_acara=item.get('waktu_mulai_acara'),
+                    waktu_selesai_acara=item.get('waktu_selesai_acara'),
+                    link_gmap_acara=item.get('link_gmap_acara'),
+
+                )
+            acaraform.clear()
+            # ============== ACARA END ===============!
+
+            # ============== QUOTE ===============!
+            Quote.objects.create(
+                portofolio=porto_instance,
+                ayat=request.session.get('ayat', None),
+                kutipan=request.session.get('kutipan', None),
             )
 
             # del portiinfo sessions
-            if 'video' in request.session:
-                del request.session['video']
-            if 'livestream' in request.session:
-                if orderitem.product == "GOLD":
-                    del request.session['livestream']
-            if 'kata_live_streaming' in request.session:
-                del request.session['kata_live_streaming']
-            if 'kata_live_streaming' in request.session:
-                del request.session['kata_live_streaming']
-            # ============== MOMENT END ===============!
+            del request.session['porto_name']
+            del request.session['description']
 
+            if 'ayat' and 'kutipan' in request.session:
+                # del quote sessions
+                del request.session['ayat']
+                del request.session['kutipan']
+                request.session.modified = True
 
-            # ============== STORY ===============!
-            for item in storyform:
-                Story.objects.create(
-                    portofolio = porto_instance,
-                    image = item.get('image'),
-                    cerita = item.get('cerita'),
-                    year = item.get('year'),
+            # ============== QUOTE END ===============!
+
+            if orderitem.product == "PLATINUM" or orderitem.product == "GOLD":
+                # ============== MOMENT ===============!
+                for item in multiimageform:
+                    MultiImage.objects.create(
+                        portofolio=porto_instance,
+                        image=item.get('image'),
+                    )
+                multiimageform.clear()
+
+                Portofolio.objects.filter(user=user).update(
+                    video=request.session.get('video', None),
+                    livestream=request.session.get('livestream', None),
+                    kata_live_streaming=request.session.get('kata_live_streaming', None),
+                    kata_moment=request.session.get('kata_moment', None),
                 )
-            storyform.clear()
-            # ============== STORY END ===============!
 
-            # ============== DOMPET ===============!
-            for item in dompetform:
-                Dompet.objects.create(
-                    portofolio = porto_instance,
-                    nomor = item.get('nomor'),
-                    pemilik = item.get('pemilik'),
-                    rekening = item.get('rekening'),
-                )
-            dompetform.clear()
-            # ============== DOMPET END ===============!
+                # del portiinfo sessions
+                if 'video' in request.session:
+                    del request.session['video']
+                if 'livestream' in request.session:
+                    if orderitem.product == "GOLD":
+                        del request.session['livestream']
+                if 'kata_live_streaming' in request.session:
+                    del request.session['kata_live_streaming']
+                if 'kata_live_streaming' in request.session:
+                    del request.session['kata_live_streaming']
+                # ============== MOMENT END ===============!
 
+                # ============== STORY ===============!
+                for item in storyform:
+                    Story.objects.create(
+                        portofolio=porto_instance,
+                        image=item.get('image'),
+                        cerita=item.get('cerita'),
+                        year=item.get('year'),
+                    )
+                storyform.clear()
+                # ============== STORY END ===============!
 
-        # ============== NAVIGASI ===============!
-        Portofolio.objects.filter(user=user).update(
-            link_iframe=request.session.get('link_iframe', None),
-            link_gmap=request.session.get('link_gmap', None),
-        )
+                # ============== DOMPET ===============!
+                for item in dompetform:
+                    Dompet.objects.create(
+                        portofolio=porto_instance,
+                        nomor=item.get('nomor'),
+                        pemilik=item.get('pemilik'),
+                        rekening=item.get('rekening'),
+                    )
+                dompetform.clear()
+                # ============== DOMPET END ===============!
 
-        # del portiinfo sessions
-        if 'link_iframe' in request.session:
-            del request.session['link_iframe']
-        if 'link_gmap' in request.session:
-            del request.session['link_gmap']
-        # ============== NAVIGASI END ===============!
-
-        # ============== SPECIAL INVITE ===============!
-        for item in specialinviteform:
-            SpecialInvitation.objects.create(
-                portofolio = porto_instance,
-                name_invite = item.get('name_invite'),
+            # ============== NAVIGASI ===============!
+            Portofolio.objects.filter(user=user).update(
+                link_iframe=request.session.get('link_iframe', None),
+                link_gmap=request.session.get('link_gmap', None),
             )
-        specialinviteform.clear()
+
+            # del portiinfo sessions
+            if 'link_iframe' in request.session:
+                del request.session['link_iframe']
+            if 'link_gmap' in request.session:
+                del request.session['link_gmap']
+            # ============== NAVIGASI END ===============!
+
+            # ============== SPECIAL INVITE ===============!
+            for item in specialinviteform:
+                SpecialInvitation.objects.create(
+                    portofolio=porto_instance,
+                    name_invite=item.get('name_invite'),
+                )
+            specialinviteform.clear()
+
+            Portofolio.objects.filter(user=user).update(
+                kata_special_invite=request.session.get('kata_special_invite', None),
+            )
+
+            # del portiinfo sessions
+            if 'kata_special_invite' in request.session:
+                del request.session['kata_special_invite']
+            # ============== SPECIAL INVITE END ===============!
+
+            # ============== CALENDER ===============!
+            tanggal_countdown = request.session.get('tanggal_countdown', None)
+            waktu_countdown = request.session.get('waktu_countdown', None)
+            datetime_countdown = datetime.combine(tanggal_countdown, waktu_countdown).strftime("%Y-%m-%d %H:%M")
+
+            Portofolio.objects.filter(user=user).update(
+                location_countdown=request.session.get('location_countdown', None),
+                timeZone=request.session.get('timeZone', None),
+                tanggal_countdown=tanggal_countdown,
+                waktu_countdown=waktu_countdown,
+                waktu_countdown_selesai=request.session.get('waktu_countdown_selesai', None),
+                datetime_countdown=datetime_countdown,
+                # add to calender
+                startDate=tanggal_countdown,
+                location=str(request.session.get('location_countdown', None)),
+                startTime=request.session.get('waktu_countdown', None),
+                endTime=request.session.get('waktu_countdown_selesai', None),
+                #  navigasi
+                lokasi=request.session.get('location_countdown', None),
+            )
+
+            # del portiinfo sessions
+            del request.session['location_countdown']
+            del request.session['timeZone']
+            del request.session['tanggal_countdown']
+            del request.session['waktu_countdown']
+            del request.session['waktu_countdown_selesai']
+            # ============== NAVIGASI END ===============!
+
+            # ============== COVER BACKGROUND ===============!
+            Portofolio.objects.filter(user=user).update(
+                cover_background=request.session.get('cover_background', None),
+            )
+
+            # del portiinfo sessions
+            del request.session['cover_background']
+            # ============== NAVIGASI END ===============!
 
 
-        Portofolio.objects.filter(user=user).update(
-            kata_special_invite=request.session.get('kata_special_invite', None),
-        )
-
-        # del portiinfo sessions
-        if 'kata_special_invite' in request.session:
-            del request.session['kata_special_invite']
-        # ============== SPECIAL INVITE END ===============!
-
-        # ============== CALENDER ===============!
-        tanggal_countdown = request.session.get('tanggal_countdown', None)
-        waktu_countdown = request.session.get('waktu_countdown', None)
-        datetime_countdown = datetime.combine(tanggal_countdown, waktu_countdown).strftime("%Y-%m-%d %H:%M")
-
-        Portofolio.objects.filter(user=user).update(
-            location_countdown=request.session.get('location_countdown', None),
-            timeZone=request.session.get('timeZone', None),
-            tanggal_countdown=tanggal_countdown,
-            waktu_countdown=waktu_countdown,
-            waktu_countdown_selesai=request.session.get('waktu_countdown_selesai', None),
-            datetime_countdown = datetime_countdown,
-            # add to calender
-            startDate=tanggal_countdown,
-            location=str(request.session.get('location_countdown', None)),
-            startTime=request.session.get('waktu_countdown', None),
-            endTime=request.session.get('waktu_countdown_selesai', None),
-            #  navigasi
-            lokasi=request.session.get('location_countdown', None),
-        )
-
-        # del portiinfo sessions
-        del request.session['location_countdown']
-        del request.session['timeZone']
-        del request.session['tanggal_countdown']
-        del request.session['waktu_countdown']
-        del request.session['waktu_countdown_selesai']
-        # ============== NAVIGASI END ===============!
-
-
-        # ============== COVER BACKGROUND ===============!
-        Portofolio.objects.filter(user=user).update(
-            cover_background=request.session.get('cover_background', None),
-        )
-
-        # del portiinfo sessions
-        del request.session['cover_background']
-        # ============== NAVIGASI END ===============!
-
-
-
-
-        form3 = ThemeProductForm(request.POST or None, request.FILES)
-        if form3.is_valid():
             request.session['theme'] = form3.cleaned_data.get('theme')
             request.session.modified = True
 

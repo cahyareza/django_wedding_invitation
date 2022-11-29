@@ -835,6 +835,14 @@ class PortoInfo4Form(forms.ModelForm):
         model = Portofolio
         fields = ["cover_background"]
 
+    # SUPER FUNCTION
+    def __init__(self, *args, **kwargs):
+        super(PortoInfo4Form, self).__init__(*args, **kwargs)
+
+        # ========== CONTROL PANEL (Optional method to control ========== !
+        # 1. Input required
+        self.fields['cover_background'].required = False
+
 # ============== COVER END ===============!
 
 
