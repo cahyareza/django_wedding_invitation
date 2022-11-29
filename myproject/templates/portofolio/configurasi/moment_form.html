@@ -65,6 +65,7 @@
                                 <p class="help is-danger">{{ error }}</p>
                             {% endfor %}
 
+                            <p class="subtitle mt-2" style="font-size: 11px;">{{ field.help_text }}</p>
                         {% endfor %}
                         <div class="is-hidden">
                             {% for field in form.hidden_fields %}
@@ -144,6 +145,7 @@
                             <p class="help is-danger">{{ error }}</p>
                         {% endfor %}
 
+                        <p class="subtitle mt-2" style="font-size: 11px;">{{ field.help_text }}</p>
                     {% endfor %}
                     <div class="is-hidden">
                         {% for field in form.hidden_fields %}
@@ -225,6 +227,7 @@
                                 <p class="help is-danger">{{ error }}</p>
                             {% endfor %}
 
+                            <p class="subtitle is-hidden mt-2" style="font-size: 11px;">{{ field.help_text }}</p>
                         {% endfor %}
                         <div class="is-hidden">
                             {% for field in form.hidden_fields %}

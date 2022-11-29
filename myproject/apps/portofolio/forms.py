@@ -265,6 +265,8 @@ class PasanganForm(forms.ModelForm):
         # 2. Help text
         self.fields['pinsta_link'].help_text = 'Jika instagram tidak ingin ditampilkan cukup dengan mengosongi form'
         self.fields['linsta_link'].help_text = 'Jika instagram tidak ingin ditampilkan cukup dengan mengosongi form'
+        self.fields['ppicture'].help_text = 'Pastikan ukuran image yang diupload 180 x 180px'
+        self.fields['lpicture'].help_text = 'Pastikan ukuran image yang diupload 180 x 180px'
 
         # 1. Input required
         self.fields['panak_ke'].required = True
@@ -332,16 +334,16 @@ class AcaraForm(forms.ModelForm):
         widgets = {
             # Tanggal akad
             'tanggal_acara': forms.DateInput(
-                format='%Y-%m-%d',
+                format='%d-%m-%Y',
                 attrs={
-                    'placeholder': 'yyyy-mm-dd',
+                    'placeholder': 'dd-mm-yyyy',
                     'style': 'font-size: 13px; cursor: pointer;',
                     # 'type': 'date',
                     'class': 'input',
                     # 'onkeydown': 'return false',  # Block typing inside field
                     # 'min': '2022-01-01',
                     # 'max': '2030-01-01',
-                    'data-mask': '0000-00-00'
+                    'data-mask': '00-00-0000'
                 },
             ),
             # Waktu akad
@@ -462,7 +464,7 @@ class MultiImageForm(forms.ModelForm):
         self.fields['image'].required = False
 
         # 2. Help text
-        # self.fields['image'].help_text = 'Note: Upload dengan memilih beberapa image secara langsung'
+        self.fields['image'].help_text = 'Pastikan ukuran file image kurang dari 2MB'
 
     # ========== MeTHOD ========== !
     # 1) IMAGE (Maximum upload size = 2mb)
@@ -872,16 +874,16 @@ class CalenderForm(forms.ModelForm):
             ),
             # Tanggal countdown
             'tanggal_countdown': forms.DateInput(
-                format='%Y-%m-%d',
+                format='%d-%m-%Y',
                 attrs={
-                    'placeholder': 'yyyy-mm-dd',
+                    'placeholder': 'dd-mm-yyyy',
                     'style': 'font-size: 13px; cursor: pointer;',
                     # 'type': 'date',
                     'class': 'input',
                     # 'onkeydown': 'return false',  # Block typing inside field
                     # 'min': '2022-01-01',
                     # 'max': '2030-01-01',
-                    'data-mask': '0000-00-00'
+                    'data-mask': '00-00-0000'
                 },
             ),
             # Waktu countdown

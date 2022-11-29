@@ -241,7 +241,7 @@ class Dompet(CreationModificationDateBase, UrlBase):
 
 class Quote(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE)
-    ayat = models.CharField(max_length=250, null=True, blank=True)
+    ayat = models.CharField(max_length=500, null=True, blank=True)
     kutipan = models.TextField(null=True, blank=True)
 
     def __str__(self):
