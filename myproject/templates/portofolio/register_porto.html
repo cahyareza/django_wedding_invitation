@@ -239,8 +239,13 @@
             const formCopyTarget6 = document.getElementById('ingredient-form-list6')
             const copyEmptyFormEl6 = document.getElementById('empty-form6').cloneNode(true)
 
+            // remove br from childnode
+            console.log(copyEmptyFormEl6.childNodes)
+            copyEmptyFormEl6.removeChild(copyEmptyFormEl6.childNodes[19]);
+
             // Add style to helptext
             copyEmptyFormEl6.getElementsByClassName('helptext')[0].style.cssText += 'font-size: 11px; display: block; margin-bottom: 7px;';
+            copyEmptyFormEl6.getElementsByClassName('helptext')[1].style.cssText += 'font-size: 11px; display: block; margin-bottom: 7px;';
 
             copyEmptyFormEl6.setAttribute('class', 'ingredient-form6')
             copyEmptyFormEl6.setAttribute('id', `acara-${currentFormCount6}`)

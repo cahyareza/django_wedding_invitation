@@ -376,7 +376,7 @@ class AcaraForm(forms.ModelForm):
 
         # 2. Help text
         self.fields['waktu_selesai_acara'].help_text = 'Jika waktu selesai acara ingin ditampilkan "s/d selesai" cukup dengan mengosongi form'
-
+        self.fields['link_gmap_acara'].help_text = 'Jika tidak ingin menampilkan link google maps acara cukup dengan mengosongi form'
 
 # ============== ACARA END ===============!
 
