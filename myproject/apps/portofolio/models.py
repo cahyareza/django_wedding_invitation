@@ -138,6 +138,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
 
     # Tema
     cover_background = models.ImageField(blank=True, null=True)
+    open_background = models.ImageField(blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "APortofolio"
