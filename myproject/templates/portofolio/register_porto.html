@@ -38,6 +38,7 @@
 
 {% block script %}
 <script>
+
     <!--------------- Formset1--------------->
     const addMoreBtn = document.getElementById('add-more')
     const totalNewForms = document.getElementById('id_invite-TOTAL_FORMS')
@@ -56,11 +57,16 @@
 
         const formCopyTarget = document.getElementById('ingredient-form-list')
         const copyEmptyFormEl = document.getElementById('empty-form').cloneNode(true)
+
+        // Add style to helptext
+        copyEmptyFormEl.getElementsByClassName('helptext')[0].style.cssText += 'font-size: 11px; display: block; margin-bottom: 7px;';
+
         copyEmptyFormEl.setAttribute('class', 'ingredient-form')
         copyEmptyFormEl.setAttribute('id', `invite-${currentFormCount}`)
         const regex = new RegExp('__prefix__', 'g')
         copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, currentFormCount)
         totalNewForms.setAttribute('value', currentFormCount + 1)
+
         // now add new form element to our html form
         formCopyTarget.append(copyEmptyFormEl)
     }
@@ -84,6 +90,12 @@
 
         const formCopyTarget2 = document.getElementById('ingredient-form-list2')
         const copyEmptyFormEl2 = document.getElementById('empty-form2').cloneNode(true)
+
+        // Add style to helptext
+        copyEmptyFormEl2.getElementsByClassName('helptext')[0].style.cssText += 'font-size: 11px; display: block; margin-bottom: 7px;';
+        copyEmptyFormEl2.getElementsByClassName('helptext')[1].style.cssText += 'font-size: 11px; display: block; margin-bottom: 7px;';
+        copyEmptyFormEl2.getElementsByClassName('helptext')[2].style.cssText += 'font-size: 11px; display: block; margin-bottom: 7px;';
+
         copyEmptyFormEl2.setAttribute('class', 'ingredient-form2')
         copyEmptyFormEl2.setAttribute('id', `dompet-${currentFormCount2}`)
         const regex = new RegExp('__prefix__', 'g')
@@ -113,6 +125,10 @@
         if (currentFormCount3 <= 9) {
             const formCopyTarget3 = document.getElementById('ingredient-form-list3')
             const copyEmptyFormEl3 = document.getElementById('empty-form3').cloneNode(true)
+
+            // Add style to helptext
+            copyEmptyFormEl3.getElementsByClassName('helptext')[0].style.cssText += 'font-size: 11px; display: block; margin-bottom: 7px;';
+
             copyEmptyFormEl3.setAttribute('class', 'ingredient-form3')
             copyEmptyFormEl3.setAttribute('id', `multiimage-${currentFormCount3}`)
             const regex = new RegExp('__prefix__', 'g')
@@ -142,6 +158,17 @@
 
         const formCopyTarget4 = document.getElementById('ingredient-form-list4')
         const copyEmptyFormEl4 = document.getElementById('empty-form4').cloneNode(true)
+
+        copyEmptyFormEl4.removeChild(copyEmptyFormEl4.childNodes[2]);
+        copyEmptyFormEl4.removeChild(copyEmptyFormEl4.childNodes[6]);
+        copyEmptyFormEl4.removeChild(copyEmptyFormEl4.childNodes[10]);
+        console.log(copyEmptyFormEl4.childNodes)
+
+        // Add style to helptext
+        copyEmptyFormEl4.getElementsByClassName('helptext')[0].style.cssText += 'font-size: 11px; display: block; margin-bottom: 7px; margin-top: 3px;';
+        copyEmptyFormEl4.getElementsByClassName('helptext')[1].style.cssText += 'font-size: 11px; display: block; margin-bottom: 7px; margin-top: 3px;';
+        copyEmptyFormEl4.getElementsByClassName('helptext')[2].style.cssText += 'font-size: 11px; display: block; margin-bottom: 7px; margin-top: 3px;';
+
         copyEmptyFormEl4.setAttribute('class', 'ingredient-form4')
         copyEmptyFormEl4.setAttribute('id', `story-${currentFormCount4}`)
         const regex = new RegExp('__prefix__', 'g')
@@ -171,6 +198,16 @@
         if (currentFormCount5 <= 19) {
             const formCopyTarget5 = document.getElementById('ingredient-form-list5')
             const copyEmptyFormEl5 = document.getElementById('empty-form5').cloneNode(true)
+
+
+<!--            console.log(copyEmptyFormEl5.childNodes[2])-->
+<!--            console.log(copyEmptyFormEl.getElementsByClassName('input')[0])-->
+
+            // remove br from childnode
+            copyEmptyFormEl5.removeChild(copyEmptyFormEl5.childNodes[2]);
+            // Add style to helptext
+            copyEmptyFormEl5.getElementsByClassName('helptext')[0].style.cssText += 'font-size: 11px; display: block; margin-bottom: 7px; margin-top: 3px;';
+
             copyEmptyFormEl5.setAttribute('class', 'ingredient-form5')
             copyEmptyFormEl5.setAttribute('id', `multiimage2-${currentFormCount5}`)
             const regex = new RegExp('__prefix__', 'g')
@@ -201,6 +238,10 @@
         if (currentFormCount6 <= 2) {
             const formCopyTarget6 = document.getElementById('ingredient-form-list6')
             const copyEmptyFormEl6 = document.getElementById('empty-form6').cloneNode(true)
+
+            // Add style to helptext
+            copyEmptyFormEl6.getElementsByClassName('helptext')[0].style.cssText += 'font-size: 11px; display: block; margin-bottom: 7px;';
+
             copyEmptyFormEl6.setAttribute('class', 'ingredient-form6')
             copyEmptyFormEl6.setAttribute('id', `acara-${currentFormCount6}`)
             const regex = new RegExp('__prefix__', 'g')

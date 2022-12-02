@@ -298,7 +298,7 @@ class AcaraForm(forms.ModelForm):
             attrs={
                 'placeholder': 'Tempat acara',
                 'class': 'input',
-                'style': 'font-size: 13px; text-transform: capitalize'
+                'style': 'font-size: 13px; text-transform: capitalize; margin-bottom: 7px;'
             }
         )
     )
@@ -311,7 +311,7 @@ class AcaraForm(forms.ModelForm):
             attrs={
                 'placeholder': 'Misal: Akad/Resepsi/Unduh mantu',
                 'class': 'input',
-                'style': 'font-size: 13px; text-transform: capitalize'
+                'style': 'font-size: 13px; text-transform: capitalize; margin-bottom: 7px;'
             }
         )
     )
@@ -323,7 +323,7 @@ class AcaraForm(forms.ModelForm):
             attrs={
                 'placeholder': 'Link ke google maps',
                 'class': 'textarea',
-                'style': 'font-size: 13px',
+                'style': 'font-size: 13px; margin-bottom: 12px;',
             }
         )
     )
@@ -337,7 +337,7 @@ class AcaraForm(forms.ModelForm):
                 format='%d-%m-%Y',
                 attrs={
                     'placeholder': 'dd-mm-yyyy',
-                    'style': 'font-size: 13px; cursor: pointer;',
+                    'style': 'font-size: 13px; cursor: pointer; margin-bottom: 7px;',
                     # 'type': 'date',
                     'class': 'input',
                     # 'onkeydown': 'return false',  # Block typing inside field
@@ -350,7 +350,7 @@ class AcaraForm(forms.ModelForm):
             'waktu_mulai_acara': forms.TimeInput(
                 attrs={
                     'placeholder': 'Misal: 09:00',
-                    'style': 'font-size: 13px; cursor: pointer;',
+                    'style': 'font-size: 13px; cursor: pointer; margin-bottom: 7px;',
                     'class': 'input',
                     'data-mask': '00:00'
                 }
@@ -359,7 +359,7 @@ class AcaraForm(forms.ModelForm):
             'waktu_selesai_acara': forms.TimeInput(
                 attrs={
                     'placeholder': 'Misal: 11:00',
-                    'style': 'font-size: 13px; cursor: pointer;',
+                    'style': 'font-size: 13px; cursor: pointer; margin-bottom: 7px;',
                     'class': 'input',
                     'data-mask': '00:00'
                 }
@@ -736,7 +736,7 @@ class SpecialInvitationForm(forms.ModelForm):
             attrs={
                 'placeholder': 'Nama undangan',
                 'class': 'input',
-                'style': 'font-size: 13px; text-transform: capitalize'
+                'style': 'font-size: 13px; text-transform: capitalize; margin-bottom: 7px;'
             }
         )
     )
