@@ -73,8 +73,8 @@ class PortofolioAdmin(admin.ModelAdmin):
         # INFORMASI MAP
         ('INFORMASI MAP', {"fields": ['link_iframe', 'lokasi', 'link_gmap']}
         ),
-        # INFORMASI TEMA
-        ('INFORMASI TEMA', {"fields": ['cover_background']}
+        # INFORMASI BACKGROUND
+        ('INFORMASI BACKGROUND', {"fields": ['cover_background', 'open_background']}
          ),
     ]
 
