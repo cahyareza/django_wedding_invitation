@@ -819,9 +819,23 @@ class ThemeProductForm(forms.ModelForm):
 
 
 # ============== COVER ===============!
+# class CustomClearableFileInput(ClearableFileInput):
+#     template_name = "django/forms/widgets/custom_clearable_file_input.html"
+
 class PortoInfo4Form(forms.ModelForm):
+    open_background = forms.FileField(
+        label="Foto open background",
+        widget=forms.ClearableFileInput(
+            attrs={
+                'placeholder': 'Select a picture',
+                'class': 'image',
+                'style': 'font-size: 15px',
+                'accept': 'image/png, image/jpeg'
+            }
+        )
+    )
     cover_background = forms.FileField(
-        label="Foto background",
+        label="Foto cover background",
         widget=forms.ClearableFileInput(
             attrs={
                 'placeholder': 'Select a picture',
@@ -833,7 +847,7 @@ class PortoInfo4Form(forms.ModelForm):
     )
     class Meta:
         model = Portofolio
-        fields = ["cover_background"]
+        fields = ["cover_background", "open_background"]
 
     # SUPER FUNCTION
     def __init__(self, *args, **kwargs):
@@ -842,6 +856,11 @@ class PortoInfo4Form(forms.ModelForm):
         # ========== CONTROL PANEL (Optional method to control ========== !
         # 1. Input required
         self.fields['cover_background'].required = False
+        self.fields['open_background'].required = False
+
+        # 2. Help text
+        self.fields['cover_background'].help_text = 'Jika tidak ingin menggunakan foto sebagai background cukup kosongi form'
+        self.fields['open_background'].help_text = 'Jika tidak ingin menggunakan foto sebagai background cukup kosongi form'
 
 # ============== COVER END ===============!
 

@@ -38,6 +38,33 @@
 
 {% block script %}
 <script>
+    <!--------------- ClearForm --------------->
+    <!---------  clearCoverButton  --------->
+    const clearCoverButton = document.getElementById('clear_cover')
+
+    if (clearCoverButton) {
+        clearCoverButton.addEventListener('click', clear_form_cover)
+    }
+
+    function clear_form_cover(event) {
+        if (event) {
+            event.preventDefault()
+        }
+        document.getElementById("id_cover_background").value = null;
+    }
+
+    <!--------  clearOpenButton  -------->
+    const clearOpenButton = document.getElementById('clear_open')
+
+    if (clearOpenButton) {
+        clearOpenButton.addEventListener('click', clear_form_open)
+    }
+    function clear_form_open(event) {
+        if (event) {
+            event.preventDefault()
+        }
+        document.getElementById("id_open_background").value = null;
+    }
 
     <!--------------- Formset1--------------->
     const addMoreBtn = document.getElementById('add-more')

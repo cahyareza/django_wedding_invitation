@@ -14,7 +14,7 @@ def portofolio(request):
             porto_slug = obj.slug
             if obj.items.theme:
                 theme = obj.items.theme
-                return {"porto_slug": porto_slug, "theme": theme}
+                return {"portofolio": obj, "porto_slug": porto_slug, "theme": theme}
             else:
                 return {"porto_slug": porto_slug, "theme": None}
         else:

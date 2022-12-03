@@ -36,6 +36,9 @@ DOMPET_SESSION_ID = 'dompetform'
 # Dompet
 SPECIALINVITE_SESSION_ID = 'specialinviteform'
 
+# Cover
+COVER_SESSION_ID = 'coverform'
+
 EXTERNAL_BASE = os.path.join(BASE_DIR, "externals")
 EXTERNAL_LIBS_PATH = os.path.join(EXTERNAL_BASE, "libs")
 EXTERNAL_APPS_PATH = os.path.join(EXTERNAL_BASE, "apps")
@@ -78,6 +81,7 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.messages',
     'django.contrib.sites',
+    'django.forms',
     # third-party
     'allauth',  # new
     'allauth.account',  # new
@@ -133,6 +137,8 @@ TEMPLATES = [
         },
     },
 ]
+
+FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',

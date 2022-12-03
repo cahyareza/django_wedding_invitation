@@ -7,12 +7,43 @@
         INFORMASI BACKGROUND
       </div>
       <div class="column px-0 is-12">
+        {{ form.open_background.label_tag }}
+        {{ form.open_background }}
+
+        {% for error in form.open_background.errors %}
+            <p class="help is-danger">{{ error }}</p>
+        {% endfor %}
+
+        <p class="subtitle mt-2 mb-1" style="font-size: 11px;">{{ form.open_background.help_text }}</p>
+
+        {% url 'portofolio:step11' as the_url %}
+        {% if request.path == the_url %}
+        <a class="mt-1" type="button" id="clear_open">clear file</a>
+        {% else %}
+          {% if obj.open_background %}
+            <a class="mt-1" type="button" href="{% url 'portofolio:open_background_delete' portofolio.slug %}">Delete file</a>
+          {% endif %}
+        {% endif %}
+      </div>
+
+      <div class="column px-0 is-12">
         {{ form.cover_background.label_tag }}
         {{ form.cover_background }}
 
         {% for error in form.cover_background.errors %}
             <p class="help is-danger">{{ error }}</p>
         {% endfor %}
+
+        <p class="subtitle mt-2 mb-1" style="font-size: 11px;">{{ form.cover_background.help_text }}</p>
+
+        {% url 'portofolio:step11' as the_url %}
+        {% if request.path == the_url %}
+        <a class="mt-1" type="button" id="clear_cover">clear file</a>
+        {% else %}
+          {% if obj.cover_background %}
+            <a class="mt-1" type="button" href="{% url 'portofolio:cover_background_delete' portofolio.slug %}">Delete file</a>
+          {% endif %}
+        {% endif %}
       </div>
 {% endblock update %}
 
