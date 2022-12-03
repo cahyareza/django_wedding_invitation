@@ -657,7 +657,7 @@ def step9(request):
 
             return redirect("portofolio:step10")
     else:
-        form2 = PortoInfo2Form()
+        form2 = PortoInfo3Form()
         formset = SpecialInviteFormSet(prefix='invite')
 
     return render(request, "portofolio/configurasi/specialinvite_form.html", {'formset': formset, 'form2': form2})
@@ -682,7 +682,7 @@ def step9_update(request, slug):
     formset = SpecialInviteFormSet(request.POST or None,queryset= qs, prefix='invite')
 
     if request.method == "POST":
-        form2 = PortoInfo2Form(request.POST or None, request.FILES, instance=obj)
+        form2 = PortoInfo3Form(request.POST or None, request.FILES, instance=obj)
 
         if form2.is_valid() and formset.is_valid():
             # create portofolio instance
@@ -707,7 +707,7 @@ def step9_update(request, slug):
             return redirect("portofolio:configurasi")
 
     else:
-        form2 = PortoInfo2Form(instance=obj)
+        form2 = PortoInfo3Form(instance=obj)
         formset = SpecialInviteFormSet(queryset= qs, prefix='invite')
 
 

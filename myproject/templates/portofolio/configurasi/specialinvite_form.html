@@ -8,7 +8,7 @@
   </div>
 
   <div class="columns is-multiline">
-    <div class="column is-6">
+    <div class="column is-12">
         {{ form2.kata_special_invite.label_tag }}
         {{ form2.kata_special_invite }}
 
@@ -34,7 +34,7 @@
                             <p class="help is-danger">{{ error }}</p>
                         {% endfor %}
 
-                         <p class="subtitle mt-2" style="font-size: 11px;">{{ field.help_text }}</p>
+                         <p class="subtitle mt-2 mb-1" style="font-size: 11px;">{{ field.help_text }}</p>
                     {% endfor %}
                     <div class="is-hidden">
                         {% for field in form.hidden_fields %}
