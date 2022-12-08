@@ -282,3 +282,9 @@ DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
 
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+
+# check cookies's "SameSite" attribute
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SAMESITE = 'None'
