@@ -3,6 +3,7 @@ from .cart import Cart
 from ..portofolio.models import Fitur, Payment
 from myproject.apps.coupon.models import Coupon
 from myproject.apps.order.models import Order
+from myproject.apps.order.forms import OrderForm
 from django.utils import timezone
 
 def add_cart(request, product_id, coupon_id=None):
@@ -58,9 +59,11 @@ def remove_cart(request, product_id):
 def cart_detail(request):
     cart = Cart(request)
     payments = Payment.objects.all()
+    form = OrderForm(request.POST or None)
     context = {
         'cart': cart,
         'payments': payments,
+        'form': form
     }
     return render(request, 'cart/cart.html', context)
 

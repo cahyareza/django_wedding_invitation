@@ -92,6 +92,7 @@ INSTALLED_APPS = [
     'django_filters',
     'corsheaders',
     'mathfilters',
+    'debug_toolbar',
 
     # local
     'myproject.apps.portofolio',
@@ -111,6 +112,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'myproject.urls'
@@ -126,12 +128,11 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'myproject.apps.core.context_processor.listProduct',
+                # 'myproject.apps.core.context_processor.listProduct',
                 'myproject.apps.core.context_processor.cart',
-                'myproject.apps.core.context_processor.order_checkout_form',
-                'myproject.apps.core.context_processor.order_checkout_update',
+                # 'myproject.apps.core.context_processor.order_checkout_form',
+                # 'myproject.apps.core.context_processor.order_checkout_update',
                 'myproject.apps.core.context_processor.order',
-                'myproject.apps.core.context_processor.listCoupon',
                 'myproject.apps.core.context_processor.portofolio',
             ],
         },
@@ -288,3 +289,10 @@ CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SAMESITE = 'None'
+
+# Django debug toolbar
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.1",
+    # ...
+]

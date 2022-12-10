@@ -1,7 +1,7 @@
 from myproject.apps.portofolio import views
 from django.urls import path
 from .views import (
-    register_awal,configurasi_porto, myportofolio, step1, step2, step3, step4, step5, step6,\
+    configurasi_porto, myportofolio, step1, step2, step3, step4, step5, step6,\
     step7, step8, step9, step10, step11, step12,\
     open_background_delete, cover_background_delete, \
     step1_update, step2_update, step3_update, step4_update,step5_update, step6_update,\
@@ -18,7 +18,6 @@ from .views import (
 
 urlpatterns = [
     # path("register/", register, name="register"),
-    path("register_awal/", register_awal, name="register_awal"),
     path("configurasi/", configurasi_porto, name="configurasi"),
 
     path("step1/", step1, name="step1"),

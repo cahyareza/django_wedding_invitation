@@ -1,4 +1,4 @@
-<form action="{% url 'order:update' order.id %}" method="POST" enctype="multipart/form-data" novalidate>
+<form action="{% url 'order:list' %}" method="POST" enctype="multipart/form-data" novalidate>
     {% csrf_token %}
 
     <!--   INFORMASI CHECKOUT  -->
@@ -7,48 +7,48 @@
     </div>
     <div class="columns is-multiline mt-1">
         <div class="column is-hidden is-8">
-            {{ orderform2.phone.label_tag }}
-            {{ orderform2.phone }}
+            {{ form.phone.label_tag }}
+            {{ form.phone }}
 
-            {% for error in orderform2.phone.errors %}
+            {% for error in form.phone.errors %}
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
         </div>
         <div class="column is-hidden is-8">
-          {{ orderform2.place.label_tag }}
-          {{ orderform2.place }}
+          {{ form.place.label_tag }}
+          {{ form.place }}
 
-          {% for error in orderform2.place.errors %}
+          {% for error in form.place.errors %}
               <p class="help is-danger">{{ error }}</p>
           {% endfor %}
         </div>
         <div class="column is-hidden is-8">
-            {{ orderform2.payment.label_tag }}
-            {{ orderform2.payment }}
+            {{ form.payment.label_tag }}
+            {{ form.payment }}
 
-            {% for error in orderform2.payment.errors %}
+            {% for error in form.payment.errors %}
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
         </div>
         <div class="column is-hidden is-8">
-          {{ orderform2.nama_rekening.label_tag }}
-          {{ orderform2.nama_rekening }}
+          {{ form.nama_rekening.label_tag }}
+          {{ form.nama_rekening }}
 
-          {% for error in orderform2.nama_rekening.errors %}
+          {% for error in form.nama_rekening.errors %}
               <p class="help is-danger">{{ error }}</p>
           {% endfor %}
         </div>
         <div class="column is-8">
-            <p class="subtitle is-size-6-tablet is-size-7-mobile mb-3">{{ orderform2.bukti.label_tag }}</p>
-            <p class="subtitle is-size-6-tablet is-size-7-mobile mt-3 mb-3">{{ orderform2.bukti }}</p>
+            <p class="subtitle is-size-6-tablet is-size-7-mobile mb-3">{{ form.bukti.label_tag }}</p>
+            <p class="subtitle is-size-6-tablet is-size-7-mobile mt-3 mb-3">{{ form.bukti }}</p>
 
             {% if order.bukti %}
                 <p class="subtitle" style="color: red; font-size: 11px;"></p>
             {% else %}
-                <p class="subtitle mt-2" style="color: red; font-size: 11px;">{{ orderform2.bukti.help_text }}</p>
+                <p class="subtitle mt-2" style="color: red; font-size: 11px;">{{ form.bukti.help_text }}</p>
             {% endif %}
 
-            {% for error in orderform2.bukti.errors %}
+            {% for error in form.bukti.errors %}
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
 

@@ -13,8 +13,27 @@ from .forms import OrderForm
 
 @login_required
 def my_orders_list(request):
-    order = Order.objects.filter(user=request.user).first()
-    return render(request, "order/my_orders.html", {'order': order})
+    user = request.user # Anonuser
+    order = Order.objects.filter(user=user).first()
+
+    if request.method == "POST":
+        form = OrderForm(request.POST or None, request.FILES, instance=order)
+        if form.is_valid():
+            # print("valid")
+            instance = form.save(commit=False)
+            instance.user = user
+            instance.phone = instance.phone
+            instance.place = instance.place
+            instance.bukti = form.cleaned_data.get("bukti")
+            instance.paid =  instance.paid
+            instance.status = order.mark_paid()
+            instance.save()
+
+            return redirect("order:bukti")
+    else:
+        form = OrderForm(instance=order)
+
+    return render(request, "order/my_orders.html", {'order': order, 'form': form})
 
 @login_required
 def order_checkout_view(request):
@@ -49,42 +68,38 @@ def order_checkout_view(request):
             request.session.modified = True
 
             return render(request, 'cart/failed.html')
-    else:
-        form = OrderForm(request.POST or None, request.FILES)
 
-    return render(request, 'cart/failed.html', {"form": form} )
-
-@login_required
-def order_checkout_update(request, id):
-    user = request.user # Anonuser
-    obj = Order.objects.filter(id=id).first()
-    # obj = get_object_or_404(Order, id=id)
-    # print(obj)
-
-    # print(request.POST)
-    if request.method == "POST":
-        form2 = OrderForm(request.POST or None, request.FILES, instance=obj)
-        # print(form2)
-        if form2.is_valid():
-            print("valid")
-            instance = form2.save(commit=False)
-            instance.user = user
-            instance.phone = instance.phone
-            instance.place = instance.place
-            instance.bukti = form2.cleaned_data.get("bukti")
-            instance.paid =  instance.paid
-            instance.status = obj.mark_paid()
-            instance.save()
-
-            return redirect("order:bukti")
-    else:
-        form2 = OrderForm(request.POST or None, request.FILES)
-
-    context = {
-        'form2': form2,
-    }
-
-    return redirect("order:list")
+# @login_required
+# def order_checkout_update(request, id):
+#     user = request.user # Anonuser
+#     obj = Order.objects.filter(id=id).first()
+#     # obj = get_object_or_404(Order, id=id)
+#     # print(obj)
+#
+#     # print(request.POST)
+#     if request.method == "POST":
+#         form2 = OrderForm(request.POST or None, request.FILES, instance=obj)
+#         # print(form2)
+#         if form2.is_valid():
+#             print("valid")
+#             instance = form2.save(commit=False)
+#             instance.user = user
+#             instance.phone = instance.phone
+#             instance.place = instance.place
+#             instance.bukti = form2.cleaned_data.get("bukti")
+#             instance.paid =  instance.paid
+#             instance.status = obj.mark_paid()
+#             instance.save()
+#
+#             return redirect("order:bukti")
+#     else:
+#         form2 = OrderForm(request.POST or None, request.FILES)
+#
+#     context = {
+#         'form2': form2,
+#     }
+#
+#     return redirect("order:list")
 
 def order_delete(request, id):
     obj = get_object_or_404(Order, id=id)

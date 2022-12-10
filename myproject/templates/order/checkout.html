@@ -7,34 +7,34 @@
     </div>
     <div class="columns is-multiline mt-1">
         <div class="column is-8">
-            {{ orderform.phone.label_tag }}
-            {{ orderform.phone }}
+            {{ form.phone.label_tag }}
+            {{ form.phone }}
 
-            {% for error in orderform.phone.errors %}
+            {% for error in form.phone.errors %}
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
         </div>
         <div class="column is-8">
-          {{ orderform.place.label_tag }}
-          {{ orderform.place }}
+          {{ form.place.label_tag }}
+          {{ form.place }}
 
-          {% for error in orderform.place.errors %}
+          {% for error in form.place.errors %}
               <p class="help is-danger">{{ error }}</p>
           {% endfor %}
         </div>
         <div class="column is-8">
-            {{ orderform.payment.label_tag }}
-            {{ orderform.payment }}
+            {{ form.payment.label_tag }}
+            {{ form.payment }}
 
-            {% for error in orderform.payment.errors %}
+            {% for error in form.payment.errors %}
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
         </div>
         <div class="column is-8">
-          {{ orderform.nama_rekening.label_tag }}
-          {{ orderform.nama_rekening }}
+          {{ form.nama_rekening.label_tag }}
+          {{ form.nama_rekening }}
 
-          {% for error in orderform.nama_rekening.errors %}
+          {% for error in form.nama_rekening.errors %}
               <p class="help is-danger">{{ error }}</p>
           {% endfor %}
         </div>

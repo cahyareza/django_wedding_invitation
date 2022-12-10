@@ -37,10 +37,11 @@ from myproject.apps.portofolio.services import AcaraFormSESSION, PasanganFormSES
 
 # ============== HOME ===============!
 def home(request):
-    portofolio = Portofolio.objects.all()
-    ucapan = Ucapan.objects.all()
-    dompet = Dompet.objects.all()
-    hadir = Hadir.objects.all()
+    porto_count = Portofolio.objects.count()
+    ucapan_count = Ucapan.objects.count()
+    dompet_count = Dompet.objects.count()
+    hadir_count = Hadir.objects.count()
+    objects_fitur = Fitur.objects.all()
 
     obj_silver = Coupon.objects.filter(active=True, silver=True).first()
     obj_platinum = Coupon.objects.filter(active=True, platinum=True).first()
@@ -52,13 +53,14 @@ def home(request):
     if obj_silver or obj_platinum or obj_gold:
 
         context = {
-            'portofolio': portofolio,
-            'ucapan': ucapan,
-            'dompet': dompet,
-            'hadir': hadir,
+            'porto_count': porto_count,
+            'ucapan_count': ucapan_count,
+            'dompet_count': dompet_count,
+            'hadir_count': hadir_count,
             'obj_silver': obj_silver,
             'obj_platinum': obj_platinum,
             'obj_gold': obj_gold,
+            'fiturs': objects_fitur,
             'discount_str_silver': False,
             'discount_value_silver': False,
             'discount_percent_silver': False,
@@ -71,7 +73,7 @@ def home(request):
         }
 
         # SILVER
-        if obj_silver and obj_silver.valid_to >= current_time:
+        if obj_silver.valid_to >= current_time:
             discount_value_silver = obj_silver.discount
             discount_percent_silver = 1 - discount_value_silver/100
             discount_str_silver = f"{obj_silver.discount}%"
@@ -81,7 +83,7 @@ def home(request):
             context['discount_percent_silver'] = discount_percent_silver
 
         # PLATINUM
-        if obj_platinum and obj_platinum.valid_to >= current_time:
+        if obj_platinum.valid_to >= current_time:
             discount_value_platinum = obj_platinum.discount
             discount_percent_platinum = 1 - discount_value_platinum/100
             discount_str_platinum = f"{obj_platinum.discount}%"
@@ -91,7 +93,7 @@ def home(request):
             context['discount_percent_platinum'] = discount_percent_platinum
 
         # GOLD
-        if obj_gold and obj_gold.valid_to >= current_time:
+        if obj_gold.valid_to >= current_time:
             discount_value_gold = obj_gold.discount
             discount_percent_gold = 1 - discount_value_gold/100
             discount_str_gold = f"{obj_gold.discount}%"
@@ -105,13 +107,14 @@ def home(request):
     #  Instance not available
     else:
         context = {
-            'portofolio': portofolio,
-            'ucapan': ucapan,
-            'dompet': dompet,
-            'hadir': hadir,
+            'porto_count': porto_count,
+            'ucapan_count': ucapan_count,
+            'dompet_count': dompet_count,
+            'hadir_count': hadir_count,
             'obj_silver': obj_silver,
             'obj_platinum': obj_platinum,
             'obj_gold': obj_gold,
+            'fiturs': objects_fitur,
             'discount_str_silver': False,
             'discount_value_silver': False,
             'discount_percent_silver': False,
@@ -127,13 +130,26 @@ def home(request):
 # ============== HOME END ===============!
 
 
+# ============== MYPORTOFOLIO ===============!
+def myportofolio(request):
+    user = request.user
+    portofolios = Portofolio.objects.filter(user=user)
+    context = {
+        'portofolios': portofolios,
+        'today': now().date()
+    }
+    return render(request, 'portofolio/myportofolio.html', context)
+# ============== MYPORTOFOLIO ===============!
+
 
 # ============== CONFIGURASI ===============!
 def configurasi_porto(request):
     user = request.user
     portofolio = Portofolio.objects.filter(user=user).first()
+    orderproduct = str(Order.objects.filter(user=request.user).first().items.first().product)
     context = {
         'portofolio': portofolio,
+        'orderproduct': orderproduct,
     }
     return render(request, 'portofolio/configurasi/icon_config.html', context)
 # ============== CONFIGURASI END ===============!
@@ -142,18 +158,22 @@ def configurasi_porto(request):
 
 
 def step1(request):
-    if request.method == 'POST':
-        form = PortoInfoForm(request.POST or None)
-        if form.is_valid():
-            # create session
-            request.session['porto_name'] = form.cleaned_data.get('porto_name')
-            request.session['description'] = form.cleaned_data.get('description')
-            request.session.modified = True
+    portofolio = Portofolio.objects.filter(user=request.user).exists()
+    if portofolio == False:
+        if request.method == 'POST':
+            form = PortoInfoForm(request.POST or None)
+            if form.is_valid():
+                # create session
+                request.session['porto_name'] = form.cleaned_data.get('porto_name')
+                request.session['description'] = form.cleaned_data.get('description')
+                request.session.modified = True
 
-            return redirect("portofolio:step2")
+                return redirect("portofolio:step2")
+        else:
+            form = PortoInfoForm()
+        return render(request, "portofolio/configurasi/register_awal_form.html", {'form': form})
     else:
-        form = PortoInfoForm()
-    return render(request, "portofolio/configurasi/register_awal_form.html", {'form': form})
+        return render(request, 'portofolio/regis_failed.html')
 
 def step1_update(request, slug):
     # get instance portofolio from id
@@ -331,6 +351,8 @@ def step4_update(request, slug):
     return render(request, 'portofolio/configurasi/quote_form.html', context)
 
 def step5(request):
+    orderproduct = str(Order.objects.filter(user=request.user).first().items.first().product)
+
     MultiImageFormSet = modelformset_factory(
         MultiImage,
         form=MultiImageForm,
@@ -374,9 +396,11 @@ def step5(request):
         formset3 = MultiImageFormSet(prefix='multiimage')
         formset5 = MultiImageFormSet2(prefix='multiimage2')
 
-    return render(request, "portofolio/configurasi/moment_form.html", {'form2': form2, 'formset3': formset3, 'formset5': formset5})
+    return render(request, "portofolio/configurasi/moment_form.html", {'form2': form2,
+       'formset3': formset3, 'formset5': formset5, 'orderproduct': orderproduct})
 
 def step5_update(request, slug):
+    orderproduct = str(Order.objects.filter(user=request.user).first().items.first().product)
     # get instance portofolio from id
     obj = get_object_or_404(Portofolio, slug=slug)
 
@@ -447,6 +471,7 @@ def step5_update(request, slug):
         'form2': form2,
         'formset3': formset3,
         'formset5': formset5,
+        'orderproduct': orderproduct,
     }
 
     # return redirect("portofolio:update_tampilan", slug=slug)
@@ -454,6 +479,8 @@ def step5_update(request, slug):
 
 
 def step6(request):
+    orderproduct = str(Order.objects.filter(user=request.user).first().items.first().product)
+
     StoryFormSet = modelformset_factory(
         Story,
         form=StoryForm,
@@ -472,9 +499,10 @@ def step6(request):
     else:
         formset4 = StoryFormSet(prefix='story')
 
-    return render(request, "portofolio/configurasi/story_form.html", {'formset4': formset4})
+    return render(request, "portofolio/configurasi/story_form.html", {'formset4': formset4, 'orderproduct': orderproduct,})
 
 def step6_update(request, slug):
+    orderproduct = str(Order.objects.filter(user=request.user).first().items.first().product)
     # get instance portofolio from id
     obj = get_object_or_404(Portofolio, slug=slug)
 
@@ -515,6 +543,7 @@ def step6_update(request, slug):
 
     context = {
         'formset4': formset4,
+        'orderproduct': orderproduct,
     }
 
     return render(request, 'portofolio/configurasi/story_form.html', context)
@@ -565,6 +594,8 @@ def step7_update(request, slug):
     return render(request, 'portofolio/configurasi/map_form.html', context)
 
 def step8(request):
+    orderproduct = str(Order.objects.filter(user=request.user).first().items.first().product)
+
     DompetFormSet = modelformset_factory(
         Dompet,
         form=DompetForm,
@@ -584,9 +615,10 @@ def step8(request):
     else:
         formset2 = DompetFormSet(prefix='dompet')
 
-    return render(request, "portofolio/configurasi/dompet_form.html", {'formset2': formset2})
+    return render(request, "portofolio/configurasi/dompet_form.html", {'formset2': formset2, 'orderproduct': orderproduct,})
 
 def step8_update(request, slug):
+    orderproduct = str(Order.objects.filter(user=request.user).first().items.first().product)
     # get instance portofolio from id
     obj = get_object_or_404(Portofolio, slug=slug)
 
@@ -629,6 +661,7 @@ def step8_update(request, slug):
 
     context = {
         'formset2': formset2,
+        'orderproduct': orderproduct,
     }
 
     # return redirect("portofolio:update_tampilan", slug=slug)
@@ -1084,37 +1117,6 @@ def step12_update(request, slug):
     return render(request, 'portofolio/configurasi/tampilan_form.html', context)
 
 
-
-# ============== REGISTER AWAL ===============!
-# Portofolio registration
-def register_awal(request, id=None):
-    portofolio = Portofolio.objects.filter(user=request.user).exists()
-    if portofolio == False:
-        if request.method == "POST":
-            form = PortoInfoForm(request.POST or None, request.FILES)
-
-            print(request.POST)
-            # form validation
-            if form.is_valid():
-                # create portofolio instance
-                instance = form.save(commit=False)
-                # save user to porto
-                user = request.user
-                instance.user = user
-                instance.save()
-
-                return redirect("portofolio:configurasi")
-
-        else:
-            form = PortoInfoForm()
-
-    else:
-        return render(request, 'portofolio/regis_failed.html')
-
-    return render(request, "portofolio/configurasi/register_awal_form.html", {'form': form,})
-# ============== REGISTER AWAL END ===============!
-
-
 # ============== DELETE BACKGROUND ===============!
 
 def open_background_delete(request, slug):
@@ -1505,16 +1507,6 @@ def cover_background_delete(request, slug):
 #     }
 #
 #     return render(request, 'portofolio/portofolio_detail.html', context)
-
-def myportofolio(request):
-    user = request.user
-    portofolios = Portofolio.objects.filter(user=user)
-    context = {
-        'portofolios': portofolios,
-        'today': now().date()
-    }
-    return render(request, 'portofolio/myportofolio.html', context)
-
 
 
 #################### SERIALIZER #######################
