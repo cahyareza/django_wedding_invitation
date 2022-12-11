@@ -85,10 +85,12 @@
                     </tbody>
                 </table>
 
+                {% if order.status != 'terkonfirmasi' %}
                 <form action="{% url 'order:delete' order.id %}" method="post">
                     {% csrf_token %}
                     <input class="button is-small is-danger" type="submit" value="Hapus order">
                 </form>
+                {% endif %}
 
                 {% include "order/order_update.html" %}
 
