@@ -302,6 +302,7 @@ def step4(request):
     order = get_object_or_404(Order, user=user)
     # orderitem instance by order
     orderitem = get_object_or_404(OrderItem, order= order)
+    orderitem_product_str = str(orderitem.product)
 
     if request.method == 'POST':
         form2 = QuoteForm(request.POST or None, request.FILES)
@@ -311,7 +312,7 @@ def step4(request):
             request.session['kutipan'] = form2.cleaned_data.get('kutipan')
             request.session.modified = True
 
-            if orderitem.product == "PLATINUM" or orderitem.product == "GOLD":
+            if orderitem_product_str == "PLATINUM" or orderitem_product_str == "GOLD":
                 return redirect("portofolio:step5")
             else:
                 return redirect("portofolio:step7")
@@ -555,6 +556,7 @@ def step7(request):
     order = get_object_or_404(Order, user=user)
     # orderitem instance by order
     orderitem = get_object_or_404(OrderItem, order= order)
+    orderitem_product_str = str(orderitem.product)
 
     if request.method == 'POST':
         form = NavigasiForm(request.POST or None)
@@ -563,7 +565,7 @@ def step7(request):
             request.session['link_gmap'] = form.cleaned_data.get('link_gmap')
             request.session.modified = True
 
-            if orderitem.product == "PLATINUM" or orderitem.product == "GOLD":
+            if orderitem_product_str == "PLATINUM" or orderitem_product_str == "GOLD":
                 return redirect("portofolio:step8")
             else:
                 return redirect("portofolio:step9")
@@ -870,6 +872,7 @@ def step12(request):
                 specialinviteform = SpecialinviteFormSESSION(request)
 
             # ============== PASANGAN ===============!
+            print(request.session.get('porto_name', None))
             for item in pasanganform:
                 user = request.user
                 Portofolio.objects.create(
