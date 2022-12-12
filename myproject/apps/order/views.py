@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from decimal import Decimal
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import cache_control
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect
 from django.conf import settings
@@ -11,7 +12,8 @@ from myproject.apps.cart.cart import Cart
 from .models import Order, OrderItem
 from .forms import OrderForm
 
-@login_required
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def my_orders_list(request):
     user = request.user # Anonuser
     order = Order.objects.filter(user=user).first()
@@ -35,7 +37,8 @@ def my_orders_list(request):
 
     return render(request, "order/my_orders.html", {'order': order, 'form': form})
 
-@login_required
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def order_checkout_view(request):
     user = request.user # Anonuser
     cart = Cart(request)
@@ -101,6 +104,8 @@ def order_checkout_view(request):
 #
 #     return redirect("order:list")
 
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def order_delete(request, id):
     obj = get_object_or_404(Order, id=id)
 
@@ -108,8 +113,12 @@ def order_delete(request, id):
 
     return render(request, 'order/my_orders.html')
 
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def status_order(request):
     return render(request, 'order/status_order.html')
 
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def upload_bukti(request):
     return render(request, 'order/upload_bukti_kirim.html')

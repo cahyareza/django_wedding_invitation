@@ -19,6 +19,10 @@ from datetime import datetime
 from rest_framework import filters
 from django_filters import AllValuesFilter, DateTimeFilter, NumberFilter, FilterSet
 
+from django.contrib.auth.decorators import login_required # Login required to access private pages.
+from django.views.decorators.cache import cache_control
+from django.contrib.auth.decorators import permission_required
+
 from myproject.apps.coupon.models import Coupon
 from myproject.apps.order.models import Order, OrderItem
 from .models import MultiImage, Portofolio, SpecialInvitation, Dompet, Quote, Fitur, \
@@ -34,6 +38,8 @@ from .forms import PortoInfoForm, PasanganForm, AcaraForm, QuoteForm, PortoInfo2
 
 from myproject.apps.portofolio.services import AcaraFormSESSION, PasanganFormSESSION, MultiImageFormSESSION, \
     StoryFormSESSION, DompetFormSESSION, SpecialinviteFormSESSION
+
+from django.core.exceptions import PermissionDenied
 
 # ============== HOME ===============!
 def home(request):
@@ -131,6 +137,8 @@ def home(request):
 
 
 # ============== MYPORTOFOLIO ===============!
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def myportofolio(request):
     user = request.user
     portofolios = Portofolio.objects.filter(user=user)
@@ -143,6 +151,8 @@ def myportofolio(request):
 
 
 # ============== CONFIGURASI ===============!
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def configurasi_porto(request):
     user = request.user
     portofolio = Portofolio.objects.filter(user=user).first()
@@ -156,7 +166,8 @@ def configurasi_porto(request):
 
 
 
-
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step1(request):
     portofolio = Portofolio.objects.filter(user=request.user).exists()
     if portofolio == False:
@@ -175,9 +186,15 @@ def step1(request):
     else:
         return render(request, 'portofolio/regis_failed.html')
 
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step1_update(request, slug):
     # get instance portofolio from id
     obj = get_object_or_404(Portofolio, slug=slug)
+
+    # verify user
+    if obj.user != request.user:
+        raise PermissionDenied
 
     if request.method == "POST":
         form = PortoInfoForm(request.POST or None, request.FILES, instance=obj)
@@ -196,6 +213,8 @@ def step1_update(request, slug):
     }
     return render(request, 'portofolio/configurasi/register_awal_form.html', context)
 
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step2(request):
     if request.method == 'POST':
         pasanganform = PasanganFormSESSION(request)
@@ -207,9 +226,15 @@ def step2(request):
         form = PasanganForm()
     return render(request, "portofolio/configurasi/pasangan_form.html", {'form': form})
 
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step2_update(request, slug):
     # get instance portofolio from id
     obj = get_object_or_404(Portofolio, slug=slug)
+
+    # verify user
+    if obj.user != request.user:
+        raise PermissionDenied
 
     if request.method == "POST":
         form = PasanganForm(request.POST or None, request.FILES, instance=obj)
@@ -228,6 +253,8 @@ def step2_update(request, slug):
     }
     return render(request, 'portofolio/configurasi/pasangan_form.html', context)
 
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step3(request):
     AcaraFormSet = modelformset_factory(
         Acara,
@@ -249,9 +276,15 @@ def step3(request):
 
     return render(request, "portofolio/configurasi/acara_form.html", {'formset6': formset6})
 
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step3_update(request, slug):
     # get instance portofolio from id
     obj = get_object_or_404(Portofolio, slug=slug)
+
+    # verify user
+    if obj.user != request.user:
+        raise PermissionDenied
 
     # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
     AcaraFormSet = modelformset_factory(
@@ -296,6 +329,8 @@ def step3_update(request, slug):
     # return redirect("portofolio:update_tampilan", slug=slug)
     return render(request, 'portofolio/configurasi/acara_form.html', context)
 
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step4(request):
     user = request.user
     # get instance order
@@ -321,11 +356,17 @@ def step4(request):
 
     return render(request, "portofolio/configurasi/quote_form.html", {'form2': form2})
 
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step4_update(request, slug):
     # get instance portofolio from id
     obj = get_object_or_404(Portofolio, slug=slug)
     # quote instance by porto id
     obj_quote = get_object_or_404(Quote, portofolio= obj)
+
+    # verify user
+    if obj.user != request.user:
+        raise PermissionDenied
 
     if request.method == "POST":
         form2 = QuoteForm(request.POST or None, request.FILES, instance=obj_quote)
@@ -351,6 +392,8 @@ def step4_update(request, slug):
     # return redirect("portofolio:update_tampilan", slug=slug)
     return render(request, 'portofolio/configurasi/quote_form.html', context)
 
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step5(request):
     orderproduct = str(Order.objects.filter(user=request.user).first().items.first().product)
 
@@ -400,10 +443,16 @@ def step5(request):
     return render(request, "portofolio/configurasi/moment_form.html", {'form2': form2,
        'formset3': formset3, 'formset5': formset5, 'orderproduct': orderproduct})
 
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step5_update(request, slug):
     orderproduct = str(Order.objects.filter(user=request.user).first().items.first().product)
     # get instance portofolio from id
     obj = get_object_or_404(Portofolio, slug=slug)
+
+    # verify user
+    if obj.user != request.user:
+        raise PermissionDenied
 
     # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
     MultiImageFormSet = modelformset_factory(
@@ -478,7 +527,8 @@ def step5_update(request, slug):
     # return redirect("portofolio:update_tampilan", slug=slug)
     return render(request, 'portofolio/configurasi/moment_form.html', context)
 
-
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step6(request):
     orderproduct = str(Order.objects.filter(user=request.user).first().items.first().product)
 
@@ -502,10 +552,16 @@ def step6(request):
 
     return render(request, "portofolio/configurasi/story_form.html", {'formset4': formset4, 'orderproduct': orderproduct,})
 
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step6_update(request, slug):
     orderproduct = str(Order.objects.filter(user=request.user).first().items.first().product)
     # get instance portofolio from id
     obj = get_object_or_404(Portofolio, slug=slug)
+
+    # verify user
+    if obj.user != request.user:
+        raise PermissionDenied
 
     StoryFormSet = modelformset_factory(
         Story,
@@ -549,7 +605,8 @@ def step6_update(request, slug):
 
     return render(request, 'portofolio/configurasi/story_form.html', context)
 
-
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step7(request):
     user = request.user
     # get instance order
@@ -574,9 +631,15 @@ def step7(request):
 
     return render(request, "portofolio/configurasi/map_form.html", {'form': form})
 
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step7_update(request, slug):
     # get instance portofolio from id
     obj = get_object_or_404(Portofolio, slug=slug)
+
+    # verify user
+    if obj.user != request.user:
+        raise PermissionDenied
 
     if request.method == "POST":
         form = NavigasiForm(request.POST or None, request.FILES, instance=obj)
@@ -595,6 +658,8 @@ def step7_update(request, slug):
     }
     return render(request, 'portofolio/configurasi/map_form.html', context)
 
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step8(request):
     orderproduct = str(Order.objects.filter(user=request.user).first().items.first().product)
 
@@ -619,10 +684,16 @@ def step8(request):
 
     return render(request, "portofolio/configurasi/dompet_form.html", {'formset2': formset2, 'orderproduct': orderproduct,})
 
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step8_update(request, slug):
     orderproduct = str(Order.objects.filter(user=request.user).first().items.first().product)
     # get instance portofolio from id
     obj = get_object_or_404(Portofolio, slug=slug)
+
+    # verify user
+    if obj.user != request.user:
+        raise PermissionDenied
 
     # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
     DompetFormSet = modelformset_factory(
@@ -669,6 +740,8 @@ def step8_update(request, slug):
     # return redirect("portofolio:update_tampilan", slug=slug)
     return render(request, 'portofolio/configurasi/dompet_form.html', context)
 
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step9(request):
     SpecialInviteFormSet = modelformset_factory(
         SpecialInvitation,
@@ -697,9 +770,15 @@ def step9(request):
 
     return render(request, "portofolio/configurasi/specialinvite_form.html", {'formset': formset, 'form2': form2})
 
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step9_update(request, slug):
     # get instance portofolio from id
     obj = get_object_or_404(Portofolio, slug=slug)
+
+    # verify user
+    if obj.user != request.user:
+        raise PermissionDenied
 
     # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
     SpecialInviteFormSet = modelformset_factory(
@@ -754,8 +833,8 @@ def step9_update(request, slug):
     # return redirect("portofolio:update_tampilan", slug=slug)
     return render(request, 'portofolio/configurasi/specialinvite_form.html', context)
 
-
-
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step10(request):
     if request.method == 'POST':
         form = CalenderForm(request.POST or None)
@@ -773,9 +852,15 @@ def step10(request):
 
     return render(request, "portofolio/configurasi/countdown_form.html", {'form': form})
 
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step10_update(request, slug):
     # get instance portofolio from id
     obj = get_object_or_404(Portofolio, slug=slug)
+
+    # verify user
+    if obj.user != request.user:
+        raise PermissionDenied
 
     if request.method == "POST":
         form = CalenderForm(request.POST or None, request.FILES, instance=obj)
@@ -808,7 +893,8 @@ def step10_update(request, slug):
     # return redirect("portofolio:update_tampilan", slug=slug)
     return render(request, 'portofolio/configurasi/countdown_form.html', context)
 
-
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step11(request):
     if request.method == 'POST':
         form = PortoInfo4Form(request.POST or None, request.FILES)
@@ -825,9 +911,15 @@ def step11(request):
 
     return render(request, "portofolio/configurasi/cover_form.html", {'form': form})
 
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step11_update(request, slug):
     # get instance portofolio from id
     obj = get_object_or_404(Portofolio, slug=slug)
+
+    # verify user
+    if obj.user != request.user:
+        raise PermissionDenied
 
     if request.method == "POST":
         form = PortoInfo4Form(request.POST or None, request.FILES, instance=obj)
@@ -849,6 +941,8 @@ def step11_update(request, slug):
     }
     return render(request, 'portofolio/configurasi/cover_form.html', context)
 
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step12(request):
     if request.method == 'POST':
         form3 = ThemeProductForm(request.POST or None, request.FILES)
@@ -1083,11 +1177,17 @@ def step12(request):
 
     return render(request, "portofolio/configurasi/tampilan_form.html", {'form3': form3})
 
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step12_update(request, slug):
     # get instance portofolio from id
     obj = get_object_or_404(Portofolio, slug=slug)
     # theme product instance by porto id
     obj_themeproduct = get_object_or_404(ThemeProduct, portofolio= obj)
+
+    # verify user
+    if obj.user != request.user:
+        raise PermissionDenied
 
     if request.method == "POST":
         form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
