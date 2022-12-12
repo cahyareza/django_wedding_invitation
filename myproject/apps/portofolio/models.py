@@ -325,7 +325,7 @@ class Theme(CreationModificationDateBase, UrlBase):
         super().save(*args, **kwargs)
 
 class ThemeProduct(CreationModificationDateBase, UrlBase):
-    fitur = models.ForeignKey(Fitur, on_delete=models.CASCADE, blank=True, null=True)
+    fitur = models.CharField(max_length=40, null=True, blank=True)
     portofolio = models.OneToOneField(Portofolio,related_name='items', on_delete=models.CASCADE)
     theme = models.ForeignKey(Theme, on_delete=models.CASCADE, blank=True, null=True)
 

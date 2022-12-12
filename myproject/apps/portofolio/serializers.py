@@ -100,8 +100,8 @@ class ThemeSerializer(serializers.HyperlinkedModelSerializer):
 class ThemeProductSerializer(serializers.HyperlinkedModelSerializer):
     portofolio = serializers.SlugRelatedField(queryset=Portofolio.objects.all(),
         slug_field='slug')
-    fitur = serializers.SlugRelatedField(queryset=Fitur.objects.all(),
-        slug_field='slug')
+    # fitur = serializers.SlugRelatedField(queryset=Fitur.objects.all(),
+    #     slug_field='slug')
     # theme = serializers.SlugRelatedField(queryset=Theme.objects.all(),
     #     slug_field='slug')
     theme = ThemeSerializer()
