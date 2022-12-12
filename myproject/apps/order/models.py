@@ -3,8 +3,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from PIL import Image
 
-from myproject.apps.portofolio.models import Fitur, Payment, Kabupaten
-
+from myproject.apps.portofolio.models import Fitur, Payment, Kabupaten, ThemeProduct, Portofolio
 from myproject.apps.core.models import CreationModificationDateBase, UrlBase
 
 # Create your models here.
@@ -48,3 +47,13 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return str(self.order.user)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        user = self.order.user
+        portofolio = Portofolio.objects.get(user=user)
+        themeproduct = ThemeProduct.objects.get(portofolio=portofolio)
+        themeproduct.fitur = self.product.name
+
+        themeproduct.save(update_fields=["fitur"])
