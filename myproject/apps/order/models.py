@@ -52,8 +52,12 @@ class OrderItem(models.Model):
         super().save(*args, **kwargs)
 
         user = self.order.user
-        portofolio = Portofolio.objects.get(user=user)
-        themeproduct = ThemeProduct.objects.get(portofolio=portofolio)
-        themeproduct.fitur = self.product.name
+        try:
+            portofolio = Portofolio.objects.get(user=user)
+            themeproduct = ThemeProduct.objects.get(portofolio=portofolio)
+            themeproduct.fitur = self.product.name
+            themeproduct.save(update_fields=["fitur"])
+        except Portofolio.DoesNotExist:
+            portofolio = None
 
-        themeproduct.save(update_fields=["fitur"])
+
