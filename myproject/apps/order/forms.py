@@ -1,6 +1,6 @@
 from django import forms
 from django.core.validators import RegexValidator
-from .models import Order
+from .models import Order, OrderItem
 
 class OrderForm(forms.ModelForm):
     phone = forms.CharField(label="Nomor handphone", min_length=12, max_length=13,
@@ -24,6 +24,17 @@ class OrderForm(forms.ModelForm):
 
     bukti = forms.FileField(
         label="Bukti pembayaran",
+        widget=forms.ClearableFileInput(
+            attrs={
+                'placeholder': 'Select a picture',
+                'class': 'image',
+                'style': 'font-size: 15px',
+            }
+        )
+    )
+
+    bukti_upgrade = forms.FileField(
+        label="Bukti pembayaran upgrade",
         widget=forms.ClearableFileInput(
             attrs={
                 'placeholder': 'Select a picture',
@@ -67,6 +78,11 @@ class OrderForm(forms.ModelForm):
         self.fields['status'].required = False
         self.fields['paid'].required = False
         self.fields['bukti'].required = False
+        self.fields['bukti_upgrade'].required = False
+        self.fields['status_upgrade'].required = False
+        self.fields['upgrade_status'].required = False
+        self.fields['paid_upgrade'].required = False
+        self.fields['discount'].required = False
 
         # 2. Select option
         self.fields["payment"].choices = [('', 'Pilih payment'),] + list(self.fields["payment"].choices)[1:]
@@ -74,3 +90,34 @@ class OrderForm(forms.ModelForm):
 
         # 3. Help text
         self.fields['bukti'].help_text = 'Segera upload bukti pembayaran, agar order terkonfirmasi.'
+        self.fields['bukti_upgrade'].help_text = 'Segera upload bukti pembayaran upgrade, agar order terkonfirmasi.'
+
+class OrderItemForm(forms.ModelForm):
+    class Meta:
+        model = OrderItem
+        fields = ["product_update"]
+        labels = {
+            'product_update': 'Fitur'
+        }
+
+        # OUTSIDE WIDGET
+        widgets = {
+            # payment
+            'product_update': forms.Select(
+                attrs={
+                    'class': 'input',
+                    'style': 'font-size: 13px',
+                }
+            ),
+        }
+
+    # SUPER FUNCTION
+    def __init__(self, *args, **kwargs):
+        super(OrderItemForm, self).__init__(*args, **kwargs)
+
+        # ========== CONTROL PANEL (Optional method to control ========== !
+        # 1. Input required
+        self.fields['product_update'].required = False
+
+        # 2. Select option
+        self.fields["product_update"].choices = list(self.fields["product_update"].choices)[2:]

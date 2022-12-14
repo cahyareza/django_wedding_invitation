@@ -53,6 +53,49 @@
             {% endfor %}
 
         </div>
+
+        <!------  UPGRADE  ------>
+        <div class="column is-hidden is-8">
+            {{ form.paid_upgrade.label_tag }}
+            {{ form.paid_upgrade }}
+
+            {% for error in form.paid_upgrade.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div class="column is-hidden is-8">
+            {{ form.upgrade_status.label_tag }}
+            {{ form.upgrade_status }}
+
+            {% for error in form.upgrade_status.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div class="column is-hidden is-8">
+            {{ form.discount.label_tag }}
+            {{ form.discount }}
+
+            {% for error in form.discount.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% if order.upgrade_status %}
+        <div class="column is-8">
+            <p class="subtitle is-size-6-tablet is-size-7-mobile mb-3">{{ form.bukti_upgrade.label_tag }}</p>
+            <p class="subtitle is-size-6-tablet is-size-7-mobile mt-3 mb-3">{{ form.bukti_upgrade }}</p>
+
+            {% if order.bukti_upgrade %}
+                <p class="subtitle" style="color: red; font-size: 11px;"></p>
+            {% else %}
+                <p class="subtitle mt-2" style="color: red; font-size: 11px;">{{ form.bukti_upgrade.help_text }}</p>
+            {% endif %}
+
+            {% for error in form.bukti_upgrade.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+
+        </div>
+        {% endif %}
     </div>
 
     <button id="submit" type="submit" class="button is-small is-danger p-2">Submit</button>

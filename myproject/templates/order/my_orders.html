@@ -16,7 +16,10 @@
                     Lokasi : {{ order.place }}<br>
                     Nomor : {{ order.phone }}<br>
                     Payment ke: {{ order.payment }}<br>
-                    Jumlah dibayarkan: Rp {{ order.paid|floatformat:"g" }}
+                    Jumlah dibayarkan: Rp {{ order.paid|floatformat:"g" }}<br>
+                    {% if order.upgrade_status %}
+                        Jumlah dibayarkan untuk upgrade: Rp {{ order.paid_upgrade|floatformat:"g" }}
+                    {% endif %}
                 </p>
 
                 <h2 class="title is-size-4-tablet is-size-5-mobile mt-3">Status</h2>
@@ -66,6 +69,57 @@
                             <span class="progress-label">Terkonfirmasi</span>
                         </li>
                     </ul>
+                {% endif %}
+
+                {% if order.upgrade_status == True %}
+                <h2 class="title is-size-4-tablet is-size-5-mobile mt-3">Status Upgrade</h2>
+
+                {% if order.status_upgrade == "menunggu pembayaran" %}
+                    <ul class="step-wizard-list">
+                        <li class="step-wizard-item current-item">
+                            <span class="progress-count">1</span>
+                            <span class="progress-label">Menunggu Pembayaran</span>
+                        </li>
+                        <li class="step-wizard-item">
+                            <span class="progress-count">2</span>
+                            <span class="progress-label">Menunggu Konfirmasi</span>
+                        </li>
+                        <li class="step-wizard-item">
+                            <span class="progress-count">3</span>
+                            <span class="progress-label">Terkonfirmasi</span>
+                        </li>
+                    </ul>
+                {% elif order.status_upgrade == "menunggu konfirmasi" %}
+                    <ul class="step-wizard-list">
+                        <li class="step-wizard-item">
+                            <span class="progress-count">1</span>
+                            <span class="progress-label">Menunggu Pembayaran</span>
+                        </li>
+                        <li class="step-wizard-item current-item">
+                            <span class="progress-count">2</span>
+                            <span class="progress-label">Menunggu Konfirmasi</span>
+                        </li>
+                        <li class="step-wizard-item">
+                            <span class="progress-count">3</span>
+                            <span class="progress-label">Terkonfirmasi</span>
+                        </li>
+                    </ul>
+                {% else %}
+                    <ul class="step-wizard-list">
+                        <li class="step-wizard-item">
+                            <span class="progress-count">1</span>
+                            <span class="progress-label">Menunggu Pembayaran</span>
+                        </li>
+                        <li class="step-wizard-item">
+                            <span class="progress-count">2</span>
+                            <span class="progress-label">Menunggu Konfirmasi</span>
+                        </li>
+                        <li class="step-wizard-item current-item">
+                            <span class="progress-count">3</span>
+                            <span class="progress-label">Terkonfirmasi</span>
+                        </li>
+                    </ul>
+                {% endif %}
                 {% endif %}
 
                 <h2 class="title is-size-4-tablet is-size-5-mobile mt-3">Products</h2>
