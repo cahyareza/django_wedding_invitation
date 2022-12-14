@@ -10,7 +10,7 @@ from django.conf import settings
 from myproject.apps.portofolio.models import Fitur
 from myproject.apps.cart.cart import Cart
 from .models import Order, OrderItem
-from .forms import OrderForm
+from .forms import OrderForm, OrderItemForm
 
 @login_required(login_url="account_login")
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
@@ -26,9 +26,15 @@ def my_orders_list(request):
             instance.user = user
             instance.phone = instance.phone
             instance.place = instance.place
-            instance.bukti = form.cleaned_data.get("bukti")
-            instance.paid =  instance.paid
             instance.status = order.mark_paid()
+            instance.discount = instance.discount
+            instance.paid = instance.paid
+            instance.bukti = form.cleaned_data.get("bukti")
+
+            instance.bukti_upgrade = form.cleaned_data.get("bukti_upgrade")
+            instance.status_upgrade = order.mark_paid_upgrade()
+            instance.upgrade_status = instance.upgrade_status
+
             instance.save()
 
             return redirect("order:bukti")
@@ -58,7 +64,10 @@ def order_checkout_view(request):
                 order_instance = Order.objects.get(pk=instance.pk)
                 # create orderitem
                 for item in cart:
-                    # print(item)
+                    # update discount in Order Model
+                    order_instance.discount = item['coupon']
+                    order_instance.save()
+
                     fitur_instance = Fitur.objects.get(pk=item['product'].pk)
                     OrderItem.objects.create(order=order_instance, price=item['total_price'], product= fitur_instance, quantity=item['quantity'])
                 return redirect("cart:clear_cart")
@@ -72,37 +81,42 @@ def order_checkout_view(request):
 
             return render(request, 'cart/failed.html')
 
-# @login_required
-# def order_checkout_update(request, id):
-#     user = request.user # Anonuser
-#     obj = Order.objects.filter(id=id).first()
-#     # obj = get_object_or_404(Order, id=id)
-#     # print(obj)
-#
-#     # print(request.POST)
-#     if request.method == "POST":
-#         form2 = OrderForm(request.POST or None, request.FILES, instance=obj)
-#         # print(form2)
-#         if form2.is_valid():
-#             print("valid")
-#             instance = form2.save(commit=False)
-#             instance.user = user
-#             instance.phone = instance.phone
-#             instance.place = instance.place
-#             instance.bukti = form2.cleaned_data.get("bukti")
-#             instance.paid =  instance.paid
-#             instance.status = obj.mark_paid()
-#             instance.save()
-#
-#             return redirect("order:bukti")
-#     else:
-#         form2 = OrderForm(request.POST or None, request.FILES)
-#
-#     context = {
-#         'form2': form2,
-#     }
-#
-#     return redirect("order:list")
+@login_required
+def orderitem_update(request, id):
+    user = request.user # Anonuser
+    obj = Order.objects.filter(id=id).first()
+
+    obj_orderitem = OrderItem.objects.get(order=obj)
+    # obj = get_object_or_404(Order, id=id)
+    # print(obj)
+
+    # print(request.POST)
+    if request.method == "POST":
+        form = OrderItemForm(request.POST or None, instance=obj_orderitem)
+        # print(form2)
+        if form.is_valid():
+            # print("valid")
+            instance = form.save(commit=False)
+            instance.save()
+
+            obj.upgrade_status = True
+            if str(obj_orderitem.product_update) == "GOLD":
+                obj.paid_upgrade = Decimal(300000) * (Decimal(obj.discount)/Decimal(100)) - Decimal(obj.paid)
+            elif str(obj_orderitem.product_update) == "PLATINUM":
+                obj.paid_upgrade = Decimal(200000) * (Decimal(obj.discount)/Decimal(100)) - Decimal(obj.paid)
+            else:
+                obj.paid_upgrade = Decimal(100000) * (Decimal(obj.discount)/Decimal(100)) - Decimal(obj.paid)
+
+            obj.save()
+            return redirect("order:list")
+    else:
+        form = OrderItemForm(instance=obj_orderitem)
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'order/orderitem_update.html', context)
 
 @login_required(login_url="account_login")
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)

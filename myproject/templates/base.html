@@ -56,7 +56,11 @@
               {% if user.is_authenticated %}
                   <a class="navbar-item" href="{% url 'portofolio:myportofolio' %}">My Portofolio</a>
                   {% if order %}
+                    {% if order.upgrade_status %}
+                    <a class="navbar-item" href="{% url 'order:list' %}">Order upgrade({{ order.status_upgrade }})</a>
+                    {% else %}
                     <a class="navbar-item" href="{% url 'order:list' %}">Order ({{ order.status }})</a>
+                    {% endif %}
                   {% else %}
                     <a class="navbar-item" href="{% url 'cart:cart_detail' %}">Cart ({{ cart.get_total_quantity }})</a>
                   {% endif %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block isi %}
+
+<form action="{% url 'order:orderitem_update' order.id %}" method="POST" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+
+    <div class="columns">
+        <div class="column
+            is-12-mobile
+            is-three-fifths-tablet is-offset-one-fifth-tablet
+            is-half-desktop is-offset-one-quarter-desktop"
+        >
+            <div class="card p-5 m-1 mt-5">
+                <!--   INFORMASI CHECKOUT  -->
+                <div class="notification is-light p-1 has-text-centered mt-4">
+                    FITUR UPGRADE
+                </div>
+                <div class="columns is-multiline mt-1">
+                    <div class="column is-12">
+                        {{ form.product_update.label_tag }}
+                        {{ form.product_update }}
+
+                        {% for error in form.product_update.errors %}
+                            <p class="help is-danger">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <button id="submit" type="submit" class="button is-small is-danger p-2">Submit</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
