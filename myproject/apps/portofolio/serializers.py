@@ -1,11 +1,18 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Portofolio, Rekening, Dompet, MultiImage, SpecialInvitation, \
-    Payment, Quote, Ucapan, Hadir, Fitur, Theme, ThemeProduct, Story, Acara
+    Payment, Quote, Ucapan, Hadir, Fitur, Theme, ThemeProduct, Story, Acara, Track
+
+# Acara
+class TrackSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Track
+        fields = ("name", "artist", "url")
 
 class PortofolioSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(queryset=User.objects.all(),
         slug_field='username')
+    track = TrackSerializer()
     class Meta:
         model = Portofolio
         fields = ("user", "porto_name", "slug", "pname", "pinsta_link", "panak_ke",\
@@ -13,10 +20,11 @@ class PortofolioSerializer(serializers.ModelSerializer):
                   "lnama_ayah", "lnama_ibu", "lpicture", "tanggal_countdown", "waktu_countdown", "location_countdown", \
                   "waktu_countdown_selesai", "datetime_countdown", "video", "livestream", "name", "description", "startDate",\
                   "location", "startTime", "endTime", "options", "timeZone", "trigger", "iCalFileName", "link_iframe", \
-                  "lokasi", "link_gmap", "cover_background","open_background", "kata_special_invite", "kata_live_streaming", "kata_moment")
+                  "lokasi", "link_gmap", "cover_background","open_background", "kata_special_invite", "kata_live_streaming", \
+                  "kata_moment", "track")
 
 # Multiimage
-class MultiImageSerializer(serializers.HyperlinkedModelSerializer):
+class MultiImageSerializer(serializers.ModelSerializer):
     portofolio = serializers.SlugRelatedField(queryset=Portofolio.objects.all(),
         slug_field='slug')
 
