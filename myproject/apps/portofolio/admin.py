@@ -1,8 +1,12 @@
 from django.contrib import admin
 from .models import (Portofolio, MultiImage, SpecialInvitation, Dompet, Quote,
-     Rekening, Ucapan, Hadir, Fitur, Payment, Theme, ThemeProduct, Kabupaten, Story, Acara)
+     Rekening, Ucapan, Hadir, Fitur, Payment, Theme, ThemeProduct, Kabupaten, Story,
+     Acara, Track)
 
 # Inline
+class PortoInline(admin.TabularInline):
+    model = Portofolio
+
 class AcaraInline(admin.TabularInline):
     model = Acara
 
@@ -35,8 +39,6 @@ class HadirInline(admin.TabularInline):
 
 class ThemeProductInline(admin.TabularInline):
     model = ThemeProduct
-# Register your models here.
-# admin.site.register(Couple)
 
 
 @admin.register(Portofolio)
@@ -75,6 +77,9 @@ class PortofolioAdmin(admin.ModelAdmin):
         ),
         # INFORMASI BACKGROUND
         ('INFORMASI BACKGROUND', {"fields": ['cover_background', 'open_background']}
+         ),
+        # INFORMASI TRACK
+        ('INFORMASI TRACK', {"fields": ['track']}
          ),
     ]
 
@@ -134,3 +139,7 @@ class StoryAdmin(admin.ModelAdmin):
 @admin.register(Acara)
 class AcaraAdmin(admin.ModelAdmin):
     pass
+
+@admin.register(Track)
+class TrackAdmin(admin.ModelAdmin):
+    inlines = [PortoInline]

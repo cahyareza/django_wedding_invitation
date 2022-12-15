@@ -75,6 +75,14 @@ THEME_LIST = (
     ('winter', 'winter')
 )
 
+class Track(CreationModificationDateBase, UrlBase):
+    name = models.CharField(max_length=30)
+    artist = models.CharField(max_length=30)
+    url = models.URLField(max_length=500)
+
+    def __str__(self):
+        return f'{self.name} ({self.artist})'
+
 class Portofolio(CreationModificationDateBase, UrlBase):
     # Portofolio
     user = models.ForeignKey(
@@ -139,6 +147,9 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     # Tema
     cover_background = models.ImageField(blank=True, null=True)
     open_background = models.ImageField(blank=True, null=True)
+
+    # Track
+    track = models.ForeignKey(Track, on_delete=models.CASCADE, null=True)
 
     class Meta:
         verbose_name_plural = "APortofolio"
