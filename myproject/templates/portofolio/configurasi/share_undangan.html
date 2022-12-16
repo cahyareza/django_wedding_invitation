@@ -1,10 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'portofolio/register_porto.html' %}
+
+<!--  Buttons denied here -->
+{% block update %}
+  <!--   INFORMASI SHARE  -->
+  <div class="notification is-light p-1 has-text-centered mt-4">
+    INFORMASI SHARE
+  </div>
+
+  <div class="columns is-multiline">
+      <div class="column is-12">
+        <h1 class="subtitle is-size-6 mb-1">
+            Kalimat referensi
+        </h1>
+        <div class="swiper mySwiper2">
+            <div class="swiper-wrapper">
+                {% for kata in katas %}
+                <div class="swiper-slide card has-background-light" style="height: 500px;">
+                    <div class="card-content">
+                      <p class="is-size-7-mobile is-size-6-tablet mt-2">
+                          {{ kata.pembuka }} <br><br> {{ kata.isi }} <br><br> {{ kata.penutup }}
+                      </p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+        <p class="subtitle is-size-7 mt-2">Kalimat di atas bisa dijadikan untuk referensi anda</p>
+      </div>
+
+    <div class="column is-12">
+        <div class="field">
+          <div class="label has-text-weight-normal">Nomor whatsapp tujuan:</div>
+          <div class="field-body">
+            <div class="field is-expanded">
+              <div class="field has-addons">
+                <p class="control">
+                  <a class="button is-static">
+                    +62
+                  </a>
+                </p>
+                <p class="control is-expanded">
+                  <input class="input" type="tel" name="nomor" placeholder="Misalkan: 82213566900">
+                </p>
+              </div>
+              <p class="help">Jangan menulis 0 pertama nomor hp anda.</p>
+            </div>
+          </div>
+        </div>
+
+        <tr>
+            <th><label>Kalimat anda:</label></th>
+            <td>
+                <textarea name="isi" cols="40" rows="10" placeholder="Kalimat" class="textarea mt-2" style="font-size: 13px," maxlength="10000">
+                </textarea>
+                <p class="subtitle is-size-7 mt-2 mb-1">Link web undangan: http://localhost:8080/{{porto_slug}}</p>
+                <p class="subtitle has-text-danger is-size-7 mt-1">Kalimat di atas mungkin masih perlu perbaikan di whatsapp</p>
+            </td>
+        </tr>
+    </div>
+  </div>
+{% endblock update %}
+
+<!--  Buttons  -->
+{% block buttons %}
+<!--<a onclick="share()"><button class="button is-info p-2 mt-4" onclick="return share()">Share</button></a>-->
+<button id="sharebutton" type="button" class="button is-info p-2 mt-4">Share</button>
+<a href="{% url 'portofolio:configurasi' %}"  class="button is-dark-light p-2 mt-4">Cancel</a>
+{% endblock buttons %}

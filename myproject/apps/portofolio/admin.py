@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import (Portofolio, MultiImage, SpecialInvitation, Dompet, Quote,
      Rekening, Ucapan, Hadir, Fitur, Payment, Theme, ThemeProduct, Kabupaten, Story,
-     Acara, Track)
+     Acara, Track, Kata)
 
 # Inline
 class PortoInline(admin.TabularInline):
@@ -81,6 +81,7 @@ class PortofolioAdmin(admin.ModelAdmin):
         # INFORMASI TRACK
         ('INFORMASI TRACK', {"fields": ['track']}
          ),
+
     ]
 
 
@@ -143,3 +144,7 @@ class AcaraAdmin(admin.ModelAdmin):
 @admin.register(Track)
 class TrackAdmin(admin.ModelAdmin):
     inlines = [PortoInline]
+
+@admin.register(Kata)
+class KataAdmin(admin.ModelAdmin):
+    pass

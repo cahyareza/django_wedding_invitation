@@ -2,7 +2,7 @@ from myproject.apps.portofolio import views
 from django.urls import path
 from .views import (
     configurasi_porto, myportofolio, step1, step2, step3, step4, step5, step6,\
-    step7, step8, step9, step10, step11, step12,\
+    step7, step8, step9, step10, step11, step12, share_undangan, \
     open_background_delete, cover_background_delete, \
     step1_update, step2_update, step3_update, step4_update,step5_update, step6_update,\
     step7_update, step8_update, step9_update, step10_update, step11_update, step12_update,\
@@ -60,6 +60,7 @@ urlpatterns = [
     # path('dompet_update/<slug:slug>/', dompet_update, name='dompet_update'),
     # path('specialinvite_update/<slug:slug>/', specialinvite_update, name='specialinvite_update'),
     # path('countdown_update/<slug:slug>/', countdown_update, name='countdown_update'),
+    path("share_undangan/", share_undangan, name="share_undangan"),
     path('delete_open_background/<slug:slug>/', open_background_delete, name='open_background_delete'),
     path('delete_cover_background/<slug:slug>/', cover_background_delete, name='cover_background_delete'),
     path('myportofolio/', myportofolio, name='myportofolio'),

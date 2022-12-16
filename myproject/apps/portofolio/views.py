@@ -27,7 +27,7 @@ from myproject.apps.coupon.models import Coupon
 from myproject.apps.order.models import Order, OrderItem
 from .models import MultiImage, Portofolio, SpecialInvitation, Dompet, Quote, Fitur, \
     Rekening, Payment, MultiImage, SpecialInvitation, Ucapan, Hadir, Fitur, \
-    Theme, ThemeProduct, Story, Acara
+    Theme, ThemeProduct, Story, Acara, Kata
 
 # from .forms import PortofolioForm, MultiImageForm, SpecialInvitationForm, \
 #     BaseRegisterFormSet, DompetForm, QuoteForm, ThemeProductForm, StoryForm, AcaraForm \
@@ -198,7 +198,6 @@ def step1_update(request, slug):
 
     if request.method == "POST":
         form = PortoInfoForm(request.POST or None, request.FILES, instance=obj)
-
         if form.is_valid():
             # create portofolio instance
             instance = form.save(commit=False)
@@ -1218,6 +1217,17 @@ def step12_update(request, slug):
 
     # return redirect("portofolio:update_tampilan", slug=slug)
     return render(request, 'portofolio/configurasi/tampilan_form.html', context)
+
+
+# ============== SHARE UNDANGAN ===============!
+
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def share_undangan(request):
+    katas = Kata.objects.all()
+    return render(request, 'portofolio/configurasi/share_undangan.html', {'katas': katas})
+
+# ============== END SHARE UNDANGAN ===============!
 
 
 # ============== DELETE BACKGROUND ===============!
