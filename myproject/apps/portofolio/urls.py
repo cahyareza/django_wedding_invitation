@@ -2,10 +2,10 @@ from myproject.apps.portofolio import views
 from django.urls import path
 from .views import (
     configurasi_porto, myportofolio, step1, step2, step3, step4, step5, step6,\
-    step7, step8, step9, step10, step11, step12, share_undangan, \
+    step7, step8, step9, step10, step11, step12, step13, share_undangan, \
     open_background_delete, cover_background_delete, \
     step1_update, step2_update, step3_update, step4_update,step5_update, step6_update,\
-    step7_update, step8_update, step9_update, step10_update, step11_update, step12_update,\
+    step7_update, step8_update, step9_update, step10_update, step11_update, step12_update, step13_update,\
     PortofolioList, PortofolioDetail, RekeningList, RekeningDetail, \
     DompetList, DompetDetail, MultiImageList, MultiImageDetail, \
     SpecialInvitationList, SpecialInvitationDetail, PaymentList, \
@@ -32,6 +32,7 @@ urlpatterns = [
     path("step10/", step10, name="step10"),
     path("step11/", step11, name="step11"),
     path("step12/", step12, name="step12"),
+    path("step13/", step13, name="step13"),
 
     # UPDATE
     path("step1_update/<slug:slug>/", step1_update, name="step1_update"),
@@ -46,6 +47,7 @@ urlpatterns = [
     path("step10_update/<slug:slug>/", step10_update, name="step10_update"),
     path("step11_update/<slug:slug>/", step11_update, name="step11_update"),
     path("step12_update/<slug:slug>/", step12_update, name="step12_update"),
+    path("step13_update/<slug:slug>/", step13_update, name="step13_update"),
 
     # path('info_update/<slug:slug>/', info_update, name='info_update'),
     # path('update/<slug:slug>/', update, name='update'),

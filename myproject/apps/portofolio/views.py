@@ -34,7 +34,7 @@ from .models import MultiImage, Portofolio, SpecialInvitation, Dompet, Quote, Fi
 
 from .forms import PortoInfoForm, PasanganForm, AcaraForm, QuoteForm, PortoInfo2Form, \
     MultiImageForm, StoryForm, NavigasiForm, DompetForm, PortoInfo3Form, SpecialInvitationForm, \
-    CalenderForm, PortoInfo4Form, ThemeProductForm, BaseRegisterFormSet
+    CalenderForm, PortoInfo4Form, ThemeProductForm, PortoInfo5Form, BaseRegisterFormSet
 
 from myproject.apps.portofolio.services import AcaraFormSESSION, PasanganFormSESSION, MultiImageFormSESSION, \
     StoryFormSESSION, DompetFormSESSION, SpecialinviteFormSESSION
@@ -897,7 +897,6 @@ def step10_update(request, slug):
 def step11(request):
     if request.method == 'POST':
         form = PortoInfo4Form(request.POST or None, request.FILES)
-        print(form)
         if form.is_valid():
 
             request.session['cover_background'] = form.cleaned_data.get('cover_background')
@@ -922,7 +921,6 @@ def step11_update(request, slug):
 
     if request.method == "POST":
         form = PortoInfo4Form(request.POST or None, request.FILES, instance=obj)
-        print(form)
 
         if form.is_valid():
             # create portofolio instance
@@ -943,6 +941,52 @@ def step11_update(request, slug):
 @login_required(login_url="account_login")
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step12(request):
+    if request.method == 'POST':
+        form = PortoInfo5Form(request.POST or None, request.FILES)
+        if form.is_valid():
+
+            request.session['track'] = form.cleaned_data.get('track')
+            request.session.modified = True
+
+            return redirect("portofolio:step13")
+    else:
+        form = PortoInfo5Form()
+
+    return render(request, "portofolio/configurasi/track_form.html", {'form': form})
+
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def step12_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+
+    # verify user
+    if obj.user != request.user:
+        raise PermissionDenied
+
+    if request.method == 'POST':
+        form = PortoInfo5Form(request.POST or None, request.FILES, instance=obj)
+
+        if form.is_valid():
+            # create portofolio instance
+            instance = form.save(commit=False)
+            instance.save()
+            # instance.delete()
+            return redirect("portofolio:configurasi")
+
+    else:
+        form = PortoInfo5Form(instance=obj)
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, "portofolio/configurasi/track_form.html", context)
+
+
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def step13(request):
     if request.method == 'POST':
         form3 = ThemeProductForm(request.POST or None, request.FILES)
         if form3.is_valid():
@@ -1178,7 +1222,7 @@ def step12(request):
 
 @login_required(login_url="account_login")
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
-def step12_update(request, slug):
+def step13_update(request, slug):
     # get instance portofolio from id
     obj = get_object_or_404(Portofolio, slug=slug)
     # theme product instance by porto id
