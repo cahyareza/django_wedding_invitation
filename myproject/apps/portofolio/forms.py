@@ -956,6 +956,36 @@ class CalenderForm(forms.ModelForm):
 # ============== CALENDER END ===============!
 
 
+
+# ============== TRACK ===============!
+class PortoInfo5Form(forms.ModelForm):
+    class Meta:
+        model = Portofolio
+        fields = ["track"]
+        widgets = {
+            # Timezone
+            'track': forms.Select(
+                attrs={
+                    'class': 'input',
+                    'style': 'font-size: 13px',
+                }
+            ),
+        }
+
+    # SUPER FUNCTION
+    def __init__(self, *args, **kwargs):
+        super(PortoInfo5Form, self).__init__(*args, **kwargs)
+
+        # ========== CONTROL PANEL (Optional method to control ========== !
+        # 1. Input required
+        self.fields['track'].required = True
+
+        # 2. Help text
+        # self.fields['cover_background'].help_text = 'Jika tidak ingin menggunakan foto sebagai background cukup kosongi form'
+# ============== TRACK END ===============!
+
+
+
 # ================== FORMSET =================== !
 class BaseRegisterFormSet(BaseFormSet):
     def clean(self):

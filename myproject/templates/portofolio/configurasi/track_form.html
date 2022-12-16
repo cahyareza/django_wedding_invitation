@@ -1,0 +1,25 @@
+{% extends 'portofolio/register_porto.html' %}
+
+<!--  Buttons denied here -->
+{% block update %}
+      <!--   INFORMASI TEMA   -->
+      <div class="notification is-light p-1 has-text-centered mt-4">
+        INFORMASI TRACK
+      </div>
+      <div class="columns is-multiline mt-1">
+        <div class="column is-12">
+          {{ form.track.label_tag }}
+          {{ form.track }}
+
+          {% for error in form.track.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+      </div>
+{% endblock update %}
+
+<!--  Buttons  -->
+{% block buttons %}
+<button id="submit" type="submit" class="button is-info p-2 mt-1">Submit</button>
+<a href="{% url 'portofolio:configurasi' %}"  class="button is-dark-light p-2 mt-1">Cancel</a>
+{% endblock buttons %}
