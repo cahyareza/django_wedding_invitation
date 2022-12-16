@@ -100,3 +100,12 @@ var swiper = new Swiper(".mySwiperfitur", {
         }
     }
 });
+
+var swiper = new Swiper(".mySwiper2", {
+    spaceBetween: 20,
+    slidesPerView: 1,
+    pagination: {
+      el: ".swiper-pagination",
+      dynamicBullets: true,
+    },
+});

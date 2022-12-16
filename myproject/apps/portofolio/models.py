@@ -371,3 +371,12 @@ class Acara(CreationModificationDateBase, UrlBase):
 
     def __str__(self):
         return self.portofolio.porto_name
+
+class Kata(CreationModificationDateBase, UrlBase):
+    name = models.CharField(max_length=250, null=True, blank=True)
+    pembuka = models.TextField(null=True, blank=True)
+    isi = models.TextField(null=True, blank=True)
+    penutup = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name

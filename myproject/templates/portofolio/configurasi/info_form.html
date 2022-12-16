@@ -5,3 +5,17 @@
 <button id="submit" type="submit" class="button is-info p-2 mt-1">Update</button>
 <a href="{% url 'portofolio:configurasi' %}" class="button is-dark p-2 mt-1">Back</a>
 {% endblock buttons %}
+
+<tr>
+    <th><label for="id_porto_name">Nama undangan:</label></th>
+    <td><input type="text" name="porto_name" value="Undangan pernikahan Sonya dan Cahya" placeholder="Misal: Undangan Pernikahan Cahya dan Mila" class="input" style="font-size: 13px; text-transform: capitalize" maxlength="50" minlength="3" required id="id_porto_name"></td>
+</tr>
+<tr>
+    <th><label for="id_description">Informasi/deskripsi undangan:</label></th>
+    <td>
+        <textarea name="description" cols="40" rows="10" placeholder="Misal: Merupakan undangan online untuk pernikahan kami(Cahya dan Mila). Besar harapan untuk kehadiran bapak/ibu, dan atas perhatianya diucapkan terimakasih" class="textarea" style="font-size: 13px" maxlength="1000" minlength="50" id="id_description">
+        </textarea>
+        <br>
+        <span class="helptext">Jika tidak ingin mendeskripsikan undangan cukup dengan mengosongi form</span>
+    </td>
+</tr>

@@ -956,8 +956,6 @@ class CalenderForm(forms.ModelForm):
 # ============== CALENDER END ===============!
 
 
-
-
 # ================== FORMSET =================== !
 class BaseRegisterFormSet(BaseFormSet):
     def clean(self):
