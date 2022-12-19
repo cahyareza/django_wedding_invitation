@@ -324,6 +324,10 @@ class Theme(CreationModificationDateBase, UrlBase):
     rundown_fitur = models.FileField(blank=True, null=True)
     line = models.FileField(blank=True, null=True)
     space = models.FileField(blank=True, null=True)
+    ornament_1 = models.FileField(blank=True, null=True)
+    ornament_2 = models.FileField(blank=True, null=True)
+    ornament_3 = models.FileField(blank=True, null=True)
+    ornament_4 = models.FileField(blank=True, null=True)
 
     def __str__(self):
         return self.name

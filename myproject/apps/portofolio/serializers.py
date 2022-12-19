@@ -102,7 +102,7 @@ class ThemeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Theme
         fields = ("name", "slug", "open_fitur", "cover_fitur", "quote_fitur", \
-                  "rundown_fitur", "line", "space")
+                  "rundown_fitur", "line", "space", "ornament_1", "ornament_2", "ornament_3", "ornament_4")
 
 # Theme Product
 class ThemeProductSerializer(serializers.HyperlinkedModelSerializer):
