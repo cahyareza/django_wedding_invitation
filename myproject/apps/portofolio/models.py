@@ -316,6 +316,12 @@ class Fitur(CreationModificationDateBase, UrlBase):
 #     portofolio = models.OneToOneField(Portofolio, on_delete=models.SET_NULL, blank=True, null=True)
 
 class Theme(CreationModificationDateBase, UrlBase):
+    category = models.CharField(max_length=40, null=True, blank=True)
+    pembuat =  models.CharField(max_length=50, null=True, blank=True)
+    # tag = models.CharField(max_length=50, null=True, blank=True)
+    fitur = models.ForeignKey(Fitur, on_delete=models.CASCADE, blank=True, null=True)
+    theme_picture = models.ImageField(blank=True, null=True,)
+
     name = models.CharField(max_length=40, null=True, blank=True)
     slug = models.SlugField(max_length=255, blank=True, null=True)
     open_fitur = models.FileField(blank=True, null=True)
@@ -328,6 +334,13 @@ class Theme(CreationModificationDateBase, UrlBase):
     ornament_2 = models.FileField(blank=True, null=True)
     ornament_3 = models.FileField(blank=True, null=True)
     ornament_4 = models.FileField(blank=True, null=True)
+    background_1 = models.FileField(blank=True, null=True)
+    background_2 = models.FileField(blank=True, null=True)
+    background_3 = models.FileField(blank=True, null=True)
+    background_4 = models.FileField(blank=True, null=True)
+    background_5 = models.FileField(blank=True, null=True)
+    background_open = models.FileField(blank=True, null=True)
+    background_cover = models.FileField(blank=True, null=True)
 
     def __str__(self):
         return self.name

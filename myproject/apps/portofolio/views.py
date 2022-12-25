@@ -39,6 +39,8 @@ from .forms import PortoInfoForm, PasanganForm, AcaraForm, QuoteForm, PortoInfo2
 from myproject.apps.portofolio.services import AcaraFormSESSION, PasanganFormSESSION, MultiImageFormSESSION, \
     StoryFormSESSION, DompetFormSESSION, SpecialinviteFormSESSION
 
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
 from django.core.exceptions import PermissionDenied
 
 # ============== HOME ===============!
@@ -135,6 +137,64 @@ def home(request):
         return render(request, 'index.html', context)
 # ============== HOME END ===============!
 
+
+# ============== THEMELIST ===============!
+def theme_list(request):
+    themes = Theme.objects.all()
+    context = {
+        'themes': themes,
+    }
+    return render(request, 'portofolio/theme_list.html', context)
+# ============== THEMELIST ===============!
+
+# ============== THEMEDETAIL ===============!
+def theme_detail(request, id):
+    theme = Theme.objects.get(id=id)
+    theme_products = ThemeProduct.objects.filter(theme=theme)
+    if theme.fitur:
+        theme_name = str(theme.fitur.name)
+    else:
+        theme_name = None
+
+    paginator = Paginator(theme_products, 10)  # 3 posts in each page
+    page = request.GET.get('page', 1)
+    try:
+        theme_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer deliver the first page
+        theme_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range deliver last page of results
+        theme_list = paginator.page(paginator.num_pages)
+
+    context = {
+        'theme': theme,
+        'theme_products': theme_products,
+        'theme_name': theme_name,
+        'theme_list': theme_list,
+    }
+    return render(request, 'portofolio/theme_detail.html', context)
+# ============== THEMEDETAIL ===============!
+
+# ============== PORTOLIST ===============!
+def porto_list(request):
+    portos = Portofolio.objects.all()
+    paginator = Paginator(portos, 10)  # 3 posts in each page
+    page = request.GET.get('page', 1)
+    try:
+        porto_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer deliver the first page
+        porto_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range deliver last page of results
+        porto_list = paginator.page(paginator.num_pages)
+
+    context = {
+        'porto_list': porto_list,
+    }
+    return render(request, 'portofolio/porto_list.html', context)
+# ============== PORTOLIST ===============!
 
 # ============== MYPORTOFOLIO ===============!
 @login_required(login_url="account_login")

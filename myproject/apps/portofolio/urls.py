@@ -1,7 +1,7 @@
 from myproject.apps.portofolio import views
 from django.urls import path
 from .views import (
-    configurasi_porto, myportofolio, step1, step2, step3, step4, step5, step6,\
+    configurasi_porto, myportofolio, theme_list, theme_detail, porto_list, step1, step2, step3, step4, step5, step6,\
     step7, step8, step9, step10, step11, step12, step13, share_undangan, \
     open_background_delete, cover_background_delete, \
     step1_update, step2_update, step3_update, step4_update,step5_update, step6_update,\
@@ -66,6 +66,9 @@ urlpatterns = [
     path('delete_open_background/<slug:slug>/', open_background_delete, name='open_background_delete'),
     path('delete_cover_background/<slug:slug>/', cover_background_delete, name='cover_background_delete'),
     path('myportofolio/', myportofolio, name='myportofolio'),
+    path('theme_list/', theme_list, name='theme_list'),
+    path('theme_detail/<int:id>', theme_detail, name='theme_detail'),
+    path('porto_list/', porto_list, name='porto_list'),
 
     path('api/portofolio/', PortofolioList.as_view(), name=views.PortofolioList.name),
     path('api/portofolio/<int:pk>', PortofolioDetail.as_view(), name=views.PortofolioDetail.name),

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block isi %}
+<section class="hero has-background-warning-light is-small">
+    <div class="hero-body">
+      <div class="container">
+        <div class="section py-0">
+          <div class="columns is-multiline mt-5">
+              <div class="column
+              is-12-mobile
+              is-6-tablet
+              is-6-desktop
+              is-6-widescreen
+              is-6-fullhd">
+                  <figure class="image is-5by4">
+                    <img src="https://bulma.io/images/placeholders/256x256.png">
+                  </figure>
+              </div>
+              <div class="column
+              is-12-mobile
+              is-6-tablet
+              is-6-desktop
+              is-6-widescreen
+              is-6-fullhd">
+                  <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-2">
+                      {{ theme.name}}<br>
+                  </h1>
+                  {% if theme_name == "SILVER" %}
+                      <span class="tag is-medium" style="background-color: #C0C0C0">
+                        {{ theme.fitur.name }}
+                      </span>
+                  {% elif theme_name == "PLATINUM" %}
+                      <span class="tag is-medium" style="background-color: #E5E4E2">
+                        {{ theme.fitur.name }}
+                      </span>
+                  {% else %}
+                      <span class="tag is-medium" style="background-color: #FFD700">
+                        {{ theme.fitur.name }}
+                      </span>
+                  {% endif %}
+                  <p class="is-size-5-tablet">digunakan di <strong>{{ theme_products|length }}</strong> undangan</p><br>
+                  <button class="button is-danger">Preview Preset</button>
+              </div>
+          </div>
+          <h1 class="subtitle is-size-2-desktop is-size-4-tablet is-size-5-mobile mb-2">
+            Daftar undangan yang memakai preset <strong>{{ theme.name }}</strong>
+          </h1>
+          <div class="columns is-multiline mt-5 is-mobile">
+              {% for theme_product in theme_list %}
+                  <div class="column
+                  is-6-mobile
+                  is-4-tablet
+                  is-3-desktop
+                  is-3-widescreen
+                  is-3-fullhd">
+                    <div class="card">
+                      <div class="card-image">
+                        <figure class="image is-2by3">
+                          <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+                        </figure>
+                      </div>
+                      <div class="card-content p-3">
+                        <div class="content has-text-centered">
+                          <p><a href='http://localhost:8080/{{theme_product.portofolio.slug}}'>{{ theme_product.portofolio.pname }} & {{ theme_product.portofolio.lname }}</a></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              {% endfor %}
+          </div>
+          {% include 'portofolio/parts/pagination.html' %}
+        </div>
+      </div>
+    </div>
+</section>
+{% endblock %}
