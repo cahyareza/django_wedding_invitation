@@ -3,7 +3,7 @@ import re
 import datetime
 from django.forms import ClearableFileInput
 from .models import Portofolio, MultiImage, SpecialInvitation, Dompet, Quote, Rekening, ThemeProduct, \
-    Story, Acara
+    Story, Acara, Theme
 from django.core.validators import RegexValidator
 from django.contrib.admin import widgets
 from django.forms import BaseFormSet
@@ -784,23 +784,39 @@ class PortoInfo3Form(forms.ModelForm):
 
 
 
+from django.utils.safestring import mark_safe
+
+class CustomChoiceField(forms.ModelChoiceField):
+
+    def label_from_instance(self, obj):
+        if obj.theme_picture:
+            image = obj.theme_picture.url
+            title = obj.name
+            preview = obj.preview_url
+
+            label = '<div class="card-image px-3 py-1">' \
+                    '<figure class ="image is-3by5">' \
+                    '<img src="%s" />' \
+                    '</figure>' \
+                    '</div>' \
+                    '<p class="subtitle">%s</p>'\
+                    '<a href="%s" class="button is-danger mb-3">Preview</a>'% (image, title, preview)
+
+            return mark_safe(label)
 
 # ============== THEME ===============!
 class ThemeProductForm(forms.ModelForm):
+    # theme = forms.ModelChoiceField(queryset=Theme.objects.all(), to_field_name='slug', widget=forms.CheckboxSelectMultiple, required=False)
+    theme = CustomChoiceField(queryset=Theme.objects.all(), widget=forms.RadioSelect,)
     class Meta:
         model = ThemeProduct
         fields = ['theme']
         labels = {
             'theme': "Tema",
         }
-        widgets = {
-            'theme': forms.Select(
-                attrs={
-                    'class': 'input',
-                    'style': 'font-size: 13px',
-                }
-            ),
-        }
+        # widgets = {
+        #     'theme': forms.RadioSelect()
+        # }
 
     # SUPER FUNCTION
     def __init__(self, *args, **kwargs):
@@ -811,8 +827,15 @@ class ThemeProductForm(forms.ModelForm):
         self.fields['theme'].required = True
 
         # 2. Select option
-        # self.fields["theme"].choices = [('', 'Pilih tema'),] + list(self.fields["theme"].choices)[1:]
+        # self.fields["theme"].choices = list(self.fields["theme"].choices)[1:]
 
+        self.fields["theme"].widget.template_name = "portofolio/widgets/theme.html"
+
+    # def clean_my_field(self):
+    #     if self.cleaned_data['theme']:
+    #         if len(self.cleaned_data['theme']) != 1:
+    #             raise forms.ValidationError('Just select 1.')
+    #         return self.cleaned_data['theme']
 # ============== THEME END ===============!
 
 

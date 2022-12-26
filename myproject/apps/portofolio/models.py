@@ -321,6 +321,7 @@ class Theme(CreationModificationDateBase, UrlBase):
     # tag = models.CharField(max_length=50, null=True, blank=True)
     fitur = models.ForeignKey(Fitur, on_delete=models.CASCADE, blank=True, null=True)
     theme_picture = models.ImageField(blank=True, null=True,)
+    preview_url = models.URLField(max_length=1000, null=True, blank=True)
 
     name = models.CharField(max_length=40, null=True, blank=True)
     slug = models.SlugField(max_length=255, blank=True, null=True)

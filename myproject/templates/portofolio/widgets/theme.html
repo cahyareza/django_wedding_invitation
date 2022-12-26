@@ -1,0 +1,36 @@
+{% load i18n static %}
+
+<!--{% if widget.wrap_label %}-->
+<!--    <label{% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}-->
+<!--        class="radio">-->
+<!--{% endif %}-->
+
+<!--        <input type="{{ widget.type }}" name="{{ widget.name }}"{% if widget.value != None %}-->
+<!--            value="{{ widget.value }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}-->
+<!--            class="radio">-->
+<!--&lt;!&ndash;        <span class="ml-3 font-medium">{{ widget.choice_label }}</span>&ndash;&gt;-->
+
+<!--{% if widget.wrap_label %} {{ widget.label }}-->
+<!--    </label>-->
+<!--{% endif %}-->
+
+{% with id=widget.attrs.id %}<div{% if id %} id="{{ id }}"{% endif %}{% if widget.attrs.class %} class="{{ widget.attrs.class }}"{% endif %}>
+    <div class="columns is-multiline mt-2">
+        {% for group, options, index in widget.optgroups %}
+            {% if group %}<div><label>{{ group }}</label>{% endif %}
+                {% for option in options %}
+                    <div class="column
+                      is-12-mobile
+                      is-6-tablet
+                      is-6-desktop
+                      is-6-widescreen
+                      is-6-fullhd">
+                        <div class="card has-text-centered">
+                          <div>{% include option.template_name with widget=option %}</div>
+                        </div>
+                      </div>
+                {% endfor %}
+            {% if group %}</div>{% endif %}
+        {% endfor %}
+    </div>
+</div>{% endwith %}
