@@ -20,8 +20,10 @@ def my_orders_list(request):
 
     if request.method == "POST":
         form = OrderForm(request.POST or None, request.FILES, instance=order)
+        print("not valid")
+        print(form)
         if form.is_valid():
-            # print("valid")
+            print("valid")
             instance = form.save(commit=False)
             instance.user = user
             instance.phone = instance.phone
@@ -53,7 +55,9 @@ def order_checkout_view(request):
         order = Order.objects.filter(user=request.user).exists()
         if order == False:
             form = OrderForm(request.POST or None, request.FILES)
+            print("not valid")
             if form.is_valid():
+                print("valid")
                 instance = form.save(commit=False)
                 instance.user = user
                 instance.phone = form.cleaned_data.get("phone")
@@ -101,11 +105,20 @@ def orderitem_update(request, id):
 
             obj.upgrade_status = True
             if str(obj_orderitem.product_update) == "GOLD":
-                obj.paid_upgrade = Decimal(300000) * (Decimal(obj.discount)/Decimal(100)) - Decimal(obj.paid)
+                if obj.discount != 0:
+                    obj.paid_upgrade = Decimal(300000) * (Decimal(obj.discount)/Decimal(100)) - Decimal(obj.paid)
+                else:
+                    obj.paid_upgrade = Decimal(300000) - Decimal(obj.paid)
             elif str(obj_orderitem.product_update) == "PLATINUM":
-                obj.paid_upgrade = Decimal(200000) * (Decimal(obj.discount)/Decimal(100)) - Decimal(obj.paid)
+                if obj.discount != 0:
+                    obj.paid_upgrade = Decimal(200000) * (Decimal(obj.discount)/Decimal(100)) - Decimal(obj.paid)
+                else:
+                    obj.paid_upgrade = Decimal(200000) - Decimal(obj.paid)
             else:
-                obj.paid_upgrade = Decimal(100000) * (Decimal(obj.discount)/Decimal(100)) - Decimal(obj.paid)
+                if obj.discount != 0:
+                    obj.paid_upgrade = Decimal(100000) * (Decimal(obj.discount)/Decimal(100)) - Decimal(obj.paid)
+                else:
+                    obj.paid_upgrade = Decimal(100000) - Decimal(obj.paid)
 
             obj.save()
             return redirect("order:list")

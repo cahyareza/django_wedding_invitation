@@ -55,6 +55,7 @@
         </div>
 
         <!------  UPGRADE  ------>
+        {% if order.upgrade_status %}
         <div class="column is-hidden is-8">
             {{ form.paid_upgrade.label_tag }}
             {{ form.paid_upgrade }}
@@ -79,7 +80,6 @@
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
         </div>
-        {% if order.upgrade_status %}
         <div class="column is-8">
             <p class="subtitle is-size-6-tablet is-size-7-mobile mb-3">{{ form.bukti_upgrade.label_tag }}</p>
             <p class="subtitle is-size-6-tablet is-size-7-mobile mt-3 mb-3">{{ form.bukti_upgrade }}</p>

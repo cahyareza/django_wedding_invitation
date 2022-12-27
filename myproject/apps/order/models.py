@@ -22,7 +22,7 @@ class Order(CreationModificationDateBase, UrlBase):
     phone = models.CharField(max_length=100)
     place = models.ForeignKey(Kabupaten, null=True, on_delete=models.SET_NULL)
     status = models.CharField(max_length=20, choices=ORDER_STATUS_CHOICES, default='menunggu pembayaran')
-    discount = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(70)], null=True)
+    discount = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(70)], null=True, blank=True, default=0)
     paid = models.FloatField(default=0.00)
     payment = models.ForeignKey(Payment, null=True, on_delete=models.SET_NULL)
     nama_rekening = models.CharField(max_length=100)

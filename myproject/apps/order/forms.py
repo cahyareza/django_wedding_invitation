@@ -71,7 +71,6 @@ class OrderForm(forms.ModelForm):
     # SUPER FUNCTION
     def __init__(self, *args, **kwargs):
         super(OrderForm, self).__init__(*args, **kwargs)
-
         # ========== CONTROL PANEL (Optional method to control ========== !
         # 1. Input required
         self.fields['user'].required = False
