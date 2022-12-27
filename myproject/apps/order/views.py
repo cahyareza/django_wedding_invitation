@@ -20,10 +20,7 @@ def my_orders_list(request):
 
     if request.method == "POST":
         form = OrderForm(request.POST or None, request.FILES, instance=order)
-        print("not valid")
-        print(form)
         if form.is_valid():
-            print("valid")
             instance = form.save(commit=False)
             instance.user = user
             instance.phone = instance.phone

@@ -42,7 +42,7 @@ class Order(CreationModificationDateBase, UrlBase):
         return str(self.user)
 
     def mark_paid(self):
-        if self.bukti != None:
+        if self.bukti != None and self.status != 'terkonfirmasi':
             self.status = 'menunggu konfirmasi'
         return self.status
 

@@ -1,4 +1,5 @@
 import json
+import re
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
@@ -1183,8 +1184,11 @@ def step13(request):
                 # ============== DOMPET END ===============!
 
             # ============== NAVIGASI ===============!
+            url = request.session.get('link_iframe', None)
+            link_iframe = re.search('(?P<name>https?://[^\s]+\w)', url).group('name')
+
             Portofolio.objects.filter(user=user).update(
-                link_iframe=request.session.get('link_iframe', None),
+                link_iframe=link_iframe,
                 link_gmap=request.session.get('link_gmap', None),
             )
 
