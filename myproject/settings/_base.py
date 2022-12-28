@@ -77,7 +77,6 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.staticfiles',
-    'django_cleanup.apps.CleanupConfig',
     'django.contrib.auth',
     'django.contrib.messages',
     'django.contrib.sites',
@@ -100,6 +99,8 @@ INSTALLED_APPS = [
     'myproject.apps.cart',
     'myproject.apps.order',
     'myproject.apps.coupon',
+
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [

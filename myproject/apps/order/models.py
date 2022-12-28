@@ -16,6 +16,14 @@ ORDER_STATUS_CHOICES = (
     ('terkonfirmasi', 'terkonfirmasi'),
 )
 
+# ========== UPLOAD TO ========== !
+def order_bukti_upload_to(instance, filename):
+    user = instance.user
+    return f"order/{user}/bukti/{filename}"
+def order_bukti_upgrade_upload_to(instance, filename):
+    user = instance.user
+    return f"order/{user}/buktiupgrade/{filename}"
+# ========== UPLOAD TO END ========== !
 
 class Order(CreationModificationDateBase, UrlBase):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
@@ -26,8 +34,8 @@ class Order(CreationModificationDateBase, UrlBase):
     paid = models.FloatField(default=0.00)
     payment = models.ForeignKey(Payment, null=True, on_delete=models.SET_NULL)
     nama_rekening = models.CharField(max_length=100)
-    bukti = models.ImageField(blank=True, null=True)
-    bukti_upgrade = models.ImageField(blank=True, null=True)
+    bukti = models.ImageField(blank=True, null=True, upload_to=order_bukti_upload_to)
+    bukti_upgrade = models.ImageField(blank=True, null=True, upload_to=order_bukti_upgrade_upload_to)
     status_upgrade = models.CharField(max_length=20, choices=ORDER_STATUS_CHOICES, default='menunggu pembayaran')
     upgrade_status = models.BooleanField(default=False)
     paid_upgrade = models.FloatField(default=0.00)

@@ -1,5 +1,6 @@
 import json
 import re
+import os
 from datetime import datetime
 
 from django.db import models
@@ -75,6 +76,28 @@ THEME_LIST = (
     ('winter', 'winter')
 )
 
+# ========== UPLOAD TO ========== !
+def portofolio_pasangan_upload_to(instance, filename):
+    user = instance.porto_name
+    return f"portofolio/{user}/pasangan/{filename}"
+
+def portofolio_background_upload_to(instance, filename):
+    user = instance.user
+    return f"portofolio/{user}/background/{filename}"
+
+def portofolio_multiimage_upload_to(instance, filename):
+    user = instance.portofolio.user
+    return f"portofolio/{user}/multiimage/{filename}"
+
+def portofolio_story_upload_to(instance, filename):
+    user = instance.portofolio.user
+    return f"portofolio/{user}/story/{filename}"
+
+def theme_upload_to(instance, filename):
+    slug = instance.slug
+    return f"theme/{slug}/{filename}"
+# ========== UPLOAD TO END ========== !
+
 class Track(CreationModificationDateBase, UrlBase):
     name = models.CharField(max_length=30)
     artist = models.CharField(max_length=30)
@@ -98,7 +121,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     pnama_ayah = models.CharField(max_length=40, null=True, blank=True)
     pnama_ibu = models.CharField(max_length=40, null=True, blank=True)
     # ppicture = models.ImageField(blank=True)
-    ppicture = ResizedImageField(size=[180, 180], crop=['middle', 'center'], upload_to='whatever', null=True, blank=True)
+    ppicture = ResizedImageField(size=[180, 180], crop=['middle', 'center'], upload_to=portofolio_pasangan_upload_to, null=True, blank=True)
 
     lname = models.CharField(max_length=40, null=True, blank=True)
     linsta_link = models.CharField(max_length=250, null=True, blank=True)
@@ -106,7 +129,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     lnama_ayah = models.CharField(max_length=40, null=True, blank=True)
     lnama_ibu = models.CharField(max_length=40, null=True, blank=True)
     # lpicture = models.ImageField(blank=True)
-    lpicture = ResizedImageField(size=[180, 180], crop=['middle', 'center'], upload_to='whatever', null=True, blank=True)
+    lpicture = ResizedImageField(size=[180, 180], crop=['middle', 'center'], upload_to=portofolio_pasangan_upload_to, null=True, blank=True)
 
     # Countdown
     tanggal_countdown = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
@@ -145,8 +168,8 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     link_gmap = models.URLField(max_length=1000, null=True, blank=True)
 
     # Tema
-    cover_background = models.ImageField(blank=True, null=True)
-    open_background = models.ImageField(blank=True, null=True)
+    cover_background = models.ImageField(blank=True, null=True, upload_to=portofolio_background_upload_to)
+    open_background = models.ImageField(blank=True, null=True, upload_to=portofolio_background_upload_to)
 
     # Track
     track = models.ForeignKey(Track, on_delete=models.CASCADE, null=True)
@@ -195,7 +218,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
 
 class MultiImage(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE)
-    image = models.FileField(blank=True, null=True)
+    image = models.FileField(blank=True, null=True, upload_to=portofolio_multiimage_upload_to)
 
     class Meta:
         verbose_name_plural = "Multiimages"
@@ -320,28 +343,28 @@ class Theme(CreationModificationDateBase, UrlBase):
     pembuat =  models.CharField(max_length=50, null=True, blank=True)
     # tag = models.CharField(max_length=50, null=True, blank=True)
     fitur = models.ForeignKey(Fitur, on_delete=models.CASCADE, blank=True, null=True)
-    theme_picture = models.ImageField(blank=True, null=True,)
+    theme_picture = models.ImageField(blank=True, null=True, upload_to=theme_upload_to)
     preview_url = models.URLField(max_length=1000, null=True, blank=True)
 
     name = models.CharField(max_length=40, null=True, blank=True)
     slug = models.SlugField(max_length=255, blank=True, null=True)
-    open_fitur = models.FileField(blank=True, null=True)
-    cover_fitur = models.FileField(blank=True, null=True)
-    quote_fitur = models.FileField(blank=True, null=True)
-    rundown_fitur = models.FileField(blank=True, null=True)
-    line = models.FileField(blank=True, null=True)
-    space = models.FileField(blank=True, null=True)
-    ornament_1 = models.FileField(blank=True, null=True)
-    ornament_2 = models.FileField(blank=True, null=True)
-    ornament_3 = models.FileField(blank=True, null=True)
-    ornament_4 = models.FileField(blank=True, null=True)
-    background_1 = models.FileField(blank=True, null=True)
-    background_2 = models.FileField(blank=True, null=True)
-    background_3 = models.FileField(blank=True, null=True)
-    background_4 = models.FileField(blank=True, null=True)
-    background_5 = models.FileField(blank=True, null=True)
-    background_open = models.FileField(blank=True, null=True)
-    background_cover = models.FileField(blank=True, null=True)
+    open_fitur = models.FileField(blank=True, null=True, upload_to=theme_upload_to)
+    cover_fitur = models.FileField(blank=True, null=True, upload_to=theme_upload_to)
+    quote_fitur = models.FileField(blank=True, null=True, upload_to=theme_upload_to)
+    rundown_fitur = models.FileField(blank=True, null=True, upload_to=theme_upload_to)
+    line = models.FileField(blank=True, null=True, upload_to=theme_upload_to)
+    space = models.FileField(blank=True, null=True, upload_to=theme_upload_to)
+    ornament_1 = models.FileField(blank=True, null=True, upload_to=theme_upload_to)
+    ornament_2 = models.FileField(blank=True, null=True, upload_to=theme_upload_to)
+    ornament_3 = models.FileField(blank=True, null=True, upload_to=theme_upload_to)
+    ornament_4 = models.FileField(blank=True, null=True, upload_to=theme_upload_to)
+    background_1 = models.FileField(blank=True, null=True, upload_to=theme_upload_to)
+    background_2 = models.FileField(blank=True, null=True, upload_to=theme_upload_to)
+    background_3 = models.FileField(blank=True, null=True, upload_to=theme_upload_to)
+    background_4 = models.FileField(blank=True, null=True, upload_to=theme_upload_to)
+    background_5 = models.FileField(blank=True, null=True, upload_to=theme_upload_to)
+    background_open = models.FileField(blank=True, null=True, upload_to=theme_upload_to)
+    background_cover = models.FileField(blank=True, null=True, upload_to=theme_upload_to)
 
     def __str__(self):
         return self.name
@@ -373,7 +396,7 @@ class Story(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE)
     year = models.CharField(max_length=4, null=True, blank=True)
     cerita = models.TextField(null=True, blank=True)
-    image = models.FileField(blank=True, null=True)
+    image = models.FileField(blank=True, null=True, upload_to=portofolio_story_upload_to)
 
     def __str__(self):
         return self.portofolio.porto_name
