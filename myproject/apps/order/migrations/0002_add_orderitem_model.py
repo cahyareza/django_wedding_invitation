@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('price', models.FloatField()),
                 ('quantity', models.IntegerField(default=1)),
                 ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='order.order')),
-                ('product', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='portofolio.fiturproduct')),
+                ('product', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='portofolio.fitur')),
             ],
         ),
     ]
