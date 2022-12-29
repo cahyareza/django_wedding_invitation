@@ -230,8 +230,9 @@ def configurasi_porto(request):
 @login_required(login_url="account_login")
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step1(request):
-    portofolio = Portofolio.objects.filter(user=request.user).exists()
-    if portofolio == False:
+    user = request.user
+    portofolio = Portofolio.objects.filter(user=user).exists()
+    if portofolio == False or user.email == "undangannikah874@gmail.com":
         if request.method == 'POST':
             form = PortoInfoForm(request.POST or None)
             if form.is_valid():

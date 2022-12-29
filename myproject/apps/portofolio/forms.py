@@ -52,12 +52,12 @@ def validate_url(value):
 class PortoInfoForm(forms.ModelForm):
     # INFORMASI UNDANGAN
     porto_name = forms.CharField(
-        label='Nama undangan', min_length=3, max_length=50,
+        label='Nama undangan', min_length=3, max_length=400,
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Misal: Undangan Pernikahan Cahya dan Mila',
                 'class': 'input',
-                'style': 'font-size: 13px; text-transform: capitalize'
+                'style': 'font-size: 13px;'
             }
         )
     )
@@ -67,7 +67,7 @@ class PortoInfoForm(forms.ModelForm):
         required=True,
         widget=forms.Textarea(
             attrs={
-                'placeholder': 'Misal: Merupakan undangan online untuk pernikahan kami(Cahya dan Mila). Besar harapan untuk kehadiran bapak/ibu, dan atas perhatianya diucapkan terimakasih',
+                'placeholder': 'Misal: Merupakan undangan pernikahan kami (Bambang Rizky, S.Hut. dan Abrina Shanum, S.Si.). Besar harapan untuk kehadiran bapak/ibu, dan atas perhatianya diucapkan terimakasih',
                 'class': 'textarea',
                 'style': 'font-size: 13px',
             }
@@ -102,8 +102,6 @@ class PasanganForm(forms.ModelForm):
     # PEREMPUAN
     pname = forms.CharField(
         label='Nama', min_length=3, max_length=50,
-        validators=[RegexValidator(r'^[a-zA-ZA-y\s]*$',
-        message="Only letters is allowed !")],
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Nama lengkap',
@@ -126,8 +124,6 @@ class PasanganForm(forms.ModelForm):
 
     pnama_ayah = forms.CharField(
         label='Nama ayah', min_length=3, max_length=50,
-        validators=[RegexValidator(r'^[a-zA-ZA-y\s]*$',
-        message="Only letters is allowed !")],
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Nama ayah',
@@ -139,8 +135,6 @@ class PasanganForm(forms.ModelForm):
 
     pnama_ibu = forms.CharField(
         label='Nama ibu', min_length=3, max_length=50,
-        validators=[RegexValidator(r'^[a-zA-ZA-y\s]*$',
-        message="Only letters is allowed !")],
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Nama ibu',
@@ -167,8 +161,6 @@ class PasanganForm(forms.ModelForm):
     # LAKI - LAKI
     lname = forms.CharField(
         label='Nama lengkap', min_length=3, max_length=50,
-        validators=[RegexValidator(r'^[a-zA-ZA-y\s]*$',
-        message="Only letters is allowed !")],
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Nama',
@@ -191,8 +183,6 @@ class PasanganForm(forms.ModelForm):
 
     lnama_ayah = forms.CharField(
         label='Nama ayah', min_length=3, max_length=50,
-        validators=[RegexValidator(r'^[a-zA-ZA-y\s]*$',
-        message="Only letters is allowed !")],
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Nama ayah',
@@ -204,8 +194,6 @@ class PasanganForm(forms.ModelForm):
 
     lnama_ibu = forms.CharField(
         label='Nama ibu', min_length=3, max_length=50,
-        validators=[RegexValidator(r'^[a-zA-ZA-y\s]*$',
-        message="Only letters is allowed !")],
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Nama ibu',
@@ -293,7 +281,7 @@ class PasanganForm(forms.ModelForm):
 # ============== ACARA ===============!
 class AcaraForm(forms.ModelForm):
     tempat_acara = forms.CharField(
-        label='Tempat acara', min_length=3, max_length=100,
+        label='Tempat acara', min_length=3, max_length=500,
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Tempat acara',

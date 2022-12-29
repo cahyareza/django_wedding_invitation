@@ -112,7 +112,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
-    porto_name = models.CharField(max_length=150, unique=True, null=True, blank=True)
+    porto_name = models.CharField(max_length=400, unique=True, null=True, blank=True)
     slug = models.SlugField(max_length=255, null=True, blank=True)
     # Couple
     pname = models.CharField(max_length=40, null=True, blank=True)
@@ -150,7 +150,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
 
     # Add to calender
     name = models.CharField(max_length=250, null=True, blank=True)
-    description = models.TextField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True, default="Merupakan undangan pernikahan kami. Besar harapan untuk kehadiran bapak/ibu, dan atas perhatianya diucapkan terimakasih")
     startDate = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
     location = models.CharField(max_length=250, null=True, blank=True)
     startTime = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
