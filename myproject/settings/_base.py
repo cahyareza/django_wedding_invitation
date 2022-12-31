@@ -77,7 +77,6 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.staticfiles',
-    'django_cleanup.apps.CleanupConfig',
     'django.contrib.auth',
     'django.contrib.messages',
     'django.contrib.sites',
@@ -100,6 +99,8 @@ INSTALLED_APPS = [
     'myproject.apps.cart',
     'myproject.apps.order',
     'myproject.apps.coupon',
+
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
@@ -296,3 +297,5 @@ INTERNAL_IPS = [
     "127.0.0.1",
     # ...
 ]
+
+FILE_UPLOAD_MAX_MEMORY_SIZE = 20971520

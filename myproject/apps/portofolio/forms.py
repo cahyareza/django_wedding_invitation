@@ -52,12 +52,12 @@ def validate_url(value):
 class PortoInfoForm(forms.ModelForm):
     # INFORMASI UNDANGAN
     porto_name = forms.CharField(
-        label='Nama undangan', min_length=3, max_length=50,
+        label='Nama undangan', min_length=3, max_length=400,
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Misal: Undangan Pernikahan Cahya dan Mila',
                 'class': 'input',
-                'style': 'font-size: 13px; text-transform: capitalize'
+                'style': 'font-size: 13px;'
             }
         )
     )
@@ -67,7 +67,7 @@ class PortoInfoForm(forms.ModelForm):
         required=True,
         widget=forms.Textarea(
             attrs={
-                'placeholder': 'Misal: Merupakan undangan online untuk pernikahan kami(Cahya dan Mila). Besar harapan untuk kehadiran bapak/ibu, dan atas perhatianya diucapkan terimakasih',
+                'placeholder': 'Misal: Merupakan undangan pernikahan kami (Bambang Rizky, S.Hut. dan Abrina Shanum, S.Si.). Besar harapan untuk kehadiran bapak/ibu, dan atas perhatianya diucapkan terimakasih',
                 'class': 'textarea',
                 'style': 'font-size: 13px',
             }
@@ -102,8 +102,6 @@ class PasanganForm(forms.ModelForm):
     # PEREMPUAN
     pname = forms.CharField(
         label='Nama', min_length=3, max_length=50,
-        validators=[RegexValidator(r'^[a-zA-ZA-y\s]*$',
-        message="Only letters is allowed !")],
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Nama lengkap',
@@ -126,8 +124,6 @@ class PasanganForm(forms.ModelForm):
 
     pnama_ayah = forms.CharField(
         label='Nama ayah', min_length=3, max_length=50,
-        validators=[RegexValidator(r'^[a-zA-ZA-y\s]*$',
-        message="Only letters is allowed !")],
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Nama ayah',
@@ -139,8 +135,6 @@ class PasanganForm(forms.ModelForm):
 
     pnama_ibu = forms.CharField(
         label='Nama ibu', min_length=3, max_length=50,
-        validators=[RegexValidator(r'^[a-zA-ZA-y\s]*$',
-        message="Only letters is allowed !")],
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Nama ibu',
@@ -167,8 +161,6 @@ class PasanganForm(forms.ModelForm):
     # LAKI - LAKI
     lname = forms.CharField(
         label='Nama lengkap', min_length=3, max_length=50,
-        validators=[RegexValidator(r'^[a-zA-ZA-y\s]*$',
-        message="Only letters is allowed !")],
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Nama',
@@ -191,8 +183,6 @@ class PasanganForm(forms.ModelForm):
 
     lnama_ayah = forms.CharField(
         label='Nama ayah', min_length=3, max_length=50,
-        validators=[RegexValidator(r'^[a-zA-ZA-y\s]*$',
-        message="Only letters is allowed !")],
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Nama ayah',
@@ -204,8 +194,6 @@ class PasanganForm(forms.ModelForm):
 
     lnama_ibu = forms.CharField(
         label='Nama ibu', min_length=3, max_length=50,
-        validators=[RegexValidator(r'^[a-zA-ZA-y\s]*$',
-        message="Only letters is allowed !")],
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Nama ibu',
@@ -293,7 +281,7 @@ class PasanganForm(forms.ModelForm):
 # ============== ACARA ===============!
 class AcaraForm(forms.ModelForm):
     tempat_acara = forms.CharField(
-        label='Tempat acara', min_length=3, max_length=100,
+        label='Tempat acara', min_length=3, max_length=500,
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Tempat acara',
@@ -384,6 +372,17 @@ class AcaraForm(forms.ModelForm):
 
 # ============== QUOTE ===============!
 class QuoteForm(forms.ModelForm):
+    pembuka = forms.CharField(
+        label='Kalimat Pembuka',
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Kalimat',
+                'class': 'input',
+                'style': 'font-size: 13px; text-transform: capitalize'
+            }
+        )
+    )
+
     ayat = forms.CharField(
         label='Nama ayat/kutipan',
         widget=forms.TextInput(
@@ -409,19 +408,20 @@ class QuoteForm(forms.ModelForm):
 
     class Meta:
         model = Quote
-        fields = ['ayat', 'kutipan']
+        fields = ['pembuka', 'ayat', 'kutipan']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         # ========== ADVANCE CONTROL PANEL (multiple <Inputs>) ========== !
         # 1. Input required
-        require = ['ayat', 'kutipan']
+        require = ['pembuka', 'ayat', 'kutipan']
 
         for field in require:
             self.fields[field].required = False
 
         # 2. Help text
+        self.fields['pembuka'].help_text = 'Jika tidak ingin ada kalimat pembuka cukup dengan mengosongi form'
         self.fields['ayat'].help_text = 'Jika ingin menggunakan kalimat bawaan cukup dengan mengosongi form'
         self.fields['kutipan'].help_text = 'Jika ingin menggunakan kalimat bawaan cukup dengan mengosongi form'
 
