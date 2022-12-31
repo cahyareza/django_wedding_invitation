@@ -121,7 +121,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     pnama_ayah = models.CharField(max_length=40, null=True, blank=True)
     pnama_ibu = models.CharField(max_length=40, null=True, blank=True)
     # ppicture = models.ImageField(blank=True)
-    ppicture = ResizedImageField(size=[180, 180], crop=['middle', 'center'], upload_to=portofolio_pasangan_upload_to, null=True, blank=True)
+    ppicture = ResizedImageField(size=[180, 180], crop=['middle', 'center'], upload_to=portofolio_pasangan_upload_to, null=True, blank=True, max_length=500)
 
     lname = models.CharField(max_length=40, null=True, blank=True)
     linsta_link = models.CharField(max_length=250, null=True, blank=True)
@@ -129,7 +129,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     lnama_ayah = models.CharField(max_length=40, null=True, blank=True)
     lnama_ibu = models.CharField(max_length=40, null=True, blank=True)
     # lpicture = models.ImageField(blank=True)
-    lpicture = ResizedImageField(size=[180, 180], crop=['middle', 'center'], upload_to=portofolio_pasangan_upload_to, null=True, blank=True)
+    lpicture = ResizedImageField(size=[180, 180], crop=['middle', 'center'], upload_to=portofolio_pasangan_upload_to, null=True, blank=True, max_length=500)
 
     # Countdown
     tanggal_countdown = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
@@ -168,11 +168,11 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     link_gmap = models.URLField(max_length=1000, null=True, blank=True)
 
     # Tema
-    cover_background = models.ImageField(blank=True, null=True, upload_to=portofolio_background_upload_to)
-    open_background = models.ImageField(blank=True, null=True, upload_to=portofolio_background_upload_to)
+    cover_background = models.ImageField(blank=True, null=True, upload_to=portofolio_background_upload_to, max_length=500)
+    open_background = models.ImageField(blank=True, null=True, upload_to=portofolio_background_upload_to, max_length=500)
 
     # Track
-    track = models.ForeignKey(Track, on_delete=models.CASCADE, null=True)
+    track = models.ForeignKey(Track, on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
         verbose_name_plural = "APortofolio"
@@ -218,7 +218,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
 
 class MultiImage(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE)
-    image = models.FileField(blank=True, null=True, upload_to=portofolio_multiimage_upload_to)
+    image = models.FileField(blank=True, null=True, upload_to=portofolio_multiimage_upload_to, max_length=500)
 
     class Meta:
         verbose_name_plural = "Multiimages"
@@ -276,6 +276,7 @@ class Dompet(CreationModificationDateBase, UrlBase):
 
 class Quote(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE)
+    pembuka = models.CharField(max_length=500, null=True, blank=True)
     ayat = models.CharField(max_length=500, null=True, blank=True)
     kutipan = models.TextField(null=True, blank=True)
 
@@ -396,7 +397,7 @@ class Story(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE)
     year = models.CharField(max_length=4, null=True, blank=True)
     cerita = models.TextField(null=True, blank=True)
-    image = models.FileField(blank=True, null=True, upload_to=portofolio_story_upload_to)
+    image = models.FileField(blank=True, null=True, upload_to=portofolio_story_upload_to, max_length=500)
 
     def __str__(self):
         return self.portofolio.porto_name

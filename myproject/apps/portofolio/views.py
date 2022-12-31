@@ -232,7 +232,7 @@ def configurasi_porto(request):
 def step1(request):
     user = request.user
     portofolio = Portofolio.objects.filter(user=user).exists()
-    if portofolio == False or user.email == "undangannikah874@gmail.com":
+    if portofolio == False:
         if request.method == 'POST':
             form = PortoInfoForm(request.POST or None)
             if form.is_valid():
@@ -404,6 +404,7 @@ def step4(request):
         form2 = QuoteForm(request.POST or None, request.FILES)
         if form2.is_valid():
             # ============== QUOTE ===============!
+            request.session['pembuka'] = form2.cleaned_data.get('pembuka')
             request.session['ayat'] = form2.cleaned_data.get('ayat')
             request.session['kutipan'] = form2.cleaned_data.get('kutipan')
             request.session.modified = True
@@ -1058,7 +1059,7 @@ def step13(request):
             # orderitem instance by order
             orderitem = get_object_or_404(OrderItem, order=order)
 
-            if orderitem.product == "PLATINUM" or orderitem.product == "GOLD":
+            if str(orderitem.product) == "PLATINUM" or str(orderitem.product) == "GOLD":
                 acaraform = AcaraFormSESSION(request)
                 pasanganform = PasanganFormSESSION(request)
                 multiimageform = MultiImageFormSESSION(request)
@@ -1071,7 +1072,6 @@ def step13(request):
                 specialinviteform = SpecialinviteFormSESSION(request)
 
             # ============== PASANGAN ===============!
-            print(request.session.get('porto_name', None))
             for item in pasanganform:
                 user = request.user
                 Portofolio.objects.create(
@@ -1118,6 +1118,7 @@ def step13(request):
             # ============== QUOTE ===============!
             Quote.objects.create(
                 portofolio=porto_instance,
+                pembuka=request.session.get('pembuka', None),
                 ayat=request.session.get('ayat', None),
                 kutipan=request.session.get('kutipan', None),
             )
@@ -1126,15 +1127,22 @@ def step13(request):
             del request.session['porto_name']
             del request.session['description']
 
-            if 'ayat' and 'kutipan' in request.session:
+            if 'ayat' in request.session:
                 # del quote sessions
                 del request.session['ayat']
+                request.session.modified = True
+            if 'pembuka' in request.session:
+                # del quote sessions
+                del request.session['pembuka']
+                request.session.modified = True
+            if 'kutipan' in request.session:
+                # del quote sessions
                 del request.session['kutipan']
                 request.session.modified = True
 
             # ============== QUOTE END ===============!
 
-            if orderitem.product == "PLATINUM" or orderitem.product == "GOLD":
+            if str(orderitem.product) == "PLATINUM" or str(orderitem.product) == "GOLD":
                 # ============== MOMENT ===============!
                 for item in multiimageform:
                     MultiImage.objects.create(

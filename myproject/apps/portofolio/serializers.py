@@ -72,7 +72,7 @@ class QuoteSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Quote
-        fields = ("portofolio", "ayat", "kutipan")
+        fields = ("portofolio", "pembuka", "ayat", "kutipan")
 
 # Ucapan
 class UcapanSerializer(serializers.HyperlinkedModelSerializer):

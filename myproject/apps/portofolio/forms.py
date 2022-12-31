@@ -372,6 +372,17 @@ class AcaraForm(forms.ModelForm):
 
 # ============== QUOTE ===============!
 class QuoteForm(forms.ModelForm):
+    pembuka = forms.CharField(
+        label='Kalimat Pembuka',
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Kalimat',
+                'class': 'input',
+                'style': 'font-size: 13px; text-transform: capitalize'
+            }
+        )
+    )
+
     ayat = forms.CharField(
         label='Nama ayat/kutipan',
         widget=forms.TextInput(
@@ -397,19 +408,20 @@ class QuoteForm(forms.ModelForm):
 
     class Meta:
         model = Quote
-        fields = ['ayat', 'kutipan']
+        fields = ['pembuka', 'ayat', 'kutipan']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         # ========== ADVANCE CONTROL PANEL (multiple <Inputs>) ========== !
         # 1. Input required
-        require = ['ayat', 'kutipan']
+        require = ['pembuka', 'ayat', 'kutipan']
 
         for field in require:
             self.fields[field].required = False
 
         # 2. Help text
+        self.fields['pembuka'].help_text = 'Jika tidak ingin ada kalimat pembuka cukup dengan mengosongi form'
         self.fields['ayat'].help_text = 'Jika ingin menggunakan kalimat bawaan cukup dengan mengosongi form'
         self.fields['kutipan'].help_text = 'Jika ingin menggunakan kalimat bawaan cukup dengan mengosongi form'
 

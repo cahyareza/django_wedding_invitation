@@ -8,6 +8,16 @@
   </div>
   <div class="columns  is-multiline mt-1">
     <div class="column is-12">
+        {{ form2.pembuka.label_tag }}
+        {{ form2.pembuka }}
+
+        {% for error in form2.pembuka.errors %}
+            <p class="help is-danger">{{ error }}</p>
+        {% endfor %}
+
+        <p class="subtitle mt-2" style="font-size: 11px;">{{ form2.pembuka.help_text }}</p>
+    </div>
+    <div class="column is-12">
         {{ form2.kutipan.label_tag }}
         {{ form2.kutipan }}
 
