@@ -67,7 +67,7 @@ class PortoInfoForm(forms.ModelForm):
         required=True,
         widget=forms.Textarea(
             attrs={
-                'placeholder': 'Misal: Merupakan undangan pernikahan kami (Bambang Rizky, S.Hut. dan Abrina Shanum, S.Si.). Besar harapan untuk kehadiran bapak/ibu, dan atas perhatianya diucapkan terimakasih',
+                'placeholder': 'Misal: Merupakan undangan pernikahan kami. Besar harapan untuk kehadiran bapak/ibu, dan atas perhatianya diucapkan terimakasih',
                 'class': 'textarea',
                 'style': 'font-size: 13px',
             }
@@ -88,7 +88,7 @@ class PortoInfoForm(forms.ModelForm):
         # self.fields["lanak_ke"].choices = [('', 'Pilih anak ke-'), ] + list(self.fields["lanak_ke"].choices)[1:]
 
         # 2. Help text
-        self.fields['description'].help_text = 'Jika tidak ingin mendeskripsikan undangan cukup dengan mengosongi form'
+        self.fields['description'].help_text = 'Jika ingin menggunakan deskripsi bawaan cukup dengan mengosongi form'
 
         # 1. Input required
         self.fields['description'].required = False

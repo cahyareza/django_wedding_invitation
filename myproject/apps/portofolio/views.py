@@ -245,7 +245,11 @@ def step1(request):
             if form.is_valid():
                 # create session
                 request.session['porto_name'] = form.cleaned_data.get('porto_name')
-                request.session['description'] = form.cleaned_data.get('description')
+                if form.cleaned_data.get('description') == "":
+                    request.session['description'] = "Merupakan undangan pernikahan kami. Besar harapan untuk kehadiran bapak/ibu, dan atas perhatianya diucapkan terimakasih"
+                else:
+                    request.session['description'] = form.cleaned_data.get('description')
+                print(request.session.get('description', None))
                 request.session.modified = True
 
                 return redirect("portofolio:step2")
