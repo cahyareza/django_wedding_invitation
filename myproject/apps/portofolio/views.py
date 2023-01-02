@@ -1112,8 +1112,11 @@ def step12(request):
                     )
                 multiimageform.clear()
 
+                url_video = request.session.get('video', None)
+                video = re.search('(?P<name>https?://[^\s]+\w)', url_video).group('name')
+
                 Portofolio.objects.filter(user=user).update(
-                    video=request.session.get('video', None),
+                    video=video,
                     livestream=request.session.get('livestream', None),
                     kata_live_streaming=request.session.get('kata_live_streaming', None),
                     kata_moment=request.session.get('kata_moment', None),
