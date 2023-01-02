@@ -966,59 +966,13 @@ def step10_update(request, slug):
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step11(request):
     if request.method == 'POST':
-        form = PortoInfo4Form(request.POST or None, request.FILES)
-        if form.is_valid():
-
-            request.session['cover_background'] = form.cleaned_data.get('cover_background')
-            request.session['open_background'] = form.cleaned_data.get('open_background')
-            request.session.modified = True
-
-            return redirect("portofolio:step12")
-    else:
-        form = PortoInfo4Form()
-
-    return render(request, "portofolio/configurasi/cover_form.html", {'form': form})
-
-@login_required(login_url="account_login")
-@cache_control(no_cache=True, must_revalidate=True, no_store=True)
-def step11_update(request, slug):
-    # get instance portofolio from id
-    obj = get_object_or_404(Portofolio, slug=slug)
-
-    # verify user
-    if obj.user != request.user:
-        raise PermissionDenied
-
-    if request.method == "POST":
-        form = PortoInfo4Form(request.POST or None, request.FILES, instance=obj)
-
-        if form.is_valid():
-            # create portofolio instance
-            instance = form.save(commit=False)
-            instance.save()
-            # instance.delete()
-            return redirect("portofolio:configurasi")
-
-    else:
-        form = PortoInfo4Form(instance=obj)
-
-    context = {
-        'form': form,
-        'obj': obj,
-    }
-    return render(request, 'portofolio/configurasi/cover_form.html', context)
-
-@login_required(login_url="account_login")
-@cache_control(no_cache=True, must_revalidate=True, no_store=True)
-def step12(request):
-    if request.method == 'POST':
         form = PortoInfo5Form(request.POST or None, request.FILES)
         if form.is_valid():
 
             request.session['track'] = form.cleaned_data.get('track')
             request.session.modified = True
 
-            return redirect("portofolio:step13")
+            return redirect("portofolio:step12")
     else:
         form = PortoInfo5Form()
 
@@ -1026,7 +980,7 @@ def step12(request):
 
 @login_required(login_url="account_login")
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
-def step12_update(request, slug):
+def step11_update(request, slug):
     # get instance portofolio from id
     obj = get_object_or_404(Portofolio, slug=slug)
 
@@ -1056,7 +1010,7 @@ def step12_update(request, slug):
 
 @login_required(login_url="account_login")
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
-def step13(request):
+def step12(request):
     if request.method == 'POST':
         form3 = ThemeProductForm(request.POST or None, request.FILES)
         if form3.is_valid():
@@ -1261,18 +1215,28 @@ def step13(request):
             del request.session['waktu_countdown_selesai']
             # ============== NAVIGASI END ===============!
 
-            # ============== COVER BACKGROUND ===============!
+            # # ============== COVER BACKGROUND ===============!
+            # Portofolio.objects.filter(user=user).update(
+            #     cover_background=request.session.get('cover_background', None),
+            #     open_background=request.session.get('open_background', None),
+            # )
+            #
+            # # del portiinfo sessions
+            # if 'cover_background' in request.session:
+            #     del request.session['cover_background']
+            # if 'open_background' in request.session:
+            #     del request.session['open_background']
+            # # ============== NAVIGASI END ===============!
+
+            # ============== COVER TRACK ===============!
             Portofolio.objects.filter(user=user).update(
-                cover_background=request.session.get('cover_background', None),
-                open_background=request.session.get('open_background', None),
+                track=request.session.get('track', None),
             )
 
             # del portiinfo sessions
-            if 'cover_background' in request.session:
-                del request.session['cover_background']
-            if 'open_background' in request.session:
-                del request.session['open_background']
-            # ============== NAVIGASI END ===============!
+            if 'track' in request.session:
+                del request.session['track']
+            # ============== TRACK END ===============!
 
 
             request.session['theme'] = form3.cleaned_data.get('theme')
@@ -1294,7 +1258,7 @@ def step13(request):
             # ============== THEME END ===============!
 
 
-            return redirect("portofolio:configurasi")
+            return redirect("portofolio:step13")
     else:
         form3 = ThemeProductForm()
 
@@ -1302,7 +1266,7 @@ def step13(request):
 
 @login_required(login_url="account_login")
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
-def step13_update(request, slug):
+def step12_update(request, slug):
     # get instance portofolio from id
     obj = get_object_or_404(Portofolio, slug=slug)
     # theme product instance by porto id
@@ -1341,6 +1305,58 @@ def step13_update(request, slug):
 
     # return redirect("portofolio:update_tampilan", slug=slug)
     return render(request, 'portofolio/configurasi/tampilan_form.html', context)
+
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def step13(request):
+    porto_instance = Portofolio.objects.filter(user=request.user).first()
+    print(Portofolio.objects.filter(user=request.user))
+    if request.method == 'POST':
+        form = PortoInfo4Form(request.POST or None, request.FILES)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            porto_instance.cover_background = form.cleaned_data.get("cover_background")
+            porto_instance.open_background = form.cleaned_data.get("open_background")
+
+            porto_instance.save()
+            # request.session['cover_background'] = form.cleaned_data.get('cover_background')
+            # request.session['open_background'] = form.cleaned_data.get('open_background')
+            # request.session.modified = True
+
+            return redirect("portofolio:configurasi")
+    else:
+        form = PortoInfo4Form()
+
+    return render(request, "portofolio/configurasi/cover_form.html", {'form': form})
+
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def step13_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+
+    # verify user
+    if obj.user != request.user:
+        raise PermissionDenied
+
+    if request.method == "POST":
+        form = PortoInfo4Form(request.POST or None, request.FILES, instance=obj)
+
+        if form.is_valid():
+            # create portofolio instance
+            instance = form.save(commit=False)
+            instance.save()
+            # instance.delete()
+            return redirect("portofolio:configurasi")
+
+    else:
+        form = PortoInfo4Form(instance=obj)
+
+    context = {
+        'form': form,
+        'obj': obj,
+    }
+    return render(request, 'portofolio/configurasi/cover_form.html', context)
 
 
 # ============== SHARE UNDANGAN ===============!
