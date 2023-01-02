@@ -227,21 +227,21 @@
 
 .swiper2 {
     width: 100%;
-    height: 26em;
+    height: 30em;
     overflow: hidden;
     border-radius: 15px;
 }
 
 .swiper3 {
     width: 100%;
-    height: 26em;
+    height: 13em;
     overflow: hidden;
     border-radius: 15px;
 }
 
 .swiper-slide img {
     display: block;
-    width: 80%;
+    width: 90%;
     height: 500px;
     object-fit: cover;
 }

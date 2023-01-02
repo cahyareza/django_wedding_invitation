@@ -16,6 +16,7 @@ from rest_framework.reverse import reverse
 from django.utils import timezone
 from django.utils.timezone import now
 from datetime import datetime
+from django.db.models import Q
 
 from rest_framework import filters
 from django_filters import AllValuesFilter, DateTimeFilter, NumberFilter, FilterSet
@@ -51,6 +52,8 @@ def home(request):
     dompet_count = Dompet.objects.count()
     hadir_count = Hadir.objects.count()
     objects_fitur = Fitur.objects.all()
+    theme = Theme.objects.all()
+    portofolio  = Portofolio.objects.exclude(porto_picture='')[0:4]
 
     obj_silver = Coupon.objects.filter(active=True, silver=True).first()
     obj_platinum = Coupon.objects.filter(active=True, platinum=True).first()
@@ -78,7 +81,9 @@ def home(request):
             'discount_percent_platinum': False,
             'discount_str_gold': False,
             'discount_value_gold': False,
-            'discount_percent_gold': False
+            'discount_percent_gold': False,
+            'themes': theme,
+            'portofolios': portofolio,
         }
 
         # SILVER
@@ -132,7 +137,9 @@ def home(request):
             'discount_percent_platinum': False,
             'discount_str_gold': False,
             'discount_value_gold': False,
-            'discount_percent_gold': False
+            'discount_percent_gold': False,
+            'themes': theme,
+            'portofolios': portofolio,
         }
 
         return render(request, 'index.html', context)

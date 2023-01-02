@@ -22,7 +22,9 @@
                 <div class="card">
                   <div class="card-image">
                     <figure class="image is-4by3">
-                      <img src="{{ theme.theme_picture.url }}" alt="Placeholder image">
+                      {% if theme.theme_picture %}
+                        <img src="{{ theme.theme_picture.url }}" alt="Placeholder image">
+                      {% endif %}
                     </figure>
                   </div>
                   <div class="card-content">

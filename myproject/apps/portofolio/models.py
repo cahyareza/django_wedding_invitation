@@ -77,6 +77,10 @@ THEME_LIST = (
 )
 
 # ========== UPLOAD TO ========== !
+def portofolio_picture_upload_to(instance, filename):
+    user = instance.porto_name
+    return f"portofolio/{user}/picture/{filename}"
+
 def portofolio_pasangan_upload_to(instance, filename):
     user = instance.porto_name
     return f"portofolio/{user}/pasangan/{filename}"
@@ -114,6 +118,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     )
     porto_name = models.CharField(max_length=400, unique=True, null=True, blank=True)
     slug = models.SlugField(max_length=255, null=True, blank=True)
+    porto_picture = models.ImageField(null=True, blank=True, upload_to=portofolio_picture_upload_to, max_length=500)
     # Couple
     pname = models.CharField(max_length=40, null=True, blank=True)
     pinsta_link = models.CharField(max_length=250, null=True, blank=True)
@@ -176,6 +181,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
 
     class Meta:
         verbose_name_plural = "APortofolio"
+        ordering = ['-created']
 
     def __str__(self):
         return self.porto_name
