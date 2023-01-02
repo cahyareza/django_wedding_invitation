@@ -57,5 +57,10 @@
 <!--  Buttons  -->
 {% block buttons %}
 <button id="submit" type="submit" class="button is-info p-2 mt-1">Submit</button>
-<a href="{% url 'portofolio:configurasi' %}"  class="button is-dark-light p-2 mt-1">Cancel</a>
+{% url 'portofolio:step10' as the_url %}
+{% if request.path == the_url %}
+    <a href="{% url 'portofolio:configurasi' %}"  class="button is-hidden is-dark-light p-2 mt-1">Cancel</a>
+{% else %}
+    <a href="{% url 'portofolio:configurasi' %}"  class="button is-dark-light p-2 mt-1">Cancel</a>
+{% endif %}
 {% endblock buttons %}
