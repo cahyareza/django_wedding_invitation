@@ -85,14 +85,12 @@
     {% endblock %}
     <!---------- CONTENT END ---------->
 
-    <!---------- FOOTER START ---------->
+    <!---------- FOOTER AND WHATSAPP START ---------->
     <section class="hero has-background-danger-light is-medium">
       <div class="hero-footer is-marginless p-3 mt-1">
         <div class="container px-2 pt-3">
+          <!--     FOOTER     -->
           <div class="columns is-multiline is-vcentered is-mobile">
-
-
-
             <div class="column
             is-12-mobile
             is-6-tablet
@@ -193,7 +191,7 @@
                     </figure>
                     <div class="media-content">
                       <p class="is-size-7-mobile is-size-6-tablet">
-                        082213566900
+                        0895339197044
                       </p>
                     </div>
                   </article>
@@ -263,6 +261,65 @@
               </p>
             </div>
           </div>
+          <!--     FOOTER END     -->
+
+          <!--     WHATSAPP START   -->
+          <div class="columns is-multiline is-vcentered">
+            <div class="column
+            is-12-mobile
+            is-6-tablet
+            is-6-desktop
+            is-7-widescreen
+            is-7-fullhd is-paddingless">
+                <div id="whatsapp">
+                   <div v-cloak>
+                     <div class="notification" v-if="visible" style="position: fixed; bottom: 40px;right: 20px;">
+                        <form @submit="submitForm">
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input" v-model="fields.nama" type="text" placeholder="Add a name!" />
+                                    <span class="subtitle is-size-7" style="color: red">[[ fieldErrors.nama ]]</span>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <input class="textarea" v-model="fields.message" type="text" placeholder="What's your message?" />
+                                    <span class="subtitle is-size-7" style="color: red">[[ fieldErrors.message ]]</span>
+                                </div>
+                            </div>
+                            <div class="control">
+                                <button class="button">Submit</button>
+                            </div>
+                        </form>
+                      </div>
+                    </div>
+
+                    <button class="button has-background-primary"  style="
+                          position: fixed;
+                          width: 170px;
+                          height: 40px;
+                          bottom: 20px;
+                          right: 20px;
+                          color: #fff;
+                          border-radius: 50px;
+                          text-align: center;
+                          cursor: pointer;
+                          box-shadow: 2px 2px 3px #999;"
+
+                            @click="changeVisible()">
+                        <div class="media-left px-2 pt-1">
+                            <span class="icon">
+                              <i class="fa-brands fa-2x fa-whatsapp"></i>
+                            </span>
+                        </div>
+                        <div class="media-content is-paddingless">
+                            <p class="subtitle is-size-7 has-text-centered has-text-white">Butuh Bantuan?</p>
+                        </div>
+                    </button>
+                </div>
+            </div>
+          </div>
+          <!--     WHATSAPP END   -->
         </div>
       </div>
     </section>
@@ -295,6 +352,7 @@
     <script>
       const { createApp } = Vue
 
+      <!----------   NAVBAR   ---------->
       const navbarapp = createApp({
           el: '#navbarapp',
           delimiters: ['[[', ']]'],
@@ -306,6 +364,64 @@
       })
 
       navbarapp.mount('#navbarapp')
+      <!----------   NAVBAR END   ---------->
+
+      <!----------   WHATSAPP   ---------->
+      const whatsapp = createApp({
+          el: '#whatsapp',
+          delimiters: ['[[', ']]'],
+          data () {
+              return {
+                  visible: false,
+                  fields: {
+                    nama: '',
+                    message: '',
+                  },
+                  fieldErrors: {
+                    nama: undefined,
+                    message: undefined,
+                  },
+              }
+          },
+          methods: {
+            submitForm(evt) {
+              evt.preventDefault();
+              console.log('submit')
+
+              this.fieldErrors = this.validateForm(this.fields);
+              if (Object.keys(this.fieldErrors).length) return;
+
+              var data = {
+                  'nama': this.fields.nama,
+                  'message': this.fields.message,
+              };
+
+              var url = "https://api.whatsapp.com/send?phone=62895339197044&text="
+                  + "FORMAT TANYA" + "%0a"
+                  + "%0a"
+                  + "Name: " + data.nama + "%0a"
+                  + "message: " + data.message  + "%0a";
+
+              window.open(url, '_blank').focus();
+
+              this.fields.nama = '';
+              this.fields.message = '';
+            },
+            validateForm(fields) {
+              const errors = {};
+              if (!fields.nama) errors.nama = "Name Required";
+              if (!fields.message) errors.message = "Message Required";
+
+              return errors;
+            },
+            changeVisible(event){
+              this.visible = !this.visible;
+            },
+          }
+      })
+
+      whatsapp.mount('#whatsapp')
+      <!----------   WHATSAPP END   ---------->
     </script>
 
     <!--  Vue instance for navbar  -->
