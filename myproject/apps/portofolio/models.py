@@ -379,9 +379,9 @@ class Theme(CreationModificationDateBase, UrlBase):
     # SUPER FUNCTION
 
     # ========== SAVE FUNCTION ========== !
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     self.slug = slugify(self.name)
+    #     super().save(*args, **kwargs)
 
 class ThemeProduct(CreationModificationDateBase, UrlBase):
     fitur = models.CharField(max_length=40, null=True, blank=True)
