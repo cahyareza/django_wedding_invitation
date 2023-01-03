@@ -132,4 +132,7 @@ dmypy.json
 !/static/.gitkeep
 
 # Secrets
-secrets.json
+secrets.jsondb1.json
+db.json
+db2_03-01-2023.json
+db1.json
