@@ -16,6 +16,19 @@ ORDER_STATUS_CHOICES = (
     ('terkonfirmasi', 'terkonfirmasi'),
 )
 
+INFO_WEB = (
+    ('teman', 'Teman'),
+    ('vendor', 'Vendor'),
+    ('influencer', 'Influencer'),
+    ('instagram', 'Instagram'),
+    ('facebook', 'Facebook'),
+    ('tiktok', 'TikTok'),
+    ('twitter', 'Twitter'),
+    ('google', 'Google'),
+    ('iklan', 'Iklan'),
+    ('lainnya', 'Lainnya'),
+)
+
 # ========== UPLOAD TO ========== !
 def order_bukti_upload_to(instance, filename):
     user = instance.user
@@ -39,6 +52,7 @@ class Order(CreationModificationDateBase, UrlBase):
     status_upgrade = models.CharField(max_length=20, choices=ORDER_STATUS_CHOICES, default='menunggu pembayaran')
     upgrade_status = models.BooleanField(default=False)
     paid_upgrade = models.FloatField(default=0.00)
+    info_web = models.CharField(max_length=20, choices=INFO_WEB, blank=True, null=True)
 
 
     def get_url_path(self):

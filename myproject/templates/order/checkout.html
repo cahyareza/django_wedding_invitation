@@ -38,6 +38,14 @@
               <p class="help is-danger">{{ error }}</p>
           {% endfor %}
         </div>
+        <div class="column is-8">
+          {{ form.info_web.label_tag }}
+          {{ form.info_web }}
+
+          {% for error in form.info_web.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
     </div>
 
     <button id="submit" type="submit" class="button is-small is-danger p-2 mt-1">Submit</button>

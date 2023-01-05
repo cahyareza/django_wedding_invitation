@@ -48,7 +48,8 @@ class OrderForm(forms.ModelForm):
         model = Order
         fields = "__all__"
         labels = {
-            'place': 'Kabupaten'
+            'place': 'Kabupaten',
+            'info_web': 'Dari Mana Mengetahui Kami?'
         }
 
         # OUTSIDE WIDGET
@@ -61,6 +62,12 @@ class OrderForm(forms.ModelForm):
                 }
             ),
             'place': forms.Select(
+                attrs={
+                    'class': 'input',
+                    'style': 'font-size: 13px',
+                }
+            ),
+            'info_web': forms.Select(
                 attrs={
                     'class': 'input',
                     'style': 'font-size: 13px',
@@ -82,10 +89,12 @@ class OrderForm(forms.ModelForm):
         self.fields['upgrade_status'].required = False
         self.fields['paid_upgrade'].required = False
         self.fields['discount'].required = False
+        self.fields['info_web'].required = True
 
         # 2. Select option
         self.fields["payment"].choices = [('', 'Pilih payment'),] + list(self.fields["payment"].choices)[1:]
         self.fields["place"].choices = [('', 'Pilih kabupaten'),] + list(self.fields["place"].choices)[1:]
+        self.fields["info_web"].choices = [('', 'Pilih info'), ] + list(self.fields["info_web"].choices)[1:]
 
         # 3. Help text
         self.fields['bukti'].help_text = 'Segera upload bukti pembayaran, agar order terkonfirmasi.'
