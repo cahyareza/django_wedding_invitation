@@ -1,0 +1,698 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block isi %}
+<div id="fitur">
+  <section class="hero has-background-warning-light is-small">
+      <div class="hero-body">
+        <div class="section pt-0">
+          <div class="container">
+            <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-1">
+              Fitur yang keren dan lengkap
+            </h1>
+            <p class="subtitle is-size-7 mb-5 mt-1">*Klik box untuk lihat informasi</p>
+
+            <div class="columns is-multiline is-vcentered is-mobile mt-5">
+              <div class="column is-12-mobile is-6-tablet is-4-desktop">
+                <div @click="showModal1" class="box p-2" style="width:250px; height: 140px;">
+                  <article class="media">
+                    <figure class="media-left">
+                      <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                      </span>
+                    </figure>
+                    <div class="media-content">
+                      <p class="is-size-6-mobile">
+                        <strong>Hitungan Mundur</strong>
+                        <br>
+                        Hitung mundur tanggal acara pernikahan.
+                      </p>
+                    </div>
+                  </article>
+                </div>
+              </div>
+              <div class="column is-12-mobile is-6-tablet is-4-desktop">
+                <div @click="showModal2" class="box p-2" style="width:250px; height: 140px;">
+                  <article class="media">
+                    <figure class="media-left">
+                      <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                        <i class="fa-solid fa-mobile-button"></i>
+                      </span>
+                    </figure>
+                    <div class="media-content">
+                      <p class="is-size-6-mobile">
+                        <strong>Design Modern & Responsive</strong>
+                        <br>
+                        Undanganmu akan tampil lebih menarik.
+                      </p>
+                    </div>
+                  </article>
+                </div>
+              </div>
+              <div class="column is-12-mobile is-6-tablet is-4-desktop">
+                <div @click="showModal3" class="box p-2" style="width:250px; height: 140px;">
+                  <article class="media">
+                    <figure class="media-left">
+                      <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                        <i class="fa-solid fa-calendar-check"></i>
+                      </span>
+                    </figure>
+                    <div class="media-content">
+                      <p class="is-size-6-mobile">
+                        <strong>Menambahkan ke Kalender</strong>
+                        <br>
+                        Tamu bisa menyimpan tanggal dan lokasi acara ke kalender.
+                      </p>
+                    </div>
+                  </article>
+                </div>
+              </div>
+              <div class="column is-12-mobile is-6-tablet is-4-desktop">
+                <div @click="showModal4" class="box p-2" style="width:250px; height: 140px;">
+                  <article class="media">
+                    <figure class="media-left">
+                      <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                        <i class="fa-solid fa-share-nodes"></i>
+                      </span>
+                    </figure>
+                    <div class="media-content">
+                      <p class="is-size-6-mobile">
+                        <strong>Support Native Share</strong>
+                        <br>
+                        Bisa share undangan dengan mudah.
+                      </p>
+                    </div>
+                  </article>
+                </div>
+              </div>
+              <div class="column is-12-mobile is-6-tablet is-4-desktop">
+                <div @click="showModal5" class="box p-2" style="width:250px; height: 140px;">
+                  <article class="media">
+                    <figure class="media-left">
+                      <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                        <i class="fa-solid fa-pen"></i>
+                      </span>
+                    </figure>
+                    <div class="media-content">
+                      <p class="is-size-6-mobile">
+                        <strong>Realtime Editing</strong>
+                        <br>
+                        Bisa edit undangan kapanpun
+                      </p>
+                    </div>
+                  </article>
+                </div>
+              </div>
+    <!--          <div class="column is-12-is-12-mobile is-6-tablet is-4-desktop">-->
+    <!--            <div @click="showModal" class="box p-2" style="width:250px; height: 140px;">-->
+    <!--              <article class="media">-->
+    <!--                <figure class="media-left">-->
+    <!--                  <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">-->
+    <!--                    <i class="fa-solid fa-bell"></i>-->
+    <!--                  </span>-->
+    <!--                </figure>-->
+    <!--                <div class="media-content">-->
+    <!--                  <p class="is-size-6-mobile">-->
+    <!--                    <strong>Notification Ready</strong>-->
+    <!--                    <br>-->
+    <!--                    Mendapat informasi aktifitas undangan.-->
+    <!--                  </p>-->
+    <!--                </div>-->
+    <!--              </article>-->
+    <!--            </div>-->
+    <!--          </div>-->
+              <div class="column is-12-mobile is-6-tablet is-4-desktop">
+                <div @click="showModal6" class="box p-2" style="width:250px; height: 140px;">
+                  <article class="media">
+                    <figure class="media-left">
+                      <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                        <i class="fa-solid fa-share"></i>
+                      </span>
+                    </figure>
+                    <div class="media-content">
+                      <p class="is-size-6-mobile">
+                        <strong>Share Eksklusive</strong>
+                        <br>
+                        Bisa share dengan nama tamu undangan.
+                      </p>
+                    </div>
+                  </article>
+                </div>
+              </div>
+              <div class="column is-12-mobile is-6-tablet is-4-desktop">
+                <div @click="showModal7" class="box p-2" style="width:250px; height: 140px;">
+                  <article class="media">
+                    <figure class="media-left">
+                      <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                        <i class="fa-solid fa-images"></i>
+                      </span>
+                    </figure>
+                    <div class="media-content">
+                      <p class="is-size-6-mobile">
+                        <strong>Gallery Foto</strong>
+                        <br>
+                        Share moment indah dengan slide show keren.
+                      </p>
+                    </div>
+                  </article>
+                </div>
+              </div>
+              <div class="column is-12-mobile is-6-tablet is-4-desktop">
+                <div @click="showModal8" class="box p-2" style="width:250px; height: 140px;">
+                  <article class="media">
+                    <figure class="media-left">
+                      <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                        <i class="fa-solid fa-map-location"></i>
+                      </span>
+                    </figure>
+                    <div class="media-content">
+                      <p class="is-size-6-mobile">
+                        <strong>Lokasi</strong>
+                        <br>
+                        Informasi lokasi lengkap untuk navigasi.
+                      </p>
+                    </div>
+                  </article>
+                </div>
+              </div>
+              <div class="column is-12-mobile is-6-tablet is-4-desktop">
+                <div @click="showModal9" class="box p-2" style="width:250px; height: 140px;">
+                  <article class="media">
+                    <figure class="media-left">
+                      <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                        <i class="fa-solid fa-music"></i>
+                      </span>
+                    </figure>
+                    <div class="media-content">
+                      <p class="is-size-6-mobile">
+                        <strong>Music</strong>
+                        <br>
+                        Pilih music agar lebih eksklusive.
+                      </p>
+                    </div>
+                  </article>
+                </div>
+              </div>
+              <div class="column is-12-mobile is-6-tablet is-4-desktop">
+                <div @click="showModal10" class="box p-2" style="width:250px; height: 140px;">
+                  <article class="media">
+                    <figure class="media-left">
+                      <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                        <i class="fa-solid fa-user-group"></i>
+                      </span>
+                    </figure>
+                    <div class="media-content">
+                      <p class="is-size-6-mobile">
+                        <strong>Ucapan</strong>
+                        <br>
+                        Tamu dapat mengirimkan ucapan.
+                      </p>
+                    </div>
+                  </article>
+                </div>
+              </div>
+              <div class="column is-12-mobile is-6-tablet is-4-desktop">
+                <div @click="showModal11" class="box p-2" style="width:250px; height: 140px;">
+                  <article class="media">
+                    <figure class="media-left">
+                      <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                        <i class="fa-solid fa-envelope"></i>
+                      </span>
+                    </figure>
+                    <div class="media-content">
+                      <p class="is-size-6-mobile">
+                        <strong>Amplop Digital</strong>
+                        <br>
+                        Dapat mengirim amplop dengan mudah.
+                      </p>
+                    </div>
+                  </article>
+                </div>
+              </div>
+    <!--          <div class="column is-12-mobile">-->
+    <!--            <div class="box p-2" style="width:250px; height: 140px;">-->
+    <!--              <article class="media">-->
+    <!--                <figure class="media-left">-->
+    <!--                  <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">-->
+    <!--                    <i class="fa-solid fa-t"></i>-->
+    <!--                  </span>-->
+    <!--                </figure>-->
+    <!--                <div class="media-content">-->
+    <!--                  <p class="is-size-6-mobile">-->
+    <!--                    <strong>Translate</strong>-->
+    <!--                    <br>-->
+    <!--                    Dapat mentraslate ke bahasa inggris.-->
+    <!--                  </p>-->
+    <!--                </div>-->
+    <!--              </article>-->
+    <!--            </div>-->
+    <!--          </div>-->
+              <div class="column is-12-mobile is-6-tablet is-4-desktop">
+                <div @click="showModal12" class="box p-2" style="width:250px; height: 140px;">
+                  <article class="media">
+                    <figure class="media-left">
+                      <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                        <i class="fa-solid fa-heart"></i>
+                      </span>
+                    </figure>
+                    <div class="media-content">
+                      <p class="is-size-6-mobile">
+                        <strong>Love Stories</strong>
+                        <br>
+                        Ceritakan kisah cinta kamu.
+                      </p>
+                    </div>
+                  </article>
+                </div>
+              </div>
+              <div class="column is-12-mobile is-6-tablet is-4-desktop">
+                <div @click="showModal13" class="box p-2" style="width:250px; height: 140px;">
+                  <article class="media">
+                    <figure class="media-left">
+                      <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                        <i class="fa-solid fa-video"></i>
+                      </span>
+                    </figure>
+                    <div class="media-content">
+                      <p class="is-size-6-mobile">
+                        <strong>Live Streaming</strong>
+                        <br>
+                        Temui secara virtual
+                      </p>
+                    </div>
+                  </article>
+                </div>
+              </div>
+              <div class="column is-12-mobile is-6-tablet is-4-desktop">
+                <div @click="showModal14" class="box p-2" style="width:250px; height: 140px;">
+                  <article class="media">
+                    <figure class="media-left">
+                      <span class="icon is-medium is-rounded has-background-danger-light has-text-danger">
+                        <i class="fa-solid fa-clock"></i>
+                      </span>
+                    </figure>
+                    <div class="media-content">
+                      <p class="is-size-6-mobile">
+                        <strong>Custome Timezone</strong>
+                        <br>
+                        Support perbedaan waktu di dalam negeri dan luar negeri
+                      </p>
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <!----------  MODAL ---------->
+
+  <!-- HITUNG MUNDUR -->
+  <div class="modal p-3" :class="{'is-active': showModalFlag1}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Hitung Mundur</p>
+        <button @click="cancelModal1" class="modal-close is-large" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body is-centered">
+        <p class="image">
+          <img src="{% static 'site/img/modal_fitur/hitung_mundur1.png' %}" alt="">
+        </p>
+      </section>
+      <footer class="modal-card-foot">
+        <p>Jangan sampai terlewat  moment, dengan hitung mundur tanggal acara.</p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Design Modern & Responsive -->
+  <div class="modal p-3" :class="{'is-active': showModalFlag2}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Design Modern & Responsive</p>
+        <button @click="cancelModal2" class="modal-close is-large" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <p class="image">
+          <img src="{% static 'site/img/modal_fitur/responsive.png' %}" alt="">
+        </p>
+      </section>
+      <footer class="modal-card-foot">
+        <p>Undanganmu akan tampil lebih menarik.</p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Menambahkan ke Kalender -->
+  <div class="modal p-3" :class="{'is-active': showModalFlag3}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Menambahkan ke Kalender</p>
+        <button @click="cancelModal3" class="modal-close is-large" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <p class="image">
+          <img src="{% static 'site/img/modal_fitur/kalender.png' %}" alt="">
+        </p>
+      </section>
+      <footer class="modal-card-foot">
+        <p>Tamu bisa menyimpan tanggal dan lokasi acara ke kalender.</p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Support Native Share -->
+  <div class="modal p-3" :class="{'is-active': showModalFlag4}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Support Native Share</p>
+        <button @click="cancelModal4" class="modal-close is-large" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <p class="image">
+          <img src="{% static 'site/img/modal_fitur/share.png' %}" alt="">
+        </p>
+      </section>
+      <footer class="modal-card-foot">
+        <p>Bisa share undangan dengan mudah.</p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Realtime Editing -->
+  <div class="modal p-3" :class="{'is-active': showModalFlag5}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Realtime Editing</p>
+        <button @click="cancelModal5" class="modal-close is-large" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <p class="image">
+          <img src="{% static 'site/img/modal_fitur/editing.png' %}" alt="">
+        </p>
+      </section>
+      <footer class="modal-card-foot">
+        <p>Bisa edit undangan kapanpun.</p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Share Eksklusive -->
+  <div class="modal p-3" :class="{'is-active': showModalFlag6}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Share Eksklusive</p>
+        <button @click="cancelModal6" class="modal-close is-large" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <p class="image">
+          <img src="{% static 'site/img/modal_fitur/share_eksklusive.png' %}" alt="">
+        </p>
+      </section>
+      <footer class="modal-card-foot">
+        <p>Bisa share dengan nama tamu undangan.</p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Gallery Foto -->
+  <div class="modal p-3" :class="{'is-active': showModalFlag7}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Gallery Foto</p>
+        <button @click="cancelModal7" class="modal-close is-large" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <p class="image">
+          <img src="{% static 'site/img/modal_fitur/galery.png' %}" alt="">
+        </p>
+      </section>
+      <footer class="modal-card-foot">
+        <p>Share moment indah dengan slide show keren.</p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Lokasi -->
+  <div class="modal p-3" :class="{'is-active': showModalFlag8}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Lokasi</p>
+        <button @click="cancelModal8" class="modal-close is-large" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <p class="image">
+          <img src="{% static 'site/img/modal_fitur/map.png' %}" alt="">
+        </p>
+      </section>
+      <footer class="modal-card-foot">
+        <p>Informasi lokasi lengkap untuk navigasi.</p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Music -->
+  <div class="modal p-3" :class="{'is-active': showModalFlag9}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Music</p>
+        <button @click="cancelModal9" class="modal-close is-large" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <p class="image">
+          <img src="{% static 'site/img/modal_fitur/track.png' %}" alt="">
+        </p>
+      </section>
+      <footer class="modal-card-foot">
+        <p>Pilih music agar lebih eksklusive.</p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Ucapan -->
+  <div class="modal p-3" :class="{'is-active': showModalFlag10}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Ucapan</p>
+        <button @click="cancelModal10" class="modal-close is-large" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <p class="image">
+          <img src="{% static 'site/img/modal_fitur/ucapan.png' %}" alt="">
+        </p>
+      </section>
+      <footer class="modal-card-foot">
+        <p>Tamu dapat mengirimkan ucapan.</p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Amplop Digital -->
+  <div class="modal p-3" :class="{'is-active': showModalFlag11}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Amplop Digital</p>
+        <button @click="cancelModal11" class="modal-close is-large" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <p class="image">
+          <img src="{% static 'site/img/modal_fitur/amplop.png' %}" alt="">
+        </p>
+      </section>
+      <footer class="modal-card-foot">
+        <p>Dapat mengirim amplop dengan mudah.</p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Love Stories -->
+  <div class="modal p-3" :class="{'is-active': showModalFlag12}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Love Stories</p>
+        <button @click="cancelModal12" class="modal-close is-large" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <p class="image">
+          <img src="{% static 'site/img/modal_fitur/story.png' %}" alt="">
+        </p>
+      </section>
+      <footer class="modal-card-foot">
+        <p>Ceritakan kisah cinta kamu.</p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Live Streaming -->
+  <div class="modal p-3" :class="{'is-active': showModalFlag13}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Live Streaming</p>
+        <button @click="cancelModal13" class="modal-close is-large" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <p class="image">
+          <img src="{% static 'site/img/modal_fitur/streaming.png' %}" alt="">
+        </p>
+      </section>
+      <footer class="modal-card-foot">
+        <p>Temui secara virtual</p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Custome Timezone -->
+  <div class="modal p-3" :class="{'is-active': showModalFlag14}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Hitung Mundur</p>
+        <button @click="cancelModal14" class="modal-close is-large" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <p class="image">
+          <img src="{% static 'site/img/modal_fitur/calender.png' %}" alt="">
+        </p>
+      </section>
+      <footer class="modal-card-foot">
+        <p>Support perbedaan waktu di dalam negeri</p>
+      </footer>
+    </div>
+  </div>
+  <!----------  MODAL END ---------->
+{% endblock isi %}
+
+{% block script %}
+  <script>
+    <!----------   FITUR   ---------->
+    const fitur = createApp({
+        el: '#fitur',
+        delimiters: ['[[', ']]'],
+        data () {
+            return {
+                showModalFlag1: false,
+                showModalFlag2: false,
+                showModalFlag3: false,
+                showModalFlag4: false,
+                showModalFlag5: false,
+                showModalFlag6: false,
+                showModalFlag7: false,
+                showModalFlag8: false,
+                showModalFlag9: false,
+                showModalFlag10: false,
+                showModalFlag11: false,
+                showModalFlag12: false,
+                showModalFlag13: false,
+                showModalFlag14: false,
+            }
+        },
+        methods: {
+          showModal1() {
+              this.showModalFlag1 = true;
+          },
+          showModal2() {
+              this.showModalFlag2 = true;
+          },
+          showModal3() {
+              this.showModalFlag3 = true;
+          },
+          showModal4() {
+              this.showModalFlag4 = true;
+          },
+          showModal5() {
+              this.showModalFlag5 = true;
+          },
+          showModal6() {
+              this.showModalFlag6 = true;
+          },
+          showModal7() {
+              this.showModalFlag7 = true;
+          },
+          showModal8() {
+              this.showModalFlag8 = true;
+          },
+          showModal9() {
+              this.showModalFlag9 = true;
+          },
+          showModal10() {
+              this.showModalFlag10 = true;
+          },
+          showModal11() {
+              this.showModalFlag11 = true;
+          },
+          showModal12() {
+              this.showModalFlag12 = true;
+          },
+          showModal13() {
+              this.showModalFlag13 = true;
+          },
+          showModal14() {
+              this.showModalFlag14 = true;
+          },
+
+          <!--           CANCEL              -->
+
+          cancelModal1() {
+              this.showModalFlag1 = false;
+          },
+          cancelModal2() {
+              this.showModalFlag2 = false;
+          },
+          cancelModal3() {
+              this.showModalFlag3 = false;
+          },
+          cancelModal4() {
+              this.showModalFlag4 = false;
+          },
+          cancelModal5() {
+              this.showModalFlag5 = false;
+          },
+          cancelModal6() {
+              this.showModalFlag6 = false;
+          },
+          cancelModal7() {
+              this.showModalFlag7 = false;
+          },
+          cancelModal8() {
+              this.showModalFlag8 = false;
+          },
+          cancelModal9() {
+              this.showModalFlag9 = false;
+          },
+          cancelModal10() {
+              this.showModalFlag10 = false;
+          },
+          cancelModal11() {
+              this.showModalFlag11 = false;
+          },
+          cancelModal12() {
+              this.showModalFlag12 = false;
+          },
+          cancelModal13() {
+              this.showModalFlag13 = false;
+          },
+          cancelModal14() {
+              this.showModalFlag14 = false;
+          },
+        }
+    })
+
+    fitur.mount('#fitur')
+    <!----------   FITUR END   ---------->
+  </script>
+{% endblock %}

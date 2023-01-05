@@ -147,6 +147,12 @@ def home(request):
 # ============== HOME END ===============!
 
 
+# ============== FITURLIST ===============!
+def fitur_list(request):
+    return render(request, 'portofolio/fitur_list.html')
+# ============== FITURLIST ===============!
+
+
 # ============== THEMELIST ===============!
 def theme_list(request):
     themes = Theme.objects.all()
