@@ -216,6 +216,141 @@
   {% include 'portofolio/parts/fitur_list.html' %}
   <!---------- DAFTAR PRODUK END ---------->
 
+
+
+
+
+  <div id="faq">
+    <section class="hero is-white is-medium">
+      <div class="hero-body is-marginless p-3 mt-6">
+        <div class="container">
+          <div class="columns is-multiline">
+            <div class="column
+            is-12-mobile
+            is-6-tablet
+            is-6-desktop
+            is-7-widescreen
+            is-7-fullhd" data-aos="fade-right" data-aos-duration="800" data-aos-delay="200">
+              <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-1 px-4">
+                Cara Buat Undangan
+              </h1>
+              <p class="is-size-5-tablet px-4 mt-1 block">Cara mudah membuat undangan, hanya butuh 5 menit undangan kamu sudah bisa di sebarkan.</p>
+              <div class="columns is-multiline">
+                <div class="column is-12">
+                      <div class="media">
+                        <div class="media-left">
+                          <figure class="image is-96x96">
+                            <img src="{% static 'site/img/signup.svg' %}" alt="Placeholder image">
+                          </figure>
+                        </div>
+                        <div class="media-content">
+                          <p class="title is-5">Membuat akun</p>
+                          <p class="subtitle is-6">Membuat akun <a href="{% url 'account_signup' %}"><strong>disini</strong></a></p>
+                        </div>
+                      </div>
+                </div>
+                <div class="column is-12">
+                      <div class="media">
+                        <div class="media-left">
+                          <figure class="image is-96x96">
+                            <img src="{% static 'site/img/order.svg' %}" alt="Placeholder image">
+                          </figure>
+                        </div>
+                        <div class="media-content">
+                          <p class="title is-5">Order produk</p>
+                          <p class="subtitle is-6">Order produk disini dan upload bukti pembayaran, lalu menunggu order terverifikasi</p>
+                        </div>
+                      </div>
+                </div>
+                <div class="column is-12">
+                      <div class="media">
+                        <div class="media-left">
+                          <figure class="image is-96x96">
+                            <img src="{% static 'site/img/input.svg' %}" alt="Placeholder image">
+                          </figure>
+                        </div>
+                        <div class="media-content">
+                          <p class="title is-5">Mengisi Form</p>
+                          <p class="subtitle is-6">Membuat undangan <a href="{% url 'portofolio:step1' %}"><strong>disini</strong></a> dengan mengisi form yang tersedia(seperti: form nama undangan, pasangan, acara, dsb)</p>
+                        </div>
+                      </div>
+                </div>
+                <div class="column is-12">
+                      <div class="media">
+                        <div class="media-left">
+                          <figure class="image is-96x96">
+                            <img src="{% static 'site/img/active.svg' %}" alt="Placeholder image">
+                          </figure>
+                        </div>
+                        <div class="media-content">
+                          <p class="title is-5">Undangan aktif</p>
+                          <p class="subtitle is-6">Undangan otomatis aktif, dan dapat diedit kapanpun <a href="{% url 'portofolio:configurasi' %}"><strong>disini.</strong></a></p>
+                        </div>
+                      </div>
+                </div>
+              </div>
+            </div>
+            <div class="column
+            is-12-mobile
+            is-6-tablet
+            is-5-desktop
+            is-5-widescreen
+            is-5-fullhd" data-aos="fade-right" data-aos-duration="800" data-aos-delay="200">
+              <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-4 px-4">
+                FAQ
+              </h1>
+              <button @click="showModal" class="button has-text-weight-medium px-4 mb-1 is-fullwidth" >Berapa lama masa aktif undangan saya?</button>
+              <p v-if="show" class="px-4 mt-1">tidak ada masa aktif. dengan kata lain undangan anda akan aktif selamanya. jadi kamu bisa aktifkan sekarang untuk di pakai kapanpun.</p>
+              <hr class="my-1">
+              <button @click="showModal2" class="button has-text-weight-medium px-4 mb-1 is-fullwidth" >Apakah masih bisa di edit setelah aktif?</button>
+              <p v-if="show2" class="px-4 mt-1">ya bisa sekali. kamu bisa edit undangan kamu kapanpun selamanya. tanpa ada batasan.</p>
+              <hr class="my-1">
+              <button @click="showModal3" class="button has-text-weight-medium px-4 mb-1 is-fullwidth" >Upload foto, dengan hasil posisi tidak pas?</button>
+              <p v-if="show3" class="px-4 mt-1">pastikan foto saat diupload sudah sesuai ukuran 180x180 px, jika tidak maka akan otomatis terpotong menjadi ukuran 180x180 px dari center foto</p>
+              <hr class="my-1">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+
+
+<!--  &lt;!&ndash;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; CARA BUAT UNDANGAN START &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--  <section class="hero has-background-warning-light is-medium">-->
+<!--    <div class="hero-body is-marginless p-3 mt-1">-->
+<!--      <div class="container px-2 pt-3">-->
+
+<!--      </div>-->
+<!--    </div>-->
+<!--  </section>-->
+<!--  &lt;!&ndash;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; CARA BUAT UNDANGAN END &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+
+<!--  &lt;!&ndash;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; FAQ START &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--  <div id="faq">-->
+<!--    <section class="hero has-background-warning-light is-medium" v-cloak>-->
+<!--      <div class="hero-body is-marginless p-3 mt-1">-->
+<!--        <div class="container px-2 pt-3">-->
+<!--          <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-4 px-4">-->
+<!--            FAQ-->
+<!--          </h1>-->
+<!--          <div class="columns is-multiline">-->
+<!--            <div class="column is-8">-->
+<!--              <button @click="showModal" class="button is-inverted has-text-weight-bold has-text-left is-size-5 px-4 mb-1 is-fullwidth" >Berapa lama masa aktif undangan saya?</button>-->
+<!--              <p v-if="show" class="subtitle is-size-5 px-4 mt-1">tidak ada masa aktif. dengan kata lain undangan anda akan aktif selamanya. jadi kamu bisa aktifkan sekarang untuk di pakai kapanpun.</p>-->
+<!--              <button @click="showModal2" class="button has-text-weight-bold is-size-5 px-4 mb-1 is-fullwidth" >Apakah masih bisa di edit setelah di aktifkan?</button>-->
+<!--              <p v-if="show2" class="subtitle is-size-5 px-4 mt-1">ya bisa sekali. kamu bisa edit undangan kamu kapanpun selamanya. tanpa ada batasan.</p>-->
+<!--              <button @click="showModal3" class="button has-text-weight-bold is-size-5 px-4 mb-1 is-fullwidth" >Upload foto diri, dengan hasil posisi tidak pas?</button>-->
+<!--              <p v-if="show3" class="subtitle is-size-5 px-4 mt-1">pastikan foto saat diupload sudah sesuai ukuran 180x180 px, jika tidak maka akan otomatis terpotong menjadi ukuran 180x180 px dari center foto</p>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </section>-->
+<!--  </div>-->
+<!--  &lt;!&ndash;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; FAQ END &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+
   <!---------- TESTIMONI START ---------->
   <section class="hero has-background-warning-light is-medium">
     <div class="hero-body is-marginless p-3 mt-1">
@@ -285,4 +420,32 @@
 {% endblock %}
 
 {% block script %}
+<script>
+  <!----------   FAQ   ---------->
+  const faq = createApp({
+      el: '#faq',
+      delimiters: ['[[', ']]'],
+      data () {
+          return {
+              show: false,
+              show2: false,
+              show3: false,
+          }
+      },
+      methods: {
+        showModal() {
+            this.show = !this.show;
+        },
+        showModal2() {
+            this.show2 = !this.show2;
+        },
+        showModal3() {
+            this.show3 = !this.show3;
+        },
+      },
+  })
+
+  faq.mount('#faq')
+  <!----------   NAVBAR END   ---------->
+</script>
 {% endblock %}

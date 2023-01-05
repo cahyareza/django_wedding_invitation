@@ -231,12 +231,15 @@ def myportofolio(request):
 def configurasi_porto(request):
     user = request.user
     portofolio = Portofolio.objects.filter(user=user).first()
-    orderproduct = str(Order.objects.filter(user=request.user).first().items.first().product)
-    context = {
-        'portofolio': portofolio,
-        'orderproduct': orderproduct,
-    }
-    return render(request, 'portofolio/configurasi/icon_config.html', context)
+    if portofolio != None:
+        orderproduct = str(Order.objects.filter(user=request.user).first().items.first().product)
+        context = {
+            'portofolio': portofolio,
+            'orderproduct': orderproduct,
+        }
+        return render(request, 'portofolio/configurasi/icon_config.html', context)
+    else:
+        return render(request, 'portofolio/parts/porto_notfound.html')
 # ============== CONFIGURASI END ===============!
 
 
