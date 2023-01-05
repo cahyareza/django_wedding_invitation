@@ -29,7 +29,20 @@
                   </div>
                   <div class="card-content">
                     <div class="content">
-                      <a href="{% url 'portofolio:theme_detail' theme.id %}"><strong>{{ theme.name }}</strong></a>
+                      <a href="{% url 'portofolio:theme_detail' theme.id %}"><strong>{{ theme.name }} -</strong></a>
+                      {% if theme.fitur.name == "SILVER" %}
+                          <span class="tag is-medium" style="background-color: #C0C0C0">
+                            {{ theme.fitur.name }}
+                          </span>
+                      {% elif theme.fitur.name == "PLATINUM" %}
+                          <span class="tag is-medium" style="background-color: #E5E4E2">
+                            {{ theme.fitur.name }}
+                          </span>
+                      {% else %}
+                          <span class="tag is-medium" style="background-color: #FFD700">
+                            {{ theme.fitur.name }}
+                          </span>
+                      {% endif %}
                     </div>
                   </div>
                 </div>

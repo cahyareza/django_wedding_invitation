@@ -26,19 +26,19 @@
                   <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-2">
                       {{ theme.name}}<br>
                   </h1>
-<!--                  {% if theme_name == "SILVER" %}-->
-<!--                      <span class="tag is-medium" style="background-color: #C0C0C0">-->
-<!--                        {{ theme.fitur.name }}-->
-<!--                      </span>-->
-<!--                  {% elif theme_name == "PLATINUM" %}-->
-<!--                      <span class="tag is-medium" style="background-color: #E5E4E2">-->
-<!--                        {{ theme.fitur.name }}-->
-<!--                      </span>-->
-<!--                  {% else %}-->
-<!--                      <span class="tag is-medium" style="background-color: #FFD700">-->
-<!--                        {{ theme.fitur.name }}-->
-<!--                      </span>-->
-<!--                  {% endif %}-->
+                  {% if theme_name == "SILVER" %}
+                      <span class="tag is-medium" style="background-color: #C0C0C0">
+                        {{ theme.fitur.name }}
+                      </span>
+                  {% elif theme_name == "PLATINUM" %}
+                      <span class="tag is-medium" style="background-color: #E5E4E2">
+                        {{ theme.fitur.name }}
+                      </span>
+                  {% else %}
+                      <span class="tag is-medium" style="background-color: #FFD700">
+                        {{ theme.fitur.name }}
+                      </span>
+                  {% endif %}
                   <p class="is-size-5-tablet">digunakan di <strong>{{ theme_products|length }}</strong> undangan</p><br>
                   <a href="{{ theme.preview_url }}" class="button is-danger">Preview Preset</a>
               </div>

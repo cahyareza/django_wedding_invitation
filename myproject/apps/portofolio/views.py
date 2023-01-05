@@ -1,5 +1,6 @@
 import json
 import re
+import random
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
@@ -53,7 +54,7 @@ def home(request):
     hadir_count = Hadir.objects.count()
     objects_fitur = Fitur.objects.all()
     theme = Theme.objects.all()
-    portofolio  = Portofolio.objects.exclude(porto_picture='')[0:4]
+    portofolio  = random.sample(list(Portofolio.objects.exclude(porto_picture='')), 5)
 
     obj_silver = Coupon.objects.filter(active=True, silver=True).first()
     obj_platinum = Coupon.objects.filter(active=True, platinum=True).first()
