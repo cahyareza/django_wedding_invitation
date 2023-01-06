@@ -386,7 +386,6 @@
           methods: {
             submitForm(evt) {
               evt.preventDefault();
-              console.log('submit')
 
               this.fieldErrors = this.validateForm(this.fields);
               if (Object.keys(this.fieldErrors).length) return;

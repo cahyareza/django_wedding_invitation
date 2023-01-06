@@ -2,71 +2,158 @@
 
 <!--  Buttons denied here -->
 {% block update %}
-  <!--   INFORMASI SHARE  -->
-  <div class="notification is-light p-1 has-text-centered mt-4">
-    INFORMASI SHARE
-  </div>
-
-  <div class="columns is-multiline">
-      {% if katas %}
-      <div class="column is-12">
-        <h1 class="subtitle is-size-6 mb-1">
-            Kalimat referensi
-        </h1>
-        <div class="swiper mySwiper2">
-            <div class="swiper-wrapper">
-                {% for kata in katas %}
-                <div class="swiper-slide card has-background-light" style="height: 500px;">
-                    <div class="card-content">
-                      <p class="is-size-7-mobile is-size-6-tablet mt-2">
-                          {{ kata.pembuka }} <br><br> {{ kata.isi }} <br><br> {{ kata.penutup }}
-                      </p>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-            <div class="swiper-pagination"></div>
-        </div>
-        <p class="subtitle is-size-7 mt-2">Kalimat di atas bisa dijadikan untuk referensi anda</p>
+  <div id="sharelink">
+      <!--   INFORMASI SHARE  -->
+      <div class="notification is-light p-1 has-text-centered mt-4">
+        INFORMASI SHARE
       </div>
-      {% endif %}
 
-    <div class="column is-12">
-        <div class="field">
-          <div class="label has-text-weight-normal">Nomor whatsapp tujuan:</div>
-          <div class="field-body">
-            <div class="field is-expanded">
-              <div class="field has-addons">
-                <p class="control">
-                  <a class="button is-static">
-                    +62
-                  </a>
-                </p>
-                <p class="control is-expanded">
-                  <input class="input" type="tel" name="nomor" placeholder="Misalkan: 82213566900">
-                </p>
-              </div>
-              <p class="help">Jangan menulis 0 pertama nomor hp anda.</p>
+      <div class="columns is-multiline">
+          {% if katas %}
+          <div class="column is-12">
+            <h1 class="subtitle is-size-6 mb-1">
+                Kalimat referensi:
+            </h1>
+            <div class="swiper mySwiper2">
+                <div class="swiper-wrapper">
+                    {% for kata in katas %}
+                    <div class="swiper-slide card has-background-light" style="height: 500px;">
+                        <div class="card-content">
+                          <p class="is-size-7-mobile is-size-6-tablet mt-2">
+                              {{ kata.pembuka }} <br><br> {{ kata.isi }} <br><br> {{ kata.penutup }}
+                          </p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="swiper-pagination"></div>
             </div>
-          </div>
+            <p class="subtitle is-size-7 mt-2">Kalimat di atas bisa dijadikan untuk referensi anda</p>
         </div>
+        {% endif %}
 
-        <tr>
-            <th><label>Kalimat anda:</label></th>
-            <td>
-                <textarea name="isi" cols="40" rows="10" placeholder="Kalimat" class="textarea mt-2" style="font-size: 13px," maxlength="10000">
-                </textarea>
-                <p class="subtitle is-size-7 mt-2 mb-1">Link web undangan: http://localhost:8080/{{porto_slug}}</p>
-                <p class="subtitle has-text-danger is-size-7 mt-1">Kalimat di atas mungkin masih perlu perbaikan di whatsapp</p>
-            </td>
-        </tr>
+        <div class="column is-12">
+            <div class="field">
+              <div class="label has-text-weight-normal">Nomor whatsapp tujuan:</div>
+              <div class="field-body">
+                <div class="field is-expanded">
+                  <div class="field has-addons">
+                    <p class="control">
+                      <a class="button is-static">
+                        +62
+                      </a>
+                    </p>
+                    <p class="control is-expanded">
+                      <input class="input" type="tel" v-model="fields.nomor" placeholder="Misalkan: 82213566900">
+                    </p>
+                  </div>
+                  <span class="subtitle is-size-7" style="color: red">[[ fieldErrors.nomor ]]</span>
+                  <p class="help">Jangan menulis 0 pertama nomor hp anda.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label has-text-weight-normal">Alamat web dengan tujuan undangan:</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="Misal: Dr. Bambang Subroto" v-model="url">
+                <p class="help mb-1">Cukup menginput nama tujuan undangan</p>
+                <p class="subtitle is-size-7 mt-1 mb-1">Link web undangan default: {{ website_frontend }}{{porto_slug}}</p>
+                <span class="subtitle is-size-7 has-text-danger">[[ error ]]</span>
+              </div>
+            </div>
+            <p class="subtitle is-size-7 is-underlined mb-2" v-if="show"> [[ hasilurl ]]</p>
+            <button @click.prevent="getUrl(); showUrl()" class="button is-small p-4 is-danger mb-3">Dapatkan link</button><br>
+
+            <tr>
+                <th><label>Kalimat anda:</label></th>
+                <td>
+                    <textarea v-model="fields.isi" cols="40" rows="10" placeholder="Kalimat" class="textarea mt-2" style="font-size: 13px," maxlength="10000">
+                    </textarea>
+                    <span class="subtitle is-size-7" style="color: red">[[ fieldErrors.isi ]]</span>
+                    <p class="subtitle is-size-7 mt-1">Kalimat share di atas mungkin masih perlu perbaikan di whatsapp</p>
+                </td>
+            </tr>
+        </div>
     </div>
+    <button @click="shareUrl" type="button" class="button is-info p-2 mt-4">Share</button>
   </div>
 {% endblock update %}
 
 <!--  Buttons  -->
 {% block buttons %}
-<!--<a onclick="share()"><button class="button is-info p-2 mt-4" onclick="return share()">Share</button></a>-->
-<button id="sharebutton" type="button" class="button is-info p-2 mt-4">Share</button>
 <a href="{% url 'portofolio:configurasi' %}"  class="button is-dark-light p-2 mt-4">Cancel</a>
 {% endblock buttons %}
+
+{% block script %}
+<script>
+  <!----------   SHARE   ---------->
+  const sharelink = createApp({
+      el: '#sharelink',
+      delimiters: ['[[', ']]'],
+      data () {
+          return {
+              website : "{{ website_backend|safe }}",
+              website_frontend: "{{ website_frontend|safe }}",
+              slug: "{{ porto_slug|safe }}",
+              show: false,
+              url: null,
+              hasilurl: null,
+              error: undefined,
+              fields: {
+                nomor: null,
+                isi: null,
+              },
+              fieldErrors: {
+                nomor: undefined,
+                isi: undefined,
+              }
+          }
+      },
+      methods: {
+        showUrl() {
+            this.show = true;
+        },
+        getUrl() {
+             if (this.url == null) {
+                this.error = "Tujuan tidak boleh kosong";
+                return
+             };
+            this.hasilurl = this.website_frontend + this.slug + "/" + this.url;
+            this.url = null;
+        },
+        validatefield() {
+             if (this.url == null) {
+                this.error = "Tujuan tidak boleh kosong";
+                return
+             };
+        },
+        shareUrl(evt) {
+            evt.preventDefault();
+            console.log("submit")
+
+            this.fieldErrors = this.validateshare(this.fields);
+            if (Object.keys(this.fieldErrors).length) return;
+
+            var url = `https://api.whatsapp.com/send?phone=62${this.fields.nomor}&text=`
+            + this.fields.isi;
+
+            window.open(url, '_blank').focus();
+
+            this.fields.nama = '';
+            this.fields.message = '';
+        },
+        validateshare(fields) {
+            const errors = {};
+            if (!fields.nomor) errors.nomor = "Nomor Required";
+            if (!fields.isi) errors.isi = "Kalimat Required";
+
+            return errors;
+        },
+      },
+  })
+
+  sharelink.mount('#sharelink')
+  <!----------   SHARE END   ---------->
+</script>
+{% endblock %}
