@@ -283,32 +283,5 @@
             formCopyTarget6.append(copyEmptyFormEl6)
         }
     }
-
-    <!--------------- Share --------------->
-    const share = document.getElementById('sharebutton')
-
-    if (share) {
-        share.addEventListener('click', sharefunc)
-    }
-
-    function sharefunc() {
-        var isi = document.getElementsByName('isi')[0].value;
-        var nomor = document.getElementsByName('nomor')[0].value;
-
-        if (nomor == "") {
-            alert("Nomor is required!");
-            return false;
-        }
-
-        if (isi == "") {
-            alert("Kalimat is required!");
-            return false;
-        }
-
-        var url = `https://api.whatsapp.com/send?phone=62${nomor}&text=`
-        + isi
-
-        window.open(url, '_blank').focus();
-    }
 </script>
 {% endblock %}

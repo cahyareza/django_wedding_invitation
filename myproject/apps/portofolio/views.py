@@ -18,6 +18,7 @@ from django.utils import timezone
 from django.utils.timezone import now
 from datetime import datetime
 from django.db.models import Q
+from myproject.settings import production
 
 from rest_framework import filters
 from django_filters import AllValuesFilter, DateTimeFilter, NumberFilter, FilterSet
@@ -1381,8 +1382,12 @@ def step13_update(request, slug):
 @login_required(login_url="account_login")
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def share_undangan(request):
-    katas = Kata.objects.all()
-    return render(request, 'portofolio/configurasi/share_undangan.html', {'katas': katas})
+    context = {
+        "website_frontend" : production.WEBSITE_URL_FRONTEND,
+        "website_backend" : production.WEBSITE_URL,
+        "katas" : Kata.objects.all(),
+    }
+    return render(request, 'portofolio/configurasi/share_undangan.html', context)
 
 # ============== END SHARE UNDANGAN ===============!
 
