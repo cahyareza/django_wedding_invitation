@@ -49,6 +49,7 @@ from django.core.exceptions import PermissionDenied
 
 # ============== HOME ===============!
 def home(request):
+    web_address = production.WEBSITE_URL
     porto_count = Portofolio.objects.count()
     ucapan_count = Ucapan.objects.count()
     dompet_count = Dompet.objects.count()
@@ -86,6 +87,7 @@ def home(request):
             'discount_percent_gold': False,
             'themes': theme,
             'portofolios': portofolio,
+            'web_address': web_address,
         }
 
         # SILVER
@@ -142,6 +144,7 @@ def home(request):
             'discount_percent_gold': False,
             'themes': theme,
             'portofolios': portofolio,
+            'web_address': web_address,
         }
 
         return render(request, 'index.html', context)
@@ -194,7 +197,7 @@ def theme_detail(request, id):
 
 # ============== PORTOLIST ===============!
 def porto_list(request):
-    portos = Portofolio.objects.all()
+    portos = Portofolio.objects.exclude(porto_picture='')
     paginator = Paginator(portos, 10)  # 3 posts in each page
     page = request.GET.get('page', 1)
     try:
@@ -1127,8 +1130,12 @@ def step12(request):
                     )
                 multiimageform.clear()
 
+
                 url_video = request.session.get('video', None)
-                video = re.search('(?P<name>https?://[^\s]+\w)', url_video).group('name')
+                if url_video != "":
+                    video = re.search('(?P<name>https?://[^\s]+\w)', url_video).group('name')
+                else:
+                    video = None
 
                 Portofolio.objects.filter(user=user).update(
                     video=video,

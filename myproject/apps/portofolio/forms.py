@@ -30,7 +30,7 @@ def validate_url(value):
         return  # Required error is done the field
     obj = urlparse(value)
     print(obj)
-    if not ('www.google') in obj.netloc:
+    if not ('www.google') or not ('goo.gl') in obj.netloc:
         raise ValidationError('Only urls from google map is allowed !')
 
 # def validate_iframe(value):
@@ -625,23 +625,23 @@ class StoryForm(forms.ModelForm):
 # ============== NAVIGASI ===============!
 class NavigasiForm(forms.ModelForm):
     link_iframe = forms.CharField(
-        label='Link embed map tempat acara di google map', min_length=50, max_length=1000,
+        label='Link embed map tempat acara di google map', min_length=20, max_length=1000,
         required=True,
         widget=forms.Textarea(
             attrs={
-                'placeholder': 'Misal : <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15854.833708917928!2d106.7351778!3d-6.5584429!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69c4afd02ee7a3%3A0x78454aac37213bcb!2sPusat%20Siswa!5e0!3m2!1sid!2sid!4v1669319400872!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+                'placeholder': 'Misal : <div class="mapouter"><div class="gmap_canvas"><iframe ......',
                 'class': 'textarea',
                 'style': 'font-size: 13px',
             }
         )
     )
     link_gmap = forms.URLField(
-        label='Link tempat acara di google maps', min_length=50, max_length=1000,
+        label='Link tempat acara di google maps', min_length=20, max_length=1000,
         validators=[validate_url],
         required=True,
         widget=forms.Textarea(
             attrs={
-                'placeholder': 'Misal : https://www.google.co.id/maps/place/Pusat+Siswa/@-6.5584429,106.7351778,15z/data=!4m5!3m4!1s0x2e69c4afd02ee7a3:0x78454aac37213bcb!8m2!3d-6.5578809!4d106.7328884',
+                'placeholder': 'Misal : https://goo.gl/maps/C6bdeQVQPvYqr1mw8',
                 'class': 'textarea',
                 'style': 'font-size: 13px',
             }

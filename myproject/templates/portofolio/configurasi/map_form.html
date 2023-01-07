@@ -1,29 +1,83 @@
 {% extends 'portofolio/register_porto.html' %}
+{% load i18n static %}
 
 <!--  Buttons denied here -->
 {% block update %}
       <!--   INFORMASI MAP  -->
+    <div id="map">
       <div class="notification is-light p-1 has-text-centered mt-4">
         INFORMASI MAP
       </div>
       <div class="columns is-multiline mt-1">
         <div class="column is-12">
-            {{ form.link_gmap.label_tag }}
+            {{ form.link_gmap.label_tag }} <button @click.prevent="showModal" type="button" class="mb-1">Info</button>
             {{ form.link_gmap }}
 
             {% for error in form.link_gmap.errors %}
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
         </div>
+        <p class="is-size-7 ml-3 mt-0">Klik <a href="https://www.google.com/maps" target="_blank" class="is-underlined">disini</a> untuk mencari lokasi.</p>
         <div class="column is-12">
-            {{ form.link_iframe.label_tag }}
+            {{ form.link_iframe.label_tag }} <button @click.prevent="showModal2" type="button" class="mb-1">Info</button>
             {{ form.link_iframe }}
 
             {% for error in form.link_iframe.errors %}
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
         </div>
+        <p class="is-size-7 ml-3 mt-0">Pastikan browser pada setup desktop mode agar terlihat maps dari link <a href="https://embedgooglemap.net/" target="_blank" class="is-underlined">disini</a> untuk mendapatkan embed link lokasi</p>
+        <p class="is-size-7 ml-3 mt-1">Cara merubah tampilan desktop
+            <a href="https://inwepo.co/cara-mengubah-tampilan-website-versi-desktop-di-android/" target="_blank" class="is-underlined">Chrome</a> /
+            <a href="https://support.mozilla.org/id/kb/beralih-ke-tampilan-desktop-firefox-focus-android" target="_blank" class="is-underlined">Firefox</a> /
+            <a href="https://id.joecomp.com/3-best-ways-enable-desktop-mode-safari-ios-13" target="_blank" class="is-underlined">Chrome</a>
+        </p>
       </div>
+
+      <!----------  MODAL ---------->
+      <div class="modal p-3" :class="{'is-active': showModalFlag}">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Link lokasi</p>
+            <button @click.prevent="cancelModal" class="modal-close is-large" aria-label="close"></button>
+          </header>
+          <section class="modal-card-body is-centered">
+            <p class="image">
+                <img src="{% static 'site/img/modal_fitur/share_maps.jpg' %}" alt="">
+            </p>
+          </section>
+          <footer class="modal-card-foot">
+            <p>Cari lokasi, setelah itu pilih share untuk mendapatkan link. Kemudian copy link tersebut ke form.</p>
+          </footer>
+        </div>
+      </div>
+
+      <div class="modal p-3" :class="{'is-active': showModalFlag2}">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Link embed lokasi</p>
+            <button @click.prevent="cancelModal2" class="modal-close is-large" aria-label="close"></button>
+          </header>
+          <section class="modal-card-body is-centered">
+            <p class="image">
+                <p>Masukan alamat</p>
+                <img src="{% static 'site/img/modal_fitur/masuk_alamat.png' %}" alt="">
+                <hr>
+                <p>Cek maps sesuai alamat(pastikan desktop mode untuk melihat map)</p>
+                <img src="{% static 'site/img/modal_fitur/maps.png' %}" alt="">
+                <hr>
+                <p>Tekan Get HTML-Code</p>
+                <img src="{% static 'site/img/modal_fitur/get_code.png' %}" alt="">
+            </p>
+          </section>
+          <footer class="modal-card-foot">
+            <p>Copy & Paste code ke form</p>
+          </footer>
+        </div>
+      </div>
+  </div>
 
 {% endblock update %}
 
@@ -37,3 +91,36 @@
     <a href="{% url 'portofolio:configurasi' %}"  class="button is-dark-light p-2 mt-1">Cancel</a>
 {% endif %}
 {% endblock buttons %}
+
+{% block script %}
+<script>
+  <!----------   NAVBAR   ---------->
+  const map = createApp({
+      el: '#map',
+      delimiters: ['[[', ']]'],
+      data () {
+          return {
+              showModalFlag: false,
+              showModalFlag2: false,
+          }
+      },
+      methods: {
+          showModal() {
+              this.showModalFlag = true;
+          },
+          cancelModal() {
+              this.showModalFlag = false;
+          },
+          showModal2() {
+              this.showModalFlag2 = true;
+          },
+          cancelModal2() {
+              this.showModalFlag2 = false;
+          },
+      },
+  })
+
+  map.mount('#map')
+  <!----------   NAVBAR END   ---------->
+</script>
+{% endblock %}

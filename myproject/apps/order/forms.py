@@ -127,5 +127,12 @@ class OrderItemForm(forms.ModelForm):
         # 1. Input required
         self.fields['product_update'].required = False
 
+        # create choices just use platinum and gold
+        CHOICHES_UPDATE = []
+        for i in self.fields["product_update"].choices:
+            if i[1] == "SILVER":
+                continue
+            CHOICHES_UPDATE.append(i)
+
         # 2. Select option
-        self.fields["product_update"].choices = list(self.fields["product_update"].choices)[2:]
+        self.fields["product_update"].choices = CHOICHES_UPDATE

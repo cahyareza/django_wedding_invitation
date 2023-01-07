@@ -38,6 +38,14 @@
               <p class="help is-danger">{{ error }}</p>
           {% endfor %}
         </div>
+        <div class="column is-hidden is-8">
+          {{ form.info_web.label_tag }}
+          {{ form.info_web }}
+
+          {% for error in form.info_web.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
         <div class="column is-8">
             <p class="subtitle is-size-6-tablet is-size-7-mobile mb-3">{{ form.bukti.label_tag }}</p>
             <p class="subtitle is-size-6-tablet is-size-7-mobile mt-3 mb-3">{{ form.bukti }}</p>
