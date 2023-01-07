@@ -1,4 +1,5 @@
 {% extends 'portofolio/register_porto.html' %}
+{% load i18n static %}
 
 <!--  Buttons denied here -->
 {% block update %}
@@ -8,26 +9,31 @@
         INFORMASI SHARE
       </div>
 
-      <div class="columns is-multiline">
+      <div class="columns is-multiline" v-cloak>
           {% if katas %}
           <div class="column is-12">
             <h1 class="subtitle is-size-6 mb-1">
                 Kalimat referensi:
             </h1>
-            <div class="swiper mySwiper2">
-                <div class="swiper-wrapper">
-                    {% for kata in katas %}
-                    <div class="swiper-slide card has-background-light" style="height: 500px;">
-                        <div class="card-content">
-                          <p class="is-size-7-mobile is-size-6-tablet mt-2">
-                              {{ kata.pembuka }} <br><br> {{ kata.isi }} <br><br> {{ kata.penutup }}
-                          </p>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-                <div class="swiper-pagination"></div>
-            </div>
+            <section class="product">
+              <button class="pre-btn is-hidden"><img src="{% static 'site/img/arrow.png' %}" alt=""></button>
+              <button class="nxt-btn is-hidden"><img src="{% static 'site/img/arrow.png' %}" alt=""></button>
+              <div class="product-container" style="height: 600px;">
+                 {% for kata in katas %}
+                     <div class="product-card" style="width: 300px;">
+                         <div class="card">
+                             <div class="card-content">
+                              <p class="is-size-7-mobile is-size-6-tablet mt-2">
+                                {{ kata.pembuka|linebreaksbr }}<br><br>
+                                {{ kata.isi|linebreaksbr }}<br><br>
+                                {{ kata.penutup|linebreaksbr }}
+                              </p>
+                             </div>
+                         </div>
+                      </div>
+                  {% endfor %}
+              </div>
+            </section>
             <p class="subtitle is-size-7 mt-2">Kalimat di atas bisa dijadikan untuk referensi anda</p>
         </div>
         {% endif %}

@@ -108,4 +108,7 @@ var swiper = new Swiper(".mySwiper2", {
       el: ".swiper-pagination",
       dynamicBullets: true,
     },
+    autoplay: {
+        delay : 1200
+    },
 });
