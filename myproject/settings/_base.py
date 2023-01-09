@@ -99,6 +99,7 @@ INSTALLED_APPS = [
     'myproject.apps.cart',
     'myproject.apps.order',
     'myproject.apps.coupon',
+    'myproject.apps.cropping',
 
     'django_cleanup.apps.CleanupConfig',
 ]
