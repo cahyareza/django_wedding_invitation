@@ -9,7 +9,7 @@
         INFORMASI SHARE
       </div>
 
-      <div class="columns is-multiline" v-cloak>
+      <div class="columns is-multiline">
           {% if katas %}
           <div class="column is-12">
             <h1 class="subtitle is-size-6 mb-1">
@@ -68,7 +68,7 @@
                 <span class="subtitle is-size-7 has-text-danger">[[ error ]]</span>
               </div>
             </div>
-            <p class="subtitle is-size-7 is-underlined mb-2" v-if="show"> [[ hasilurl ]]</p>
+            <p class="subtitle is-size-7 is-underlined mb-2" v-if="show"> <a :href="hasilurl" target="_blank">[[ hasilurl ]]</a></p>
             <button @click.prevent="getUrl(); showUrl()" class="button is-small p-4 is-danger mb-3">Dapatkan link</button><br>
 
             <tr>
