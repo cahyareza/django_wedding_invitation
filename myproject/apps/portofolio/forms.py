@@ -145,17 +145,17 @@ class PasanganForm(forms.ModelForm):
     )
 
     # Photo (Upload photo)
-    ppicture = forms.FileField(
-        label="Foto",
-        widget=forms.ClearableFileInput(
-            attrs={
-                'placeholder': 'Select a picture',
-                'class': 'image',
-                'style': 'font-size: 15px',
-                'accept': 'image/png, image/jpeg'
-            }
-        )
-    )
+    # ppicture = forms.FileField(
+    #     label="Foto",
+    #     widget=forms.ClearableFileInput(
+    #         attrs={
+    #             'placeholder': 'Select a picture',
+    #             'class': 'image',
+    #             'style': 'font-size: 15px',
+    #             'accept': 'image/png, image/jpeg'
+    #         }
+    #     )
+    # )
 
 
     # LAKI - LAKI
@@ -204,22 +204,22 @@ class PasanganForm(forms.ModelForm):
     )
 
     # Photo (Upload photo)
-    lpicture = forms.FileField(
-        label="Foto",
-        widget=forms.ClearableFileInput(
-            attrs={
-                'placeholder': 'Select a picture',
-                'class': 'image',
-                'style': 'font-size: 15px',
-                'accept': 'image/png, image/jpeg'
-            }
-        )
-    )
+    # lpicture = forms.FileField(
+    #     label="Foto",
+    #     widget=forms.ClearableFileInput(
+    #         attrs={
+    #             'placeholder': 'Select a picture',
+    #             'class': 'image',
+    #             'style': 'font-size: 15px',
+    #             'accept': 'image/png, image/jpeg'
+    #         }
+    #     )
+    # )
 
     class Meta:
         model = Portofolio
         fields = ['pname', 'pinsta_link', 'panak_ke', 'pnama_ayah', 'pnama_ibu',
-            'ppicture', 'lname', 'linsta_link', 'lanak_ke', 'lnama_ayah', 'lnama_ibu', 'lpicture']
+            'lname', 'linsta_link', 'lanak_ke', 'lnama_ayah', 'lnama_ibu']
         labels = {
             'panak_ke': "Anak Perempuan ke-",
             'lanak_ke': "Anak Laki-laki ke-",
@@ -253,12 +253,15 @@ class PasanganForm(forms.ModelForm):
         # 2. Help text
         self.fields['pinsta_link'].help_text = 'Jika instagram tidak ingin ditampilkan cukup dengan mengosongi form'
         self.fields['linsta_link'].help_text = 'Jika instagram tidak ingin ditampilkan cukup dengan mengosongi form'
-        self.fields['ppicture'].help_text = 'Pastikan ukuran image yang diupload 180 x 180px'
-        self.fields['lpicture'].help_text = 'Pastikan ukuran image yang diupload 180 x 180px'
+        # self.fields['ppicture'].help_text = 'Pastikan ukuran image yang diupload 180 x 180px'
+        # self.fields['lpicture'].help_text = 'Pastikan ukuran image yang diupload 180 x 180px'
 
         # 1. Input required
         self.fields['panak_ke'].required = True
         self.fields['lanak_ke'].required = True
+
+        # self.fields['ppicture'].required = False
+        # self.fields['lpicture'].required = False
 
     # ========== MeTHOD ========== !
     # 1) IMAGE (Maximum upload size = 2mb)
@@ -274,7 +277,120 @@ class PasanganForm(forms.ModelForm):
             if lpicture.size > 2 * 1048476:
                 raise forms.ValidationError('Denied ! Maximum allowed is 2mb.')
             return lpicture
-# ============== PORTO INFO END ===============!
+# ============== PASANGAN INFO END ===============!
+
+
+# ============== PASANGAN PICTURE ===============!
+class PasanganPictureForm(forms.ModelForm):
+    # INFORMASI PASANGAN
+    # PEREMPUAN
+    # Photo (Upload photo)
+    ppicture = forms.FileField(
+        label="Foto",
+        widget=forms.ClearableFileInput(
+            attrs={
+                'placeholder': 'Select a picture',
+                'class': 'image',
+                'style': 'font-size: 15px',
+                'accept': 'image/png, image/jpeg'
+            }
+        )
+    )
+
+    # LAKI - LAKI
+    # Photo (Upload photo)
+    lpicture = forms.FileField(
+        label="Foto",
+        widget=forms.ClearableFileInput(
+            attrs={
+                'placeholder': 'Select a picture',
+                'class': 'image',
+                'style': 'font-size: 15px',
+                'accept': 'image/png, image/jpeg'
+            }
+        )
+    )
+
+    x = forms.FloatField()
+    y = forms.FloatField()
+    width = forms.FloatField()
+    height = forms.FloatField()
+
+    x2 = forms.FloatField()
+    y2 = forms.FloatField()
+    width2 = forms.FloatField()
+    height2 = forms.FloatField()
+
+    class Meta:
+        model = Portofolio
+        fields = ['ppicture', 'lpicture', 'x', 'y', 'width', 'height', 'x2', 'y2', 'width2', 'height2']
+
+    # SUPER FUNCTION
+    def __init__(self, *args, **kwargs):
+        super(PasanganPictureForm, self).__init__(*args, **kwargs)
+
+        # ========== CONTROL PANEL (Optional method to control ========== !
+        # 1. Select option
+        # self.fields["panak_ke"].choices = [('', 'Pilih anak ke-'), ] + list(self.fields["panak_ke"].choices)[1:]
+        # self.fields["lanak_ke"].choices = [('', 'Pilih anak ke-'), ] + list(self.fields["lanak_ke"].choices)[1:]
+
+        # 2. Help text
+        self.fields['ppicture'].help_text = 'Pastikan ukuran image yang diupload 180 x 180px'
+        self.fields['lpicture'].help_text = 'Pastikan ukuran image yang diupload 180 x 180px'
+
+        # 1. Input required
+        self.fields['ppicture'].required = False
+        self.fields['lpicture'].required = False
+        self.fields['x'].required = False
+        self.fields['y'].required = False
+        self.fields['width'].required = False
+        self.fields['height'].required = False
+        self.fields['x2'].required = False
+        self.fields['y2'].required = False
+        self.fields['width2'].required = False
+        self.fields['height2'].required = False
+
+    # ========== MeTHOD ========== !
+    # 1) IMAGE (Maximum upload size = 2mb)
+    def clean_ppicture(self):
+        ppicture = self.cleaned_data.get('ppicture')
+        if ppicture:
+            if ppicture.size > 2 * 1048476:
+                raise forms.ValidationError('Denied ! Maximum allowed is 2mb.')
+            return ppicture
+    def clean_lpicture(self):
+        lpicture = self.cleaned_data.get('lpicture')
+        if lpicture:
+            if lpicture.size > 2 * 1048476:
+                raise forms.ValidationError('Denied ! Maximum allowed is 2mb.')
+            return lpicture
+
+    # def save(self):
+    #     photo = super(PasanganPictureForm, self).save()
+    #
+    #     x = self.cleaned_data.get('x')
+    #     y = self.cleaned_data.get('y')
+    #     w = self.cleaned_data.get('width')
+    #     h = self.cleaned_data.get('height')
+    #
+    #     x2 = self.cleaned_data.get('x2')
+    #     y2 = self.cleaned_data.get('y2')
+    #     w2 = self.cleaned_data.get('width2')
+    #     h2 = self.cleaned_data.get('height2')
+    #
+    #     image1 = Image.open(photo.ppicture)
+    #     cropped_image1 = image1.crop((x, y, w+x, h+y))
+    #     resized_image1 = cropped_image1.resize((180, 180), Image.ANTIALIAS)
+    #
+    #     image2 = Image.open(photo.lpicture)
+    #     cropped_image2 = image2.crop((x2, y2, w2+x2, h2+y2))
+    #     resized_image2 = cropped_image2.resize((180, 180), Image.ANTIALIAS)
+    #
+    #     resized_image1.save(photo.ppicture.path)
+    #     resized_image2.save(photo.lpicture.path)
+    #
+    #     return photo
+# ============== PASANGAN PICTURE INFO END ===============!
 
 
 

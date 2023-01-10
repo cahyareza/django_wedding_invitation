@@ -299,4 +299,7 @@ INTERNAL_IPS = [
     # ...
 ]
 
+TEMP = os.path.join(BASE_DIR, 'media/temp')
+
 FILE_UPLOAD_MAX_MEMORY_SIZE = 20971520
+
