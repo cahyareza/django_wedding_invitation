@@ -1,0 +1,300 @@
+{% extends 'portofolio/register_porto.html' %}
+
+<!--  Buttons denied here -->
+{% block update %}
+      <!--   INFORMASI PASANGAN   -->
+      <!--   Perempuan   -->
+      <div class="notification  is-light p-1 has-text-centered">
+          INFORMASI FOTO PASANGAN
+      </div>
+      <p class="title  is-size-5 mb-1">Perempuan</p>
+      <div class="columns  is-multiline mt-1">
+        <div class="column is-12">
+          {{ form.ppicture.label_tag }}
+          {{ form.ppicture }}
+
+          {% for error in form.ppicture.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+
+          <p class="subtitle mt-2" style="font-size: 11px;">{{ form.ppicture.help_text }}</p>
+        </div>
+        <div class="column is-hidden is-12">
+          {{ form.x.label_tag }}
+          {{ form.x }}
+
+          {% for error in form.x.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+
+          <p class="subtitle mt-2" style="font-size: 11px;">{{ form.x.help_text }}</p>
+        </div>
+        <div class="column is-hidden is-12">
+          {{ form.y.label_tag }}
+          {{ form.y }}
+
+          {% for error in form.y.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+
+          <p class="subtitle mt-2" style="font-size: 11px;">{{ form.y.help_text }}</p>
+        </div>
+        <div class="column is-hidden is-12">
+          {{ form.width.label_tag }}
+          {{ form.width }}
+
+          {% for error in form.width.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+
+          <p class="subtitle mt-2" style="font-size: 11px;">{{ form.width.help_text }}</p>
+        </div>
+        <div class="column is-hidden is-12">
+          {{ form.height.label_tag }}
+          {{ form.height }}
+
+          {% for error in form.height.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+
+          <p class="subtitle mt-2" style="font-size: 11px;">{{ form.height.help_text }}</p>
+        </div>
+      </div>
+
+      <hr class="">
+
+      <!--   Laki-laki   -->
+      <p class="title  is-size-5 mb-1">Laki-laki</p>
+      <div class="columns  is-multiline mt-1">
+        <div class="column is-12">
+          {{ form.lpicture.label_tag }}
+          {{ form.lpicture }}
+
+          {% for error in form.lpicture.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+
+          <p class="subtitle mt-2" style="font-size: 11px;">{{ form.lpicture.help_text }}</p>
+        </div>
+        <div class="column is-hidden is-12">
+          {{ form.x2.label_tag }}
+          {{ form.x2 }}
+
+          {% for error in form.x2.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+
+          <p class="subtitle mt-2" style="font-size: 11px;">{{ form.x2.help_text }}</p>
+        </div>
+        <div class="column is-hidden is-12">
+          {{ form.y2.label_tag }}
+          {{ form.y2 }}
+
+          {% for error in form.y2.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+
+          <p class="subtitle mt-2" style="font-size: 11px;">{{ form.y2.help_text }}</p>
+        </div>
+        <div class="column is-hidden is-12">
+          {{ form.width2.label_tag }}
+          {{ form.width2 }}
+
+          {% for error in form.width2.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+
+          <p class="subtitle mt-2" style="font-size: 11px;">{{ form.width2.help_text }}</p>
+        </div>
+        <div class="column is-hidden is-12">
+          {{ form.height2.label_tag }}
+          {{ form.height2 }}
+
+          {% for error in form.height2.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+
+          <p class="subtitle mt-2" style="font-size: 11px;">{{ form.height2.help_text }}</p>
+        </div>
+      </div>
+
+      <!-- MODAL TO CROP THE IMAGE -->
+      <div class="modal" id="modalCrop">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Crop the photo</p>
+            <button class="delete" aria-label="close"></button>
+          </header>
+          <section class="modal-card-body">
+            <img src="" id="image" style="max-width: 100%;">
+          </section>
+          <footer class="modal-card-foot">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary js-crop-and-upload">Crop and upload</button>
+          </footer>
+        </div>
+      </div>
+
+      <!-- MODAL TO CROP THE IMAGE -->
+      <div class="modal" id="modalCrop2">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Crop the photo</p>
+            <button class="delete" aria-label="close"></button>
+          </header>
+          <section class="modal-card-body">
+            <img src="" id="image2" style="max-width: 100%;">
+          </section>
+          <footer class="modal-card-foot">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary crop-and-upload2">Crop and upload</button>
+          </footer>
+        </div>
+      </div>
+{% endblock update %}
+
+<!--  Buttons  -->
+{% block buttons %}
+<button id="submit" type="submit" class="button is-info p-2 mt-1">Submit</button>
+{% url 'portofolio:step2' as the_url %}
+{% if request.path == the_url %}
+    <a href="{% url 'portofolio:configurasi' %}"  class="button is-hidden is-dark-light p-2 mt-1">Cancel</a>
+{% else %}
+    <a href="{% url 'portofolio:configurasi' %}"  class="button is-dark-light p-2 mt-1">Cancel</a>
+{% endif %}
+{% endblock buttons %}
+
+{% block script %}
+  <script>
+    $(function () {
+
+      /* SCRIPT TO OPEN THE MODAL WITH THE PREVIEW */
+      $("#id_ppicture").change(function () {
+        if (this.files && this.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            $("#image").attr("src", e.target.result);
+            $("#modalCrop").modal("show");
+          }
+          reader.readAsDataURL(this.files[0]);
+          console.log(reader)
+        }
+      });
+
+      /* SCRIPTS TO HANDLE THE CROPPER BOX */
+      var $image = $("#image");
+      var cropBoxData;
+      var canvasData;
+      $("#modalCrop").on("shown.bs.modal", function () {
+        $image.cropper({
+          viewMode: 1,
+          aspectRatio: 1/1,
+          minCropBoxWidth: 200,
+          minCropBoxHeight: 200,
+          ready: function () {
+            $image.cropper("setCanvasData", canvasData);
+            $image.cropper("setCropBoxData", cropBoxData);
+          }
+        });
+      }).on("hidden.bs.modal", function () {
+        cropBoxData = $image.cropper("getCropBoxData");
+        canvasData = $image.cropper("getCanvasData");
+        $image.cropper("destroy");
+      });
+
+      $(".js-zoom-in").click(function () {
+        $image.cropper("zoom", 0.1);
+      });
+
+      $(".js-zoom-out").click(function () {
+        $image.cropper("zoom", -0.1);
+      });
+
+      /* SCRIPT TO COLLECT THE DATA AND POST TO THE SERVER */
+      $(".js-crop-and-upload").click(function (event) {
+        event.preventDefault();
+        console.log("Asu");
+        var cropData = $image.cropper("getData");
+        $("#id_x").val(cropData["x"]);
+        $("#id_y").val(cropData["y"]);
+        $("#id_height").val(cropData["height"]);
+        $("#id_width").val(cropData["width"]);
+        $("#modalCrop").modal("hide");
+      });
+
+    });
+
+
+    $(function () {
+
+      /* SCRIPT TO OPEN THE MODAL WITH THE PREVIEW */
+      $("#id_lpicture").change(function () {
+        if (this.files && this.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            $("#image2").attr("src", e.target.result);
+            $("#modalCrop2").modal("show");
+          }
+          reader.readAsDataURL(this.files[0]);
+          console.log(reader);
+        }
+      });
+
+      /* SCRIPTS TO HANDLE THE CROPPER BOX */
+      var $image2 = $("#image2");
+      var cropBoxData;
+      var canvasData;
+      $("#modalCrop2").on("shown.bs.modal", function () {
+        $image2.cropper({
+          viewMode: 1,
+          aspectRatio: 1/1,
+          minCropBoxWidth: 200,
+          minCropBoxHeight: 200,
+          ready: function (event) {
+            $image2.cropper("setCanvasData", canvasData);
+            $image2.cropper("setCropBoxData", cropBoxData);
+          },
+          crop: function(event) {
+            console.log(event.x);
+            console.log(event.y);
+            console.log(event.width);
+            console.log(event.height);
+            console.log(event.rotate);
+            console.log(event.scaleX);
+            console.log(event.scaleY);
+          },
+        });
+      }).on("hidden.bs.modal", function () {
+        cropBoxData = $image2.cropper("getCropBoxData");
+        canvasData = $image2.cropper("getCanvasData");
+        $image2.cropper("destroy");
+      });
+
+      $(".js-zoom-in").click(function () {
+        $image2.cropper("zoom", 0.1);
+      });
+
+      $(".js-zoom-out").click(function () {
+        $image2.cropper("zoom", -0.1);
+      });
+
+      /* SCRIPT TO COLLECT THE DATA AND POST TO THE SERVER */
+      $(".crop-and-upload2").click(function (event) {
+        console.log("Anjing");
+        var cropData2 = $image2.cropper("getData");
+        $("#id_x2").val(cropData2["x"]);
+        $("#id_y2").val(cropData2["y"]);
+        $("#id_height2").val(cropData2["height"]);
+        $("#id_width2").val(cropData2["width"]);
+        $("#modalCrop2").modal("hide");
+      });
+
+    });
+
+    $(function () {
+      $("#formUpload").submit();
+    });
+  </script>
+{% endblock %}

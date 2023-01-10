@@ -203,6 +203,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
             "portofolio_slug": self.slug,
         })
 
+
     # SUPER FUNCTION
 
     # ========== SAVE FUNCTION ========== !
@@ -221,6 +222,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
         if self.tanggal_countdown and self.waktu_countdown:
             self.datetime_countdown = datetime.combine(self.tanggal_countdown,self.waktu_countdown).strftime("%Y-%m-%d %H:%M")
         super().save(*args, **kwargs)
+
 
 class MultiImage(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE)

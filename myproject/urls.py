@@ -29,6 +29,7 @@ urlpatterns = i18n_patterns(
     path("portofolio/", include(("myproject.apps.portofolio.urls", "portofolio"), namespace="portofolio")),
     path("cart/", include(("myproject.apps.cart.urls", "cart"), namespace="cart")),
     path("order/", include(("myproject.apps.order.urls", "order"), namespace="order")),
+    path("cropping/", include(("myproject.apps.cropping.urls", "cropping"), namespace="cropping")),
     path('__debug__/', include('debug_toolbar.urls')),
     prefix_default_language=False,
 )

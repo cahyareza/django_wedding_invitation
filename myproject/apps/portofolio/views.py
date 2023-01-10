@@ -4,6 +4,17 @@ import random
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
+from django.core.files.storage import default_storage
+from django.core.files.storage import FileSystemStorage
+import os
+# import cv2
+import base64
+from django.core import files
+from PIL import Image
+from io import BytesIO
+from django.core.files.base import ContentFile
+
+
 from django.http import HttpResponseRedirect
 from django.forms import modelformset_factory
 from django.core.exceptions import ValidationError
@@ -38,7 +49,7 @@ from .models import MultiImage, Portofolio, SpecialInvitation, Dompet, Quote, Fi
 
 from .forms import PortoInfoForm, PasanganForm, AcaraForm, QuoteForm, PortoInfo2Form, \
     MultiImageForm, StoryForm, NavigasiForm, DompetForm, PortoInfo3Form, SpecialInvitationForm, \
-    CalenderForm, PortoInfo4Form, ThemeProductForm, PortoInfo5Form, BaseRegisterFormSet
+    CalenderForm, PortoInfo4Form, ThemeProductForm, PortoInfo5Form, PasanganPictureForm, BaseRegisterFormSet
 
 from myproject.apps.portofolio.services import AcaraFormSESSION, PasanganFormSESSION, MultiImageFormSESSION, \
     StoryFormSESSION, DompetFormSESSION, SpecialinviteFormSESSION
@@ -46,6 +57,8 @@ from myproject.apps.portofolio.services import AcaraFormSESSION, PasanganFormSES
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from django.core.exceptions import PermissionDenied
+
+TEMP_PROFILE_IMAGE_NAME = "temp_profile_image.png"
 
 # ============== HOME ===============!
 def home(request):
@@ -1348,7 +1361,7 @@ def step13(request):
             # request.session['open_background'] = form.cleaned_data.get('open_background')
             # request.session.modified = True
 
-            return redirect("portofolio:configurasi")
+            return redirect("portofolio:step14")
     else:
         form = PortoInfo4Form()
 
@@ -1383,7 +1396,100 @@ def step13_update(request, slug):
     }
     return render(request, 'portofolio/configurasi/cover_form.html', context)
 
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def step14(request):
+    porto_instance = Portofolio.objects.filter(user=request.user).first()
+    if request.method == 'POST':
+        form = PasanganPictureForm(request.POST or None, request.FILES)
+        if form.is_valid():
+            imagestring = form.cleaned_data.get("ppicture")
+            imagestring2 = form.cleaned_data.get("lpicture")
 
+            x = form.cleaned_data.get('x')
+            y = form.cleaned_data.get('y')
+            w = form.cleaned_data.get('width')
+            h = form.cleaned_data.get('height')
+
+            x2 = form.cleaned_data.get('x2')
+            y2 = form.cleaned_data.get('y2')
+            w2 = form.cleaned_data.get('width2')
+            h2 = form.cleaned_data.get('height2')
+
+
+            if imagestring != None:
+                img = Image.open(imagestring).convert('RGB')
+                if x != None and y != None and w != None and h != None:
+                    crop_img = img.crop((x, y, w + x, h + y))
+                    thumb_io = BytesIO()
+                    crop_img.save(thumb_io, 'JPEG', quality=85)
+                    porto_instance.ppicture.save('ppicture.jpeg', ContentFile(thumb_io.getvalue()))
+
+            if imagestring2 != None:
+                img2 = Image.open(imagestring2).convert('RGB')
+                if x2 != None and y2 != None and w2 != None and h2 != None:
+                    crop_img2 = img2.crop((x2, y2, w2 + x2, h2 + y2))
+                    thumb_io2 = BytesIO()
+                    crop_img2.save(thumb_io2, 'JPEG', quality=85)
+                    porto_instance.lpicture.save('lpicture.jpeg', ContentFile(thumb_io2.getvalue()))
+
+            porto_instance.save()
+
+            return redirect("portofolio:configurasi")
+    else:
+        form = PasanganPictureForm()
+
+    return render(request, "portofolio/configurasi/pasangan_picture_form.html", {'form': form})
+
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def step14_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+
+    # verify user
+    if obj.user != request.user:
+        raise PermissionDenied
+
+    porto_instance = Portofolio.objects.filter(user=request.user).first()
+    if request.method == 'POST':
+        form = PasanganPictureForm(request.POST or None, request.FILES, instance=obj)
+        if form.is_valid():
+            imagestring = form.cleaned_data.get("ppicture")
+            imagestring2 = form.cleaned_data.get("lpicture")
+
+            x = form.cleaned_data.get('x')
+            y = form.cleaned_data.get('y')
+            w = form.cleaned_data.get('width')
+            h = form.cleaned_data.get('height')
+
+            x2 = form.cleaned_data.get('x2')
+            y2 = form.cleaned_data.get('y2')
+            w2 = form.cleaned_data.get('width2')
+            h2 = form.cleaned_data.get('height2')
+
+            if imagestring != None:
+                img = Image.open(imagestring).convert('RGB')
+                if x != None and y != None and w != None and h != None:
+                    crop_img = img.crop((x, y, w + x, h + y))
+                    thumb_io = BytesIO()
+                    crop_img.save(thumb_io, 'JPEG', quality=85)
+                    porto_instance.ppicture.save('ppicture.jpeg', ContentFile(thumb_io.getvalue()))
+
+            if imagestring2 != None:
+                img2 = Image.open(imagestring2).convert('RGB')
+                if x2 != None and y2 != None and w2 != None and h2 != None:
+                    crop_img2 = img2.crop((x2, y2, w2 + x2, h2 + y2))
+                    thumb_io2 = BytesIO()
+                    crop_img2.save(thumb_io2, 'JPEG', quality=85)
+                    porto_instance.lpicture.save('lpicture.jpeg', ContentFile(thumb_io2.getvalue()))
+            porto_instance.save()
+
+            return redirect("portofolio:configurasi")
+    else:
+        form = PasanganPictureForm(instance=obj)
+
+    return render(request, "portofolio/configurasi/pasangan_picture_form.html", {'form': form})
 # ============== SHARE UNDANGAN ===============!
 
 @login_required(login_url="account_login")
