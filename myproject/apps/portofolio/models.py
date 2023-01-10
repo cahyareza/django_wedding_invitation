@@ -375,6 +375,11 @@ class Theme(CreationModificationDateBase, UrlBase):
     background_open = models.FileField(blank=True, null=True, upload_to=theme_upload_to)
     background_cover = models.FileField(blank=True, null=True, upload_to=theme_upload_to)
 
+
+    class Meta:
+        ordering = ['-created']
+
+
     def __str__(self):
         return self.name
 
