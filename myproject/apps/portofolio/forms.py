@@ -809,7 +809,7 @@ class DompetForm(forms.ModelForm):
         }
 
         rekenings = Rekening.objects.all()
-        DAFTAR_BANK = [ rekening.bank for rekening in rekenings]
+        DAFTAR_BANK = [ 1, 2, 3]
 
         widgets = {
             'rekening': forms.Select(
