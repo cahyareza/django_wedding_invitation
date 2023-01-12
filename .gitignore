@@ -125,7 +125,7 @@ dmypy.json
 .pyre/
 
 # Media and Static directories
-/media/
+#/media/
 !/media/.gitkeep
 
 /static/
