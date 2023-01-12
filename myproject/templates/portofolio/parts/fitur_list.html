@@ -1,0 +1,166 @@
+{% load i18n static mathfilters %}
+
+  <section class="hero has-background-warning-light is-medium">
+    <div class="hero-body is-marginless p-3 mt-1">
+      <div class="container px-2 pt-3">
+        <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-1 px-4">
+          Daftar Produk Undangan Digital
+        </h1>
+        <p class="is-size-5-tablet px-4 mt-1 block">Harga terbaik dengan jaminan website yang berkualitas.</p>
+        <div class="columns is-multiline is-vcentered">
+
+          <div class="column
+          is-12-mobile
+          is-12-tablet
+          is-12-desktop
+          is-12-widescreen
+          is-12-fullhd">
+            <section class="product">
+              <button class="pre-btn"><img src="{% static 'site/img/arrow.png' %}" alt=""></button>
+              <button class="nxt-btn"><img src="{% static 'site/img/arrow.png' %}" alt=""></button>
+              <div class="product-container" style="height: 600px;">
+                {% for fitur in fiturs %}
+                  {% if fitur.name == "SILVER" %}
+                    <div class="product-card" style="width: 270px;">
+                        <div class="box">
+                          <div class="product-image" style="height: 430px;">
+                                {% if obj_silver %}
+                                    {% if discount_value_silver %}
+                                        <span class="discount-tag">{{ discount_str_silver }} off</span>
+                                    {% endif %}
+                                {% endif %}
+      <!--                        <img src="{% static 'site/img/card1.jpg' %}" class="product-thumb" alt="">-->
+                                <p class="is-size-5 has-text-weight-bold mb-4 has-text-centered">Fitur</p>
+                                {% for fit in fitur.fitur|slice:":-2" %}
+                                  <p class="is-size-6">- {{ fit }}</p>
+                                {% endfor %}
+                                <p class="is-size-6 has-text-weight-bold mt-4">Masa Aktif Selamanya</p>
+                                <p class="is-size-6 has-text-weight-bold">Edit Tanpa Batas</p>
+                                {% if user.is_authenticated %}
+                                    {% if obj_silver %}
+                                    <form action="{% url 'cart:add_cart' fitur.id obj_silver.id %}" method="post">
+                                        {% csrf_token %}
+                                        <input class="card-btn" type="submit" value="add to cart">
+                                    </form>
+                                    {% else %}
+                                    <form action="{% url 'cart:add_cart' fitur.id %}" method="post">
+                                        {% csrf_token %}
+                                        <input class="card-btn" type="submit" value="add to cart">
+                                    </form>
+                                    {% endif %}
+                                {% else %}
+                                    <a class="card-btn" href="{% url 'account_login' %}">add to cart</a>
+                                {% endif %}
+                          </div>
+                        </div>
+                        <div class="product-info has-text-centered">
+                            <h2 class="product-brand">{{ fitur.name }}</h2>
+      <!--                        <p class="product-short-description">a short line about the cloth..</p>-->
+                            {% if discount_value_silver %}
+                                <span class="price">IDR {{ fitur.price|mul:discount_percent_silver|floatformat:"g" }}</span>
+                                <span class="actual-price">IDR {{ fitur.price|floatformat:"g" }}</span>
+                            {% else %}
+                                <span class="price">IDR {{ fitur.price|floatformat:"g" }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                  {% elif fitur.name == "PLATINUM" %}
+                    <div class="product-card" style="width: 270px;">
+                        <div class="box">
+                          <div class="product-image" style="height: 430px;">
+                              {% if obj_platinum %}
+                                  {% if discount_value_platinum %}
+                                        <span class="discount-tag">{{ discount_str_platinum }} off</span>
+                                  {% endif %}
+                              {% endif %}
+      <!--                        <img src="{% static 'site/img/card1.jpg' %}" class="product-thumb" alt="">-->
+                                <p class="is-size-5 has-text-weight-bold mb-4 has-text-centered">Fitur</p>
+                                <p class="is-size-6 has-text-weight-bold">- Semua yang ada di Paket Silver</p>
+                                {% for fit in fitur.fitur|slice:"9:-2" %}
+                                  <p class="is-size-6">- {{ fit }}</p>
+                                {% endfor %}
+                                <p class="is-size-6 has-text-weight-bold mt-4">Masa Aktif Selamanya</p>
+                                <p class="is-size-6 has-text-weight-bold">Edit Tanpa Batas</p>
+                                {% if user.is_authenticated %}
+                                    {% if obj_platinum %}
+                                    <form action="{% url 'cart:add_cart' fitur.id obj_platinum.id %}" method="post">
+                                        {% csrf_token %}
+                                        <input class="card-btn" type="submit" value="add to cart">
+                                    </form>
+                                    {% else %}
+                                    <form action="{% url 'cart:add_cart' fitur.id %}" method="post">
+                                        {% csrf_token %}
+                                        <input class="card-btn" type="submit" value="add to cart">
+                                    </form>
+                                    {% endif %}
+                                {% else %}
+                                    <a class="card-btn" href="{% url 'account_login' %}">add to cart</a>
+                                {% endif %}
+                          </div>
+                        </div>
+                        <div class="product-info has-text-centered">
+                            <h2 class="product-brand">{{ fitur.name }}</h2>
+      <!--                        <p class="product-short-description">a short line about the cloth..</p>-->
+                            {% if discount_value_platinum %}
+                                <span class="price">IDR {{ fitur.price|mul:discount_percent_platinum|floatformat:"g" }}</span>
+                                <span class="actual-price">IDR {{ fitur.price|floatformat:"g" }}</span>
+                            {% else %}
+                                <span class="price">IDR {{ fitur.price|floatformat:"g" }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                  {% elif fitur.name == "GOLD" %}
+                    <div class="product-card" style="width: 270px;">
+                      <div class="box">
+                        <div class="product-image" style="height: 430px;">
+                              {% if obj_gold %}
+                                  {% if discount_value_gold %}
+                                    <span class="discount-tag">{{ discount_str_gold }} off</span>
+                                  {% endif %}
+                               {% endif %}
+    <!--                        <img src="{% static 'site/img/card1.jpg' %}" class="product-thumb" alt="">-->
+                              <p class="is-size-5 has-text-weight-bold mb-4 has-text-centered">Fitur</p>
+                              <p class="is-size-6 has-text-weight-bold">- Semua yang ada di Paket Platinum</p>
+                              {% for fit in fitur.fitur|slice:"18:-2" %}
+                                <p class="is-size-6">- {{ fit }}</p>
+                              {% endfor %}
+                              <p class="is-size-6 has-text-weight-bold mt-4">Masa Aktif Selamanya</p>
+                              <p class="is-size-6 has-text-weight-bold">Edit Tanpa Batas</p>
+                                {% if user.is_authenticated %}
+                                    {% if obj_gold %}
+                                    <form action="{% url 'cart:add_cart' fitur.id obj_gold.id %}" method="post">
+                                        {% csrf_token %}
+                                        <input class="card-btn" type="submit" value="add to cart">
+                                    </form>
+                                    {% else %}
+                                    <form action="{% url 'cart:add_cart' fitur.id %}" method="post">
+                                        {% csrf_token %}
+                                        <input class="card-btn" type="submit" value="add to cart">
+                                    </form>
+                                    {% endif %}
+                                {% else %}
+                                    <a class="card-btn" href="{% url 'account_login' %}">add to cart</a>
+                                {% endif %}
+                        </div>
+                      </div>
+                      <div class="product-info has-text-centered">
+                            <h2 class="product-brand">{{ fitur.name }} <button class="button is-small has-text-danger"><strong>BEST DEAL!</strong></button></h2>
+                            <!--                        <p class="product-short-description">a short line about the cloth..</p>-->
+
+                            {% if discount_value_gold %}
+                                <span class="price">IDR {{ fitur.price|mul:discount_percent_gold|floatformat:"g" }}</span>
+                                <span class="actual-price">IDR {{ fitur.price|floatformat:"g" }}</span>
+                            {% else %}
+                                <span class="price">IDR {{ fitur.price|floatformat:"g" }}</span>
+                            {% endif %}
+                      </div>
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

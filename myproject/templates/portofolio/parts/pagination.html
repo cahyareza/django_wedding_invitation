@@ -1,0 +1,25 @@
+{% if theme_list %}
+    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+        {% if theme_list.has_previous %}
+            <a href="?page={{ theme_list.previous_page_number }}" class="pagination-previous">Previous</a>
+        {% else %}
+            <a class="pagination-previous">Previous</a>
+        {% endif %}
+        {% if theme_list.has_next %}
+            <a href="?page={{ theme_list.next_page_number }}" class="pagination-next">Next page</a>
+        {% else %}
+            <a class="pagination-next">Next page</a>
+        {% endif %}
+        <ul class="pagination-list mobile">
+            {% for i in theme_list.paginator.page_range %}
+                {% if theme_list.number == i %}
+                    <li><a class="pagination-link is-current" aria-label="Page {{ i }}" aria-current="page">{{ i }}</a></li>
+                {% else %}
+                    <li><a href="?page={{ i }}" class="pagination-link" aria-label="Goto page {{ i }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </nav>
+{% else %}
+    <div></div>
+{% endif %}

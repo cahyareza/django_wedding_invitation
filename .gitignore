@@ -18,7 +18,7 @@ eggs/
 .eggs/
 lib/
 lib64/
-parts/
+#parts/
 sdist/
 var/
 wheels/
@@ -132,7 +132,8 @@ dmypy.json
 !/static/.gitkeep
 
 # Secrets
-secrets.jsondb1.json
+secrets.json
+db1.json
 db.json
 db2_03-01-2023.json
 db1.json
@@ -140,3 +141,4 @@ db1.json
 db.json
 db3_06-01-2023.json
 db4_08-01-2023.json
+deployment

@@ -1,0 +1,63 @@
+{% url 'portofolio:step1' as the_url %}
+{% url 'portofolio:step2' as the_url2 %}
+{% url 'portofolio:step3' as the_url3 %}
+{% url 'portofolio:step4' as the_url4 %}
+{% url 'portofolio:step5' as the_url5 %}
+{% url 'portofolio:step6' as the_url6 %}
+{% url 'portofolio:step7' as the_url7 %}
+{% url 'portofolio:step8' as the_url8 %}
+{% url 'portofolio:step9' as the_url9 %}
+{% url 'portofolio:step10' as the_url10 %}
+{% url 'portofolio:step11' as the_url11 %}
+{% url 'portofolio:step12' as the_url12 %}
+
+{% if orderproduct == "PLATINUM" or orderproduct == "GOLD" %}
+    {% if request.path == the_url %}
+    <progress class="progress is-danger" value="10" max="120"></progress>
+    {% elif request.path == the_url2 %}
+    <progress class="progress is-danger" value="20" max="120"></progress>
+    {% elif request.path == the_url3 %}
+    <progress class="progress is-danger" value="30" max="120"></progress>
+    {% elif request.path == the_url4 %}
+    <progress class="progress is-danger" value="40" max="120"></progress>
+    {% elif request.path == the_url5 %}
+    <progress class="progress is-danger" value="50" max="120"></progress>
+    {% elif request.path == the_url6 %}
+    <progress class="progress is-danger" value="60" max="120"></progress>
+    {% elif request.path == the_url7 %}
+    <progress class="progress is-danger" value="70" max="120"></progress>
+    {% elif request.path == the_url8 %}
+    <progress class="progress is-danger" value="80" max="120"></progress>
+    {% elif request.path == the_url9 %}
+    <progress class="progress is-danger" value="90" max="120"></progress>
+    {% elif request.path == the_url10 %}
+    <progress class="progress is-danger" value="100" max="120"></progress>
+    {% elif request.path == the_url11 %}
+    <progress class="progress is-danger" value="110" max="120"></progress>
+    {% elif request.path == the_url12 %}
+    <progress class="progress is-danger" value="120" max="120"></progress>
+    {% else %}
+    {% endif %}
+{% else %}
+    {% if request.path == the_url %}
+    <progress class="progress is-danger" value="10" max="90"></progress>
+    {% elif request.path == the_url2 %}
+    <progress class="progress is-danger" value="20" max="90"></progress>
+    {% elif request.path == the_url3 %}
+    <progress class="progress is-danger" value="30" max="90"></progress>
+    {% elif request.path == the_url4 %}
+    <progress class="progress is-danger" value="40" max="90"></progress>
+    {% elif request.path == the_url7 %}
+    <progress class="progress is-danger" value="50" max="90"></progress>
+    {% elif request.path == the_url9 %}
+    <progress class="progress is-danger" value="60" max="90"></progress>
+    {% elif request.path == the_url10 %}
+    <progress class="progress is-danger" value="70" max="90"></progress>
+    {% elif request.path == the_url11 %}
+    <progress class="progress is-danger" value="80" max="90"></progress>
+    {% elif request.path == the_url12 %}
+    <progress class="progress is-danger" value="90" max="90"></progress>
+    {% else %}
+    {% endif %}
+{% endif %}
+

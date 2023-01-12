@@ -1,0 +1,22 @@
+{% load i18n static %}
+<!-- Swiper -->
+<div class="swiper swiper3">
+  <div class="swiper-wrapper">
+    {% for theme in themes %}
+    <div class="swiper-slide card">
+      <div class="card-image">
+        <figure class="image is-4by3">
+          {% if theme.theme_picture %}
+            <img src="{{ theme.theme_picture.url }}" />
+          {% endif %}
+        </figure>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="swiper-pagination swiper-pagination3"></div>
+</div>
+
+<div class="buttons mt-3 is-centered">
+    <a href="{% url 'portofolio:theme_list' %}" class="button is-danger">Lebih banyak preset</a>
+</div>
