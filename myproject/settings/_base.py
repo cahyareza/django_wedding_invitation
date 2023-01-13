@@ -256,6 +256,11 @@ ACCOUNT_FORMS = {
 
 }
 
+SOCIALACCOUNT_FORMS = {
+    'signup': 'myproject.apps.accounts.forms.MyCustomSocialSignupForm',
+}
+
+
 REST_FRAMEWORK = {
     # 'DEFAULT_PAGINATION_CLASS':
     # 'rest_framework.pagination.LimitOffsetPagination',
