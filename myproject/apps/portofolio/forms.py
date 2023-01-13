@@ -25,13 +25,13 @@ class Uppercase(forms.CharField):
         if value:
             return value.upper()
 
-def validate_url(value):
-    if not value:
-        return  # Required error is done the field
-    obj = urlparse(value)
-    print(obj)
-    if not ('www.google') or not ('goo.gl') in obj.netloc:
-        raise ValidationError('Only urls from google map is allowed !')
+# def validate_url(value):
+#     if not value:
+#         return  # Required error is done the field
+#     obj = urlparse(value)
+#     print(obj)
+#     if (not ('www.google') in obj.netloc) or (not ('goo.gl') in obj.netloc):
+#         raise ValidationError('Only urls from google map is allowed !')
 
 # def validate_iframe(value):
 #     if not value:
@@ -422,7 +422,7 @@ class AcaraForm(forms.ModelForm):
 
     link_gmap_acara = forms.URLField(
         label='Link google map acara',
-        validators=[validate_url],
+        # validators=[validate_url],
         widget=forms.Textarea(
             attrs={
                 'placeholder': 'Link ke google maps',
@@ -753,7 +753,7 @@ class NavigasiForm(forms.ModelForm):
     )
     link_gmap = forms.URLField(
         label='Link tempat acara di google maps', min_length=20, max_length=1000,
-        validators=[validate_url],
+        # validators=[validate_url],
         required=True,
         widget=forms.Textarea(
             attrs={
@@ -916,7 +916,7 @@ class CustomChoiceField(forms.ModelChoiceField):
                     '</figure>' \
                     '</div>' \
                     '<p class="subtitle">%s</p>'\
-                    '<a href="%s" class="button is-danger mb-3">Preview</a>'% (image, title, preview)
+                    '<a href="%s" class="button is-danger mb-3" target="_blank">Preview</a>'% (image, title, preview)
 
             return mark_safe(label)
 
