@@ -808,12 +808,8 @@ class DompetForm(forms.ModelForm):
             'rekening': "Nama bank",
         }
 
-        rekenings = Rekening.objects.all()
-        DAFTAR_BANK = [ 1, 2, 3]
-
         widgets = {
             'rekening': forms.Select(
-                choices=DAFTAR_BANK,
                 attrs={
                     'class': 'input',
                     'style': 'font-size: 13px',
