@@ -212,106 +212,12 @@
   </section>
   <!---------- PRESET END ---------->
 
-  <!---------- DAFTAR PRODUK START ---------->
-  {% include 'portofolio/parts/fitur_list.html' %}
-  <!---------- DAFTAR PRODUK END ---------->
 
-
-
-
-  <!---------- CARA BUAT UNDANGAN DAN FAQ START ---------->
+  <!---------- DAFTAR PRODUK, CARA BUAT UNDANGAN DAN FAQ START ---------->
   <div id="faq">
-    <section class="hero is-white is-medium">
-      <div class="hero-body is-marginless p-3 mt-6">
-        <div class="container">
-          <div class="columns is-multiline">
-            <div class="column
-            is-12-mobile
-            is-6-tablet
-            is-6-desktop
-            is-7-widescreen
-            is-7-fullhd" data-aos="fade-right" data-aos-duration="800" data-aos-delay="200">
-              <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-1 px-4">
-                Cara Buat Undangan
-              </h1>
-              <p class="is-size-5-tablet px-4 mt-1 block">Cara mudah membuat undangan, hanya butuh 5 menit undangan kamu sudah bisa di sebarkan.</p>
-              <div class="columns is-multiline">
-                <div class="column is-12">
-                      <div class="media">
-                        <div class="media-left">
-                          <figure class="image is-96x96">
-                            <img src="{% static 'site/img/signup.svg' %}" alt="Placeholder image">
-                          </figure>
-                        </div>
-                        <div class="media-content">
-                          <p class="title is-5">Membuat akun</p>
-                          <p class="subtitle is-6">Membuat akun <a href="{% url 'account_signup' %}"><strong>disini</strong></a></p>
-                        </div>
-                      </div>
-                </div>
-                <div class="column is-12">
-                      <div class="media">
-                        <div class="media-left">
-                          <figure class="image is-96x96">
-                            <img src="{% static 'site/img/order.svg' %}" alt="Placeholder image">
-                          </figure>
-                        </div>
-                        <div class="media-content">
-                          <p class="title is-5">Order produk</p>
-                          <p class="subtitle is-6">Order produk disini dan upload bukti pembayaran, lalu menunggu order terverifikasi</p>
-                        </div>
-                      </div>
-                </div>
-                <div class="column is-12">
-                      <div class="media">
-                        <div class="media-left">
-                          <figure class="image is-96x96">
-                            <img src="{% static 'site/img/input.svg' %}" alt="Placeholder image">
-                          </figure>
-                        </div>
-                        <div class="media-content">
-                          <p class="title is-5">Mengisi Form</p>
-                          <p class="subtitle is-6">Membuat undangan <a href="{% url 'portofolio:step1' %}"><strong>disini</strong></a> dengan mengisi form yang tersedia(seperti: form nama undangan, pasangan, acara, dsb)</p>
-                        </div>
-                      </div>
-                </div>
-                <div class="column is-12">
-                      <div class="media">
-                        <div class="media-left">
-                          <figure class="image is-96x96">
-                            <img src="{% static 'site/img/active.svg' %}" alt="Placeholder image">
-                          </figure>
-                        </div>
-                        <div class="media-content">
-                          <p class="title is-5">Undangan aktif</p>
-                          <p class="subtitle is-6">Undangan otomatis aktif, dan dapat diedit kapanpun <a href="{% url 'portofolio:configurasi' %}"><strong>disini.</strong></a></p>
-                        </div>
-                      </div>
-                </div>
-              </div>
-            </div>
-            <div class="column
-            is-12-mobile
-            is-6-tablet
-            is-5-desktop
-            is-5-widescreen
-            is-5-fullhd" data-aos="fade-right" data-aos-duration="800" data-aos-delay="200">
-              <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-4 px-4">
-                FAQ
-              </h1>
-              <button @click="showModal" class="button has-text-weight-medium px-4 mb-1 is-fullwidth" >Berapa lama masa aktif undangan saya?</button>
-              <p v-if="show" class="px-4 mt-1">tidak ada masa aktif. dengan kata lain undangan anda akan aktif selamanya. jadi kamu bisa aktifkan sekarang untuk di pakai kapanpun.</p>
-              <hr class="my-1">
-              <button @click="showModal2" class="button has-text-weight-medium px-4 mb-1 is-fullwidth" >Apakah masih bisa di edit setelah aktif?</button>
-              <p v-if="show2" class="px-4 mt-1">ya bisa sekali. kamu bisa edit undangan kamu kapanpun selamanya. tanpa ada batasan.</p>
-              <hr class="my-1">
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    {% include 'portofolio/parts/fitur_list.html' %}
   </div>
-  <!---------- CARA BUAT UNDANGAN DAN FAQ END ---------->
+  <!---------- DAFTAR PRODUK, CARA BUAT UNDANGAN DAN FAQ END ---------->
 
 
 
@@ -439,6 +345,12 @@
         },
         showModal3() {
             this.show3 = !this.show3;
+        },
+        goto(refName) {
+            var element = this.$refs[refName];
+            var top = element.offsetTop;
+
+            window.scrollTo(0, top);
         },
       },
   })
