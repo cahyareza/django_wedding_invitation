@@ -136,6 +136,7 @@ TEMPLATES = [
                 # 'myproject.apps.core.context_processor.order_checkout_update',
                 'myproject.apps.core.context_processor.order',
                 'myproject.apps.core.context_processor.portofolio',
+                'myproject.apps.core.context_processor.webaddress',
             ],
         },
     },
@@ -271,7 +272,7 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080","http://192.168.56.20"
+    "http://localhost:8080","http://192.168.56.20", "http://localhost:8081",
 ]
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'

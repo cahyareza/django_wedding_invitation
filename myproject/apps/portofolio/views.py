@@ -29,7 +29,7 @@ from django.utils import timezone
 from django.utils.timezone import now
 from datetime import datetime
 from django.db.models import Q
-from myproject.settings import production
+from myproject.settings import dev, staging, production
 
 from rest_framework import filters
 from django_filters import AllValuesFilter, DateTimeFilter, NumberFilter, FilterSet
@@ -62,7 +62,6 @@ TEMP_PROFILE_IMAGE_NAME = "temp_profile_image.png"
 
 # ============== HOME ===============!
 def home(request):
-    web_address = production.WEBSITE_URL
     porto_count = Portofolio.objects.count()
     ucapan_count = Ucapan.objects.count()
     dompet_count = Dompet.objects.count()
@@ -100,7 +99,6 @@ def home(request):
             'discount_percent_gold': False,
             'themes': theme,
             'portofolios': portofolio,
-            'web_address': web_address,
         }
 
         # SILVER
@@ -157,7 +155,6 @@ def home(request):
             'discount_percent_gold': False,
             'themes': theme,
             'portofolios': portofolio,
-            'web_address': web_address,
         }
 
         return render(request, 'index.html', context)
