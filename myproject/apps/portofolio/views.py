@@ -31,7 +31,7 @@ from datetime import datetime
 from django.db.models import Q
 from myproject.settings import dev, staging, production
 
-from rest_framework import filters
+from rest_framework import filters, generics, permissions
 from django_filters import AllValuesFilter, DateTimeFilter, NumberFilter, FilterSet
 
 from django.contrib.auth.decorators import login_required # Login required to access private pages.
@@ -57,8 +57,6 @@ from myproject.apps.portofolio.services import AcaraFormSESSION, PasanganFormSES
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from django.core.exceptions import PermissionDenied
-
-TEMP_PROFILE_IMAGE_NAME = "temp_profile_image.png"
 
 # ============== HOME ===============!
 def home(request):
@@ -1897,6 +1895,7 @@ def cover_background_delete(request, slug):
 #################### SERIALIZER #######################
 # Portofolio
 class PortofolioList(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = Portofolio.objects.all()
     serializer_class = PortofolioSerializer
     name = 'portofolio-list'
@@ -1924,6 +1923,7 @@ class RekeningDetail(generics.RetrieveUpdateDestroyAPIView):
 
 # Multiimage
 class MultiImageList(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = MultiImage.objects.all()
     serializer_class = MultiImageSerializer
     name = 'multiimage-list'
@@ -1937,6 +1937,7 @@ class MultiImageDetail(generics.RetrieveUpdateDestroyAPIView):
 
 # SpecialInvitation
 class SpecialInvitationList(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = SpecialInvitation.objects.all()
     serializer_class = SpecialInvitationSerializer
     name = 'specialinvitation-list'
@@ -1962,6 +1963,7 @@ class PaymentDetail(generics.RetrieveUpdateDestroyAPIView):
 
 # Dompet
 class DompetList(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = Dompet.objects.all()
     serializer_class = DompetSerializer
     name = 'dompet-list'
@@ -1975,6 +1977,7 @@ class DompetDetail(generics.RetrieveUpdateDestroyAPIView):
 
 # Quote
 class QuoteList(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = Quote.objects.all()
     serializer_class = QuoteSerializer
     name = 'quote-list'
@@ -1988,6 +1991,7 @@ class QuoteDetail(generics.RetrieveUpdateDestroyAPIView):
 
 # Ucapan
 class UcapanList(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = Ucapan.objects.all()
     serializer_class = UcapanSerializer
     name = 'ucapan-list'
@@ -2001,6 +2005,7 @@ class UcapanDetail(generics.RetrieveUpdateDestroyAPIView):
 
 # Hadir
 class HadirList(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = Hadir.objects.all()
     serializer_class = HadirSerializer
     name = 'hadir-list'
@@ -2039,6 +2044,7 @@ class ThemeDetail(generics.RetrieveUpdateDestroyAPIView):
 
 # Theme Product
 class ThemeProductList(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = ThemeProduct.objects.all()
     serializer_class = ThemeProductSerializer
     name = 'themeproduct-list'
@@ -2052,6 +2058,7 @@ class ThemeProductDetail(generics.RetrieveUpdateDestroyAPIView):
 
 # Story
 class StoryList(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = Story.objects.all()
     serializer_class = StorySerializer
     name = 'story-list'
@@ -2065,6 +2072,7 @@ class StoryDetail(generics.RetrieveUpdateDestroyAPIView):
 
 # Acara
 class AcaraList(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = Acara.objects.all()
     serializer_class = AcaraSerializer
     name = 'acara-list'
