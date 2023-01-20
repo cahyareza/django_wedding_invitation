@@ -1,5 +1,7 @@
+import os
 from myproject.apps.portofolio.models import Fitur
 from myproject.apps.cart.cart import Cart
+from myproject.settings import dev, staging, production
 
 from myproject.apps.portofolio.models import Fitur, Portofolio
 from myproject.apps.order.models import Order, OrderItem
@@ -55,3 +57,16 @@ def order(request):
 
     else:
         return {}
+
+def webaddress(request):
+    if os.environ["DJANGO_SETTINGS_MODULE"] == "myproject.settings.dev":
+        web_address = dev.WEBSITE_URL
+        web_address_frontend = dev.WEBSITE_URL_FRONTEND
+    elif os.environ["DJANGO_SETTINGS_MODULE"] == "myproject.settings.staging":
+        web_address = staging.WEBSITE_URL
+        web_address_frontend = staging.WEBSITE_URL_FRONTEND
+    else:
+        web_address = production.WEBSITE_URL
+        web_address_frontend = production.WEBSITE_URL_FRONTEND
+    return {'web_address' : web_address, 'web_address_frontend':web_address_frontend}
+

@@ -136,6 +136,7 @@ TEMPLATES = [
                 # 'myproject.apps.core.context_processor.order_checkout_update',
                 'myproject.apps.core.context_processor.order',
                 'myproject.apps.core.context_processor.portofolio',
+                'myproject.apps.core.context_processor.webaddress',
             ],
         },
     },
@@ -256,6 +257,11 @@ ACCOUNT_FORMS = {
 
 }
 
+SOCIALACCOUNT_FORMS = {
+    'signup': 'myproject.apps.accounts.forms.MyCustomSocialSignupForm',
+}
+
+
 REST_FRAMEWORK = {
     # 'DEFAULT_PAGINATION_CLASS':
     # 'rest_framework.pagination.LimitOffsetPagination',
@@ -266,7 +272,7 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",
+    "http://localhost:8080","http://192.168.56.20", "http://localhost:7600",
 ]
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
@@ -302,4 +308,10 @@ INTERNAL_IPS = [
 TEMP = os.path.join(BASE_DIR, 'media/temp')
 
 FILE_UPLOAD_MAX_MEMORY_SIZE = 20971520
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.IsAuthenticatedOrReadOnly',  # new
+#     ]
+# }
 

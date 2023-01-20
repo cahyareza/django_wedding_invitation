@@ -1,5 +1,6 @@
 from allauth.account.forms import SignupForm, LoginForm, ResetPasswordForm, \
     ResetPasswordKeyForm
+from allauth.socialaccount.forms import SignupForm as SocialSignupForm
 
 class MyCustomSignupForm(SignupForm):
 
@@ -76,6 +77,26 @@ class MyCustomResetPasswordKeyForm(ResetPasswordKeyForm):
 
     def __init__(self, *args, **kwargs):
         super(MyCustomResetPasswordKeyForm, self).__init__(*args, **kwargs)
+        for fieldname, field in self.fields.items():
+            field.widget.attrs.update({
+                'class': 'input'
+            })
+
+class MyCustomSocialSignupForm(SocialSignupForm):
+
+    def save(self, request):
+
+        # Ensure you call the parent class's save.
+        # .save() returns a User object.
+        user = super(MyCustomSocialSignupForm, self).save(request)
+
+        # Add your own processing here.
+
+        # You must return the original result.
+        return user
+
+    def __init__(self, *args, **kwargs):
+        super(MyCustomSocialSignupForm, self).__init__(*args, **kwargs)
         for fieldname, field in self.fields.items():
             field.widget.attrs.update({
                 'class': 'input'
