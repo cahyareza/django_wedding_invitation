@@ -41,7 +41,7 @@ DAFTAR_BANK = (
     ('MANDIRI', 'MANDIRI')
 )
 
-FITUR_CHOICES = (('preset standard', 'preset standard'),
+FITUR_CHOICES = (('desain standard', 'desain standard'),
     ('quotes', 'quotes'),
     ('detail acara', 'detail acara'),
     ('profil pasangan', 'profil pasangan'),
@@ -58,13 +58,13 @@ FITUR_CHOICES = (('preset standard', 'preset standard'),
     ('share eksklusif(max 50)', 'share eksklusif(max 50)'),
     ('background music(list only)', 'background music(list only)'),
     ('custom domain(additional)', 'custom domain(additional)'),
-    ('preset platinum', 'preset platinum'),
+    ('desain platinum', 'desain platinum'),
     ('gallery(max 20)', 'gallery(max 20)'),
     ('live streaming', 'live streaming'),
     ('share eksklusif(unlimited)', 'share eksklusif(unlimited)'),
     ('background music(list dan custom)', 'background music(list dan custom)'),
     ('tersedia versi inggris', 'tersedia versi inggris'),
-    ('semua jenis preset', 'semua jenis preset'),
+    ('semua jenis desain', 'semua jenis desain'),
     ('support prioritas', 'support prioritas'),
     ('masa aktif selamanya', 'masa aktif selamanya'),
     ('edit tanpa batas', 'edit tanpa batas'))
@@ -103,7 +103,7 @@ def theme_upload_to(instance, filename):
 # ========== UPLOAD TO END ========== !
 
 class Track(CreationModificationDateBase, UrlBase):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=50)
     artist = models.CharField(max_length=30)
     url = models.URLField(max_length=500)
 

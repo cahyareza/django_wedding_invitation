@@ -62,11 +62,14 @@ def webaddress(request):
     if os.environ["DJANGO_SETTINGS_MODULE"] == "myproject.settings.dev":
         web_address = dev.WEBSITE_URL
         web_address_frontend = dev.WEBSITE_URL_FRONTEND
+        nama_domain = dev.NAMA_DOMAIN
     elif os.environ["DJANGO_SETTINGS_MODULE"] == "myproject.settings.staging":
         web_address = staging.WEBSITE_URL
         web_address_frontend = staging.WEBSITE_URL_FRONTEND
+        nama_domain = staging.NAMA_DOMAIN
     else:
         web_address = production.WEBSITE_URL
         web_address_frontend = production.WEBSITE_URL_FRONTEND
-    return {'web_address' : web_address, 'web_address_frontend':web_address_frontend}
+        nama_domain = production.NAMA_DOMAIN
+    return {'web_address' : web_address, 'web_address_frontend':web_address_frontend, 'nama_domain': nama_domain}
 

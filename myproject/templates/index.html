@@ -26,7 +26,7 @@
             <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-5">
               Website <br><strong>Undangan Pernikahan</strong>
             </h1>
-            <p class="is-size-5-tablet"><strong>Fitur paling lengkap banyak preset siap pakai<br></strong> Masa aktif selamanya dan edit tanpa batas!</p>
+            <p class="is-size-5-tablet"><strong>Fitur paling lengkap banyak desain siap pakai<br></strong> Masa aktif selamanya dan edit tanpa batas!</p>
 
             <div class="buttons mt-3">
               {% if user.is_authenticated %}
@@ -191,9 +191,9 @@
     <div class="hero-body is-marginless p-3 mt-1">
       <div class="container px-2 pt-3">
         <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-1 px-4">
-          Preset Make Easy
+          Berbagai Pilihan Desain
         </h1>
-        <p class="is-size-5-tablet px-4 mt-1 block">{{ themes|length }} Presets tersedia. Dengan adanya preset kamu tinggal pilih design undangan sesuai dengan yang kamu mau.</p>
+        <p class="is-size-5-tablet px-4 mt-1 block">{{ themes|length }} Desain tersedia. Pilih desain undangan yang sesuai dengan seleramu</p>
         <div class="columns is-multiline is-vcentered">
           <div class="column center
           is-12-mobile
@@ -334,6 +334,9 @@
               show: false,
               show2: false,
               show3: false,
+              show4: false,
+              show5: false,
+              show6: false,
           }
       },
       methods: {
@@ -345,6 +348,15 @@
         },
         showModal3() {
             this.show3 = !this.show3;
+        },
+        showModal4() {
+            this.show4 = !this.show4;
+        },
+        showModal5() {
+            this.show5 = !this.show5;
+        },
+        showModal6() {
+            this.show6 = !this.show6;
         },
         goto(refName) {
             var element = this.$refs[refName];

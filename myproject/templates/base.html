@@ -51,7 +51,7 @@
 
       <div id="navbarMenu" class="navbar-menu" v-bind:class="{ 'is-active': isActive }">
           <div class="navbar-start has-text-weight-bold">
-              <a class="navbar-item" href="{% url 'portofolio:theme_list' %}">Preset/Desain</a>
+              <a class="navbar-item" href="{% url 'portofolio:theme_list' %}">Desain</a>
               <a class="navbar-item" href="{% url 'portofolio:porto_list' %}">Portofolio</a>
           </div>
 
@@ -261,7 +261,7 @@
             </div>
             <div class="column is-12 has-text-centered mt-5">
               <p class="subtitle is-size-6 has-text-black">
-                  © 2022 - {% now "Y" %} Copyright {{ web_address }}
+                  © 2022 - {% now "Y" %} Copyright {{ nama_domain }}
               </p>
             </div>
           </div>
