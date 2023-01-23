@@ -26,10 +26,10 @@
     <!-- Fontawesome   -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <link rel="icon" type="image/png" href="{% static 'site/img/favicon-32x32.png' %}" sizes="32x32" />
-    <link rel="icon" type="image/png" href="{% static 'site/img/favicon-16x16.png' %}" sizes="16x16" />
+    <link rel="icon" type="image/png" href="{% static 'site/img/logo_fix.svg' %}" sizes="32x32" />
+    <link rel="icon" type="image/png" href="{% static 'site/img/logo_fix.svg' %}" sizes="16x16" />
 
-    <title>{% trans "Hello, World!" %}</title>
+    <title>Website Undangan Terbaik</title>
   </head>
   <body>
 
@@ -38,7 +38,7 @@
       <div class="navbar-brand">
 
         <a class="navbar-item" href="{% url 'home' %}">
-          <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+          <img src="{% static 'site/img/logo_fix2.svg' %}" width="112" height="28">
         </a>
 
         <a v-bind:aria-expanded="isActive" v-bind:class="{ 'is-active': isActive }" role="button" class="navbar-burger"
@@ -300,10 +300,10 @@
 
                     <button class="button has-background-primary"  style="
                           position: fixed;
-                          width: 170px;
+                          width: 50px;
                           height: 40px;
                           bottom: 20px;
-                          right: 20px;
+                          right: 10px;
                           color: #fff;
                           border-radius: 50px;
                           text-align: center;
@@ -311,13 +311,10 @@
                           box-shadow: 2px 2px 3px #999;"
 
                             @click="changeVisible()">
-                        <div class="media-left px-2 pt-1">
+                        <div class="pt-1">
                             <span class="icon">
                               <i class="fa-brands fa-2x fa-whatsapp"></i>
                             </span>
-                        </div>
-                        <div class="media-content is-paddingless">
-                            <p class="subtitle is-size-7 has-text-centered has-text-white">Butuh Bantuan?</p>
                         </div>
                     </button>
                 </div>

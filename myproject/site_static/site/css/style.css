@@ -244,6 +244,7 @@
     width: 90%;
     height: 500px;
     object-fit: cover;
+    border-radius: 10px;
 }
 
 .swiper-slide {
