@@ -245,6 +245,7 @@
     height: 500px;
     object-fit: cover;
     border-radius: 10px;
+    border: 5px solid #F0F0F0;
 }
 
 .swiper-slide {
