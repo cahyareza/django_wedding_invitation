@@ -91,7 +91,7 @@
   cursor: pointer;
   opacity: 1;
   color: #fff;
-  background: hsl(348, 86%, 61%);
+  background: #000;
 }
 
 .product-card:hover .card-btn {
@@ -245,7 +245,6 @@
     height: 500px;
     object-fit: cover;
     border-radius: 10px;
-    border: 5px solid #F0F0F0;
 }
 
 .swiper-slide {
@@ -365,4 +364,22 @@
 
 [v-cloak] {
   display: none !important;
+}
+
+.low-opacity-bg-image {
+    background: url('../img/heart.jpg');
+    display: grid;
+    position: relative;
+    isolation: isolate;
+    background-size: cover;
+    background-position: center;
+}
+
+.low-opacity-bg-image::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    opacity: 0.7;
+    background: #000000;
 }

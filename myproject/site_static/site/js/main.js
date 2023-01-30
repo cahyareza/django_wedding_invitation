@@ -33,7 +33,7 @@ var swiper3 = new Swiper(".swiper3", {
 //    },
     loop: true,
     autoplay: {
-        delay:1500,
+        delay:5000,
         disableOnInteraction: false,
     }
 });
@@ -56,7 +56,7 @@ var swiper2 = new Swiper(".swiper2", {
 //    },
     loop: true,
     autoplay: {
-        delay:1500,
+        delay:5000,
         disableOnInteraction: false,
     }
 });
@@ -69,7 +69,7 @@ var swiper = new Swiper(".mySwiper", {
       dynamicBullets: true,
     },
     autoplay: {
-        delay : 1200
+        delay : 2000
     },
     breakpoints: {
         768: {

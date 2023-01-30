@@ -26,8 +26,8 @@
     <!-- Fontawesome   -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <link rel="icon" type="image/png" href="{% static 'site/img/logo_fix.svg' %}" sizes="32x32" />
-    <link rel="icon" type="image/png" href="{% static 'site/img/logo_fix.svg' %}" sizes="16x16" />
+    <link rel="icon" type="image/png" href="{% static 'site/img/favicon.svg' %}" sizes="32x32" />
+    <link rel="icon" type="image/png" href="{% static 'site/img/favicon.svg' %}" sizes="16x16" />
 
     <title>Website Undangan Terbaik</title>
   </head>
@@ -39,14 +39,14 @@
             is-12-desktop
             is-10-widescreen is-offset-1-widescreen
             is-8-fullhd is-offset-2-fullhd
-            mb-0 pb-0
+            mb-0 pb-0 pr-0 pl-2
             ">
             <!---------- NAVBAR START ---------->
             <nav id="navbarapp" class="navbar" role="navigation" aria-label="main navigation">
               <div class="navbar-brand">
 
                 <a class="navbar-item" href="{% url 'home' %}">
-                  <img src="{% static 'site/img/logo_fix2.svg' %}" width="112" height="28">
+                  <img src="{% static 'site/img/logo.svg' %}" width="60" height="40">
                 </a>
 
                 <a v-bind:aria-expanded="isActive" v-bind:class="{ 'is-active': isActive }" role="button" class="navbar-burger"
@@ -78,12 +78,12 @@
                           {% endif %}
                           <div class="navbar-item has-text-centered">
                             <a class="navbar-item is-block">Wellcome {{ user.username }}</a>
-                            <a class="button is-danger is-block" href="{% url 'account_logout' %}">Sign Out</a>
+                            <a class="button is-black is-block" href="{% url 'account_logout' %}">Sign Out</a>
                           </div>
                       {% else %}
                           <div class="navbar-item has-text-centered">
                             <a class="navbar-item is-block" href="{% url 'account_login' %}">Sign In</a>
-                            <a class="button is-danger is-block" href="{% url 'account_signup' %}">Sign Up</a>
+                            <a class="button is-black is-block" href="{% url 'account_signup' %}">Sign Up</a>
                           </div>
                       {% endif %}
                   </div>
@@ -98,7 +98,7 @@
             <!---------- CONTENT END ---------->
 
             <!---------- FOOTER AND WHATSAPP START ---------->
-            <section class="hero has-background-danger-light is-medium">
+            <section class="hero is-medium" style="background-image: url('{% static "site/img/white_background.jpg" %}')">
               <div class="hero-footer is-marginless p-3 mt-1">
                 <div class="container px-2 pt-3">
                   <!--     FOOTER     -->
@@ -184,7 +184,6 @@
                       <h1 class="subtitle has-text-weight-bold is-size-5-desktop is-size-5-tablet is-size-6-mobile mb-4 px-4">
                         Kontak
                       </h1>
-
                       <div class="columns is-multiline is-mobile px-4">
                         <div class="column p-2">
                           <article class="media">
@@ -231,8 +230,22 @@
                           </article>
                         </div>
                       </div>
+                      <div class="columns is-multiline px-4">
+                        <div class="column is-full-mobile is-6-tablet is-marginless px-2 pb-0 pt-2">
+                            <h1 class="subtitle has-text-weight-bold is-size-5-desktop is-size-5-tablet is-size-6-mobile mb-1">
+                                Jam Kerja
+                            </h1>
+                            <p class="mb-0">Senin - Jumat(09.00 - 17.00 WIB)</p>
+                        </div>
+                        <div class="column is-full-mobile is-6-tablet is-marginless px-2 pb-0 pt-2">
+                            <h1 class="subtitle has-text-weight-bold is-size-5-desktop is-size-5-tablet is-size-6-mobile mb-1">
+                                Support & Pesan
+                            </h1>
+                            <p class="mt-0">Senin - Minggu</p>
+                        </div>
+                      </div>
                     </div>
-                    <div class="column is-12 has-text-centered mt-5">
+                    <div class="column is-12 has-text-centered mt-5 has-text-weight-semibold">
                       <p class="subtitle is-size-6 has-text-black">
                           © 2022 - {% now "Y" %} Copyright {{ nama_domain }}
                       </p>
@@ -271,7 +284,7 @@
                               </div>
                             </div>
 
-                            <button class="button has-background-primary"  style="
+                            <button class="button has-background-grey-dark"  style="
                                   position: fixed;
                                   width: 50px;
                                   height: 40px;

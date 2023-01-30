@@ -1318,7 +1318,7 @@ def step12_update(request, slug):
 
             # to create theme product
             user = request.user
-            instance_order = Order.objects.get(user=user)
+            instance_order = Order.objects.filter(user=request.user).first()
             instance_orderitemfiture = OrderItem.objects.get(order=instance_order)
 
             instance_orderitem = form3.save(commit=False)

@@ -1,6 +1,6 @@
 {% load i18n static mathfilters %}
   <!---------- DAFTAR PRODUK ---------->
-  <section class="hero div has-background-warning-light is-medium" ref="div1">
+  <section class="hero div is-medium" ref="div1" style="background-image: url('{% static "site/img/white_background.jpg" %}')">
     <div class="hero-body is-marginless p-3 mt-1">
       <div class="container px-2 pt-3">
         <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-1 px-4">
@@ -22,7 +22,7 @@
                 {% for fitur in fiturs %}
                   {% if fitur.name == "SILVER" %}
                     <div class="product-card" style="width: 270px;">
-                        <div class="box">
+                        <div class="box has-background-light">
                           <div class="product-image" style="height: 430px;">
                                 {% if obj_silver %}
                                     {% if discount_value_silver %}
@@ -66,7 +66,7 @@
                     </div>
                   {% elif fitur.name == "PLATINUM" %}
                     <div class="product-card" style="width: 270px;">
-                        <div class="box">
+                        <div class="box has-background-light">
                           <div class="product-image" style="height: 430px;">
                               {% if obj_platinum %}
                                   {% if discount_value_platinum %}
@@ -111,7 +111,7 @@
                     </div>
                   {% elif fitur.name == "GOLD" %}
                     <div class="product-card" style="width: 270px;">
-                      <div class="box">
+                      <div class="box has-background-light">
                         <div class="product-image" style="height: 430px;">
                               {% if obj_gold %}
                                   {% if discount_value_gold %}
@@ -166,103 +166,105 @@
   <!---------- DAFTAR PRODUK END ---------->
 
   <!---------- CARA BUAT UNDANGAN DAN FAQ START ---------->
-    <section class="hero is-white is-medium">
+    <section class="hero has-background-grey-dark is-medium">
       <div class="hero-body is-marginless p-3 mt-6">
         <div class="container">
-          <div class="columns is-multiline">
-            <div class="column
-            is-12-mobile
-            is-6-tablet
-            is-6-desktop
-            is-7-widescreen
-            is-7-fullhd" data-aos="fade-right" data-aos-duration="800" data-aos-delay="200">
-              <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-1 px-4">
-                Cara Buat Undangan
-              </h1>
-              <p class="is-size-5-tablet px-4 mt-1 block">Cara mudah membuat undangan, hanya butuh 10 menit undangan kamu sudah bisa di sebarkan.</p>
+          <div class="section px-4 py-0">
               <div class="columns is-multiline">
-                <div class="column is-12">
-                      <div class="media">
-                        <div class="media-left">
-                          <figure class="image is-96x96">
-                            <img src="{% static 'site/img/signup.svg' %}" alt="Placeholder image">
-                          </figure>
-                        </div>
-                        <div class="media-content">
-                          <p class="title is-5">Membuat akun</p>
-                          <p class="subtitle is-6">Membuat akun <a href="{% url 'account_signup' %}"><strong>disini</strong></a></p>
-                        </div>
-                      </div>
+                <div class="column
+                is-12-mobile
+                is-6-tablet
+                is-6-desktop
+                is-7-widescreen
+                is-7-fullhd" data-aos="fade-right" data-aos-duration="800" data-aos-delay="200">
+                  <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-1 px-4 mt-0 has-text-white">
+                    Cara Buat Undangan
+                  </h1>
+                  <p class="is-size-5-tablet px-4 mt-1 block has-text-white">Cara mudah membuat undangan, hanya butuh 10 menit undangan kamu sudah bisa di sebarkan.</p>
+                  <div class="columns is-multiline">
+                    <div class="column is-12">
+                          <div class="media">
+                            <div class="media-left">
+                              <figure class="image is-96x96">
+                                <img src="{% static 'site/img/signup.svg' %}" alt="Placeholder image">
+                              </figure>
+                            </div>
+                            <div class="media-content">
+                              <p class="title is-5 has-text-white">Membuat akun</p>
+                              <p class="subtitle is-6 has-text-white">Membuat akun <a href="{% url 'account_signup' %}"><strong>disini</strong></a></p>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="column is-12">
+                          <div class="media">
+                            <div class="media-left">
+                              <figure class="image is-96x96">
+                                <img src="{% static 'site/img/order.svg' %}" alt="Placeholder image">
+                              </figure>
+                            </div>
+                            <div class="media-content">
+                              <p class="title is-5 has-text-white">Order produk</p>
+                              <p class="subtitle is-6 has-text-white">Order produk <a @click="goto('div1')"><strong>disini</strong></a> dan upload bukti pembayaran, lalu menunggu order terverifikasi</p>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="column is-12">
+                          <div class="media">
+                            <div class="media-left">
+                              <figure class="image is-96x96">
+                                <img src="{% static 'site/img/input.svg' %}" alt="Placeholder image">
+                              </figure>
+                            </div>
+                            <div class="media-content">
+                              <p class="title is-5 has-text-white">Mengisi Form</p>
+                              <p class="subtitle is-6 has-text-white">Membuat undangan <a href="{% url 'portofolio:step1' %}"><strong>disini</strong></a> dengan mengisi form yang tersedia(seperti: form nama undangan, pasangan, acara, dsb)</p>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="column is-12">
+                          <div class="media">
+                            <div class="media-left">
+                              <figure class="image is-96x96">
+                                <img src="{% static 'site/img/active.svg' %}" alt="Placeholder image">
+                              </figure>
+                            </div>
+                            <div class="media-content">
+                              <p class="title is-5 has-text-white">Undangan aktif</p>
+                              <p class="subtitle is-6 has-text-white">Undangan otomatis aktif, dan dapat diedit kapanpun <a href="{% url 'portofolio:configurasi' %}"><strong>disini.</strong></a></p>
+                            </div>
+                          </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="column is-12">
-                      <div class="media">
-                        <div class="media-left">
-                          <figure class="image is-96x96">
-                            <img src="{% static 'site/img/order.svg' %}" alt="Placeholder image">
-                          </figure>
-                        </div>
-                        <div class="media-content">
-                          <p class="title is-5">Order produk</p>
-                          <p class="subtitle is-6">Order produk <a @click="goto('div1')"><strong>disini</strong></a> dan upload bukti pembayaran, lalu menunggu order terverifikasi</p>
-                        </div>
-                      </div>
-                </div>
-                <div class="column is-12">
-                      <div class="media">
-                        <div class="media-left">
-                          <figure class="image is-96x96">
-                            <img src="{% static 'site/img/input.svg' %}" alt="Placeholder image">
-                          </figure>
-                        </div>
-                        <div class="media-content">
-                          <p class="title is-5">Mengisi Form</p>
-                          <p class="subtitle is-6">Membuat undangan <a href="{% url 'portofolio:step1' %}"><strong>disini</strong></a> dengan mengisi form yang tersedia(seperti: form nama undangan, pasangan, acara, dsb)</p>
-                        </div>
-                      </div>
-                </div>
-                <div class="column is-12">
-                      <div class="media">
-                        <div class="media-left">
-                          <figure class="image is-96x96">
-                            <img src="{% static 'site/img/active.svg' %}" alt="Placeholder image">
-                          </figure>
-                        </div>
-                        <div class="media-content">
-                          <p class="title is-5">Undangan aktif</p>
-                          <p class="subtitle is-6">Undangan otomatis aktif, dan dapat diedit kapanpun <a href="{% url 'portofolio:configurasi' %}"><strong>disini.</strong></a></p>
-                        </div>
-                      </div>
+                <div class="column
+                is-12-mobile
+                is-6-tablet
+                is-5-desktop
+                is-5-widescreen
+                is-5-fullhd pl-3" data-aos="fade-right" data-aos-duration="800" data-aos-delay="200">
+                  <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-4 px-4 has-text-white">
+                    FAQ
+                  </h1>
+                  <button @click="showModal" class="button has-text-weight-medium px-4 mb-1 is-fullwidth is-black" style="border:none; background-color:transparent;">Berapa lama masa aktif undangan saya?</button>
+                  <p v-if="show" class="px-4 mt-1 has-text-white">tidak ada masa aktif. dengan kata lain undangan anda akan aktif selamanya. jadi kamu bisa aktifkan sekarang untuk di pakai kapanpun.</p>
+                  <hr class="my-1 has-background-grey">
+                  <button @click="showModal2" class="button has-text-weight-medium px-4 mb-1 is-fullwidth is-black" style="border:none; background:transparent;">Apakah masih bisa di edit setelah aktif?</button>
+                  <p v-if="show2" class="px-4 mt-1 has-text-white">ya bisa sekali. kamu bisa edit undangan kamu kapanpun selamanya. tanpa ada batasan.</p>
+                  <hr class="my-1 has-background-grey">
+                  <button @click="showModal3" class="button has-text-weight-medium px-4 mb-1 is-fullwidth is-black" style="border:none; background:transparent;">Berapa Lama Proses Pembuatannya?</button>
+                  <p v-if="show3" class="px-4 mt-1 has-text-white">Untuk pembuatan undangan digital hanya membutuhkan waktu sekitar 10 menit untuk mengisi data-data yang diperlukan dan undangan digital kamu sudah siap untuk disebarkan.</p>
+                  <hr class="my-1 has-background-grey">
+                  <button @click="showModal4" class="button has-text-weight-medium px-4 mb-1 is-fullwidth is-black" style="border:none; background:transparent;">Apakah bisa dibantu pengisian informasi?</button>
+                  <p v-if="show4" class="px-4 mt-1 has-text-white">Kami senantiasa siap membantu kamu apabila ada kesulitan dalam pengisian data/informasi undangan. Silahkan hubungi kami melalui WhatsApp apabila membutuhkan bantuan.</p>
+                  <hr class="my-1 has-background-grey">
+                  <button @click="showModal5" class="button has-text-weight-medium px-4 mb-1 is-fullwidth is-black" style="border:none; background:transparent;">Apakah bisa custom tema?</button>
+                  <p v-if="show5" class="px-4 mt-1 has-text-white">Mohon maaf, untuk saat ini kami belum menerima custom tema. Silahkan gunakan tema yang ada.</p>
+                  <hr class="my-1 has-background-grey">
+                  <button @click="showModal6" class="button has-text-weight-medium px-4 mb-1 is-fullwidth is-black" style="border:none; background:transparent;"> Apa yang dimaksud Garansi 3 Hari?</button>
+                  <p v-if="show6" class="px-4 mt-1 has-text-white">Jika dalam 3 hari sejak pendaftaran kamu merasa bahwa undangan kurang sesuai dengan kebutuhanmu atau kamu kurang puas, kami akan mengembalikan uangmu 100%, cukup dengan WhatsApp tim kami.</p>
+                  <hr class="my-1 has-background-grey">
                 </div>
               </div>
-            </div>
-            <div class="column
-            is-12-mobile
-            is-6-tablet
-            is-5-desktop
-            is-5-widescreen
-            is-5-fullhd" data-aos="fade-right" data-aos-duration="800" data-aos-delay="200">
-              <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-4 px-4">
-                FAQ
-              </h1>
-              <button @click="showModal" class="button has-text-weight-medium px-4 mb-1 is-fullwidth" >Berapa lama masa aktif undangan saya?</button>
-              <p v-if="show" class="px-4 mt-1">tidak ada masa aktif. dengan kata lain undangan anda akan aktif selamanya. jadi kamu bisa aktifkan sekarang untuk di pakai kapanpun.</p>
-              <hr class="my-1">
-              <button @click="showModal2" class="button has-text-weight-medium px-4 mb-1 is-fullwidth" >Apakah masih bisa di edit setelah aktif?</button>
-              <p v-if="show2" class="px-4 mt-1">ya bisa sekali. kamu bisa edit undangan kamu kapanpun selamanya. tanpa ada batasan.</p>
-              <hr class="my-1">
-              <button @click="showModal3" class="button has-text-weight-medium px-4 mb-1 is-fullwidth" >Berapa Lama Proses Pembuatannya?</button>
-              <p v-if="show3" class="px-4 mt-1">Untuk pembuatan undangan digital hanya membutuhkan waktu sekitar 10 menit untuk mengisi data-data yang diperlukan dan undangan digital kamu sudah siap untuk disebarkan.</p>
-              <hr class="my-1">
-              <button @click="showModal4" class="button has-text-weight-medium px-4 mb-1 is-fullwidth" >Apakah bisa dibantu pengisian informasi?</button>
-              <p v-if="show4" class="px-4 mt-1">Kami senantiasa siap membantu kamu apabila ada kesulitan dalam pengisian data/informasi undangan. Silahkan hubungi kami melalui WhatsApp apabila membutuhkan bantuan.</p>
-              <hr class="my-1">
-              <button @click="showModal5" class="button has-text-weight-medium px-4 mb-1 is-fullwidth" >Apakah bisa custom tema?</button>
-              <p v-if="show5" class="px-4 mt-1">Mohon maaf, untuk saat ini kami belum menerima custom tema. Silahkan gunakan tema yang ada.</p>
-              <hr class="my-1">
-              <button @click="showModal6" class="button has-text-weight-medium px-4 mb-1 is-fullwidth" > Apa yang dimaksud Garansi 3 Hari?</button>
-              <p v-if="show6" class="px-4 mt-1">Jika dalam 3 hari sejak pendaftaran kamu merasa bahwa undangan kurang sesuai dengan kebutuhanmu atau kamu kurang puas, kami akan mengembalikan uangmu 100%, cukup dengan WhatsApp tim kami.</p>
-              <hr class="my-1">
-            </div>
           </div>
         </div>
       </div>
