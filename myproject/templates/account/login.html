@@ -19,15 +19,15 @@
       {% if form.errors %}
         {% for field in form %}
             {% for error in field.errors %}
-              <p class="help is-danger">{{ error|escape }}</p>
+              <p class="help is-black">{{ error|escape }}</p>
             {% endfor %}
         {% endfor %}
         {% for error in form.non_field_errors %}
-            <p class="help is-danger">{{ error|escape }}</p>
+            <p class="help is-black">{{ error|escape }}</p>
         {% endfor %}
       {% endif %}
 
-      <button class="button is-danger mt-3" type="submit">Sign in</button>
+      <button class="button is-black mt-3" type="submit">Sign in</button>
       <a href="{% provider_login_url 'google' %}" class="button is-light mt-3 mb-3" role="button" aria-pressed="true">Sign in with Google</a><br>
       <a href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
     </div>

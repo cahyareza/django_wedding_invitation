@@ -20,17 +20,17 @@
       {% if form.errors %}
         {% for field in form %}
             {% for error in field.errors %}
-              <p class="help is-danger">{{ error|escape }}</p>
+              <p class="help is-black">{{ error|escape }}</p>
             {% endfor %}
         {% endfor %}
         {% for error in form.non_field_errors %}
-            <p class="help is-danger">{{ error|escape }}</p>
+            <p class="help is-black">{{ error|escape }}</p>
         {% endfor %}
       {% endif %}
       {% if redirect_field_value %}
       <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
       {% endif %}
-      <button class="button is-danger mt-3" type="submit">{% trans "Sign Up" %} &raquo;</button>
+      <button class="button is-black mt-3" type="submit">{% trans "Sign Up" %} &raquo;</button>
       <a class="button mt-3" type="submit" href="{% url 'socialaccount_signup' %}">Daftar dengan Google &raquo;</a>
     </div>
   </div>
