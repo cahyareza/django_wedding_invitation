@@ -2,14 +2,14 @@
 {% load i18n static %}
 
 {% block isi %}
-<section class="hero has-background-warning-light is-small">
+<section class="hero has-background-grey-dark is-small">
     <div class="hero-body">
       <div class="container">
         <div class="section py-0">
-          <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-2">
-            Berbagai Tema <span class="has-text-danger">Siap Pakai</span>
+          <h1 class="subtitle has-text-white is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-2">
+            Berbagai Tema <span class="has-text-white">Siap Pakai</span>
           </h1>
-          <p class="is-size-5-tablet"><strong>{{ themes|length }} Desain tersedia.</strong> Dengan adanya desain kalian bisa pilih tema sesuai keinginanmu.</p>
+          <p class="is-size-5-tablet has-text-white"><strong class="has-text-white">{{ themes|length }} Desain tersedia.</strong> Dengan adanya desain kalian bisa pilih tema sesuai keinginanmu.</p>
 
           <div class="columns is-multiline is-vcentered mt-5">
             {% for theme in themes %}
@@ -19,17 +19,17 @@
               is-4-desktop
               is-3-widescreen
               is-3-fullhd">
-                <div class="card">
-                  <div class="card-image">
+<!--                <div class="card">-->
+                  <div class="card-image mb-2">
                     <figure class="image is-4by3">
                       {% if theme.theme_picture %}
-                        <img src="{{ theme.theme_picture.url }}" alt="Placeholder image">
+                      <a href="{% url 'portofolio:theme_detail' theme.id %}"><img src="{{ theme.theme_picture.url }}" alt="Placeholder image"></a>
                       {% endif %}
                     </figure>
                   </div>
-                  <div class="card-content">
-                    <div class="content">
-                      <a href="{% url 'portofolio:theme_detail' theme.id %}"><strong>{{ theme.name }} -</strong></a>
+                  <div class="card-content is-paddingless">
+                    <div class="content is-paddingless is-marginless">
+                      <strong class="has-text-white">{{ theme.name }} -</strong>
                       {% if theme.fitur.name == "SILVER" %}
                           <span class="tag is-medium" style="background-color: #C0C0C0">
                             {{ theme.fitur.name }}
@@ -45,7 +45,7 @@
                       {% endif %}
                     </div>
                   </div>
-                </div>
+<!--                </div>-->
               </div>
             {% endfor %}
           </div>
