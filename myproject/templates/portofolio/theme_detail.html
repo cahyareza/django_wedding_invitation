@@ -54,12 +54,11 @@
                   is-3-desktop
                   is-3-widescreen
                   is-3-fullhd">
+                      {% if theme_product.portofolio.porto_picture %}
 <!--                    <div class="card">-->
                       <div class="card-image">
                         <figure class="image is-2by3">
-                            {% if theme_product.portofolio.porto_picture %}
-                            <a href='{{ web_address_frontend }}{{ theme_product.portofolio.slug }}'><img src="{{ theme_product.portofolio.porto_picture.url }}" alt="Placeholder image"></a>
-                            {% endif %}
+                            <a href='{{ web_address_frontend }}{{ theme_product.portofolio.slug }}/Violet'><img src="{{ theme_product.portofolio.porto_picture.url }}" alt="Placeholder image"></a>
                         </figure>
                       </div>
                       <div class="card-content p-3">
@@ -68,6 +67,7 @@
                         </div>
                       </div>
 <!--                    </div>-->
+                      {% endif %}
                   </div>
               {% endfor %}
           </div>

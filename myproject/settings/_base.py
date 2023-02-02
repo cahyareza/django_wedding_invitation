@@ -228,7 +228,7 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
 
-SITE_ID = 2
+SITE_ID = 5
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'

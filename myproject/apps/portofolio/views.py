@@ -1991,7 +1991,7 @@ class QuoteDetail(generics.RetrieveUpdateDestroyAPIView):
 
 # Ucapan
 class UcapanList(generics.ListCreateAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.AllowAny,)
     queryset = Ucapan.objects.all()
     serializer_class = UcapanSerializer
     name = 'ucapan-list'
@@ -2005,7 +2005,7 @@ class UcapanDetail(generics.RetrieveUpdateDestroyAPIView):
 
 # Hadir
 class HadirList(generics.ListCreateAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.AllowAny,)
     queryset = Hadir.objects.all()
     serializer_class = HadirSerializer
     name = 'hadir-list'
