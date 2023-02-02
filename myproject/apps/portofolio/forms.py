@@ -4,6 +4,7 @@ import datetime
 from django.forms import ClearableFileInput
 from .models import Portofolio, MultiImage, SpecialInvitation, Dompet, Quote, Rekening, ThemeProduct, \
     Story, Acara, Theme
+from myproject.apps.order.models import OrderItem, Order
 from django.core.validators import RegexValidator
 from django.contrib.admin import widgets
 from django.forms import BaseFormSet
@@ -919,7 +920,9 @@ class CustomChoiceField(forms.ModelChoiceField):
 # ============== THEME ===============!
 class ThemeProductForm(forms.ModelForm):
     # theme = forms.ModelChoiceField(queryset=Theme.objects.all(), to_field_name='slug', widget=forms.CheckboxSelectMultiple, required=False)
-    theme = CustomChoiceField(queryset=Theme.objects.all(), widget=forms.RadioSelect,)
+    # order = Order.objects.filter(user=user).first()
+    # orderitem = OrderItem.objects.get(order=order)
+    # theme_filter = Theme.objects.filter(fitur=orderitem.product)
     class Meta:
         model = ThemeProduct
         fields = ['theme']
@@ -932,8 +935,9 @@ class ThemeProductForm(forms.ModelForm):
 
     # SUPER FUNCTION
     def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')
         super(ThemeProductForm, self).__init__(*args, **kwargs)
-
+        self.fields['theme'].queryset = Theme.objects.filter(fitur=OrderItem.objects.get(order=Order.objects.filter(user=user).first()).product)
         # ========== CONTROL PANEL (Optional method to control ========== !
         # 1. Input required
         self.fields['theme'].required = True
@@ -943,6 +947,7 @@ class ThemeProductForm(forms.ModelForm):
 
         self.fields["theme"].widget.template_name = "portofolio/widgets/theme.html"
 
+    theme = CustomChoiceField(queryset=None, widget=forms.RadioSelect,)
     # def clean_my_field(self):
     #     if self.cleaned_data['theme']:
     #         if len(self.cleaned_data['theme']) != 1:

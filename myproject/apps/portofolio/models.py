@@ -126,7 +126,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     pnama_ayah = models.CharField(max_length=40, null=True, blank=True)
     pnama_ibu = models.CharField(max_length=40, null=True, blank=True)
     # ppicture = models.ImageField(blank=True)
-    ppicture = ResizedImageField(size=[180, 180], crop=['middle', 'center'], upload_to=portofolio_pasangan_upload_to, null=True, blank=True, max_length=500)
+    ppicture = ResizedImageField(upload_to=portofolio_pasangan_upload_to, null=True, blank=True, max_length=500)
 
     lname = models.CharField(max_length=40, null=True, blank=True)
     linsta_link = models.CharField(max_length=250, null=True, blank=True)
@@ -134,7 +134,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     lnama_ayah = models.CharField(max_length=40, null=True, blank=True)
     lnama_ibu = models.CharField(max_length=40, null=True, blank=True)
     # lpicture = models.ImageField(blank=True)
-    lpicture = ResizedImageField(size=[180, 180], crop=['middle', 'center'], upload_to=portofolio_pasangan_upload_to, null=True, blank=True, max_length=500)
+    lpicture = ResizedImageField(upload_to=portofolio_pasangan_upload_to, null=True, blank=True, max_length=500)
 
     # Countdown
     tanggal_countdown = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)

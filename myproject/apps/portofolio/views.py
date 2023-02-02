@@ -1038,7 +1038,7 @@ def step11_update(request, slug):
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step12(request):
     if request.method == 'POST':
-        form3 = ThemeProductForm(request.POST or None, request.FILES)
+        form3 = ThemeProductForm(request.POST or None, request.FILES, user=request.user)
         if form3.is_valid():
             user = request.user
             # get instance order
@@ -1293,7 +1293,7 @@ def step12(request):
 
             return redirect("portofolio:step13")
     else:
-        form3 = ThemeProductForm()
+        form3 = ThemeProductForm(user=request.user)
 
     return render(request, "portofolio/configurasi/tampilan_form.html", {'form3': form3})
 
