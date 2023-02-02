@@ -3,7 +3,7 @@ import re
 import datetime
 from django.forms import ClearableFileInput
 from .models import Portofolio, MultiImage, SpecialInvitation, Dompet, Quote, Rekening, ThemeProduct, \
-    Story, Acara, Theme
+    Story, Acara, Theme, Fitur
 from myproject.apps.order.models import OrderItem, Order
 from django.core.validators import RegexValidator
 from django.contrib.admin import widgets
@@ -937,7 +937,12 @@ class ThemeProductForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user')
         super(ThemeProductForm, self).__init__(*args, **kwargs)
-        self.fields['theme'].queryset = Theme.objects.filter(fitur=OrderItem.objects.get(order=Order.objects.filter(user=user).first()).product)
+        if str(OrderItem.objects.get(order=Order.objects.filter(user=user).first()).product) == "SILVER":
+            self.fields['theme'].queryset = Theme.objects.filter(fitur=OrderItem.objects.get(order=Order.objects.filter(user=user).first()).product)
+        elif str(OrderItem.objects.get(order=Order.objects.filter(user=user).first()).product) == "PLATINUM":
+            self.fields['theme'].queryset = Theme.objects.all().exclude(fitur=3)
+        else:
+            self.fields['theme'].queryset = Theme.objects.all()
         # ========== CONTROL PANEL (Optional method to control ========== !
         # 1. Input required
         self.fields['theme'].required = True
