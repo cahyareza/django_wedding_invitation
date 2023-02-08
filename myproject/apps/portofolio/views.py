@@ -49,7 +49,7 @@ from .models import MultiImage, Portofolio, SpecialInvitation, Dompet, Quote, Fi
 
 from .forms import PortoInfoForm, PasanganForm, AcaraForm, QuoteForm, PortoInfo2Form, \
     MultiImageForm, StoryForm, NavigasiForm, DompetForm, PortoInfo3Form, SpecialInvitationForm, \
-    CalenderForm, PortoInfo4Form, ThemeProductForm, PortoInfo5Form, PasanganPictureForm, BaseRegisterFormSet
+    CalenderForm, PortoInfo4Form, ThemeProductForm, PortoInfo5Form, PasanganPictureForm, PortoAlamatDompet, BaseRegisterFormSet
 
 from myproject.apps.portofolio.services import AcaraFormSESSION, PasanganFormSESSION, MultiImageFormSESSION, \
     StoryFormSESSION, DompetFormSESSION, SpecialinviteFormSESSION
@@ -765,19 +765,25 @@ def step8(request):
         extra=1,
     )
     if request.method == 'POST':
+        form = PortoAlamatDompet(request.POST or None, request.FILES)
         dompetform = DompetFormSESSION(request)
         formset2 = DompetFormSet(request.POST or None, prefix='dompet')
-        if formset2.is_valid():
+        if formset2.is_valid() and form.is_valid():
 
             for count,form in enumerate(formset2):
                 # Not save blank field use has_changed()
                 if form.is_valid() and form.has_changed():
                     dompetform.add(id=count, form=form)
+
+            request.session['alamat_rumah'] = form2.cleaned_data.get('alamat_rumah')
+            request.session.modified = True
+
             return redirect("portofolio:step9")
     else:
+        form = PortoAlamatDompet()
         formset2 = DompetFormSet(prefix='dompet')
 
-    return render(request, "portofolio/configurasi/dompet_form.html", {'formset2': formset2, 'orderproduct': orderproduct,})
+    return render(request, "portofolio/configurasi/dompet_form.html", {'formset2': formset2, 'orderproduct': orderproduct, 'form': form})
 
 @login_required(login_url="account_login")
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
@@ -803,11 +809,16 @@ def step8_update(request, slug):
     qs2 = Dompet.objects.filter(portofolio=obj)
 
     # Define formset
-    formset2 = DompetFormSet(request.POST or None,queryset= qs2, prefix='dompet')
+    formset2 = DompetFormSet(request.POST or None, request.FILES, queryset= qs2, prefix='dompet')
 
     if request.method == "POST":
-        if formset2.is_valid():
+        form = PortoAlamatDompet(request.POST or None, instance=obj)
+        if formset2.is_valid() and form.is_valid():
             # to create multiple image instance
+            # create portofolio instance
+            instance = form.save(commit=False)
+            instance.save()
+
             porto_instance = Portofolio.objects.filter(user=request.user).first()
 
             for form in formset2:
@@ -821,15 +832,17 @@ def step8_update(request, slug):
             for obj in formset2.deleted_objects:
                 obj.delete()
 
+
             return redirect("portofolio:configurasi")
 
     else:
         formset2 = DompetFormSet(queryset= qs2, prefix='dompet')
-
+        form = PortoAlamatDompet(instance=obj)
 
     context = {
         'formset2': formset2,
         'orderproduct': orderproduct,
+        'form': form,
     }
 
     # return redirect("portofolio:update_tampilan", slug=slug)
@@ -1186,16 +1199,19 @@ def step12(request):
                 dompetform.clear()
                 # ============== DOMPET END ===============!
 
-            # ============== NAVIGASI ===============!
+            # ============== NAVIGASI & alamat ===============!
             url = request.session.get('link_iframe', None)
             link_iframe = re.search('(?P<name>https?://[^\s]+\w)', url).group('name')
 
             Portofolio.objects.filter(user=user).update(
+                alamat_rumah= request.session.get('alamat_rumah', None),
                 link_iframe=link_iframe,
                 link_gmap=request.session.get('link_gmap', None),
             )
 
             # del portiinfo sessions
+            if 'alamat_rumah' in request.session:
+                del request.session['alamat_rumah']
             if 'link_iframe' in request.session:
                 del request.session['link_iframe']
             if 'link_gmap' in request.session:

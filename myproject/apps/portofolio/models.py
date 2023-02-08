@@ -100,6 +100,10 @@ def portofolio_story_upload_to(instance, filename):
 def theme_upload_to(instance, filename):
     slug = instance.slug
     return f"theme/{slug}/{filename}"
+
+def dompet_upload_to(instance, filename):
+    user = instance.portofolio.user
+    return f"portofolio/{user}/dompet/{filename}"
 # ========== UPLOAD TO END ========== !
 
 class Track(CreationModificationDateBase, UrlBase):
@@ -119,6 +123,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     porto_name = models.CharField(max_length=400, unique=True, null=True, blank=True)
     slug = models.SlugField(max_length=255, null=True, blank=True)
     porto_picture = models.ImageField(null=True, blank=True, upload_to=portofolio_picture_upload_to, max_length=500)
+    alamat_rumah = models.CharField(max_length=150, null=True, blank=True)
     # Couple
     pname = models.CharField(max_length=40, null=True, blank=True)
     pinsta_link = models.CharField(max_length=250, null=True, blank=True)
@@ -275,7 +280,7 @@ class Dompet(CreationModificationDateBase, UrlBase):
     rekening = models.ForeignKey(Rekening, on_delete=models.SET_NULL, blank=True, null=True)
     nomor = models.CharField(max_length=40, null=True, blank=True)
     pemilik = models.CharField(max_length=50, null=True, blank=True)
-
+    bar_code = models.FileField(blank=True, null=True, upload_to=dompet_upload_to, max_length=500)
     class Meta:
         verbose_name_plural = "Dompet"
 

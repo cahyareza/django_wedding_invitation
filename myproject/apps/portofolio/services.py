@@ -263,7 +263,8 @@ class DompetFormSESSION():
         if form_id not in self.dompetform:
             self.dompetform[form_id] = {'nomor': form.cleaned_data.get('nomor'),
                 'pemilik': form.cleaned_data.get('pemilik'),
-                'rekening': form.cleaned_data.get('rekening')
+                'rekening': form.cleaned_data.get('rekening'),
+                'bar_code': form.cleaned_data.get('bar_code'),
             }
 
         self.save()
