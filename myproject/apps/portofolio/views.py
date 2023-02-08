@@ -1310,7 +1310,7 @@ def step12_update(request, slug):
         raise PermissionDenied
 
     if request.method == "POST":
-        form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct)
+        form3 = ThemeProductForm(request.POST or None, request.FILES, instance=obj_themeproduct, user=request.user)
 
         if form3.is_valid():
             # to create multiple image instance
@@ -1329,8 +1329,7 @@ def step12_update(request, slug):
             return redirect("portofolio:configurasi")
 
     else:
-        form3 = ThemeProductForm(instance=obj_themeproduct)
-
+        form3 = ThemeProductForm(instance=obj_themeproduct, user=request.user)
 
     context = {
         'form3': form3,

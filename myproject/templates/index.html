@@ -5,61 +5,38 @@
   <div id="index">
     <!---------- HOME START ---------->
     <div class="low-opacity-bg-image">
-      <section class="hero first is-large">
-        <div class="hero-body is-marginless p-3 mt-6" >
-          <div class="container p-4">
+      <section class="hero first is-fullheight">
+        <div class="hero-body is-marginless" >
+          <div class="container">
             <div class="section">
               <div class="columns is-multiline is-vcentered">
-  <!--              <div class="column-->
-  <!--              is-10-mobile-->
-  <!--              is-5-tablet-->
-  <!--              is-5-desktop-->
-  <!--              is-5-widescreen-->
-  <!--              is-5-fullhd is-paddingless center py-3 px-6" data-aos="fade-right" data-aos-duration="1500" data-aos-delay="500">-->
-  <!--                <figure class="image">-->
-  <!--                  <img src="{% static 'site/img/heart.jpg' %}" style="max-width:350px">-->
-  <!--                </figure>-->
-  <!--              </div>-->
-                <div class="column is-12"></div>
-                <div class="column is-12"></div>
-                <div class="column is-12"></div>
-                <div class="column is-12"></div>
-                <div class="column is-12"></div>
                 <div class="column
-                is-12-mobile
-                is-12-tablet
-                is-12-desktop
-                is-12-widescreen
-                is-12-fullhd has-text-centered" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="1000">
-                  <h1 class="subtitle is-size-3-desktop is-size-4-tablet is-size-5-mobile mb-2 has-text-white is-uppercase">
+                is-12 has-text-centered is-paddingless m-1 mb-6" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="500">
+                  <h1 class="title is-size-1-tablet is-size-3-mobile mb-4 has-text-white is-uppercase">
                     Einvitation.net
                   </h1>
-                  <p class="is-size-4-tablet has-text-white">Kenang moment sekali seumur hidup kamu dengan web undangan yang eksklusif</p>
+                  <p class="subtitle is-size-4-mobile is-size-2-tablet has-text-white mt-4">Kenang moment sekali seumur hidup kamu dengan web undangan yang eksklusif</p>
 
-<!--                    <div class="buttons mt-3">-->
-                      {% if user.is_authenticated %}
-                        {% if order %}
-                          {% if order.status == 'terkonfirmasi' %}
-                            <a class="button is-white mt-3" href="{% url 'portofolio:step1' %}">Buat undangan sekarang</a>
-                          {% else %}
-                            <a class="button is-white mt-3" href="{% url 'order:status' %}">Buat undangan sekarang</a>
-                          {% endif %}
-                        {% else %}
-                          <a class="button is-white mt-3" @click="goto('div1')">Beli Produk</a>
-                        {% endif %}
+                  {% if user.is_authenticated %}
+                    {% if order %}
+                      {% if order.status == 'terkonfirmasi' %}
+                        <a class="button is-white mt-3" href="{% url 'portofolio:step1' %}">Buat undangan sekarang</a>
                       {% else %}
-                          <a class="button is-white mt-3" href="{% url 'account_signup' %}">Buat undangan sekarang</a>
+                        <a class="button is-white mt-3" href="{% url 'order:status' %}">Buat undangan sekarang</a>
                       {% endif %}
-<!--                    </div>-->
-
+                    {% else %}
+                      <a class="button is-white mt-3" @click="goto('div1')">Beli Produk</a>
+                    {% endif %}
+                  {% else %}
+                      <a class="button is-white mt-3" href="{% url 'account_signup' %}">Buat undangan sekarang</a>
+                  {% endif %}
                 </div>
-                <div class="column is-12"></div>
-                <div class="column is-12"></div>
-                <div class="column is-12"></div>
-                <div class="column is-12"></div>
-                <div class="column is-12"></div>
-                <div class="column is-12"></div>
-                <div class="column is-12"></div>
+                <div class="column
+                    is-12 mt-6 has-text-centered" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
+                    <span class="icon has-text-white">
+                      <i class="fa-solid fa-2x fa-angles-down"></i>
+                    </span>
+                </div>
               </div>
             </div>
           </div>
