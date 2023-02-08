@@ -775,8 +775,42 @@ class NavigasiForm(forms.ModelForm):
 
 
 # ============== DOMPET ===============!
-class DompetForm(forms.ModelForm):
+class PortoAlamatDompet(forms.ModelForm):
+    alamat_rumah = forms.CharField(
+        label='Alamat pengiriman bingkisan', min_length=30, max_length=1000,
+        widget=forms.Textarea(
+            attrs={
+                'placeholder': 'Alamat',
+                'class': 'textarea',
+                'style': 'font-size: 13px',
+            }
+        )
+    )
+    class Meta:
+        model = Portofolio
+        fields = ["alamat_rumah"]
 
+    # SUPER FUNCTION
+    def __init__(self, *args, **kwargs):
+        super(PortoAlamatDompet, self).__init__(*args, **kwargs)
+        # 1. Input required
+        self.fields['alamat_rumah'].required = False
+
+        # 2. Help text
+        self.fields['alamat_rumah'].help_text = 'Jika tidak ingin menampilkan alamat cukup dengan mengosongi form'
+
+class DompetForm(forms.ModelForm):
+    bar_code = forms.FileField(
+        label="Foto barcode",
+        widget=forms.ClearableFileInput(
+            attrs={
+                'placeholder': 'Select a picture',
+                'class': 'image',
+                'style': 'font-size: 15px',
+                'accept': 'image/png, image/jpeg'
+            }
+        )
+    )
     nomor = forms.CharField(
         label='Nomor rekening',
         validators=[RegexValidator(r'^[0-9]*$',
@@ -804,7 +838,7 @@ class DompetForm(forms.ModelForm):
     )
     class Meta:
         model = Dompet
-        fields = ['nomor', 'pemilik', 'rekening']
+        fields = ['pemilik', 'rekening', 'bar_code', 'nomor']
         labels = {
             'rekening': "Nama bank",
         }
@@ -828,11 +862,13 @@ class DompetForm(forms.ModelForm):
 
         # 2. Input required
         self.fields['rekening'].required = True
+        self.fields['bar_code'].required = False
 
         # 3. help_text
         self.fields['nomor'].help_text = 'Cukup mengosongi form jika tidak ada dompet'
         self.fields['pemilik'].help_text = 'Cukup mengosongi form jika tidak ada dompet'
         self.fields['rekening'].help_text = 'Cukup mengosongi form jika tidak ada dompet'
+        self.fields['bar_code'].help_text = 'Cukup mengosongi form jika tidak ada barcode'
 # ============== DOMPET END ===============!
 
 

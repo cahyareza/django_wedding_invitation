@@ -15,7 +15,7 @@ class PortofolioSerializer(serializers.ModelSerializer):
     track = TrackSerializer()
     class Meta:
         model = Portofolio
-        fields = ("user", "porto_name", "slug", "porto_picture", "pname", "pinsta_link", "panak_ke",\
+        fields = ("user", "porto_name", "slug", "porto_picture", "alamat_rumah", "pname", "pinsta_link", "panak_ke",\
                   "pnama_ayah", "pnama_ibu", "ppicture", "lname", "linsta_link", "lanak_ke", \
                   "lnama_ayah", "lnama_ibu", "lpicture", "tanggal_countdown", "waktu_countdown", "location_countdown", \
                   "waktu_countdown_selesai", "datetime_countdown", "video", "livestream", "name", "description", "startDate",\
@@ -63,7 +63,7 @@ class DompetSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Dompet
-        fields = ("portofolio", "rekening", "nomor", "pemilik")
+        fields = ("portofolio", "rekening", "nomor", "pemilik", "bar_code")
 
 # Quote
 class QuoteSerializer(serializers.HyperlinkedModelSerializer):

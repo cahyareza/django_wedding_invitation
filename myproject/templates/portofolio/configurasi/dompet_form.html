@@ -9,36 +9,48 @@
           </div>
 
           <div class="columns is-multiline">
-            {% if formset2 %}
-                {{ formset2.management_form }}
-                <div class="column is-12">
-                    <div id="ingredient-form-list2">
-                        {% for form in formset2 %}
-                        <div class="ingredient-form2 mb-5">
-<!--                            {{ form }}-->
+            <div class="column is-12 pl-2">
+              {{ form.alamat_rumah.label_tag }}
+              {{ form.alamat_rumah }}
 
-                            {% for field in form.visible_fields %}
-                                {{ field.label_tag }} {{ field }}
-                                {% for error in field.errors %}
-                                    <p class="help is-danger">{{ error }}</p>
-                                {% endfor %}
-                                <p class="subtitle mt-2 mb-1" style="font-size: 11px;">{{ field.help_text }}</p>
-                            {% endfor %}
-                            <div class="is-hidden">
-                                {% for field in form.hidden_fields %}
+              {% for error in form.alamat_rumah.errors %}
+                  <p class="help is-danger">{{ error }}</p>
+              {% endfor %}
+
+                <p class="subtitle mt-2" style="font-size: 11px;">{{ form.alamat_rumah.help_text }}</p>
+            </div>
+            <div class="column is-12">
+                {% if formset2 %}
+                    {{ formset2.management_form }}
+<!--                    <div class="column is-12">-->
+                        <div id="ingredient-form-list2">
+                            {% for form in formset2 %}
+                            <div class="ingredient-form2 mb-5">
+    <!--                            {{ form }}-->
+
+                                {% for field in form.visible_fields %}
                                     {{ field.label_tag }} {{ field }}
                                     {% for error in field.errors %}
                                         <p class="help is-danger">{{ error }}</p>
                                     {% endfor %}
+                                    <p class="subtitle mt-2 mb-1" style="font-size: 11px;">{{ field.help_text }}</p>
                                 {% endfor %}
+                                <div class="is-hidden">
+                                    {% for field in form.hidden_fields %}
+                                        {{ field.label_tag }} {{ field }}
+                                        {% for error in field.errors %}
+                                            <p class="help is-danger">{{ error }}</p>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </div>
                             </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
-                    </div>
-                </div>
+<!--                    </div>-->
 
-                <div id="empty-form2" class="is-hidden mt-3">{{ formset2.empty_form }}</div>
-            {% endif %}
+                    <div id="empty-form2" class="is-hidden mt-3">{{ formset2.empty_form }}</div>
+                {% endif %}
+            </div>
           </div>
 
           <button id="add-more2" type="button" class="button is-small is-outlined pd-1">Tambah</button>
@@ -48,36 +60,48 @@
           </div>
 
           <div class="columns is-hidden is-multiline">
-            {% if formset2 %}
-                {{ formset2.management_form }}
-                <div class="column is-12">
-                    <div id="ingredient-form-list2">
-                        {% for form in formset2 %}
-                        <div class="ingredient-form2 mb-5">
-<!--                            {{ form }}-->
+            <div class="column is-hidden is-12">
+              {{ form.alamat_rumah.label_tag }}
+              {{ form.alamat_rumah }}
 
-                            {% for field in form.visible_fields %}
-                                {{ field.label_tag }} {{ field }}
-                                {% for error in field.errors %}
-                                    <p class="help is-danger">{{ error }}</p>
-                                {% endfor %}
-                                <p class="subtitle mt-2" style="font-size: 11px;">{{ field.help_text }}</p>
-                            {% endfor %}
-                            <div class="is-hidden">
-                                {% for field in form.hidden_fields %}
+              {% for error in form.alamat_rumah.errors %}
+                  <p class="help is-danger">{{ error }}</p>
+              {% endfor %}
+
+                <p class="subtitle mt-2" style="font-size: 11px;">{{ form.alamat_rumah.help_text }}</p>
+            </div>
+            <div class="column is-hidden is-12">
+                {% if formset2 %}
+                    {{ formset2.management_form }}
+<!--                    <div class="column is-12">-->
+                        <div id="ingredient-form-list2">
+                            {% for form in formset2 %}
+                            <div class="ingredient-form2 mb-5">
+    <!--                            {{ form }}-->
+
+                                {% for field in form.visible_fields %}
                                     {{ field.label_tag }} {{ field }}
                                     {% for error in field.errors %}
                                         <p class="help is-danger">{{ error }}</p>
                                     {% endfor %}
+                                    <p class="subtitle mt-2 mb-1" style="font-size: 11px;">{{ field.help_text }}</p>
                                 {% endfor %}
+                                <div class="is-hidden">
+                                    {% for field in form.hidden_fields %}
+                                        {{ field.label_tag }} {{ field }}
+                                        {% for error in field.errors %}
+                                            <p class="help is-danger">{{ error }}</p>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </div>
                             </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
-                    </div>
-                </div>
+<!--                    </div>-->
 
-                <div id="empty-form2" class="is-hidden mt-3">{{ formset2.empty_form }}</div>
-            {% endif %}
+                    <div id="empty-form2" class="is-hidden mt-3">{{ formset2.empty_form }}</div>
+                {% endif %}
+            </div>
           </div>
 
           <button id="add-more2" type="button" class="button is-hidden is-small is-outlined pd-1">Tambah</button>
