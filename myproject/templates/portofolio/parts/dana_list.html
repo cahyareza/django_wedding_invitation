@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+
+<!-- Page content -->
+{% block isi %}
+
+<div class="container p-4">
+    <div class="box">
+        <div class="columns is-multiline is-vcentered">
+            <div class="column has-text-centered">
+                <!--  Header (title)  -->
+                <h1 class="title is-size-3-tablet is-size-4-mobile has-text-centered">Daftar gift</h1>
+                <!--  Table  -->
+                <table class="table is-fullwidth is-size-5-desktop is-size-6-tablet is-size-7-mobile">
+                    <thead class="has-background-light">
+                        <tr>
+                            <th class="has-text-centered">Nama</th>
+                            <th class="has-text-centered">Jumlah (Rp)</th>
+                            <th class="has-text-centered">Transfer ke-</th>
+                            <th class="has-text-centered">Pesan</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!--   Get data from backend   -->
+                        {% for dana in danas %}
+                        <tr>
+                            <td class="has-text-centered">{{ dana.nama }}</td>
+                            <td class="has-text-centered">{{ dana.jumlah|floatformat:"g" }}</td>
+                            <td class="has-text-centered">{{ dana.ditransfer_ke }}</td>
+                            <td class="has-text-centered">{{ dana.pesan }}</td>
+                            {% empty %}
+                            <td class="has-text-danger has-text-centered">No records found</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="column is-12 has-text-left">
+                <a href="{% url 'portofolio:configurasi' %}"  class="button is-info p-2 mt-4">Back</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
