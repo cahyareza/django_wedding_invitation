@@ -9,7 +9,7 @@
         <div class="columns is-multiline is-vcentered">
             <div class="column has-text-centered">
                 <!--  Header (title)  -->
-                <h1 class="title is-size-3-tablet is-size-4-mobile has-text-centered">Daftar dana</h1>
+                <h1 class="title is-size-3-tablet is-size-4-mobile has-text-centered">Daftar gift</h1>
                 <!--  Table  -->
                 <table class="table is-fullwidth is-size-5-desktop is-size-6-tablet is-size-7-mobile">
                     <thead class="has-background-light">
@@ -35,6 +35,9 @@
                         {% endfor %}
                     </tbody>
                 </table>
+            </div>
+            <div class="column is-12 has-text-left">
+                <a href="{% url 'portofolio:configurasi' %}"  class="button is-info p-2 mt-4">Back</a>
             </div>
         </div>
     </div>
