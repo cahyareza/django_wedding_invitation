@@ -1165,67 +1165,77 @@ class PortoInfo5Form(forms.ModelForm):
         # self.fields['cover_background'].help_text = 'Jika tidak ingin menggunakan foto sebagai background cukup kosongi form'
 # ============== TRACK END ===============!
 
-# ============== DANA ===============!
-class CustomChoiceFieldDiTransfer(forms.ModelChoiceField):
-    pass
-
-class DanaForm(forms.ModelForm):
-    nama = forms.CharField(
-        label='Nama', min_length=3, max_length=50,
-        validators=[RegexValidator(r'^[a-zA-ZA-y\s]*$',
-        message="Only letters is allowed !")],
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Nama',
-                'class': 'input',
-                'style': 'font-size: 13px; text-transform: capitalize; margin-bottom: 7px;'
-            }
-        )
-    )
-    jumlah = forms.CharField(
-        label='Jumlah', min_length=3, max_length=50,
-        validators=[RegexValidator(r'^[0-9]*$',
-        message="Only numbers is allowed !")],
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Jumlah',
-                'class': 'input',
-                'style': 'font-size: 13px; margin-bottom: 7px;'
-            }
-        )
-    )
-    pesan = forms.CharField(
-        label='Pesan', max_length=100,
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Pesan',
-                'class': 'input',
-                'style': 'font-size: 13px; text-transform: capitalize; margin-bottom: 7px;'
-            }
-        )
-    )
-    class Meta:
-        model = Dana
-        fields = ["nama", "jumlah", "pesan", "ditransfer_ke"]
-
-
-        widgets = {
-            'ditransfer_ke': forms.Select(
-                attrs={
-                    'class': 'input',
-                    'style': 'font-size: 13px',
-                }
-            ),
-        }
-
-    # SUPER FUNCTION
-    def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user')
-        super(DanaForm, self).__init__(*args, **kwargs)
-        self.fields['ditransfer_ke'].queryset = Dompet.objects.filter(portofolio=Portofolio.objects.get(user=user))
-
-    # ditransfer_ke = forms.ModelChoiceField(queryset=None, widget=forms.Select,)
-# ============== DANA ===============!
+# # ============== DANA ===============!
+# class CustomChoiceFieldDiTransfer(forms.ModelChoiceField):
+#     pass
+#
+# class DanaForm(forms.ModelForm):
+#     nama = forms.CharField(
+#         label='Nama', min_length=3, max_length=50,
+#         validators=[RegexValidator(r'^[a-zA-ZA-y\s]*$',
+#         message="Only letters is allowed !")],
+#         widget=forms.TextInput(
+#             attrs={
+#                 'placeholder': 'Nama',
+#                 'class': 'input',
+#                 'style': 'font-size: 13px; text-transform: capitalize; margin-bottom: 7px;'
+#             }
+#         )
+#     )
+#     ditransfer_ke = forms.CharField(
+#         label='Ditransfer ke-',
+#         widget=forms.TextInput(
+#             attrs={
+#                 'placeholder': 'Ditransfer ke-',
+#                 'class': 'input',
+#                 'style': 'font-size: 13px margin-bottom: 7px;'
+#             }
+#         )
+#     )
+#     jumlah = forms.CharField(
+#         label='Jumlah', min_length=3, max_length=50,
+#         validators=[RegexValidator(r'^[0-9]*$',
+#         message="Only numbers is allowed !")],
+#         widget=forms.TextInput(
+#             attrs={
+#                 'placeholder': 'Jumlah',
+#                 'class': 'input',
+#                 'style': 'font-size: 13px; margin-bottom: 7px;'
+#             }
+#         )
+#     )
+#     pesan = forms.CharField(
+#         label='Pesan', max_length=100,
+#         widget=forms.TextInput(
+#             attrs={
+#                 'placeholder': 'Pesan',
+#                 'class': 'input',
+#                 'style': 'font-size: 13px; text-transform: capitalize; margin-bottom: 7px;'
+#             }
+#         )
+#     )
+#     class Meta:
+#         model = Dana
+#         fields = ["nama", "jumlah", "pesan", "ditransfer_ke"]
+#
+#
+#         # widgets = {
+#         #     'ditransfer_ke': forms.Select(
+#         #         attrs={
+#         #             'class': 'input',
+#         #             'style': 'font-size: 13px',
+#         #         }
+#         #     ),
+#         # }
+#
+#     # SUPER FUNCTION
+#     # def __init__(self, *args, **kwargs):
+#     #     user = kwargs.pop('user')
+#     #     super(DanaForm, self).__init__(*args, **kwargs)
+#     #     self.fields['ditransfer_ke'].queryset = Dompet.objects.filter(portofolio=Portofolio.objects.get(user=user))
+#
+#     # ditransfer_ke = forms.ModelChoiceField(queryset=None, widget=forms.Select,)
+# # ============== DANA ===============!
 
 
 # ================== FORMSET =================== !

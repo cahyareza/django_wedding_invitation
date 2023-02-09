@@ -50,7 +50,7 @@ from .models import MultiImage, Portofolio, SpecialInvitation, Dompet, Quote, Fi
 from .forms import PortoInfoForm, PasanganForm, AcaraForm, QuoteForm, PortoInfo2Form, \
     MultiImageForm, StoryForm, NavigasiForm, DompetForm, PortoInfo3Form, SpecialInvitationForm, \
     CalenderForm, PortoInfo4Form, ThemeProductForm, PortoInfo5Form, PasanganPictureForm, PortoAlamatDompet, \
-    DanaForm, BaseRegisterFormSet
+    BaseRegisterFormSet
 
 from myproject.apps.portofolio.services import AcaraFormSESSION, PasanganFormSESSION, MultiImageFormSESSION, \
     StoryFormSESSION, DompetFormSESSION, SpecialinviteFormSESSION
@@ -258,19 +258,13 @@ def configurasi_porto(request):
 # ============== DANA ===============!
 @login_required(login_url="account_login")
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
-def dana(request):
-    portofolio = Portofolio.objects.get(user=request.user)
-    if request.method == 'POST':
-        form = DanaForm(request.POST or None, user=request.user)
-        if form.is_valid():
-            # create portofolio instance
-            instance = form.save(commit=False)
-            instance.portofolio = portofolio
-            instance.save()
-    else:
-        form = DanaForm(user=request.user)
-
-    return render(request, "portofolio/parts/dana_form.html", {'form': form})
+def dana_list(request, slug):
+    danas = Dana.objects.all()
+    context = {
+        'danas': danas,
+    }
+    return render(request, 'portofolio/parts/dana_list.html', context)
+# ============== DANA END===============!
 
 @login_required(login_url="account_login")
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)

@@ -445,7 +445,7 @@ class Dana(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE)
     nama = models.CharField(max_length=250, null=True, blank=True)
     jumlah = models.CharField(max_length=40, null=True, blank=True)
-    ditransfer_ke = models.ForeignKey(Dompet, on_delete=models.CASCADE)
+    ditransfer_ke = models.CharField(max_length=40, null=True, blank=True)
     pesan = models.CharField(max_length=500, null=True, blank=True)
 
     def __str__(self):

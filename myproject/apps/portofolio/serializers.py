@@ -143,7 +143,7 @@ class AcaraSerializer(serializers.HyperlinkedModelSerializer):
 class DanaSerializer(serializers.HyperlinkedModelSerializer):
     portofolio = serializers.SlugRelatedField(queryset=Portofolio.objects.all(),
         slug_field='slug')
-    ditransfer_ke = DompetSerializer()
+    # ditransfer_ke = DompetSerializer()
 
     class Meta:
         model = Dana
