@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import (Portofolio, MultiImage, SpecialInvitation, Dompet, Quote,
      Rekening, Ucapan, Hadir, Fitur, Payment, Theme, ThemeProduct, Kabupaten, Story,
-     Acara, Track, Kata)
+     Acara, Track, Kata, Dana)
 
 # Inline
 class PortoInline(admin.TabularInline):
@@ -40,6 +40,9 @@ class HadirInline(admin.TabularInline):
 class ThemeProductInline(admin.TabularInline):
     model = ThemeProduct
 
+class DanaInline(admin.TabularInline):
+    model = Dana
+
 
 @admin.register(Portofolio)
 class PortofolioAdmin(admin.ModelAdmin):
@@ -47,7 +50,7 @@ class PortofolioAdmin(admin.ModelAdmin):
     list_display = ['porto_name', 'pname', 'lname', 'tanggal_countdown', 'waktu_countdown', 'created']
     search_fields = ['porto_name', 'tanggal_countdown', 'created']
     inlines = [AcaraInline, MultiImageInline, SpecialInvitationInline, DompetInline, QuoteInline,
-               UcapanInline, HadirInline, StoryInline, ThemeProductInline]
+               UcapanInline, HadirInline, StoryInline, ThemeProductInline, DanaInline]
     list_per_page = 10
 
     # Fieldset
@@ -147,4 +150,8 @@ class TrackAdmin(admin.ModelAdmin):
 
 @admin.register(Kata)
 class KataAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Dana)
+class DanaAdmin(admin.ModelAdmin):
     pass

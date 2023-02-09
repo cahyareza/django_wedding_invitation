@@ -285,7 +285,7 @@ class Dompet(CreationModificationDateBase, UrlBase):
         verbose_name_plural = "Dompet"
 
     def __str__(self):
-        return self.portofolio.porto_name
+        return f"{self.rekening} a/n {self.pemilik}"
 
 class Quote(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE)
@@ -440,3 +440,13 @@ class Kata(CreationModificationDateBase, UrlBase):
 
     def __str__(self):
         return self.name
+
+class Dana(CreationModificationDateBase, UrlBase):
+    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE)
+    nama = models.CharField(max_length=250, null=True, blank=True)
+    jumlah = models.CharField(max_length=40, null=True, blank=True)
+    ditransfer_ke = models.ForeignKey(Dompet, on_delete=models.CASCADE)
+    pesan = models.CharField(max_length=500, null=True, blank=True)
+
+    def __str__(self):
+        return self.portofolio.name

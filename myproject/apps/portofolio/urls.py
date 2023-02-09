@@ -1,7 +1,7 @@
 from myproject.apps.portofolio import views
 from django.urls import path
 from .views import (
-    configurasi_porto, myportofolio, theme_list, theme_detail, porto_list, fitur_list, step1, step2, step3, step4, step5, step6,\
+    configurasi_porto, myportofolio, theme_list, theme_detail, porto_list, fitur_list, dana, step1, step2, step3, step4, step5, step6,\
     step7, step8, step9, step10, step11, step12, step13, step14, share_undangan, \
     open_background_delete, cover_background_delete, \
     step1_update, step2_update, step3_update, step4_update,step5_update, step6_update,\
@@ -12,7 +12,7 @@ from .views import (
     PaymentDetail, QuoteList, QuoteDetail, UcapanList, UcapanDetail, \
     HadirList, HadirDetail, FiturList, FiturDetail, \
     ThemeList, ThemeDetail,ThemeProductList, ThemeProductDetail, StoryList, \
-    StoryDetail, AcaraList, AcaraDetail, ApiRoot
+    StoryDetail, AcaraList, AcaraDetail,DanaList, DanaDetail, ApiRoot
 )
 
 
@@ -72,6 +72,7 @@ urlpatterns = [
     path('theme_detail/<int:id>', theme_detail, name='theme_detail'),
     path('porto_list/', porto_list, name='porto_list'),
     path('fitur_list/', fitur_list, name='fitur_list'),
+    path('dana/', dana, name='dana'),
 
     path('api/portofolio/', PortofolioList.as_view(), name=views.PortofolioList.name),
     path('api/portofolio/<int:pk>', PortofolioDetail.as_view(), name=views.PortofolioDetail.name),
@@ -113,6 +114,9 @@ urlpatterns = [
 
     path('api/acara/', AcaraList.as_view(), name=views.AcaraList.name),
     path('api/acara/<int:pk>', AcaraDetail.as_view(), name=views.AcaraDetail.name),
+
+    path('api/dana/', DanaList.as_view(), name=views.DanaList.name),
+    path('api/dana/<int:pk>', DanaDetail.as_view(), name=views.DanaDetail.name),
 
     path('api/', ApiRoot.as_view(), name=views.ApiRoot.name),
 ]

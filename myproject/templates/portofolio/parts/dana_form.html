@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+<!--  Buttons denied here -->
+{% block isi %}
+      <!--   INFORMASI PASANGAN   -->
+      <!--   Perempuan   -->
+  <form method="POST" action="{% url 'portofolio:dana' %}" enctype="multipart/form-data" novalidate>
+      {% csrf_token %}
+      <div class="notification  is-light p-1 has-text-centered">
+          Mohon isi form di bawah ini
+      </div>
+      <div class="columns  is-multiline mt-1">
+        <div class="column is-12">
+          {{ form.nama.label_tag }}
+          {{ form.nama }}
+
+          {% for error in form.nama.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+        <div class="column is-12">
+          {{ form.jumlah.label_tag }}
+          {{ form.jumlah }}
+
+          {% for error in form.jumlah.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+        <div class="column is-12">
+          {{ form.pesan.label_tag }}
+          {{ form.pesan }}
+
+          {% for error in form.pesan.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+        <div class="column is-12">
+          {{ form.ditransfer_ke.label_tag }}
+          {{ form.ditransfer_ke }}
+
+          {% for error in form.ditransfer_ke.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+      </div>
+      <button id="submit" type="submit" class="button is-info p-2 mt-1">Submit</button>
+  </form>
+{% endblock isi %}

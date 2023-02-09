@@ -21,7 +21,7 @@ from django.core.exceptions import ValidationError
 from .serializers import PortofolioSerializer, RekeningSerializer, DompetSerializer, \
     MultiImageSerializer, SpecialInvitationSerializer, PaymentSerializer, QuoteSerializer, \
     UcapanSerializer, HadirSerializer, FiturSerializer, ThemeSerializer, ThemeProductSerializer, \
-    StorySerializer, AcaraSerializer
+    StorySerializer, AcaraSerializer, DanaSerializer
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -42,14 +42,15 @@ from myproject.apps.coupon.models import Coupon
 from myproject.apps.order.models import Order, OrderItem
 from .models import MultiImage, Portofolio, SpecialInvitation, Dompet, Quote, Fitur, \
     Rekening, Payment, MultiImage, SpecialInvitation, Ucapan, Hadir, Fitur, \
-    Theme, ThemeProduct, Story, Acara, Kata
+    Theme, ThemeProduct, Story, Acara, Kata, Dana
 
 # from .forms import PortofolioForm, MultiImageForm, SpecialInvitationForm, \
 #     BaseRegisterFormSet, DompetForm, QuoteForm, ThemeProductForm, StoryForm, AcaraForm \
 
 from .forms import PortoInfoForm, PasanganForm, AcaraForm, QuoteForm, PortoInfo2Form, \
     MultiImageForm, StoryForm, NavigasiForm, DompetForm, PortoInfo3Form, SpecialInvitationForm, \
-    CalenderForm, PortoInfo4Form, ThemeProductForm, PortoInfo5Form, PasanganPictureForm, PortoAlamatDompet, BaseRegisterFormSet
+    CalenderForm, PortoInfo4Form, ThemeProductForm, PortoInfo5Form, PasanganPictureForm, PortoAlamatDompet, \
+    DanaForm, BaseRegisterFormSet
 
 from myproject.apps.portofolio.services import AcaraFormSESSION, PasanganFormSESSION, MultiImageFormSESSION, \
     StoryFormSESSION, DompetFormSESSION, SpecialinviteFormSESSION
@@ -254,7 +255,22 @@ def configurasi_porto(request):
         return render(request, 'portofolio/parts/porto_notfound.html')
 # ============== CONFIGURASI END ===============!
 
+# ============== DANA ===============!
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def dana(request):
+    portofolio = Portofolio.objects.get(user=request.user)
+    if request.method == 'POST':
+        form = DanaForm(request.POST or None, user=request.user)
+        if form.is_valid():
+            # create portofolio instance
+            instance = form.save(commit=False)
+            instance.portofolio = portofolio
+            instance.save()
+    else:
+        form = DanaForm(user=request.user)
 
+    return render(request, "portofolio/parts/dana_form.html", {'form': form})
 
 @login_required(login_url="account_login")
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
@@ -2099,6 +2115,20 @@ class AcaraDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = AcaraSerializer
     name = 'acara-detail'
 
+# Dana
+class DanaList(generics.ListCreateAPIView):
+    permission_classes = (permissions.AllowAny,)
+    queryset = Dana.objects.all()
+    serializer_class = DanaSerializer
+    name = 'dana-list'
+    filterset_fields = ['portofolio__slug']
+
+
+class DanaDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Dana.objects.all()
+    serializer_class = DanaSerializer
+    name = 'dana-detail'
+
 
 # ROOT
 class ApiRoot(generics.GenericAPIView):
@@ -2119,4 +2149,5 @@ class ApiRoot(generics.GenericAPIView):
             'themes': reverse('portofolio:theme-list', request=request),
             'story': reverse('portofolio:story-list', request=request),
             'acara': reverse('portofolio:acara-list', request=request),
+            'dana': reverse('portofolio:dana-list', request=request),
             })
