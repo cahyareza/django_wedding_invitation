@@ -785,7 +785,7 @@ def step8(request):
                 if form.is_valid() and form.has_changed():
                     dompetform.add(id=count, form=form)
 
-            request.session['alamat_rumah'] = form2.cleaned_data.get('alamat_rumah')
+            request.session['alamat_rumah'] = form.cleaned_data.get('alamat_rumah')
             request.session.modified = True
 
             return redirect("portofolio:step9")
