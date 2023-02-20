@@ -101,8 +101,18 @@ class PortoInfoForm(forms.ModelForm):
 class PasanganForm(forms.ModelForm):
     # INFORMASI PASANGAN
     # PEREMPUAN
+    psurename = forms.CharField(
+        label='Nama panggilan', min_length=3, max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Nama panggilan',
+                'class': 'input',
+                'style': 'font-size: 13px; text-transform: capitalize'
+            }
+        )
+    )
     pname = forms.CharField(
-        label='Nama', min_length=3, max_length=50,
+        label='Nama lengkap', min_length=3, max_length=50,
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Nama lengkap',
@@ -160,11 +170,21 @@ class PasanganForm(forms.ModelForm):
 
 
     # LAKI - LAKI
+    lsurename = forms.CharField(
+        label='Nama panggilan', min_length=3, max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Nama panggilan',
+                'class': 'input',
+                'style': 'font-size: 13px; text-transform: capitalize'
+            }
+        )
+    )
     lname = forms.CharField(
         label='Nama lengkap', min_length=3, max_length=50,
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'Nama',
+                'placeholder': 'Nama lengkap',
                 'class': 'input',
                 'style': 'font-size: 13px; text-transform: capitalize'
             }
@@ -219,8 +239,8 @@ class PasanganForm(forms.ModelForm):
 
     class Meta:
         model = Portofolio
-        fields = ['pname', 'pinsta_link', 'panak_ke', 'pnama_ayah', 'pnama_ibu',
-            'lname', 'linsta_link', 'lanak_ke', 'lnama_ayah', 'lnama_ibu']
+        fields = ['pname', 'psurename', 'pinsta_link', 'panak_ke', 'pnama_ayah', 'pnama_ibu',
+            'lname', 'lsurename', 'linsta_link', 'lanak_ke', 'lnama_ayah', 'lnama_ibu']
         labels = {
             'panak_ke': "Anak Perempuan ke-",
             'lanak_ke': "Anak Laki-laki ke-",

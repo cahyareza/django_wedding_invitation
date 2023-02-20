@@ -272,7 +272,7 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080","http://192.168.56.20", "http://localhost:7600",
+    "http://localhost:8080","http://192.168.56.20", "http://localhost:7600", "http://127.0.0.1:5173","http://127.0.0.1:4173",
 ]
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'

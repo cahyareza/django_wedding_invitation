@@ -126,6 +126,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     alamat_rumah = models.CharField(max_length=150, null=True, blank=True)
     # Couple
     pname = models.CharField(max_length=40, null=True, blank=True)
+    psurename = models.CharField(max_length=40, null=True, blank=True)
     pinsta_link = models.CharField(max_length=250, null=True, blank=True)
     panak_ke = models.CharField(max_length=30, choices=ANAK_KE, null=True, blank=True)
     pnama_ayah = models.CharField(max_length=40, null=True, blank=True)
@@ -134,6 +135,7 @@ class Portofolio(CreationModificationDateBase, UrlBase):
     ppicture = ResizedImageField(upload_to=portofolio_pasangan_upload_to, null=True, blank=True, max_length=500)
 
     lname = models.CharField(max_length=40, null=True, blank=True)
+    lsurename = models.CharField(max_length=40, null=True, blank=True)
     linsta_link = models.CharField(max_length=250, null=True, blank=True)
     lanak_ke = models.CharField(max_length=30, choices=ANAK_KE, null=True, blank=True)
     lnama_ayah = models.CharField(max_length=40, null=True, blank=True)

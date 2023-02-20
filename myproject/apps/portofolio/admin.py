@@ -58,8 +58,8 @@ class PortofolioAdmin(admin.ModelAdmin):
         # INFORMASI UNDANGAN
         ('INFORMASI UNDANGAN', {'fields': ['porto_name', 'slug', 'user', 'porto_picture']}),
         # INFORMASI PASANGAN
-        ('INFORMASI PASANGAN', {'fields': ['pname', 'pinsta_link', 'panak_ke', 'pnama_ayah', 'pnama_ibu',
-         'ppicture', 'lname', 'linsta_link', 'lanak_ke', 'lnama_ayah', 'lnama_ibu', 'lpicture']}
+        ('INFORMASI PASANGAN', {'fields': ['pname', 'psurename', 'pinsta_link', 'panak_ke', 'pnama_ayah', 'pnama_ibu',
+         'ppicture', 'lname', 'lsurename',  'linsta_link', 'lanak_ke', 'lnama_ayah', 'lnama_ibu', 'lpicture']}
          ),
         # INFORMASI COUNTDOWN
         ('INFORMASI COUNTDOWN', {"fields": ['tanggal_countdown', 'waktu_countdown', 'datetime_countdown', \

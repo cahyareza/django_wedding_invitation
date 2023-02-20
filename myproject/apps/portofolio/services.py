@@ -89,11 +89,13 @@ class PasanganFormSESSION():
 
         if form_id not in self.pasanganform:
             self.pasanganform[form_id] = {'pname': form.cleaned_data.get('pname'),
+            'psurename': form.cleaned_data.get('psurename'),
             'pinsta_link': form.cleaned_data.get('pinsta_link'),
             'panak_ke': form.cleaned_data.get('panak_ke'),
             'pnama_ayah': form.cleaned_data.get('pnama_ayah'),
             'pnama_ibu': form.cleaned_data.get('pnama_ibu'),
             'ppicture': form.cleaned_data.get('ppicture'),
+            'lsurename': form.cleaned_data.get('lsurename'),
             'lname': form.cleaned_data.get('lname'),
             'linsta_link': form.cleaned_data.get('linsta_link'),
             'lanak_ke': form.cleaned_data.get('lanak_ke'),

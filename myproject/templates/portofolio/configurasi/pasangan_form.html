@@ -10,6 +10,14 @@
       <p class="title  is-size-5 mb-1">Perempuan</p>
       <div class="columns  is-multiline mt-1">
         <div class="column is-12">
+          {{ form.psurename.label_tag }}
+          {{ form.psurename }}
+
+          {% for error in form.psurename.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
+        <div class="column is-12">
           {{ form.pname.label_tag }}
           {{ form.pname }}
 
@@ -68,6 +76,14 @@
       <!--   Laki-laki   -->
       <p class="title  is-size-5 mb-1">Laki-laki</p>
       <div class="columns  is-multiline mt-1">
+        <div class="column is-12">
+          {{ form.lsurename.label_tag }}
+          {{ form.lsurename }}
+
+          {% for error in form.lsurename.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+        </div>
         <div class="column is-12">
           {{ form.lname.label_tag }}
           {{ form.lname }}
