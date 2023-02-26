@@ -213,7 +213,6 @@
       /* SCRIPT TO COLLECT THE DATA AND POST TO THE SERVER */
       $(".js-crop-and-upload").click(function (event) {
         event.preventDefault();
-        console.log("Asu");
         var cropData = $image.cropper("getData");
         $("#id_x").val(cropData["x"]);
         $("#id_y").val(cropData["y"]);
@@ -247,7 +246,7 @@
       $("#modalCrop2").on("shown.bs.modal", function () {
         $image2.cropper({
           viewMode: 1,
-          aspectRatio: 1/1,
+          aspectRatio: 2/3,
           minCropBoxWidth: 200,
           minCropBoxHeight: 200,
           ready: function (event) {
