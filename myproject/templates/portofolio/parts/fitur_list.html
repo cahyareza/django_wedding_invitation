@@ -1,6 +1,7 @@
 {% load i18n static mathfilters %}
   <!---------- DAFTAR PRODUK ---------->
   <section class="hero div is-medium" ref="div1" style="background-image: url('{% static "site/img/white_background.jpg" %}')">
+<!--<section class="hero div has-background-grey-dark is-medium" ref="div1">-->
     <div class="hero-body is-marginless p-3 mt-1">
       <div class="container px-2 pt-3">
         <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-1 px-4">
@@ -185,52 +186,52 @@
                     <div class="column is-12">
                           <div class="media">
                             <div class="media-left">
-                              <figure class="image is-96x96">
-                                <img src="{% static 'site/img/signup.svg' %}" alt="Placeholder image">
-                              </figure>
+                                <span class="icon is-large is-rounded has-text-white ml-4">
+                                    <i class="fa-solid fa-2x fa-user-plus"></i>
+                                </span>
                             </div>
                             <div class="media-content">
                               <p class="title is-5 has-text-white">Membuat akun</p>
-                              <p class="subtitle is-6 has-text-white">Membuat akun <a href="{% url 'account_signup' %}"><strong>disini</strong></a></p>
+                              <p class="subtitle is-6 has-text-white">Membuat akun <a href="{% url 'account_signup' %}"><span class="has-text-grey has-text-weight-bold">disini</span></a></p>
                             </div>
                           </div>
                     </div>
                     <div class="column is-12">
                           <div class="media">
                             <div class="media-left">
-                              <figure class="image is-96x96">
-                                <img src="{% static 'site/img/order.svg' %}" alt="Placeholder image">
-                              </figure>
+                                <span class="icon is-large is-rounded has-text-white ml-4">
+                                    <i class="fa-solid fa-2x fa-cart-shopping"></i>
+                                </span>
                             </div>
                             <div class="media-content">
                               <p class="title is-5 has-text-white">Order produk</p>
-                              <p class="subtitle is-6 has-text-white">Order produk <a @click="goto('div1')"><strong>disini</strong></a> dan upload bukti pembayaran, lalu menunggu order terverifikasi</p>
+                              <p class="subtitle is-6 has-text-white">Order produk <a @click="goto('div1')"><span class="has-text-grey has-text-weight-bold">disini</span></a> dan upload bukti pembayaran, lalu menunggu order terverifikasi</p>
                             </div>
                           </div>
                     </div>
                     <div class="column is-12">
                           <div class="media">
                             <div class="media-left">
-                              <figure class="image is-96x96">
-                                <img src="{% static 'site/img/input.svg' %}" alt="Placeholder image">
-                              </figure>
+                                <span class="icon is-large is-rounded has-text-white ml-4">
+                                    <i class="fa-brands fa-2x fa-wpforms"></i>
+                                </span>
                             </div>
                             <div class="media-content">
                               <p class="title is-5 has-text-white">Mengisi Form</p>
-                              <p class="subtitle is-6 has-text-white">Membuat undangan <a href="{% url 'portofolio:step1' %}"><strong>disini</strong></a> dengan mengisi form yang tersedia(seperti: form nama undangan, pasangan, acara, dsb)</p>
+                              <p class="subtitle is-6 has-text-white">Membuat undangan <a href="{% url 'portofolio:step1' %}"><span class="has-text-grey has-text-weight-bold">disini</span></a> dengan mengisi form yang tersedia(seperti: form nama undangan, pasangan, acara, dsb)</p>
                             </div>
                           </div>
                     </div>
                     <div class="column is-12">
                           <div class="media">
-                            <div class="media-left">
-                              <figure class="image is-96x96">
-                                <img src="{% static 'site/img/active.svg' %}" alt="Placeholder image">
-                              </figure>
+                            <div class="media-left has-text-centered ">
+                                <span class="icon is-large is-rounded has-text-white ml-4">
+                                    <i class="fa-solid fa-2x fa-globe"></i>
+                                </span>
                             </div>
                             <div class="media-content">
                               <p class="title is-5 has-text-white">Undangan aktif</p>
-                              <p class="subtitle is-6 has-text-white">Undangan otomatis aktif, dan dapat diedit kapanpun <a href="{% url 'portofolio:configurasi' %}"><strong>disini.</strong></a></p>
+                              <p class="subtitle is-6 has-text-white">Undangan otomatis aktif, dan dapat diedit kapanpun <a href="{% url 'portofolio:configurasi' %}"><span class="has-text-grey has-text-weight-bold">disini</span></a></p>
                             </div>
                           </div>
                     </div>

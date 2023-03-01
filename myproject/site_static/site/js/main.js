@@ -112,3 +112,19 @@ var swiper = new Swiper(".mySwiper2", {
         delay : 1200
     },
 });
+
+var swiper = new Swiper(".mySwipercover", {
+  speed: 600,
+  parallax: true,
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+  },
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+  autoplay: {
+    delay : 4000
+  },
+});
