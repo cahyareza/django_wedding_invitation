@@ -101,34 +101,37 @@ def home(request):
         }
 
         # SILVER
-        if obj_silver.valid_to >= current_time:
-            discount_value_silver = obj_silver.discount
-            discount_percent_silver = 1 - discount_value_silver/100
-            discount_str_silver = f"{obj_silver.discount}%"
+        if obj_silver:
+            if obj_silver.valid_to >= current_time:
+                discount_value_silver = obj_silver.discount
+                discount_percent_silver = 1 - discount_value_silver/100
+                discount_str_silver = f"{obj_silver.discount}%"
 
-            context['discount_str_silver'] =  discount_str_silver
-            context['discount_value_silver'] = discount_value_silver
-            context['discount_percent_silver'] = discount_percent_silver
+                context['discount_str_silver'] =  discount_str_silver
+                context['discount_value_silver'] = discount_value_silver
+                context['discount_percent_silver'] = discount_percent_silver
 
         # PLATINUM
-        if obj_platinum.valid_to >= current_time:
-            discount_value_platinum = obj_platinum.discount
-            discount_percent_platinum = 1 - discount_value_platinum/100
-            discount_str_platinum = f"{obj_platinum.discount}%"
+        if obj_platinum:
+            if obj_platinum.valid_to >= current_time:
+                discount_value_platinum = obj_platinum.discount
+                discount_percent_platinum = 1 - discount_value_platinum/100
+                discount_str_platinum = f"{obj_platinum.discount}%"
 
-            context['discount_str_platinum'] = discount_str_platinum
-            context['discount_value_platinum'] = discount_value_platinum
-            context['discount_percent_platinum'] = discount_percent_platinum
+                context['discount_str_platinum'] = discount_str_platinum
+                context['discount_value_platinum'] = discount_value_platinum
+                context['discount_percent_platinum'] = discount_percent_platinum
 
         # GOLD
-        if obj_gold.valid_to >= current_time:
-            discount_value_gold = obj_gold.discount
-            discount_percent_gold = 1 - discount_value_gold/100
-            discount_str_gold = f"{obj_gold.discount}%"
+        if obj_gold:
+            if obj_gold.valid_to >= current_time:
+                discount_value_gold = obj_gold.discount
+                discount_percent_gold = 1 - discount_value_gold/100
+                discount_str_gold = f"{obj_gold.discount}%"
 
-            context['discount_str_gold'] = discount_str_gold
-            context['discount_value_gold'] = discount_value_gold
-            context['discount_percent_gold'] = discount_percent_gold
+                context['discount_str_gold'] = discount_str_gold
+                context['discount_value_gold'] = discount_value_gold
+                context['discount_percent_gold'] = discount_percent_gold
 
         return render(request, 'index.html', context)
 
