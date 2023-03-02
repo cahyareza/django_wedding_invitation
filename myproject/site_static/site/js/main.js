@@ -69,14 +69,14 @@ var swiper = new Swiper(".mySwiper", {
       dynamicBullets: true,
     },
     autoplay: {
-        delay : 2000
+        delay : 5000
     },
     breakpoints: {
         768: {
-            slidesPerView: 2,
+            slidesPerView: 1,
         },
         1200:{
-            slidesPerView: 3,
+            slidesPerView: 1,
         }
     }
 });
