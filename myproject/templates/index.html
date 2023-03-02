@@ -4,45 +4,147 @@
 {% block isi %}
   <div id="index">
     <!---------- HOME START ---------->
-    <div class="low-opacity-bg-image">
-      <section class="hero first is-fullheight">
-        <div class="hero-body is-marginless" >
-          <div class="container">
-            <div class="section">
-              <div class="columns is-multiline is-vcentered">
-                <div class="column
-                is-12 has-text-centered is-paddingless m-1 mb-6" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="500">
-                  <h1 class="title is-size-1-tablet is-size-3-mobile mb-4 has-text-white is-uppercase">
-                    Einvitation.net
-                  </h1>
-                  <p class="subtitle is-size-4-mobile is-size-2-tablet has-text-white mt-4">Kenang moment sekali seumur hidup kamu dengan web undangan yang eksklusif</p>
+<!--    <div class="low-opacity-bg-image">-->
+<!--              <div class="columns is-multiline is-vcentered">-->
+<!--                <div class="column-->
+<!--                is-12 has-text-centered is-paddingless m-1 mb-6" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="500">-->
+<!--                  <h1 class="title is-size-1-tablet is-size-3-mobile mb-4 has-text-white is-uppercase">-->
+<!--                    Einvitation.net-->
+<!--                  </h1>-->
+<!--                  <p class="subtitle is-size-4-mobile is-size-2-tablet has-text-white mt-4">Kenang moment sekali seumur hidup kamu dengan web undangan yang eksklusif</p>-->
 
-                  {% if user.is_authenticated %}
-                    {% if order %}
-                      {% if order.status == 'terkonfirmasi' %}
-                        <a class="button is-white mt-3" href="{% url 'portofolio:step1' %}">Buat undangan sekarang</a>
-                      {% else %}
-                        <a class="button is-white mt-3" href="{% url 'order:status' %}">Buat undangan sekarang</a>
-                      {% endif %}
-                    {% else %}
-                      <a class="button is-white mt-3" @click="goto('div1')">Beli Produk</a>
-                    {% endif %}
-                  {% else %}
-                      <a class="button is-white mt-3" href="{% url 'account_signup' %}">Buat undangan sekarang</a>
-                  {% endif %}
+<!--                  {% if user.is_authenticated %}-->
+<!--                    {% if order %}-->
+<!--                      {% if order.status == 'terkonfirmasi' %}-->
+<!--                        <a class="button is-white mt-3" href="{% url 'portofolio:step1' %}">Buat undangan sekarang</a>-->
+<!--                      {% else %}-->
+<!--                        <a class="button is-white mt-3" href="{% url 'order:status' %}">Buat undangan sekarang</a>-->
+<!--                      {% endif %}-->
+<!--                    {% else %}-->
+<!--                      <a class="button is-white mt-3" @click="goto('div1')">Beli Produk</a>-->
+<!--                    {% endif %}-->
+<!--                  {% else %}-->
+<!--                      <a class="button is-white mt-3" href="{% url 'account_signup' %}">Buat undangan sekarang</a>-->
+<!--                  {% endif %}-->
+<!--                </div>-->
+<!--                <div class="column-->
+<!--                    is-12 mt-6 has-text-centered" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">-->
+<!--                    <span class="icon has-text-white">-->
+<!--                      <i class="fa-solid fa-2x fa-angles-down"></i>-->
+<!--                    </span>-->
+<!--                </div>-->
+<!--              </div>-->
+              <div class="swiper-container swiper gallery-thumbs thumbs-class">
+<!--                  <section class="hero is-fullheight is-paddingless is-marginless">-->
+<!--                    <div class="hero-body is-marginless is-paddingless" >-->
+<!--                      <div class="swiper-wrapper">-->
+                        <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwipercover">
+                          <div class="swiper-wrapper">
+                            <div class="swiper-slide hero is-fullheight is-paddingless is-marginless">
+                              <div class="parallax-bg" style="
+                                background-image: url('{% static "site/img/background2.jpg" %}');"
+                                data-swiper-parallax="-23%"></div>
+                              <div class="hero-body is-paddingless is-marginless">
+                                  <div class="container is-marginless p-5" style="background: rgba(255,255,255, 0.6) !important;">
+    <!--                                  <div class="container" data-swiper-parallax="-100">-->
+                                          <div class="columns is-multiline is-vcentered p-3">
+                                            <div class="column
+                                            is-12 has-text-centered is-paddingless m-1" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
+                                              <h1 class="title is-size-2-tablet is-size-3-mobile mb-4 has-text-grey is-uppercase">
+                                                Einvitation.net
+                                              </h1>
+                                              <p class="subtitle is-size-6-mobile is-size-3-tablet has-text-grey mt-4">Kenang moment sekali seumur hidup kamu dengan web undangan yang eksklusif</p>
+
+                                              {% if user.is_authenticated %}
+                                                {% if order %}
+                                                  {% if order.status == 'terkonfirmasi' %}
+                                                    <a class="button is-white has-text-grey mt-2" href="{% url 'portofolio:step1' %}">Buat undangan sekarang</a>
+                                                  {% else %}
+                                                    <a class="button is-white has-text-grey mt-2" href="{% url 'order:status' %}">Buat undangan sekarang</a>
+                                                  {% endif %}
+                                                {% else %}
+                                                  <a class="button is-white has-text-grey mt-2" @click="goto('div1')">Beli Produk</a>
+                                                {% endif %}
+                                              {% else %}
+                                                  <a class="button is-white has-text-grey mt-2" href="{% url 'account_signup' %}">Buat undangan sekarang</a>
+                                              {% endif %}
+                                            </div>
+<!--                                            <div class="column-->
+<!--                                                is-12 mt-6 has-text-centered" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">-->
+<!--                                                <span class="icon has-text-white">-->
+<!--                                                  <i class="fa-solid fa-2x fa-angles-down"></i>-->
+<!--                                                </span>-->
+<!--                                            </div>-->
+                                          </div>
+        <!--                                <div class="title" data-swiper-parallax="-300">Slide 1</div>-->
+        <!--                                <div class="subtitle" data-swiper-parallax="-200">Subtitle</div>-->
+        <!--                                <div class="text" data-swiper-parallax="-100">-->
+        <!--                                  <p>-->
+        <!--                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam-->
+        <!--                                    dictum mattis velit, sit amet faucibus felis iaculis nec. Nulla-->
+        <!--                                    laoreet justo vitae porttitor porttitor. Suspendisse in sem justo.-->
+        <!--                                    Integer laoreet magna nec elit suscipit, ac laoreet nibh euismod.-->
+        <!--                                    Aliquam hendrerit lorem at elit facilisis rutrum. Ut at-->
+        <!--                                    ullamcorper velit. Nulla ligula nisi, imperdiet ut lacinia nec,-->
+        <!--                                    tincidunt ut libero. Aenean feugiat non eros quis feugiat.-->
+        <!--                                  </p>-->
+        <!--                                </div>-->
+    <!--                                  </div>-->
+                                  </div>
+                              </div>
+                            </div>
+                            <div class="swiper-slide hero is-fullheight is-paddingless is-marginless">
+                              <div class="parallax-bg" style="
+                                background-image: url('{% static "site/img/background3.jpg" %}');"
+                                data-swiper-parallax="-23%"></div>
+                              <div class="hero-body"></div>
+                              <div class="hero-footer pb-3 mb-6 ">
+                                  <div class="container is-marginless p-5">
+    <!--                                  <div class="container" data-swiper-parallax="-100">-->
+                                          <div class="columns is-multiline is-vcentered p-3">
+                                            <div class="column
+                                            is-12 has-text-centered mb-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="5000">
+                                              <h1 class="title is-size-2-tablet is-size-3-mobile mb-4 has-text-white is-uppercase">
+                                                Einvitation.net
+                                              </h1>
+                                              <p class="subtitle is-size-6-mobile is-size-3-tablet has-text-white mt-4">Kenang moment sekali seumur hidup kamu dengan web undangan yang eksklusif</p>
+                                            </div>
+<!--                                            <div class="column-->
+<!--                                                is-12 mt-6 has-text-centered" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">-->
+<!--                                                <span class="icon has-text-white">-->
+<!--                                                  <i class="fa-solid fa-2x fa-angles-down"></i>-->
+<!--                                                </span>-->
+<!--                                            </div>-->
+                                          </div>
+                                  </div>
+                              </div>
+                            </div>
+<!--                            <div class="swiper-slide">-->
+<!--                              <div class="title" data-swiper-parallax="-300">Slide 3</div>-->
+<!--                              <div class="subtitle" data-swiper-parallax="-200">Subtitle</div>-->
+<!--                              <div class="text" data-swiper-parallax="-100">-->
+<!--                                <p>-->
+<!--                                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam-->
+<!--                                  dictum mattis velit, sit amet faucibus felis iaculis nec. Nulla-->
+<!--                                  laoreet justo vitae porttitor porttitor. Suspendisse in sem justo.-->
+<!--                                  Integer laoreet magna nec elit suscipit, ac laoreet nibh euismod.-->
+<!--                                  Aliquam hendrerit lorem at elit facilisis rutrum. Ut at-->
+<!--                                  ullamcorper velit. Nulla ligula nisi, imperdiet ut lacinia nec,-->
+<!--                                  tincidunt ut libero. Aenean feugiat non eros quis feugiat.-->
+<!--                                </p>-->
+<!--                              </div>-->
+<!--                            </div>-->
+                          </div>
+                          <div class="swiper-button-next"></div>
+                          <div class="swiper-button-prev"></div>
+                          <div class="swiper-pagination"></div>
+                        </div>
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </section>-->
                 </div>
-                <div class="column
-                    is-12 mt-6 has-text-centered" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
-                    <span class="icon has-text-white">
-                      <i class="fa-solid fa-2x fa-angles-down"></i>
-                    </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+
+<!--    </div>-->
     <!---------- HOME END ---------->
 
     <!---------- RESUME START ---------->
@@ -144,45 +246,40 @@
     <!---------- RESUME END ---------->
 
     <!---------- PORTO START ---------->
-    <section class="hero has-background-grey-dark is-medium">
-      <div class="hero-body is-marginless p-3 mt-6">
-        <div class="container">
-          <div class="columns is-multiline is-vcentered">
-            <div class="column
-            is-12-mobile
-            is-12-tablet
-            is-6-desktop
-            is-6-widescreen
-            is-4-fullhd is-offset-1-fullhd has-text-centered" data-aos="fade-right">
-<!--              <figure class="image center" style="heigth: 400px; width: 300px;">-->
-<!--                <img src="{% static 'site/img/undraw_online_article.svg' %}">-->
-<!--              </figure>-->
-              <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-5 has-text-white">
-                {{ porto_count }} Undangan Aktif
-              </h1>
-              <p class="is-size-5-tablet px-6 has-text-white">Bingkai moment kamu di website undangan secara praktis dan aktif seumur hidup.</p>
-            </div>
-            <div class="column
-            is-12-mobile
-            is-12-tablet
-            is-6-desktop
-            is-6-widescreen
-            is-6-fullhd pl-5">
+<!--    <section class="hero has-background-grey-dark is-medium">-->
+<!--      <div class="hero-body is-marginless p-3 mt-6">-->
+<!--        <div class="container">-->
+<!--          <div class="columns is-multiline is-vcentered">-->
+<!--            <div class="column-->
+<!--            is-12-mobile-->
+<!--            is-12-tablet-->
+<!--            is-6-desktop-->
+<!--            is-6-widescreen-->
+<!--            is-4-fullhd is-offset-1-fullhd has-text-centered" data-aos="fade-right">-->
+<!--&lt;!&ndash;              <figure class="image center" style="heigth: 400px; width: 300px;">&ndash;&gt;-->
+<!--&lt;!&ndash;                <img src="{% static 'site/img/undraw_online_article.svg' %}">&ndash;&gt;-->
+<!--&lt;!&ndash;              </figure>&ndash;&gt;-->
+<!--              <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-5 has-text-white">-->
+<!--                {{ porto_count }} Undangan Aktif-->
+<!--              </h1>-->
+<!--              <p class="is-size-5-tablet px-6 has-text-white">Bingkai moment kamu di website undangan secara praktis dan aktif seumur hidup.</p>-->
+<!--            </div>-->
+<!--            <div class="column-->
+<!--            is-12-mobile-->
+<!--            is-12-tablet-->
+<!--            is-6-desktop-->
+<!--            is-6-widescreen-->
+<!--            is-6-fullhd pl-5">-->
 
               <!---------- PORTO LIST START ---------->
-              {% include 'portofolio/parts/porto_list.html' %}
               <!---------- PORTO LIST END ---------->
 
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </section>-->
     <!---------- PORTO END ---------->
-
-    <!---------- FITUR LIST START ---------->
-    {% include 'parts/fiturs.html' %}
-    <!---------- FITUR LIST END ---------->
 
     <!---------- PRESET START ---------->
     <section class="hero has-background-grey-dark is-medium">
@@ -210,61 +307,61 @@
     </section>
     <!---------- PRESET END ---------->
 
+    <!---------- FITUR LIST START ---------->
+    {% include 'parts/fiturs_notswipe.html' %}
+    <!---------- FITUR LIST END ---------->
+
     <!---------- DAFTAR PRODUK, CARA BUAT UNDANGAN DAN FAQ START ---------->
     {% include 'portofolio/parts/fitur_list.html' %}
     <!---------- DAFTAR PRODUK, CARA BUAT UNDANGAN DAN FAQ END ---------->
 
     <!---------- TESTIMONI START ---------->
-    <section class="hero has-background-warning-light is-medium is-hidden">
+    <section class="hero has-background-grey-dark is-medium">
       <div class="hero-body is-marginless p-3 mt-1">
         <div class="container px-2 pt-3">
-          <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-1 px-4">
+          <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-1 px-4 has-text-white">
             Testimoni
           </h1>
-          <p class="is-size-5-tablet px-4 mt-1 block">Pendapat mereka yang telah membuat undangan,</p>
+          <p class="is-size-5-tablet px-4 mt-1 block has-text-white">Pendapat mereka yang telah membuat undangan,</p>
           <div class="columns is-multiline">
 
             <div class="column is-12">
               <div class="swiper mySwiper">
                   <div class="swiper-wrapper">
-                      <div class="swiper-slide card">
-                          <div class="card-content">
-                            <p class="is-size-7-mobile is-size-6-tablet"><small>dari</small> <strong>Ratih & Aristo</strong></p>
-                              &#9733 &#9733 &#9733 &#9733 &#9734
-                            <p class="is-size-7-mobile is-size-6-tablet mt-2">
+                      <div class="swiper-slide card" style="background: rgba(255,255,255, 0) !important; border-radius: 10px;">
+                          <div class="card-content has-text-centered">
+                            <p class="is-size-6-mobile is-size-5-tablet has-text-white"><small>dari</small> <strong class="has-text-white">Ratih & Aristo</strong></p>
+                            <p class="is-size-6-mobile is-size-5-tablet mt-2 has-text-white">
                             <i class="fa-solid fa-quote-left"></i>
                               Fiturnya bagus banget, dan bisa diedit kapan aja.
                             <i class="fa-solid fa-quote-right"></i>
                             </p>
                           </div>
                       </div>
-                      <div class="swiper-slide card">
-                          <div class="card-content">
-                            <p class="is-size-7-mobile is-size-6-tablet"><small>dari</small> <strong>Ratih & Aristo</strong></p>
-                              &#9733 &#9733 &#9733 &#9733 &#9734
-                            <p class="is-size-7-mobile is-size-6-tablet mt-2">
+                      <div class="swiper-slide card" style="background: rgba(255,255,255, 0) !important; border-radius: 10px;">
+                          <div class="card-content has-text-centered">
+                            <p class="is-size-6-mobile is-size-5-tablet has-text-white"><small>dari</small> <strong class="has-text-white">Egy & Rida</strong></p>
+                            <p class="is-size-6-mobile is-size-5-tablet mt-2 has-text-white">
                             <i class="fa-solid fa-quote-left"></i>
                               Fiturnya bagus banget, dan bisa diedit kapan aja.
                             <i class="fa-solid fa-quote-right"></i>
                             </p>
                           </div>
                       </div>
-                      <div class="swiper-slide card">
-                          <div class="card-content">
-                            <p class="is-size-7-mobile is-size-6-tablet"><small>dari</small> <strong>Ratih & Aristo</strong></p>
-                              &#9733 &#9733 &#9733 &#9733 &#9734
-                            <p class="is-size-7-mobile is-size-6-tablet mt-2">
+                      <div class="swiper-slide card" style="background: rgba(255,255,255, 0) !important; border-radius: 10px;">
+                          <div class="card-content has-text-centered">
+                            <p class="is-size-6-mobile is-size-5-tablet has-text-white"><small>dari</small> <strong class="has-text-white">Gina & Rasim</strong></p>
+                            <p class="is-size-6-mobile is-size-5-tablet mt-2 has-text-white">
                             <i class="fa-solid fa-quote-left"></i>
                               Fiturnya bagus banget, dan bisa diedit kapan aja.
                             <i class="fa-solid fa-quote-right"></i>
                             </p>
                           </div>
                       </div>
-                      <div class="swiper-slide card">
-                          <div class="card-content">
-                            <p class="is-size-7-mobile is-size-6-tablet"><small>dari</small> <strong>Ratih & Aristo</strong></p>
-                              &#9733 &#9733 &#9733 &#9733 &#9734
-                            <p class="is-size-7-mobile is-size-6-tablet mt-2">
+                      <div class="swiper-slide card" style="background: rgba(255,255,255, 0) !important; border-radius: 10px;">
+                          <div class="card-content has-text-centered">
+                            <p class="is-size-6-mobile is-size-5-tablet has-text-white"><small>dari</small> <strong class="has-text-white">Aulia & Bayu</strong></p>
+                            <p class="is-size-6-mobile is-size-5-tablet mt-2 has-text-white">
                             <i class="fa-solid fa-quote-left"></i>
                               Fiturnya bagus banget, dan bisa diedit kapan aja.
                             <i class="fa-solid fa-quote-right"></i>

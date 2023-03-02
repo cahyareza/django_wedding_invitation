@@ -69,14 +69,14 @@ var swiper = new Swiper(".mySwiper", {
       dynamicBullets: true,
     },
     autoplay: {
-        delay : 2000
+        delay : 5000
     },
     breakpoints: {
         768: {
-            slidesPerView: 2,
+            slidesPerView: 1,
         },
         1200:{
-            slidesPerView: 3,
+            slidesPerView: 1,
         }
     }
 });
@@ -111,4 +111,20 @@ var swiper = new Swiper(".mySwiper2", {
     autoplay: {
         delay : 1200
     },
+});
+
+var swiper = new Swiper(".mySwipercover", {
+  speed: 600,
+  parallax: true,
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+  },
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+  autoplay: {
+    delay : 4000
+  },
 });
