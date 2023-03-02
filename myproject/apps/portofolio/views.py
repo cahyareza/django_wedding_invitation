@@ -455,10 +455,10 @@ def step4(request):
             request.session['kutipan'] = form2.cleaned_data.get('kutipan')
             request.session.modified = True
 
-            if orderitem_product_str == "PLATINUM" or orderitem_product_str == "GOLD":
-                return redirect("portofolio:step5")
-            else:
-                return redirect("portofolio:step7")
+            # if orderitem_product_str == "PLATINUM" or orderitem_product_str == "GOLD":
+            return redirect("portofolio:step5")
+            # else:
+            #     return redirect("portofolio:step7")
     else:
         form2 = QuoteForm()
 
@@ -503,6 +503,13 @@ def step4_update(request, slug):
 @login_required(login_url="account_login")
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def step5(request):
+    user = request.user
+    # get instance order
+    order = get_object_or_404(Order, user=user)
+    # orderitem instance by order
+    orderitem = get_object_or_404(OrderItem, order= order)
+    orderitem_product_str = str(orderitem.product)
+
     orderproduct = str(Order.objects.filter(user=request.user).first().items.first().product)
 
     MultiImageFormSet = modelformset_factory(
@@ -517,20 +524,32 @@ def step5(request):
         formset=BaseRegisterFormSet,
         extra=1,
     )
+    MultiImageFormSet3 = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        formset=BaseRegisterFormSet,
+        extra=1,
+    )
     multiimageform = MultiImageFormSESSION(request)
     if request.method == 'POST':
         form2 = PortoInfo2Form(request.POST or None, request.FILES)
         formset3 = MultiImageFormSet(request.POST or None, request.FILES, prefix='multiimage')
         formset5 = MultiImageFormSet2(request.POST or None, request.FILES, prefix='multiimage2')
-        if form2.is_valid() and (formset3.is_valid() or formset5.is_valid()):
+        formset7 = MultiImageFormSet3(request.POST or None, request.FILES, prefix='multiimage3')
 
-            if formset5:
-                for count,form in enumerate(formset5):
+        if form2.is_valid() and (formset3.is_valid() or formset5.is_valid() or formset7.is_valid()):
+            if orderitem_product_str == "PLATINUM":
+                for count,form in enumerate(formset3):
+                    # Not save blank field use has_changed()
+                    if form.is_valid() and form.has_changed():
+                        multiimageform.add(id=count, form=form)
+            elif orderitem_product_str == "SILVER":
+                for count,form in enumerate(formset7):
                     # Not save blank field use has_changed()
                     if form.is_valid() and form.has_changed():
                         multiimageform.add(id=count, form=form)
             else:
-                for count,form in enumerate(formset3):
+                for count,form in enumerate(formset5):
                     # Not save blank field use has_changed()
                     if form.is_valid() and form.has_changed():
                         multiimageform.add(id=count, form=form)
@@ -542,14 +561,18 @@ def step5(request):
             request.session['kata_moment'] = form2.cleaned_data.get('kata_moment')
             request.session.modified = True
 
-            return redirect("portofolio:step6")
+            if orderitem_product_str == "PLATINUM" or orderitem_product_str == "GOLD":
+                return redirect("portofolio:step6")
+            else:
+                return redirect("portofolio:step7")
     else:
         form2 = PortoInfo2Form()
         formset3 = MultiImageFormSet(prefix='multiimage')
         formset5 = MultiImageFormSet2(prefix='multiimage2')
+        formset7 = MultiImageFormSet2(prefix='multiimage3')
 
     return render(request, "portofolio/configurasi/moment_form.html", {'form2': form2,
-       'formset3': formset3, 'formset5': formset5, 'orderproduct': orderproduct})
+       'formset3': formset3, 'formset5': formset5, 'formset7': formset7, 'orderproduct': orderproduct})
 
 @login_required(login_url="account_login")
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
@@ -577,6 +600,13 @@ def step5_update(request, slug):
         can_delete=True,
         can_delete_extra=True
     )
+    MultiImageFormSet3 = modelformset_factory(
+        MultiImage,
+        form=MultiImageForm,
+        extra=0,
+        can_delete=True,
+        can_delete_extra=True
+    )
 
     # create query set for multi image
     qs3 = MultiImage.objects.filter(portofolio=obj)
@@ -584,11 +614,12 @@ def step5_update(request, slug):
     # Define formset
     formset3 = MultiImageFormSet(request.POST or None, request.FILES, queryset= qs3, prefix='multiimage')
     formset5 = MultiImageFormSet2(request.POST or None, request.FILES, queryset=qs3, prefix='multiimage2')
+    formset7 = MultiImageFormSet3(request.POST or None, request.FILES, queryset=qs3, prefix='multiimage3')
 
     if request.method == "POST":
         form2 = PortoInfo2Form(request.POST or None, request.FILES, instance=obj)
 
-        if form2.is_valid() and (formset3.is_valid() or formset5.is_valid()):
+        if form2.is_valid() and (formset3.is_valid() or formset5.is_valid() or formset7.is_valid()):
             # create portofolio instance
             instance = form2.save(commit=False)
             instance.save()
@@ -618,17 +649,30 @@ def step5_update(request, slug):
             for obj in formset5.deleted_objects:
                 obj.delete()
 
+            for form in formset7:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+            # Save deleted obj
+            instances = formset7.save(commit=False)
+            for obj in formset7.deleted_objects:
+                obj.delete()
+
             return redirect("portofolio:configurasi")
 
     else:
         form2 = PortoInfo2Form(instance=obj)
         formset3 = MultiImageFormSet(queryset= qs3, prefix='multiimage')
         formset5 = MultiImageFormSet2(queryset=qs3, prefix='multiimage2')
+        formset7 = MultiImageFormSet3(queryset=qs3, prefix='multiimage3')
 
     context = {
         'form2': form2,
         'formset3': formset3,
         'formset5': formset5,
+        'formset7': formset7,
         'orderproduct': orderproduct,
     }
 
@@ -1075,11 +1119,11 @@ def step12(request):
             if str(orderitem.product) == "PLATINUM" or str(orderitem.product) == "GOLD":
                 acaraform = AcaraFormSESSION(request)
                 pasanganform = PasanganFormSESSION(request)
-                multiimageform = MultiImageFormSESSION(request)
                 storyform = StoryFormSESSION(request)
                 dompetform = DompetFormSESSION(request)
                 specialinviteform = SpecialinviteFormSESSION(request)
             else:
+                multiimageform = MultiImageFormSESSION(request)
                 acaraform = AcaraFormSESSION(request)
                 pasanganform = PasanganFormSESSION(request)
                 specialinviteform = SpecialinviteFormSESSION(request)
@@ -1157,16 +1201,15 @@ def step12(request):
 
             # ============== QUOTE END ===============!
 
+            # ============== MOMENT ===============!
+            for item in multiimageform:
+                MultiImage.objects.create(
+                    portofolio=porto_instance,
+                    image=item.get('image'),
+                )
+            multiimageform.clear()
+
             if str(orderitem.product) == "PLATINUM" or str(orderitem.product) == "GOLD":
-                # ============== MOMENT ===============!
-                for item in multiimageform:
-                    MultiImage.objects.create(
-                        portofolio=porto_instance,
-                        image=item.get('image'),
-                    )
-                multiimageform.clear()
-
-
                 url_video = request.session.get('video', None)
                 if url_video != "":
                     video = re.search('(?P<name>https?://[^\s]+\w)', url_video).group('name')

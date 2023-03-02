@@ -165,11 +165,11 @@
         </div>
      </div>
 
-     {% else %}
-    <div class="notification is-hidden is-light p-1 has-text-centered">
+    {% elif orderproduct == "SILVER" %}
+    <div class="notification is-light p-1 has-text-centered">
        INFORMASI MOMENT
     </div>
-     <div class="columns is-hidden is-multiline mt-1">
+    <div class="columns is-multiline mt-1">
         <div class="column is-hidden is-12">
           {{ form2.video.label_tag }}
           {{ form2.video }}
@@ -178,7 +178,7 @@
               <p class="help is-danger">{{ error }}</p>
           {% endfor %}
 
-          <p class="subtitle is-hidden mt-2" style="font-size: 11px;">{{ form2.video.help_text }}</p>
+          <p class="subtitle mt-2" style="font-size: 11px;">{{ form2.video.help_text }}</p>
         </div>
 
         <div class="column is-hidden is-12">
@@ -191,8 +191,7 @@
 
             <p class="subtitle mt-2" style="font-size: 11px;">{{ form2.livestream.help_text }}</p>
         </div>
-
-         <div class="column is-hidden is-12">
+        <div class="column is-hidden is-12">
             {{ form2.kata_live_streaming.label_tag }}
             {{ form2.kata_live_streaming }}
 
@@ -200,10 +199,9 @@
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
 
-             <p class="subtitle is-hidden mt-2" style="font-size: 11px;">{{ form2.kata_live_streaming.help_text }}
+            <p class="subtitle is-hidden mt-2" style="font-size: 11px;">{{ form2.kata_live_streaming.help_text }}</p>
         </div>
-
-        <div class="column is-hidden is-12">
+        <div class="column is-12">
             {{ form2.kata_moment.label_tag }}
             {{ form2.kata_moment }}
 
@@ -211,41 +209,41 @@
                 <p class="help is-danger">{{ error }}</p>
             {% endfor %}
 
-            <p class="subtitle is-hidden mt-2" style="font-size: 11px;">{{ form2.kata_moment.help_text }}</p>
+            <p class="subtitle mt-2" style="font-size: 11px;">{{ form2.kata_moment.help_text }}</p>
         </div>
 
-        <div class="column is-hidden is-12">
-          {% if formset5 %}
-            {{ formset5.management_form }}
-                <div id="ingredient-form-list5">
-                    {% for form in formset5 %}
-                    <div class="ingredient-form5 mb-3">
-<!--                        {{ form }}-->
-                        {% for field in form.visible_fields %}
+        <div class="column is-12">
+          {% if formset7 %}
+            {{ formset7.management_form }}
+            <div id="ingredient-form-list7">
+                {% for form in formset7 %}
+                <div class="ingredient-form7 mb-3">
+<!--                    {{ form }}-->
+                    {% for field in form.visible_fields %}
+                        {{ field.label_tag }} {{ field }}
+                        {% for error in field.errors %}
+                            <p class="help is-danger">{{ error }}</p>
+                        {% endfor %}
+
+                        <p class="subtitle mt-2" style="font-size: 11px;">{{ field.help_text }}</p>
+                    {% endfor %}
+                    <div class="is-hidden">
+                        {% for field in form.hidden_fields %}
                             {{ field.label_tag }} {{ field }}
                             {% for error in field.errors %}
                                 <p class="help is-danger">{{ error }}</p>
                             {% endfor %}
-
-                            <p class="subtitle is-hidden mt-2" style="font-size: 11px;">{{ field.help_text }}</p>
                         {% endfor %}
-                        <div class="is-hidden">
-                            {% for field in form.hidden_fields %}
-                                {{ field.label_tag }} {{ field }}
-                                {% for error in field.errors %}
-                                    <p class="help is-danger">{{ error }}</p>
-                                {% endfor %}
-                            {% endfor %}
-                        </div>
                     </div>
-                    {% endfor %}
                 </div>
+                {% endfor %}
+            </div>
 
-            <div id="empty-form5" class="is-hidden">{{ formset5.empty_form }}</div>
-        {% endif %}
-        <button id="add-more5" type="button" class="button is-hidden is-small is-outlined pd-1 mt-3">Tambah</button>
-      </div>
-    </div>
+            <div id="empty-form7" class="is-hidden">{{ formset7.empty_form }}</div>
+          {% endif %}
+          <button id="add-more7" type="button" class="button is-small is-outlined pd-1 mt-3">Tambah</button>
+        </div>
+     </div>
     {% endif %}
 {% endblock update %}
 
