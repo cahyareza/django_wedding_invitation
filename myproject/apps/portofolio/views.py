@@ -72,11 +72,12 @@ def home(request):
     obj_silver = Coupon.objects.filter(active=True, silver=True).first()
     obj_platinum = Coupon.objects.filter(active=True, platinum=True).first()
     obj_gold = Coupon.objects.filter(active=True, gold=True).first()
+    obj_diamond = Coupon.objects.filter(active=True, diamond=True).first()
 
     current_time = timezone.now()
 
     # Check if instance available
-    if obj_silver or obj_platinum or obj_gold:
+    if obj_silver or obj_platinum or obj_gold or obj_diamond:
 
         context = {
             'porto_count': porto_count,
@@ -86,6 +87,7 @@ def home(request):
             'obj_silver': obj_silver,
             'obj_platinum': obj_platinum,
             'obj_gold': obj_gold,
+            'obj_diamond': obj_diamond,
             'fiturs': objects_fitur,
             'discount_str_silver': False,
             'discount_value_silver': False,
@@ -96,6 +98,9 @@ def home(request):
             'discount_str_gold': False,
             'discount_value_gold': False,
             'discount_percent_gold': False,
+            'discount_str_diamond': False,
+            'discount_value_diamond': False,
+            'discount_percent_diamond': False,
             'themes': theme,
             'portofolios': portofolio,
         }
@@ -133,6 +138,17 @@ def home(request):
                 context['discount_value_gold'] = discount_value_gold
                 context['discount_percent_gold'] = discount_percent_gold
 
+        # GOLD
+        if obj_diamond:
+            if obj_diamond.valid_to >= current_time:
+                discount_value_diamond = obj_diamond.discount
+                discount_percent_diamond = 1 - discount_value_diamond/100
+                discount_str_diamond = f"{obj_diamond.discount}%"
+
+                context['discount_str_diamond'] = discount_str_diamond
+                context['discount_value_diamond'] = discount_value_diamond
+                context['discount_percent_diamond'] = discount_percent_diamond
+
         return render(request, 'index.html', context)
 
     #  Instance not available
@@ -145,6 +161,7 @@ def home(request):
             'obj_silver': obj_silver,
             'obj_platinum': obj_platinum,
             'obj_gold': obj_gold,
+            'obj_diamond': obj_diamond,
             'fiturs': objects_fitur,
             'discount_str_silver': False,
             'discount_value_silver': False,
@@ -155,6 +172,9 @@ def home(request):
             'discount_str_gold': False,
             'discount_value_gold': False,
             'discount_percent_gold': False,
+            'discount_str_diamond': False,
+            'discount_value_diamond': False,
+            'discount_percent_diamond': False,
             'themes': theme,
             'portofolios': portofolio,
         }

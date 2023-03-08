@@ -12,6 +12,7 @@ class Coupon(models.Model):
     silver = models.BooleanField(default=False)
     platinum = models.BooleanField(default=False)
     gold = models.BooleanField(default=False)
+    diamond = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Coupon Code"

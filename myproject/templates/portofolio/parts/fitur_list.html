@@ -156,6 +156,52 @@
                             {% endif %}
                       </div>
                     </div>
+                  {% elif fitur.name == "DIAMOND" %}
+                    <div class="product-card" style="width: 270px;">
+                      <div class="box has-background-grey-dark">
+                        <div class="product-image" style="height: 430px;">
+                              {% if obj_diamond %}
+                                  {% if discount_value_diamond %}
+                                    <span class="discount-tag">{{ discount_str_diamond }} off</span>
+                                  {% endif %}
+                               {% endif %}
+    <!--                        <img src="{% static 'site/img/card1.jpg' %}" class="product-thumb" alt="">-->
+                              <p class="is-size-5 has-text-weight-bold mb-4 has-text-centered has-text-white">Fitur</p>
+                              <p class="is-size-6 has-text-weight-bold has-text-white">- Semua yang ada di Paket Gold</p>
+                              {% for fit in fitur.fitur|slice:":" %}
+                                <p class="is-size-6 has-text-white">- {{ fit }}</p>
+                              {% endfor %}
+                              <p class="is-size-6 has-text-weight-bold mt-4 has-text-white">Masa Aktif 6 Bulan</p>
+                              <p class="is-size-6 has-text-weight-bold has-text-white">Edit Tanpa Batas</p>
+                                {% if user.is_authenticated %}
+                                    {% if obj_diamond %}
+                                    <form action="{% url 'cart:add_cart' fitur.id obj_gold.id %}" method="post">
+                                        {% csrf_token %}
+                                        <input class="card-btn" type="submit" value="add to cart">
+                                    </form>
+                                    {% else %}
+                                    <form action="{% url 'cart:add_cart' fitur.id %}" method="post">
+                                        {% csrf_token %}
+                                        <input class="card-btn" type="submit" value="add to cart">
+                                    </form>
+                                    {% endif %}
+                                {% else %}
+                                    <a class="card-btn" href="{% url 'account_login' %}">add to cart</a>
+                                {% endif %}
+                        </div>
+                      </div>
+                      <div class="product-info has-text-centered">
+                            <h2 class="product-brand">{{ fitur.name }} <button class="button is-small has-text-danger"><strong>BEST VALUE!</strong></button></h2>
+                            <!--                        <p class="product-short-description">a short line about the cloth..</p>-->
+
+                            {% if discount_value_diamond %}
+                                <span class="price">IDR {{ fitur.price|mul:discount_percent_diamond|floatformat:"g" }}</span>
+                                <span class="actual-price">IDR {{ fitur.price|floatformat:"g" }}</span>
+                            {% else %}
+                                <span class="price">IDR {{ fitur.price|floatformat:"g" }}</span>
+                            {% endif %}
+                      </div>
+                    </div>
                   {% endif %}
                 {% endfor %}
               </section>

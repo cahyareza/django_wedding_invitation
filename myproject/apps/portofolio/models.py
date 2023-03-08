@@ -66,6 +66,8 @@ FITUR_CHOICES = (('desain standard', 'desain standard'),
     ('tersedia versi inggris', 'tersedia versi inggris'),
     ('semua jenis desain', 'semua jenis desain'),
     ('terima beres dibuatkan admin', 'terima beres dibuatkan admin'),
+    ('custom color & font', 'custom color & font'),
+    ('request custom design', 'request custom design'),
     ('support prioritas', 'support prioritas'),
     ('edit tanpa batas', 'edit tanpa batas'))
 
