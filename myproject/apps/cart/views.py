@@ -33,6 +33,9 @@ def add_cart(request, product_id, coupon_id=None):
                         elif coupon_obj.platinum:
                             cart.add(product=product, quantity=initial_data['quantity'], coupon=coupon_obj.discount,
                                      override_quantity=initial_data['override'])
+                        elif coupon_obj.gold:
+                            cart.add(product=product, quantity=initial_data['quantity'], coupon=coupon_obj.discount,
+                                     override_quantity=initial_data['override'])
                         else:
                             cart.add(product=product, quantity=initial_data['quantity'], coupon=coupon_obj.discount,
                                      override_quantity=initial_data['override'])

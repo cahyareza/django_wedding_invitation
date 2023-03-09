@@ -101,7 +101,12 @@ def orderitem_update(request, id):
             instance.save()
 
             obj.upgrade_status = True
-            if str(obj_orderitem.product_update) == "GOLD":
+            if str(obj_orderitem.product_update) == "DIAMOND":
+                if obj.discount != 0:
+                    obj.paid_upgrade = Decimal(500000) * (Decimal(obj.discount)/Decimal(100)) - Decimal(obj.paid)
+                else:
+                    obj.paid_upgrade = Decimal(500000) - Decimal(obj.paid)
+            elif str(obj_orderitem.product_update) == "GOLD":
                 if obj.discount != 0:
                     obj.paid_upgrade = Decimal(300000) * (Decimal(obj.discount)/Decimal(100)) - Decimal(obj.paid)
                 else:

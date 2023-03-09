@@ -72,11 +72,12 @@ def home(request):
     obj_silver = Coupon.objects.filter(active=True, silver=True).first()
     obj_platinum = Coupon.objects.filter(active=True, platinum=True).first()
     obj_gold = Coupon.objects.filter(active=True, gold=True).first()
+    obj_diamond = Coupon.objects.filter(active=True, diamond=True).first()
 
     current_time = timezone.now()
 
     # Check if instance available
-    if obj_silver or obj_platinum or obj_gold:
+    if obj_silver or obj_platinum or obj_gold or obj_diamond:
 
         context = {
             'porto_count': porto_count,
@@ -86,6 +87,7 @@ def home(request):
             'obj_silver': obj_silver,
             'obj_platinum': obj_platinum,
             'obj_gold': obj_gold,
+            'obj_diamond': obj_diamond,
             'fiturs': objects_fitur,
             'discount_str_silver': False,
             'discount_value_silver': False,
@@ -96,6 +98,9 @@ def home(request):
             'discount_str_gold': False,
             'discount_value_gold': False,
             'discount_percent_gold': False,
+            'discount_str_diamond': False,
+            'discount_value_diamond': False,
+            'discount_percent_diamond': False,
             'themes': theme,
             'portofolios': portofolio,
         }
@@ -133,6 +138,17 @@ def home(request):
                 context['discount_value_gold'] = discount_value_gold
                 context['discount_percent_gold'] = discount_percent_gold
 
+        # GOLD
+        if obj_diamond:
+            if obj_diamond.valid_to >= current_time:
+                discount_value_diamond = obj_diamond.discount
+                discount_percent_diamond = 1 - discount_value_diamond/100
+                discount_str_diamond = f"{obj_diamond.discount}%"
+
+                context['discount_str_diamond'] = discount_str_diamond
+                context['discount_value_diamond'] = discount_value_diamond
+                context['discount_percent_diamond'] = discount_percent_diamond
+
         return render(request, 'index.html', context)
 
     #  Instance not available
@@ -145,6 +161,7 @@ def home(request):
             'obj_silver': obj_silver,
             'obj_platinum': obj_platinum,
             'obj_gold': obj_gold,
+            'obj_diamond': obj_diamond,
             'fiturs': objects_fitur,
             'discount_str_silver': False,
             'discount_value_silver': False,
@@ -155,6 +172,9 @@ def home(request):
             'discount_str_gold': False,
             'discount_value_gold': False,
             'discount_percent_gold': False,
+            'discount_str_diamond': False,
+            'discount_value_diamond': False,
+            'discount_percent_diamond': False,
             'themes': theme,
             'portofolios': portofolio,
         }
@@ -262,7 +282,8 @@ def configurasi_porto(request):
 @login_required(login_url="account_login")
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def dana_list(request, slug):
-    danas = Dana.objects.all()
+    portofolio = Portofolio.objects.filter(slug=slug).first()
+    danas = Dana.objects.filter(portofolio=portofolio)
     context = {
         'danas': danas,
     }
@@ -561,7 +582,7 @@ def step5(request):
             request.session['kata_moment'] = form2.cleaned_data.get('kata_moment')
             request.session.modified = True
 
-            if orderitem_product_str == "PLATINUM" or orderitem_product_str == "GOLD":
+            if orderitem_product_str == "PLATINUM" or orderitem_product_str == "GOLD" or orderitem_product_str == "DIAMOND":
                 return redirect("portofolio:step6")
             else:
                 return redirect("portofolio:step7")
@@ -774,7 +795,7 @@ def step7(request):
             request.session['link_gmap'] = form.cleaned_data.get('link_gmap')
             request.session.modified = True
 
-            if orderitem_product_str == "PLATINUM" or orderitem_product_str == "GOLD":
+            if orderitem_product_str == "PLATINUM" or orderitem_product_str == "GOLD" or orderitem_product_str == "DIAMOND":
                 return redirect("portofolio:step8")
             else:
                 return redirect("portofolio:step9")
@@ -1116,12 +1137,13 @@ def step12(request):
             # orderitem instance by order
             orderitem = get_object_or_404(OrderItem, order=order)
 
-            if str(orderitem.product) == "PLATINUM" or str(orderitem.product) == "GOLD":
+            if str(orderitem.product) == "PLATINUM" or str(orderitem.product) == "GOLD" or str(orderitem.product) == "DIAMOND":
                 acaraform = AcaraFormSESSION(request)
                 pasanganform = PasanganFormSESSION(request)
                 storyform = StoryFormSESSION(request)
                 dompetform = DompetFormSESSION(request)
                 specialinviteform = SpecialinviteFormSESSION(request)
+                multiimageform = MultiImageFormSESSION(request)
             else:
                 multiimageform = MultiImageFormSESSION(request)
                 acaraform = AcaraFormSESSION(request)
@@ -1135,6 +1157,7 @@ def step12(request):
                     user=user,
                     porto_name=request.session.get('porto_name', None),
                     description=request.session.get('description', None),
+                    alamat_rumah=request.session.get('alamat_rumah', None),
                     pname=item.get('pname'),
                     psurename=item.get('psurename'),
                     pinsta_link=f"https://www.instagram.com/{item.get('pinsta_link')}/",
@@ -1183,8 +1206,15 @@ def step12(request):
             )
 
             # del portiinfo sessions
-            del request.session['porto_name']
-            del request.session['description']
+            if 'porto_name' in request.session:
+                del request.session['porto_name']
+                request.session.modified = True
+            if 'description' in request.session:
+                del request.session['description']
+                request.session.modified = True
+            if 'alamat_rumah' in request.session:
+                del request.session['alamat_rumah']
+                request.session.modified = True
 
             if 'ayat' in request.session:
                 # del quote sessions
@@ -1209,7 +1239,7 @@ def step12(request):
                 )
             multiimageform.clear()
 
-            if str(orderitem.product) == "PLATINUM" or str(orderitem.product) == "GOLD":
+            if str(orderitem.product) == "PLATINUM" or str(orderitem.product) == "GOLD" or str(orderitem.product) == "DIAMOND":
                 url_video = request.session.get('video', None)
                 if url_video != "":
                     video = re.search('(?P<name>https?://[^\s]+\w)', url_video).group('name')

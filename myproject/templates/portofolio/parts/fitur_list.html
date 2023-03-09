@@ -77,7 +77,7 @@
       <!--                        <img src="{% static 'site/img/card1.jpg' %}" class="product-thumb" alt="">-->
                                 <p class="is-size-5 has-text-weight-bold mb-4 has-text-centered">Fitur</p>
                                 <p class="is-size-6 has-text-weight-bold">- Semua yang ada di Paket Silver</p>
-                                {% for fit in fitur.fitur|slice:"7:" %}
+                                {% for fit in fitur.fitur|slice:"8:" %}
                                   <p class="is-size-6">- {{ fit }}</p>
                                 {% endfor %}
                                 <p class="is-size-6 has-text-weight-bold mt-4">Masa Aktif 3 Bulan</p>
@@ -150,6 +150,52 @@
 
                             {% if discount_value_gold %}
                                 <span class="price">IDR {{ fitur.price|mul:discount_percent_gold|floatformat:"g" }}</span>
+                                <span class="actual-price">IDR {{ fitur.price|floatformat:"g" }}</span>
+                            {% else %}
+                                <span class="price">IDR {{ fitur.price|floatformat:"g" }}</span>
+                            {% endif %}
+                      </div>
+                    </div>
+                  {% elif fitur.name == "DIAMOND" %}
+                    <div class="product-card" style="width: 270px;">
+                      <div class="box has-background-grey-dark">
+                        <div class="product-image" style="height: 430px;">
+                              {% if obj_diamond %}
+                                  {% if discount_value_diamond %}
+                                    <span class="discount-tag">{{ discount_str_diamond }} off</span>
+                                  {% endif %}
+                               {% endif %}
+    <!--                        <img src="{% static 'site/img/card1.jpg' %}" class="product-thumb" alt="">-->
+                              <p class="is-size-5 has-text-weight-bold mb-4 has-text-centered has-text-white">Fitur</p>
+                              <p class="is-size-6 has-text-weight-bold has-text-white">- Semua yang ada di Paket Gold</p>
+                              {% for fit in fitur.fitur|slice:":" %}
+                                <p class="is-size-6 has-text-white">- {{ fit }}</p>
+                              {% endfor %}
+                              <p class="is-size-6 has-text-weight-bold mt-4 has-text-white">Masa Aktif 6 Bulan</p>
+                              <p class="is-size-6 has-text-weight-bold has-text-white">Edit Tanpa Batas</p>
+                                {% if user.is_authenticated %}
+                                    {% if obj_diamond %}
+                                    <form action="{% url 'cart:add_cart' fitur.id obj_gold.id %}" method="post">
+                                        {% csrf_token %}
+                                        <input class="card-btn" type="submit" value="add to cart">
+                                    </form>
+                                    {% else %}
+                                    <form action="{% url 'cart:add_cart' fitur.id %}" method="post">
+                                        {% csrf_token %}
+                                        <input class="card-btn" type="submit" value="add to cart">
+                                    </form>
+                                    {% endif %}
+                                {% else %}
+                                    <a class="card-btn" href="{% url 'account_login' %}">add to cart</a>
+                                {% endif %}
+                        </div>
+                      </div>
+                      <div class="product-info has-text-centered">
+                            <h2 class="product-brand">{{ fitur.name }} <button class="button is-small has-text-danger"><strong>BEST VALUE!</strong></button></h2>
+                            <!--                        <p class="product-short-description">a short line about the cloth..</p>-->
+
+                            {% if discount_value_diamond %}
+                                <span class="price">IDR {{ fitur.price|mul:discount_percent_diamond|floatformat:"g" }}</span>
                                 <span class="actual-price">IDR {{ fitur.price|floatformat:"g" }}</span>
                             {% else %}
                                 <span class="price">IDR {{ fitur.price|floatformat:"g" }}</span>
@@ -246,9 +292,6 @@
                   <h1 class="subtitle is-size-1-desktop is-size-3-tablet is-size-4-mobile mb-4 px-4 has-text-white">
                     FAQ
                   </h1>
-                  <button @click="showModal" class="button has-text-weight-medium px-4 mb-1 is-fullwidth is-black" style="border:none; background-color:transparent;">Berapa lama masa aktif undangan saya?</button>
-                  <p v-if="show" class="px-4 mt-1 has-text-white">tidak ada masa aktif. dengan kata lain undangan anda akan aktif selamanya. jadi kamu bisa aktifkan sekarang untuk di pakai kapanpun.</p>
-                  <hr class="my-1 has-background-grey">
                   <button @click="showModal2" class="button has-text-weight-medium px-4 mb-1 is-fullwidth is-black" style="border:none; background:transparent;">Apakah masih bisa di edit setelah aktif?</button>
                   <p v-if="show2" class="px-4 mt-1 has-text-white">ya bisa sekali. kamu bisa edit undangan kamu kapanpun selamanya. tanpa ada batasan.</p>
                   <hr class="my-1 has-background-grey">
@@ -257,9 +300,6 @@
                   <hr class="my-1 has-background-grey">
                   <button @click="showModal4" class="button has-text-weight-medium px-4 mb-1 is-fullwidth is-black" style="border:none; background:transparent;">Apakah bisa dibantu pengisian informasi?</button>
                   <p v-if="show4" class="px-4 mt-1 has-text-white">Kami senantiasa siap membantu kamu apabila ada kesulitan dalam pengisian data/informasi undangan. Silahkan hubungi kami melalui WhatsApp apabila membutuhkan bantuan.</p>
-                  <hr class="my-1 has-background-grey">
-                  <button @click="showModal5" class="button has-text-weight-medium px-4 mb-1 is-fullwidth is-black" style="border:none; background:transparent;">Apakah bisa custom tema?</button>
-                  <p v-if="show5" class="px-4 mt-1 has-text-white">Mohon maaf, untuk saat ini kami belum menerima custom tema. Silahkan gunakan tema yang ada.</p>
                   <hr class="my-1 has-background-grey">
                   <button @click="showModal6" class="button has-text-weight-medium px-4 mb-1 is-fullwidth is-black" style="border:none; background:transparent;"> Apa yang dimaksud Garansi 3 Hari?</button>
                   <p v-if="show6" class="px-4 mt-1 has-text-white">Jika dalam 3 hari sejak pendaftaran kamu merasa bahwa undangan kurang sesuai dengan kebutuhanmu atau kamu kurang puas, kami akan mengembalikan uangmu 100%, cukup dengan WhatsApp tim kami.</p>
