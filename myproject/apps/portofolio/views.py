@@ -581,7 +581,7 @@ def step5(request):
             request.session['kata_moment'] = form2.cleaned_data.get('kata_moment')
             request.session.modified = True
 
-            if orderitem_product_str == "PLATINUM" or orderitem_product_str == "GOLD":
+            if orderitem_product_str == "PLATINUM" or orderitem_product_str == "GOLD" or orderitem_product_str == "DIAMOND":
                 return redirect("portofolio:step6")
             else:
                 return redirect("portofolio:step7")
@@ -794,7 +794,7 @@ def step7(request):
             request.session['link_gmap'] = form.cleaned_data.get('link_gmap')
             request.session.modified = True
 
-            if orderitem_product_str == "PLATINUM" or orderitem_product_str == "GOLD":
+            if orderitem_product_str == "PLATINUM" or orderitem_product_str == "GOLD" or orderitem_product_str == "DIAMOND":
                 return redirect("portofolio:step8")
             else:
                 return redirect("portofolio:step9")
@@ -1136,12 +1136,13 @@ def step12(request):
             # orderitem instance by order
             orderitem = get_object_or_404(OrderItem, order=order)
 
-            if str(orderitem.product) == "PLATINUM" or str(orderitem.product) == "GOLD":
+            if str(orderitem.product) == "PLATINUM" or str(orderitem.product) == "GOLD" or str(orderitem.product) == "DIAMOND":
                 acaraform = AcaraFormSESSION(request)
                 pasanganform = PasanganFormSESSION(request)
                 storyform = StoryFormSESSION(request)
                 dompetform = DompetFormSESSION(request)
                 specialinviteform = SpecialinviteFormSESSION(request)
+                multiimageform = MultiImageFormSESSION(request)
             else:
                 multiimageform = MultiImageFormSESSION(request)
                 acaraform = AcaraFormSESSION(request)
@@ -1155,6 +1156,7 @@ def step12(request):
                     user=user,
                     porto_name=request.session.get('porto_name', None),
                     description=request.session.get('description', None),
+                    alamat_rumah=request.session.get('alamat_rumah', None),
                     pname=item.get('pname'),
                     psurename=item.get('psurename'),
                     pinsta_link=f"https://www.instagram.com/{item.get('pinsta_link')}/",
@@ -1203,8 +1205,15 @@ def step12(request):
             )
 
             # del portiinfo sessions
-            del request.session['porto_name']
-            del request.session['description']
+            if 'porto_name' in request.session:
+                del request.session['porto_name']
+                request.session.modified = True
+            if 'description' in request.session:
+                del request.session['description']
+                request.session.modified = True
+            if 'alamat_rumah' in request.session:
+                del request.session['alamat_rumah']
+                request.session.modified = True
 
             if 'ayat' in request.session:
                 # del quote sessions
@@ -1229,7 +1238,7 @@ def step12(request):
                 )
             multiimageform.clear()
 
-            if str(orderitem.product) == "PLATINUM" or str(orderitem.product) == "GOLD":
+            if str(orderitem.product) == "PLATINUM" or str(orderitem.product) == "GOLD" or str(orderitem.product) == "DIAMOND":
                 url_video = request.session.get('video', None)
                 if url_video != "":
                     video = re.search('(?P<name>https?://[^\s]+\w)', url_video).group('name')
