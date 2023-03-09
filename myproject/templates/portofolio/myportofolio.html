@@ -39,7 +39,7 @@
                                     <i class="fa-solid fa-ban"></i>
                                 {% endif %}
                             </td>
-                            {% if data.items.fitur != "GOLD" %}
+                            {% if data.items.fitur != "DIAMOND" %}
                                 {% if order.upgrade_status != True %}
                                 <td class="has-text-centered">
                                     <a href="{% url 'order:orderitem_update' order.id %}" class="button is-danger is-small">Upgrade

@@ -282,7 +282,8 @@ def configurasi_porto(request):
 @login_required(login_url="account_login")
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def dana_list(request, slug):
-    danas = Dana.objects.all()
+    portofolio = Portofolio.objects.filter(slug=slug).first()
+    danas = Dana.objects.filter(portofolio=portofolio)
     context = {
         'danas': danas,
     }

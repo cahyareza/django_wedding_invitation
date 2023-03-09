@@ -14,6 +14,7 @@
                 <table class="table is-fullwidth is-size-5-desktop is-size-6-tablet is-size-7-mobile">
                     <thead class="has-background-light">
                         <tr>
+                            <th class="has-text-centered">No</th>
                             <th class="has-text-centered">Nama</th>
                             <th class="has-text-centered">Jumlah (Rp)</th>
                             <th class="has-text-centered">Transfer ke-</th>
@@ -25,6 +26,7 @@
                         <!--   Get data from backend   -->
                         {% for dana in danas %}
                         <tr>
+                            <td class="has-text-centered">{{ forloop.counter }}</td>
                             <td class="has-text-centered">{{ dana.nama }}</td>
                             <td class="has-text-centered">{{ dana.jumlah|floatformat:"g" }}</td>
                             <td class="has-text-centered">{{ dana.ditransfer_ke }}</td>
