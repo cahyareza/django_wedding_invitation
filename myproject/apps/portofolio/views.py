@@ -42,7 +42,7 @@ from myproject.apps.coupon.models import Coupon
 from myproject.apps.order.models import Order, OrderItem
 from .models import MultiImage, Portofolio, SpecialInvitation, Dompet, Quote, Fitur, \
     Rekening, Payment, MultiImage, SpecialInvitation, Ucapan, Hadir, Fitur, \
-    Theme, ThemeProduct, Story, Acara, Kata, Dana
+    Theme, ThemeProduct, Story, Acara, Kata, Dana, Resume
 
 # from .forms import PortofolioForm, MultiImageForm, SpecialInvitationForm, \
 #     BaseRegisterFormSet, DompetForm, QuoteForm, ThemeProductForm, StoryForm, AcaraForm \
@@ -1176,6 +1176,12 @@ def step12(request):
                     name=request.session.get('porto_name', None),
                 )
             pasanganform.clear()
+
+            # Add quantity to resume portofolio
+            resume = Resume.objects.filter(nama='resume').update(
+                quantity_porto = quantity_porto + 1,
+            )
+
             # ============== PASANGAN END ===============!
 
             # to create multiple image instance
@@ -1284,6 +1290,12 @@ def step12(request):
                         pemilik=item.get('pemilik'),
                         rekening=item.get('rekening'),
                     )
+
+                    # update quantity dompet
+                    resume = Resume.objects.filter(nama='resume').update(
+                        quantity_dompet = quantity_dompet + 1
+                    )
+
                 dompetform.clear()
                 # ============== DOMPET END ===============!
 
@@ -1727,6 +1739,12 @@ class UcapanList(generics.ListCreateAPIView):
     name = 'ucapan-list'
     filterset_fields = ['portofolio__slug']
 
+    def post(self, request, *args, **kwargs):
+        resume = Resume.objects.filter(nama='resume').update(
+            quantity_ucapan=quantity_ucapan + 1,
+        )
+        return self.list(request, *args, **kwargs)
+
 
 class UcapanDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Ucapan.objects.all()
@@ -1740,6 +1758,12 @@ class HadirList(generics.ListCreateAPIView):
     serializer_class = HadirSerializer
     name = 'hadir-list'
     filterset_fields = ['portofolio__slug']
+
+    def post(self, request, *args, **kwargs):
+        resume = Resume.objects.filter(nama='resume').update(
+            quantity_tamu=quantity_tamu + 1,
+        )
+        return self.list(request, *args, **kwargs)
 
 
 class HadirDetail(generics.RetrieveUpdateDestroyAPIView):

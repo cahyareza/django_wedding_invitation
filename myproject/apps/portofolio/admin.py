@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import (Portofolio, MultiImage, SpecialInvitation, Dompet, Quote,
      Rekening, Ucapan, Hadir, Fitur, Payment, Theme, ThemeProduct, Kabupaten, Story,
-     Acara, Track, Kata, Dana)
+     Acara, Track, Kata, Dana, Resume)
 
 # Inline
 class PortoInline(admin.TabularInline):
@@ -154,4 +154,8 @@ class KataAdmin(admin.ModelAdmin):
 
 @admin.register(Dana)
 class DanaAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Resume)
+class ResumeAdmin(admin.ModelAdmin):
     pass
