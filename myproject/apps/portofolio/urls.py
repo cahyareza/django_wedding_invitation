@@ -12,7 +12,7 @@ from .views import (
     PaymentDetail, QuoteList, QuoteDetail, UcapanList, UcapanDetail, \
     HadirList, HadirDetail, FiturList, FiturDetail, \
     ThemeList, ThemeDetail,ThemeProductList, ThemeProductDetail, StoryList, \
-    StoryDetail, AcaraList, AcaraDetail,DanaList, DanaDetail, ApiRoot
+    StoryDetail, AcaraList, AcaraDetail,DanaList, DanaDetail, ResumeList, ResumeDetail, ApiRoot
 )
 
 
@@ -117,6 +117,9 @@ urlpatterns = [
 
     path('api/dana/', DanaList.as_view(), name=views.DanaList.name),
     path('api/dana/<int:pk>', DanaDetail.as_view(), name=views.DanaDetail.name),
+
+    path('api/resume/', ResumeList.as_view(), name=views.ResumeList.name),
+    path('api/resume/<int:pk>', ResumeDetail.as_view(), name=views.ResumeDetail.name),
 
     path('api/', ApiRoot.as_view(), name=views.ApiRoot.name),
 ]
