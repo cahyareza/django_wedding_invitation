@@ -454,3 +454,18 @@ class Dana(CreationModificationDateBase, UrlBase):
 
     def __str__(self):
         return self.portofolio.name
+
+class Resume(CreationModificationDateBase, UrlBase):
+    portofolio_active = Portofolio.objects.count()
+    ucapan_active = Ucapan.objects.count()
+    dompet_active = Dompet.objects.count()
+    tamu_active = Hadir.objects.count()
+
+    nama = models.CharField(max_length=50, null=True, blank=True)
+    quantity_porto = models.IntegerField(default=portofolio_active, null=True, blank=True)
+    quantity_ucapan = models.IntegerField(default=ucapan_active, null=True, blank=True)
+    quantity_dompet = models.IntegerField(default=dompet_active, null=True, blank=True)
+    quantity_tamu = models.IntegerField(default=tamu_active, null=True, blank=True)
+
+    def __str__(self):
+        return self.nama
