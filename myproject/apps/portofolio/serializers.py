@@ -1,7 +1,8 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Portofolio, Rekening, Dompet, MultiImage, SpecialInvitation, \
-    Payment, Quote, Ucapan, Hadir, Fitur, Theme, ThemeProduct, Story, Acara, Track, Dana
+    Payment, Quote, Ucapan, Hadir, Fitur, Theme, ThemeProduct, Story, Acara, Track, Dana, \
+    Resume
 
 # Acara
 class TrackSerializer(serializers.HyperlinkedModelSerializer):
@@ -148,3 +149,11 @@ class DanaSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Dana
         fields = ("portofolio", "nama", "jumlah", "pesan", "ditransfer_ke")
+
+
+# Dana
+class ResumeSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = Resume
+        fields = ("nama", "quantity_porto", "quantity_ucapan", "quantity_dompet", "quantity_tamu")

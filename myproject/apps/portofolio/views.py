@@ -21,7 +21,7 @@ from django.core.exceptions import ValidationError
 from .serializers import PortofolioSerializer, RekeningSerializer, DompetSerializer, \
     MultiImageSerializer, SpecialInvitationSerializer, PaymentSerializer, QuoteSerializer, \
     UcapanSerializer, HadirSerializer, FiturSerializer, ThemeSerializer, ThemeProductSerializer, \
-    StorySerializer, AcaraSerializer, DanaSerializer
+    StorySerializer, AcaraSerializer, DanaSerializer, ResumeSerializer
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -1740,10 +1740,10 @@ class UcapanList(generics.ListCreateAPIView):
     filterset_fields = ['portofolio__slug']
 
     def post(self, request, *args, **kwargs):
-        resume = Resume.objects.filter(nama='resume').update(
-            quantity_ucapan=quantity_ucapan + 1,
-        )
-        return self.list(request, *args, **kwargs)
+        resume = Resume.objects.filter(nama='resume').first()
+        resume.quantity_ucapan=resume.quantity_ucapan + 1
+        resume.save()
+        return super().post(request, *args, **kwargs)
 
 
 class UcapanDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -1760,10 +1760,10 @@ class HadirList(generics.ListCreateAPIView):
     filterset_fields = ['portofolio__slug']
 
     def post(self, request, *args, **kwargs):
-        resume = Resume.objects.filter(nama='resume').update(
-            quantity_tamu=quantity_tamu + 1,
-        )
-        return self.list(request, *args, **kwargs)
+        resume = Resume.objects.filter(nama='resume').first()
+        resume.quantity_tamu=resume.quantity_tamu + 1
+        resume.save()
+        return super().post(request, *args, **kwargs)
 
 
 class HadirDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -1852,6 +1852,20 @@ class DanaDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = DanaSerializer
     name = 'dana-detail'
 
+# Resume
+class ResumeList(generics.ListCreateAPIView):
+    permission_classes = (permissions.AllowAny,)
+    queryset = Resume.objects.all()
+    serializer_class = ResumeSerializer
+    name = 'resume-list'
+    filterset_fields = ['nama']
+
+
+class ResumeDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Resume.objects.all()
+    serializer_class = ResumeSerializer
+    name = 'resume-detail'
+
 
 # ROOT
 class ApiRoot(generics.GenericAPIView):
@@ -1873,4 +1887,5 @@ class ApiRoot(generics.GenericAPIView):
             'story': reverse('portofolio:story-list', request=request),
             'acara': reverse('portofolio:acara-list', request=request),
             'dana': reverse('portofolio:dana-list', request=request),
+            'resume': reverse('portofolio:resume-list', request=request),
             })
