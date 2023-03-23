@@ -317,4 +317,4 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 20971520
 # }
 
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
-DBBACKUP_STORAGE_OPTIONS = {'location': os.path.join(BASE_DIR, '../db_backups')}
+DBBACKUP_STORAGE_OPTIONS = {'location': os.path.join(BASE_DIR, '../django_dbbackups')}
