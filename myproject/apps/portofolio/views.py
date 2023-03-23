@@ -56,8 +56,8 @@ from myproject.apps.portofolio.services import AcaraFormSESSION, PasanganFormSES
     StoryFormSESSION, DompetFormSESSION, SpecialinviteFormSESSION
 
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-
 from django.core.exceptions import PermissionDenied
+from django.db.models import F
 
 # ============== HOME ===============!
 def home(request):
@@ -1182,7 +1182,7 @@ def step12(request):
 
             # Add quantity to resume portofolio
             resume = Resume.objects.filter(nama='resume').update(
-                quantity_porto = quantity_porto + 1,
+                quantity_porto = F('quantity_porto') + 1,
             )
 
             # ============== PASANGAN END ===============!
@@ -1296,7 +1296,7 @@ def step12(request):
 
                     # update quantity dompet
                     resume = Resume.objects.filter(nama='resume').update(
-                        quantity_dompet = quantity_dompet + 1
+                        quantity_dompet = F('quantity_dompet') + 1
                     )
 
                 dompetform.clear()
