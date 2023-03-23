@@ -68,6 +68,7 @@ def home(request):
     objects_fitur = Fitur.objects.all()
     theme = Theme.objects.all()
     portofolio  = random.sample(list(Portofolio.objects.exclude(porto_picture='')), 5)
+    resume = Resume.objects.get(nama="resume")
 
     obj_silver = Coupon.objects.filter(active=True, silver=True).first()
     obj_platinum = Coupon.objects.filter(active=True, platinum=True).first()
@@ -103,6 +104,7 @@ def home(request):
             'discount_percent_diamond': False,
             'themes': theme,
             'portofolios': portofolio,
+            'resume': resume
         }
 
         # SILVER
@@ -177,6 +179,7 @@ def home(request):
             'discount_percent_diamond': False,
             'themes': theme,
             'portofolios': portofolio,
+            'resume': resume
         }
 
         return render(request, 'index.html', context)
