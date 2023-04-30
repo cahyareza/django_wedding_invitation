@@ -125,6 +125,6 @@ var swiper = new Swiper(".mySwipercover", {
     prevEl: ".swiper-button-prev",
   },
   autoplay: {
-    delay : 4000
+    delay : 12000
   },
 });
