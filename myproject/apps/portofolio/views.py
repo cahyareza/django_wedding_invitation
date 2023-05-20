@@ -37,6 +37,7 @@ from django_filters import AllValuesFilter, DateTimeFilter, NumberFilter, Filter
 from django.contrib.auth.decorators import login_required # Login required to access private pages.
 from django.views.decorators.cache import cache_control
 from django.contrib.auth.decorators import permission_required
+from django.core.cache import cache
 
 from myproject.apps.coupon.models import Coupon
 from myproject.apps.order.models import Order, OrderItem
@@ -66,9 +67,24 @@ def home(request):
     dompet_count = Dompet.objects.count()
     hadir_count = Hadir.objects.count()
     objects_fitur = Fitur.objects.all()
-    theme = Theme.objects.all()
     portofolio  = random.sample(list(Portofolio.objects.exclude(porto_picture='')), 5)
     resume = Resume.objects.get(nama="resume")
+
+    # cache theme
+    theme_cache = 'theme'
+    if cache.get(theme_cache):
+        theme = cache.get(theme_cache)
+        print("hit the cache")
+    else:
+        try:
+            theme = Theme.objects.all()
+            cache.set(
+                theme_cache, theme
+            )
+            print("hit the db")
+        except Theme.DoesNotExist:
+            return HttpResponse("This theme does not exist")
+
 
     obj_silver = Coupon.objects.filter(active=True, silver=True).first()
     obj_platinum = Coupon.objects.filter(active=True, platinum=True).first()
