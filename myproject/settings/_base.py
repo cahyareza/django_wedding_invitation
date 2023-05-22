@@ -354,3 +354,14 @@ LOGGING = {
         },
     },
 }
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": [get_secret("CACHE_LOCATION")],
+        'TIMEOUT': 3699 * 24 * 3,  # 3 day
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
