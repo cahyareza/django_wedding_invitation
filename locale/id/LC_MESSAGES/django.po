@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-13 16:16+0700\n"
+"POT-Creation-Date: 2023-05-09 11:54+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,644 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: myproject/templates/base.html:15 myproject/templates/index.html:5
-msgid "Hello, World!"
-msgstr "Hallo, Dunia!"
+#: btech/apps/offices/models.py:138 btech/apps/offices/models.py:159
+#: btech/apps/offices/models.py:173 btech/apps/offices/models.py:339
+#: btech/apps/offices/models.py:413
+msgid "Terlihat"
+msgstr ""
+
+#: btech/apps/offices/models.py:312 btech/apps/offices/models.py:329
+msgid "Generate otomatis jika dikosongkan"
+msgstr ""
+
+#: btech/apps/offices/models.py:327
+msgid "Judul"
+msgstr ""
+
+#: btech/apps/offices/models.py:330
+msgid "Konten Singkat"
+msgstr ""
+
+#: btech/apps/offices/models.py:331
+msgid "Konten"
+msgstr ""
+
+#: btech/apps/offices/models.py:332
+msgid "Gambar"
+msgstr ""
+
+#: btech/apps/offices/models.py:334
+msgid "Sembunyikan gambar"
+msgstr ""
+
+#: btech/apps/offices/models.py:335
+msgid "Sembunyikan gambar pada halaman detial"
+msgstr ""
+
+#: btech/apps/offices/models.py:337
+msgid "Kategori"
+msgstr ""
+
+#: btech/apps/offices/models.py:338
+msgid "Kategori dipisahkan dengan koma"
+msgstr ""
+
+#: btech/apps/offices/models.py:347
+msgid "Page"
+msgstr ""
+
+#: btech/apps/offices/models.py:348
+msgid "Post"
+msgstr ""
+
+#: btech/apps/offices/models.py:353
+msgid "Konsep"
+msgstr ""
+
+#: btech/apps/offices/models.py:354
+msgid "Terbit"
+msgstr ""
+
+#: btech/apps/offices/models.py:358
+msgid "Dibuat pada"
+msgstr ""
+
+#: btech/apps/offices/models.py:359
+msgid "Diubah pada"
+msgstr ""
+
+#: btech/apps/offices/models.py:360
+msgid "Highlight"
+msgstr ""
+
+#: btech/core/validators.py:62
+#, python-format
+msgid "Password must contain at least %(min_length)d characters."
+msgstr ""
+
+#: btech/core/validators.py:69
+msgid "Password can't be entirely numeric."
+msgstr ""
+
+#: btech/website/views.py:414
+msgid "Internship Programs"
+msgstr "Program Magang"
+
+#: btech/website/views.py:460
+msgid "Internship Registration"
+msgstr "Pendaftaran Magang"
+
+#: templates/website/aboutus.html:10 templates/website/base_v2.html:232
+msgid "About Us"
+msgstr "Tentang Kami"
+
+#: templates/website/aboutus.html:22
+msgid "Vision and Mission"
+msgstr "Visi dan Misi"
+
+#: templates/website/aboutus.html:25
+msgid ""
+"Since 2009, Boer Technology (Btech) has committed to customers from various "
+"industries in Indonesia to continue provide the best services and solutions "
+"by using Open Source Software as a tool to create an environmental friendly "
+"company. Supported by reliable human resources, We are now focusing into "
+"Cloud, DevOps, Security, and Tech Professional Delivery to realize an "
+"efficient and secure company and make business running faster."
+msgstr ""
+"Sejak tahun 2009, Boer Technology (Btech) berkomitmen kepada pelanggan "
+"dari berbagai industri di Indonesia untuk terus menyediakan layanan dan "
+"solusi terbaik dengan menggunakan Open Source Software sebagai alat untuk "
+"menciptakan perusahaan yang ramah lingkungan. Didukung oleh sumber daya "
+"manusia yang andal, Kami kini fokus ke Cloud, DevOps, Security, dan Tech "
+"Professional Delivery untuk mewujudkan perusahaan yang efisien dan aman "
+"serta membuat bisnis berjalan lebih cepat."
+
+#: templates/website/aboutus.html:32
+msgid "leads to effective, communication and collaboration"
+msgstr "mengarah pada efektif, komunikasi dan kolaborasi"
+
+#: templates/website/aboutus.html:33
+msgid "Together is better"
+msgstr "Bersama lebih baik"
+
+#: templates/website/aboutus.html:40
+msgid "leads to increased knowledge, skills, and innovation"
+msgstr "mengarah pada peningkatan pengetahuan, keterampilan, dan inovasi"
+
+#: templates/website/aboutus.html:41
+msgid "Continuous learning"
+msgstr "Pembelajaran yang berkelanjutan"
+
+#: templates/website/aboutus.html:47
+msgid ""
+"Built from IT Communities for wider IT ecosystem, Btech has solid "
+"relationship and interaction with communities that has same vision because "
+"we always believe that together we do things better."
+msgstr ""
+"Dibangun dari Komunitas TI untuk ekosistem TI yang lebih luas, Btech "
+"memiliki hubungan dan interaksi yang solid dengan komunitas yang memiliki "
+"visi sama karena kami selalu percaya bahwa bersama-sama kita melakukan "
+"sesuatu dengan lebih baik. "
+
+#: templates/website/aboutus.html:56
+msgid "Engineers Certification"
+msgstr "Sertikasi Insinyur"
+
+#: templates/website/aboutus.html:61
+msgid ""
+"Our Engineers have received certifications. This certification proves that "
+"Our Engineers are capable in their field and help us provide the best "
+"services and solutions for your company. See the certification badges below."
+msgstr ""
+"Tim kami sudah tersertifikasi. Sertifikasi ini membuktikan bahwa "
+"Kami mampu dan andal dalam bidangnya untuk memberikan "
+"layanan dan solusi terbaik bagi perusahaan Anda. Lihat lencana - lencana "
+"sertifikasi di bawah ini. "
+
+#: templates/website/aboutus.html:80
+msgid "Life at Btech"
+msgstr "Bersama di Btech"
+
+#: templates/website/aboutus.html:91
+msgid "Always Learning."
+msgstr "Selalu berlajar"
+
+#: templates/website/aboutus.html:91
+msgid "Grow and Develop"
+msgstr "Tumbuh dan Berkembang"
+
+#: templates/website/aboutus.html:102
+msgid "TOGETHER IS BETTER."
+msgstr "Bersama Lebih Baik"
+
+#: templates/website/aboutus.html:102
+msgid "Collaboration."
+msgstr "Berkolaborasi"
+
+#: templates/website/aboutus.html:113
+msgid "Healthy, friendly, and comfortable."
+msgstr "Sehat, ramah, dan nyaman."
+
+#: templates/website/aboutus.html:113
+msgid "Our Priorities."
+msgstr "Prioritas kami."
+
+#: templates/website/aboutus.html:121
+msgid "Search Job"
+msgstr "Cari pekerjaan"
+
+#: templates/website/base_v2.html:85
+msgid "Contact"
+msgstr "Kontak"
+
+#: templates/website/base_v2.html:99
+msgid "Solution"
+msgstr "Solusi"
+
+#: templates/website/base_v2.html:106
+msgid "BTECH Solutions"
+msgstr "Solusi BTECH"
+
+#: templates/website/base_v2.html:112
+msgid "By Case"
+msgstr "Berdasarkan Kasus"
+
+#: templates/website/base_v2.html:125
+msgid "By Organization Type"
+msgstr "Berdasarkan tipe organisasi"
+
+#: templates/website/base_v2.html:141
+msgid "Services"
+msgstr "Layanan"
+
+#: templates/website/base_v2.html:148
+#, fuzzy
+#| msgid "BTECH Solutions"
+msgid "BTECH Services"
+msgstr "Solusi BTECH"
+
+#: templates/website/base_v2.html:182
+#: templates/website/tech_professional.html:26
+msgid "Tech Professional"
+msgstr "Profesional Teknologi"
+
+#: templates/website/base_v2.html:189
+#, fuzzy
+#| msgid "BTECH Solutions"
+msgid "BTECH Professional"
+msgstr "Solusi BTECH"
+
+#: templates/website/base_v2.html:196
+msgid "Professional Training"
+msgstr "Pelatihan Profesional"
+
+#: templates/website/base_v2.html:199
+msgid ""
+"Btech provides professional training with Certified Instructors and a hands-"
+"on lab. Trainees will be able to choose their training pathway based on "
+"their needs."
+msgstr ""
+"Btech menyediakan pelatihan profesional dengan Instruktur tersertifikasi dan "
+"lab secara langsung. Peserta dapat memilih jalur pelatihan berdasarkan "
+"kebutuhan."
+
+#: templates/website/base_v2.html:207 templates/website/index.html:86
+msgid "Tech Professional Delivery"
+msgstr "Tech Professional Delivery"
+
+#: templates/website/base_v2.html:210 templates/website/index.html:87
+#: templates/website/tech_professional.html:30
+msgid ""
+"The company wants to adopt new technology but doesn't have the resources. "
+"And Availability of new resources takes time. Our Tech Professional Delivery "
+"services may help your challenge."
+msgstr ""
+"Perusahaan ingin mengadopsi teknologi baru tetapi tidak memiliki sumber daya manusia. "
+"Dan Ketersediaan sumber daya manusia baru membutuhkan waktu yang panjang. Layanan Tech Profesional Delivery "
+"Kami dapat membantu tantangan yang Anda hadapi."
+
+#: templates/website/base_v2.html:219
+msgid "Company"
+msgstr "Perusahaan"
+
+#: templates/website/base_v2.html:226
+msgid "BTECH Company"
+msgstr ""
+
+#: templates/website/base_v2.html:235
+msgid "Our Company"
+msgstr "Perusahaan Kami"
+
+#: templates/website/base_v2.html:238
+msgid "Brand"
+msgstr "Merek"
+
+#: templates/website/base_v2.html:241
+msgid "Careers"
+msgstr "Karir"
+
+#: templates/website/base_v2.html:244
+msgid "Internships"
+msgstr "Magang"
+
+#: templates/website/base_v2.html:251
+msgid "Article"
+msgstr "Artikel"
+
+#: templates/website/base_v2.html:254
+msgid "News"
+msgstr "Berita"
+
+#: templates/website/base_v2.html:257
+msgid "Infographic"
+msgstr "Infografis"
+
+#: templates/website/base_v2.html:264
+msgid "Open Source"
+msgstr "Sumber Terbuka"
+
+#: templates/website/base_v2.html:267
+msgid "Our Project"
+msgstr "Projek Kami"
+
+#: templates/website/base_v2.html:270
+msgid "Btech on GitHub"
+msgstr "Btech di Github"
+
+#: templates/website/base_v2.html:330
+msgid "Phone:"
+msgstr "Telepon:"
+
+#: templates/website/base_v2.html:331
+msgid "WhatsApp:"
+msgstr "WhatsApp:"
+
+#: templates/website/base_v2.html:332
+msgid "Email:"
+msgstr "Surel:"
+
+#: templates/website/base_v2.html:345
+msgid "Follow Us"
+msgstr "Ikuti kami"
+
+#: templates/website/contact.html:18
+#, fuzzy
+#| msgid "Contact"
+msgid "Contact Us"
+msgstr "Kontak"
+
+#: templates/website/contact.html:34
+msgid "Find us at"
+msgstr "Temukan kami di "
+
+#: templates/website/index.html:44
+msgid "We Are Experienced in Cloud, DevOps, and Security"
+msgstr "Kami berpengelaman di Cloud, Devops, dan Security"
+
+#: templates/website/index.html:48
+msgid ""
+"Btech is committed to providing the optimal solution with professional "
+"services delivered by our experienced team in Cloud, DevOps, and Security "
+"specialization."
+msgstr ""
+"Btech berkomitmen untuk menyediakan solusi optimal dengan layanan profesional "
+"dikerjakan oleh tim kami yang berpengalaman dalam spesialisasi Cloud, DevOps, "
+"dan Security."
+
+#: templates/website/index.html:53
+msgid "Check our Services"
+msgstr "Lihat Layanan Kami"
+
+#: templates/website/index.html:98
+msgid "\"Cloud is made by Nature. But your Cloud is made by Us.\""
+msgstr "Cloud is made by Nature. But your Cloud is made by Us."
+
+#: templates/website/index.html:109
+msgid "Why Us"
+msgstr "Kenapa Kami"
+
+#: templates/website/index.html:110
+msgid ""
+"Btech offers advantages for running your business faster & more efficiently"
+msgstr "Btech menawarkan banyak keuntungan untuk menjalankan bisnis yang lebih "
+"cepat dan efisien untuk Anda."
+
+#: templates/website/index.html:116
+msgid "Experienced & Certified"
+msgstr "Berpengalaman & Tersertifikasi"
+
+#: templates/website/index.html:117
+msgid ""
+"Btech’s talents are experienced and certified in Cloud, DevOps, and Security "
+"specialization."
+msgstr ""
+"Talenta - talenta di Btech berpengalaman dan tersertifikasi dalam bidang "
+"Cloud, DevOps, dan Security."
+
+#: templates/website/index.html:123
+msgid "Latest Technologies"
+msgstr "Teknologi Terbaru"
+
+#: templates/website/index.html:124
+msgid "Using the latest technologies and tailored with the enterprise needs."
+msgstr "Menggunakan teknologi terbaru yang disesuaikan dengan kebutuhan perusahaan."
+
+#: templates/website/index.html:130
+msgid "Best Partners"
+msgstr "Mitra Terbaik"
+
+#: templates/website/index.html:131
+msgid "Btech collaborates with various global technology partners."
+msgstr "Btech berkolaborasi dengan berbagai mitra teknologi di seluruh dunia."
+
+#: templates/website/index.html:151
+msgid "Testimonials"
+msgstr "Testimonial"
+
+#: templates/website/index.html:185
+msgid "Recent Customers"
+msgstr "Pelanggan Terbaru"
+
+#: templates/website/index.html:195
+msgid "Partners"
+msgstr "Mitra"
+
+#: templates/website/landing_page_intership.html:26
+msgid "Check Our Programs"
+msgstr "Lihat Program Kami"
+
+#: templates/website/landing_page_intership.html:38
+msgid "Perks of Being A Part of Btech Teams"
+msgstr "Keuntungan Menjadi Bagian dari Tim Btech"
+
+#: templates/website/landing_page_intership.html:48
+msgid "Gain practical experience"
+msgstr "Memperoleh Pengalaman Praktik"
+
+#: templates/website/landing_page_intership.html:58
+msgid "Build your network"
+msgstr "Membangun Jejaring"
+
+#: templates/website/landing_page_intership.html:68
+msgid "Develop your skills"
+msgstr "Mengembangkan keahlian"
+
+#: templates/website/landing_page_intership.html:78
+msgid "Get a foot in the door of the Industry"
+msgstr "Menginjakkan kaki ke dunia Industri"
+
+#: templates/website/landing_page_intership.html:90
+msgid "Boost your resume"
+msgstr "meningkatkan resume anda"
+
+#: templates/website/landing_page_intership.html:100
+msgid "Learning environment is provided"
+msgstr "lingkungan pembelajaran telah disediakan"
+
+#: templates/website/landing_page_intership.html:110
+msgid "LMS is provided"
+msgstr "LMS yang disediakan"
+
+#: templates/website/landing_page_intership.html:120
+msgid "Internship certificate"
+msgstr "Sertifikat magang"
+
+#: templates/website/landing_page_intership.html:133
+msgid "Opportunity for recruitment or placement"
+msgstr "Berkesempatan untuk rekrutmen dan penempatan"
+
+#: templates/website/landing_page_intership.html:143
+msgid "Have fun"
+msgstr "Bersenang - senang"
+
+#: templates/website/landing_page_intership.html:158
+msgid "Our Programs"
+msgstr "Program Kami"
+
+#: templates/website/landing_page_intership.html:169
+msgid "Student Internship"
+msgstr "Magang Siswa"
+
+#: templates/website/landing_page_intership.html:175
+#: templates/website/landing_page_intership.html:193
+msgid "View Opportunity"
+msgstr "Lihat Kesempatan"
+
+#: templates/website/landing_page_intership.html:187
+#, fuzzy
+#| msgid "Tech Professional Delivery"
+msgid "Professional Internship"
+msgstr "Tech Professional Delivery"
+
+#: templates/website/landing_page_intership.html:207
+msgid "Available Position"
+msgstr "Posisi Tersedia"
+
+#: templates/website/landing_page_intership.html:211
+#: templates/website/landing_page_intership.html:218
+msgid "Filter"
+msgstr "Saring"
+
+#: templates/website/landing_page_intership.html:354
+#: templates/website/partials/intern-list.html:42
+msgid "Internship Information"
+msgstr "Informasi Magang"
+
+#: templates/website/landing_page_intership.html:360
+#: templates/website/partials/intern-list.html:48
+msgid "Program Type"
+msgstr "Tipe Program"
+
+#: templates/website/landing_page_intership.html:361
+#: templates/website/partials/intern-list.html:49
+msgid "Job Type"
+msgstr "Tipe Pekerjaan"
+
+#: templates/website/landing_page_intership.html:362
+#: templates/website/partials/intern-list.html:50
+msgid "Deadline"
+msgstr "Tenggat Waktu"
+
+#: templates/website/landing_page_intership.html:369
+#: templates/website/partials/intern-list.html:57
+msgid "Job Description"
+msgstr "Deskripsi Pekerjaan"
+
+#: templates/website/landing_page_intership.html:381
+#: templates/website/partials/intern-list.html:69
+msgid "Job Qualification"
+msgstr "Kualifikasi pekerjaan"
+
+#: templates/website/landing_page_intership.html:393
+#: templates/website/partials/intern-list.html:81
+msgid "Benefits"
+msgstr "Keuntungan"
+
+#: templates/website/landing_page_intership.html:409
+msgid "Sorry there are no available internship position at this time."
+msgstr "Mohon maaf tidak ada posisi magang yang tersedia untuk saat ini."
+
+#: templates/website/landing_page_intership.html:423
+msgid "Are you ready to kickstart your career? Here's how to get started"
+msgstr "Anda siap untuk memulai karir? Inilah cara untuk memulai"
+
+#: templates/website/landing_page_intership.html:433
+msgid ""
+"Applications for this internship program should be submitted one month "
+"before the actual date. Finish your applications by filling the form"
+msgstr ""
+"Pendaftaran untuk program magang ini harus diserahkan satu bulan "
+"sebelum tanggal sebenarnya. Selesaikan pendaftaran anda dengan mengisi formulir"
+
+#: templates/website/landing_page_intership.html:445
+msgid "Within three weeks, we'll get back to you with the next steps"
+msgstr "Dalam tiga minggu, kami akan menghubungi Anda untuk langkah selanjutnya"
+
+#: templates/website/landing_page_intership.html:457
+msgid ""
+"If accepted, you'll be part of a dynamic and supportive team for a minimum "
+"of 3 - 6 months"
+msgstr ""
+"Jika diterima, Anda akan menjadi bagian dari tim yang suportif dan dinamis "
+"untuk minimal 3 - 6 bulan"
+
+#: templates/website/landing_page_intership.html:469
+msgid ""
+"And when you're finished, you'll present an internship report then receive a "
+"certificate to showcase your achievements"
+msgstr ""
+"Dan jika Anda  sudah selesai, Anda akan menyajikan laporan magang dan menerima "
+"sebuah sertifikat untuk menunjukkan pencapaian Anda"
+
+#: templates/website/landing_page_intership.html:482
+msgid "FAQ"
+msgstr "TJU"
+
+#: templates/website/opensource.html:12
+msgid ""
+"Open Source is a Source Code that is designed to be accessed publicly. "
+"Everyone can freely use, distribute, and modify it collaboratively to create "
+"fits use in a community or production environment. Users and Developers can "
+"enhance the program's performance, add some features, and fix errors. It "
+"will give the experience to control over the software they use."
+msgstr ""
+"Sumber terbuka adalah Kode Sumber yang dirancang untuk diakses secara "
+"publik. Setiap orang dapat dengan bebas menggunakan, mendistribusikan, dan "
+"memodifikasinya secara kolaboratif agar cocok digunakan dalam komunitas atau "
+"lingkungan produksi. Pengguna dan Pengembang dapat meningkatkan kinerja "
+"program, menambahkan beberapa fitur, dan memperbaiki kesalahan. Ini akan "
+"memberikan pengalaman untuk mengontrol perangkat lunak yang mereka gunakan."
+
+#: templates/website/opensource.html:44
+msgid "Visit Us"
+msgstr "Kunjungi kami"
+
+#: templates/website/opensource.html:59 templates/website/opensource.html:62
+msgid "Previous"
+msgstr "Sebelum"
+
+#: templates/website/opensource.html:66 templates/website/opensource.html:69
+msgid "Next"
+msgstr "Setelah"
+
+#: templates/website/partials/intern-list.html:97
+msgid "Sorry there are no match internship position."
+msgstr "Mohon maaf tidak ada posisi magang yang sesuai."
+
+#: templates/website/registration_internship.html:21
+msgid "Internship Registration Form"
+msgstr "Formulir Pendaftaran Magang"
+
+#: templates/website/registration_internship.html:22
+msgid ""
+"Join our amazing team and be part of an incredible group of talented "
+"professionals!"
+msgstr ""
+"Bergagunglah dengan tim kami yang luar biasa dan jadilah bagian dari "
+"grup berbakat yang profesional!" 
+
+#: templates/website/service_detail.html:45
+#: templates/website/tech_professional.html:69
+msgid "What Clients Say?"
+msgstr "Apa Kata Klien?"
+
+#: templates/website/service_detail.html:76
+msgid "With Us"
+msgstr "Bersama kami"
+
+#: templates/website/service_detail.html:102
+msgid "Other Services"
+msgstr "Layanan Lainnya"
+
+#: templates/website/service_detail.html:133
+#: templates/website/tech_professional.html:101
+msgid "Bussiness Inquiry"
+msgstr "Pertanyaan Bisnis"
+
+#: templates/website/service_detail.html:134
+#: templates/website/tech_professional.html:102
+msgid ""
+"Contact our sales team to learn more about the professional services we can "
+"provide as your company technology needs."
+msgstr ""
+"Hubungi tim penjualan kami untuk mempelajari lebih lanjut mengenai layanan "
+"profesional yang kami sediakan berdasarkan kebutuhan teknologi perusahaan "
+"Anda."
+
+#: templates/website/service_detail.html:137
+#: templates/website/tech_professional.html:105
+msgid "Let Us Know"
+msgstr "Beritahu Kami"
+
+#: templates/website/tech_professional.html:52
+msgid "Hire Tech Talent?"
+msgstr "Rekrut Talenta Teknologi?"
+
+#: templates/website/tech_professional.html:56
+msgid ""
+"Our young talents and professional candidates have been trained with "
+"materials following industry standards through a rigorous recruitment "
+"process."
+msgstr ""
+"Bakat talenta muda dan kandidat profesional kami telah dilatih dengan "
+"mengikuti standar industri melalui proses perekrutan yang ketat."
