@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Portofolio, Rekening, Dompet, MultiImage, SpecialInvitation, \
+from myproject.apps.portofolio.models import Portofolio, Rekening, Dompet, MultiImage, SpecialInvitation, \
     Payment, Quote, Ucapan, Hadir, Fitur, Theme, ThemeProduct, Story, Acara, Track, Dana, \
     Resume, MultiImageTheme
 

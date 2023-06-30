@@ -2,17 +2,18 @@ from myproject.apps.portofolio import views
 from django.urls import path
 from .views import (
     configurasi_porto, myportofolio, theme_list, theme_detail, porto_list, fitur_list,dana_list, step1, step2, step3, step4, step5, step6,\
-    step7, step8, step9, step10, step11, step12, step13, step14, share_undangan, \
+    step7, step8, step9, step10, step11, step12, step13, step14, step15, share_undangan, \
     open_background_delete, cover_background_delete, \
     step1_update, step2_update, step3_update, step4_update,step5_update, step6_update,\
     step7_update, step8_update, step9_update, step10_update, step11_update, step12_update, step13_update, step14_update,\
-    PortofolioList, PortofolioDetail, RekeningList, RekeningDetail, \
+    step15_update, PortofolioList, PortofolioDetail, RekeningList, RekeningDetail, \
     DompetList, DompetDetail, MultiImageList, MultiImageDetail, \
     SpecialInvitationList, SpecialInvitationDetail, PaymentList, \
     PaymentDetail, QuoteList, QuoteDetail, UcapanList, UcapanDetail, \
     HadirList, HadirDetail, FiturList, FiturDetail, \
     ThemeList, ThemeDetail,ThemeProductList, ThemeProductDetail, StoryList, \
-    StoryDetail, AcaraList, AcaraDetail,DanaList, DanaDetail, ResumeList, ResumeDetail, ApiRoot
+    StoryDetail, AcaraList, AcaraDetail,DanaList, DanaDetail, ResumeList, ResumeDetail, \
+    MultiImageThemeList, MultiImageThemeDetail, ApiRoot
 )
 
 
@@ -34,6 +35,7 @@ urlpatterns = [
     path("step12/", step12, name="step12"),
     path("step13/", step13, name="step13"),
     path("step14/", step14, name="step14"),
+    path("step15/", step15, name="step15"),
 
     # UPDATE
     path("step1_update/<slug:slug>/", step1_update, name="step1_update"),
@@ -50,6 +52,7 @@ urlpatterns = [
     path("step12_update/<slug:slug>/", step12_update, name="step12_update"),
     path("step13_update/<slug:slug>/", step13_update, name="step13_update"),
     path("step14_update/<slug:slug>/", step14_update, name="step14_update"),
+    path("step15_update/<slug:slug>/", step15_update, name="step15_update"),
 
     # path('info_update/<slug:slug>/', info_update, name='info_update'),
     # path('update/<slug:slug>/', update, name='update'),
@@ -120,6 +123,9 @@ urlpatterns = [
 
     path('api/resume/', ResumeList.as_view(), name=views.ResumeList.name),
     path('api/resume/<int:pk>', ResumeDetail.as_view(), name=views.ResumeDetail.name),
+
+    path('api/multiimagetheme/', MultiImageThemeList.as_view(), name=views.MultiImageThemeList.name),
+    path('api/multiimagetheme/<int:pk>', MultiImageThemeDetail.as_view(), name=views.MultiImageThemeDetail.name),
 
     path('api/', ApiRoot.as_view(), name=views.ApiRoot.name),
 ]

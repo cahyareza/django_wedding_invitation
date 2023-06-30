@@ -3,7 +3,7 @@ import re
 import datetime
 from django.forms import ClearableFileInput
 from .models import Portofolio, MultiImage, SpecialInvitation, Dompet, Quote, Rekening, ThemeProduct, \
-    Story, Acara, Theme, Fitur, Dana
+    Story, Acara, Theme, Fitur, Dana, MultiImageTheme
 from myproject.apps.order.models import OrderItem, Order
 from django.core.validators import RegexValidator
 from django.contrib.admin import widgets
@@ -1185,78 +1185,43 @@ class PortoInfo5Form(forms.ModelForm):
         # self.fields['cover_background'].help_text = 'Jika tidak ingin menggunakan foto sebagai background cukup kosongi form'
 # ============== TRACK END ===============!
 
-# # ============== DANA ===============!
-# class CustomChoiceFieldDiTransfer(forms.ModelChoiceField):
-#     pass
-#
-# class DanaForm(forms.ModelForm):
-#     nama = forms.CharField(
-#         label='Nama', min_length=3, max_length=50,
-#         validators=[RegexValidator(r'^[a-zA-ZA-y\s]*$',
-#         message="Only letters is allowed !")],
-#         widget=forms.TextInput(
-#             attrs={
-#                 'placeholder': 'Nama',
-#                 'class': 'input',
-#                 'style': 'font-size: 13px; text-transform: capitalize; margin-bottom: 7px;'
-#             }
-#         )
-#     )
-#     ditransfer_ke = forms.CharField(
-#         label='Ditransfer ke-',
-#         widget=forms.TextInput(
-#             attrs={
-#                 'placeholder': 'Ditransfer ke-',
-#                 'class': 'input',
-#                 'style': 'font-size: 13px margin-bottom: 7px;'
-#             }
-#         )
-#     )
-#     jumlah = forms.CharField(
-#         label='Jumlah', min_length=3, max_length=50,
-#         validators=[RegexValidator(r'^[0-9]*$',
-#         message="Only numbers is allowed !")],
-#         widget=forms.TextInput(
-#             attrs={
-#                 'placeholder': 'Jumlah',
-#                 'class': 'input',
-#                 'style': 'font-size: 13px; margin-bottom: 7px;'
-#             }
-#         )
-#     )
-#     pesan = forms.CharField(
-#         label='Pesan', max_length=100,
-#         widget=forms.TextInput(
-#             attrs={
-#                 'placeholder': 'Pesan',
-#                 'class': 'input',
-#                 'style': 'font-size: 13px; text-transform: capitalize; margin-bottom: 7px;'
-#             }
-#         )
-#     )
-#     class Meta:
-#         model = Dana
-#         fields = ["nama", "jumlah", "pesan", "ditransfer_ke"]
-#
-#
-#         # widgets = {
-#         #     'ditransfer_ke': forms.Select(
-#         #         attrs={
-#         #             'class': 'input',
-#         #             'style': 'font-size: 13px',
-#         #         }
-#         #     ),
-#         # }
-#
-#     # SUPER FUNCTION
-#     # def __init__(self, *args, **kwargs):
-#     #     user = kwargs.pop('user')
-#     #     super(DanaForm, self).__init__(*args, **kwargs)
-#     #     self.fields['ditransfer_ke'].queryset = Dompet.objects.filter(portofolio=Portofolio.objects.get(user=user))
-#
-#     # ditransfer_ke = forms.ModelChoiceField(queryset=None, widget=forms.Select,)
-# # ============== DANA ===============!
+# ============== IMAGETHEME ===============!
+class MultiImageThemeForm(forms.ModelForm):
+    image = forms.FileField(
+        label="Image theme",
+        widget=forms.ClearableFileInput(
+            attrs={
+                'placeholder': 'Select a picture',
+                'class': 'image',
+                'style': 'font-size: 15px',
+                'accept': 'image/png, image/jpeg'
+            }
+        )
+    )
+    class Meta:
+        model = MultiImageTheme
+        fields = ['image']
 
+    # SUPER FUNCTION
+    def __init__(self, *args, **kwargs):
+        super(MultiImageThemeForm, self).__init__(*args, **kwargs)
+
+        # ========== CONTROL PANEL (Optional method to control ========== !
+        # 1. Input required
+        self.fields['image'].required = False
+
+        # 2. Help text
+        self.fields['image'].help_text = 'Pastikan ukuran file image kurang dari 2MB'
+
+    # ========== MeTHOD ========== !
+    # 1) IMAGE (Maximum upload size = 2mb)
+    def clean_image(self):
+        image = self.cleaned_data.get('image')
+        if image:
+            if image.size > 2 * 1048476:
+                raise forms.ValidationError('Denied ! Maximum allowed is 2mb.')
+            return image
+# ============== IMAGETHEME END ===============!
 
 # ================== FORMSET =================== !
 class BaseRegisterFormSet(BaseFormSet):

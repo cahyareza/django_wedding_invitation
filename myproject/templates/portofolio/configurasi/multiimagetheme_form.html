@@ -1,0 +1,53 @@
+{% extends 'portofolio/register_porto.html' %}
+
+<!--  Buttons denied here -->
+{% block update %}
+    <!--   INFORMASI OUR MOMENT   -->
+    <div class="notification is-light p-1 has-text-centered">
+       INFORMASI BACKGROUND THEME
+    </div>
+    <div class="columns is-multiline mt-1">
+        <div class="column is-12">
+          {% if themeimageformset %}
+            {{ themeimageformset.management_form }}
+                <div id="ingredient-form-list8">
+                    {% for form in themeimageformset %}
+                    <div class="ingredient-form8 mb-3">
+<!--                        {{ form }}-->
+                        {% for field in form.visible_fields %}
+                            {{ field.label_tag }} {{ field }}
+                            {% for error in field.errors %}
+                                <p class="help is-danger">{{ error }}</p>
+                            {% endfor %}
+
+                            <p class="subtitle mt-2" style="font-size: 11px;">{{ field.help_text }}</p>
+                        {% endfor %}
+                        <div class="is-hidden">
+                            {% for field in form.hidden_fields %}
+                                {{ field.label_tag }} {{ field }}
+                                {% for error in field.errors %}
+                                    <p class="help is-danger">{{ error }}</p>
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            <div id="empty-form8" class="is-hidden">{{ themeimageformset.empty_form }}</div>
+        {% endif %}
+        <button id="add-more8" type="button" class="button is-small is-outlined pd-1 mt-3">Tambah</button>
+      </div>
+    </div>
+{% endblock update %}
+
+<!--  Buttons  -->
+{% block buttons %}
+<button id="submit" type="submit" class="button is-info p-2 mt-1">Submit</button>
+{% url 'portofolio:step15' as the_url %}
+{% if request.path == the_url %}
+    <a href="{% url 'portofolio:configurasi' %}"  class="button is-hidden is-dark-light p-2 mt-1">Cancel</a>
+{% else %}
+    <a href="{% url 'portofolio:configurasi' %}"  class="button is-dark-light p-2 mt-1">Cancel</a>
+{% endif %}
+{% endblock buttons %}
