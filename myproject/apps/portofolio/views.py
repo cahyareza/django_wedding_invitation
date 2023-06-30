@@ -21,7 +21,7 @@ from django.core.exceptions import ValidationError
 from .serializers import PortofolioSerializer, RekeningSerializer, DompetSerializer, \
     MultiImageSerializer, SpecialInvitationSerializer, PaymentSerializer, QuoteSerializer, \
     UcapanSerializer, HadirSerializer, FiturSerializer, ThemeSerializer, ThemeProductSerializer, \
-    StorySerializer, AcaraSerializer, DanaSerializer, ResumeSerializer
+    StorySerializer, AcaraSerializer, DanaSerializer, ResumeSerializer, MultiImageThemeSerializer
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -43,7 +43,7 @@ from myproject.apps.coupon.models import Coupon
 from myproject.apps.order.models import Order, OrderItem
 from .models import MultiImage, Portofolio, SpecialInvitation, Dompet, Quote, Fitur, \
     Rekening, Payment, MultiImage, SpecialInvitation, Ucapan, Hadir, Fitur, \
-    Theme, ThemeProduct, Story, Acara, Kata, Dana, Resume
+    Theme, ThemeProduct, Story, Acara, Kata, Dana, Resume, MultiImageTheme
 
 # from .forms import PortofolioForm, MultiImageForm, SpecialInvitationForm, \
 #     BaseRegisterFormSet, DompetForm, QuoteForm, ThemeProductForm, StoryForm, AcaraForm \
@@ -51,7 +51,7 @@ from .models import MultiImage, Portofolio, SpecialInvitation, Dompet, Quote, Fi
 from .forms import PortoInfoForm, PasanganForm, AcaraForm, QuoteForm, PortoInfo2Form, \
     MultiImageForm, StoryForm, NavigasiForm, DompetForm, PortoInfo3Form, SpecialInvitationForm, \
     CalenderForm, PortoInfo4Form, ThemeProductForm, PortoInfo5Form, PasanganPictureForm, PortoAlamatDompet, \
-    BaseRegisterFormSet
+    MultiImageThemeForm, BaseRegisterFormSet
 
 from myproject.apps.portofolio.services import AcaraFormSESSION, PasanganFormSESSION, MultiImageFormSESSION, \
     StoryFormSESSION, DompetFormSESSION, SpecialinviteFormSESSION
@@ -1619,8 +1619,86 @@ def step14_update(request, slug):
         form = PasanganPictureForm(instance=obj)
 
     return render(request, "portofolio/configurasi/pasangan_picture_form.html", {'form': form})
-# ============== SHARE UNDANGAN ===============!
 
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def step15(request):
+    user = request.user
+    porto_instance = Portofolio.objects.get(user=user)
+
+    MultiImageThemeFormSet = modelformset_factory(
+        MultiImageTheme,
+        form=MultiImageThemeForm,
+        formset=BaseRegisterFormSet,
+        extra=1,
+    )
+
+    if request.method == 'POST':
+        themeimageformset = MultiImageThemeFormSet(request.POST or None, request.FILES, prefix='multiimagetheme')
+        if themeimageformset.is_valid():
+            for form in themeimageformset:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = porto_instance
+                    child.save()
+            return redirect("portofolio:configurasi")
+    else:
+        themeimageformset = MultiImageThemeFormSet(prefix='multiimagetheme')
+
+    return render(request, "portofolio/configurasi/multiimagetheme_form.html", {'themeimageformset': themeimageformset})
+
+@login_required(login_url="account_login")
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def step15_update(request, slug):
+    # get instance portofolio from id
+    obj = get_object_or_404(Portofolio, slug=slug)
+
+    # verify user
+    if obj.user != request.user:
+        raise PermissionDenied
+
+    # Create formset factory, tidak menggunakan base formset agar menampilkan object instance
+    MultiImageThemeFormSet = modelformset_factory(
+        MultiImageTheme,
+        form=MultiImageThemeForm,
+        extra=0,
+        can_delete=True,
+        can_delete_extra=True
+    )
+
+    # create query set for multi image
+    qs3 = MultiImageTheme.objects.filter(portofolio=obj)
+
+    # Define formset
+    themeimageformset = MultiImageThemeFormSet(request.POST or None, request.FILES, queryset= qs3, prefix='multiimagetheme')
+
+    if request.method == "POST":
+        if themeimageformset.is_valid():
+            for form in themeimageformset:
+                # Not save blank field use has_changed()
+                if form.is_valid() and form.has_changed():
+                    child = form.save(commit=False)
+                    child.portofolio = obj
+                    child.save()
+            # Save deleted obj
+            instances = themeimageformset.save(commit=False)
+            for obj in themeimageformset.deleted_objects:
+                obj.delete()
+
+            return redirect("portofolio:configurasi")
+
+    else:
+        themeimageformset = MultiImageThemeFormSet(queryset= qs3, prefix='multiimagetheme')
+
+    context = {
+        'themeimageformset': themeimageformset,
+    }
+
+    # return redirect("portofolio:update_tampilan", slug=slug)
+    return render(request, 'portofolio/configurasi/multiimagetheme_form.html', context)
+
+# ============== SHARE UNDANGAN ===============!
 @login_required(login_url="account_login")
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def share_undangan(request):
@@ -1885,6 +1963,19 @@ class ResumeDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ResumeSerializer
     name = 'resume-detail'
 
+# MultiimageTheme
+class MultiImageThemeList(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    queryset = MultiImageTheme.objects.all()
+    serializer_class = MultiImageThemeSerializer
+    name = 'multiimagetheme-list'
+    filterset_fields = ['portofolio__slug']
+
+
+class MultiImageThemeDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = MultiImageTheme.objects.all()
+    serializer_class = MultiImageThemeSerializer
+    name = 'multiimagetheme-detail'
 
 # ROOT
 class ApiRoot(generics.GenericAPIView):
@@ -1907,4 +1998,5 @@ class ApiRoot(generics.GenericAPIView):
             'acara': reverse('portofolio:acara-list', request=request),
             'dana': reverse('portofolio:dana-list', request=request),
             'resume': reverse('portofolio:resume-list', request=request),
+            'multiimagetheme': reverse('portofolio:multiimagetheme-list', request=request),
             })

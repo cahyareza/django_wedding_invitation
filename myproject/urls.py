@@ -27,6 +27,7 @@ urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path("portofolio/", include(("myproject.apps.portofolio.urls", "portofolio"), namespace="portofolio")),
+    path('api/', include('myproject.api.urls', namespace='api')),
     path("cart/", include(("myproject.apps.cart.urls", "cart"), namespace="cart")),
     path("order/", include(("myproject.apps.order.urls", "order"), namespace="order")),
     path("cropping/", include(("myproject.apps.cropping.urls", "cropping"), namespace="cropping")),

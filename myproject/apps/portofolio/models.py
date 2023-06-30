@@ -95,6 +95,10 @@ def portofolio_multiimage_upload_to(instance, filename):
     user = instance.portofolio.user
     return f"portofolio/{user}/multiimage/{filename}"
 
+def portofolio_multiimagetheme_upload_to(instance, filename):
+    user = instance.portofolio.user
+    return f"portofolio/{user}/multiimagetheme/{filename}"
+
 def portofolio_story_upload_to(instance, filename):
     user = instance.portofolio.user
     return f"portofolio/{user}/story/{filename}"
@@ -254,6 +258,17 @@ class MultiImage(CreationModificationDateBase, UrlBase):
     #         return
     #
     #     super().save(*args, **kwargs)
+
+class MultiImageTheme(CreationModificationDateBase, UrlBase):
+    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE)
+    image = ResizedImageField(quality=75, blank=True, null=True, upload_to=portofolio_multiimagetheme_upload_to,
+            max_length=500)
+
+    class Meta:
+        verbose_name_plural = "MultiImageThemes"
+
+    def __str__(self):
+        return self.portofolio.porto_name
 
 class SpecialInvitation(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE)

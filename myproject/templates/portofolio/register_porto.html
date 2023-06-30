@@ -323,5 +323,45 @@
             formCopyTarget7.append(copyEmptyFormEl7)
         }
     }
+
+    <!--------------- Formset8--------------->
+
+    const addMoreBtn8 = document.getElementById('add-more8')
+    const totalNewForms8 = document.getElementById('id_multiimagetheme-TOTAL_FORMS')
+
+    if (addMoreBtn8) {
+        addMoreBtn8.addEventListener('click', add_new_form8)
+    }
+
+    function add_new_form8(event) {
+        if (event) {
+            event.preventDefault()
+        }
+        const currentIngredientForms8 = document.getElementsByClassName('ingredient-form8')
+        const currentFormCount8 = currentIngredientForms8.length // + 1
+        console.log(currentIngredientForms8.length)
+
+        if (currentFormCount8 <= 5) {
+            const formCopyTarget8 = document.getElementById('ingredient-form-list8')
+            const copyEmptyFormEl8 = document.getElementById('empty-form8').cloneNode(true)
+
+
+<!--            console.log(copyEmptyFormEl8.childNodes[2])-->
+<!--            console.log(copyEmptyFormEl8.getElementsByClassName('input')[0])-->
+
+            // remove br from childnode
+            copyEmptyFormEl8.removeChild(copyEmptyFormEl8.childNodes[2]);
+            // Add style to helptext
+            copyEmptyFormEl8.getElementsByClassName('helptext')[0].style.cssText += 'font-size: 11px; display: block; margin-bottom: 7px; margin-top: 3px;';
+
+            copyEmptyFormEl8.setAttribute('class', 'ingredient-form8')
+            copyEmptyFormEl8.setAttribute('id', `multiimagetheme-${currentFormCount8}`)
+            const regex = new RegExp('__prefix__', 'g')
+            copyEmptyFormEl8.innerHTML = copyEmptyFormEl8.innerHTML.replace(regex, currentFormCount8)
+            totalNewForms8.setAttribute('value', currentFormCount8 + 1)
+            // now add new form element to our html form
+            formCopyTarget8.append(copyEmptyFormEl8)
+        }
+    }
 </script>
 {% endblock %}
