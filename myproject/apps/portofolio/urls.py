@@ -13,7 +13,7 @@ from .views import (
     HadirList, HadirDetail, FiturList, FiturDetail, \
     ThemeList, ThemeDetail,ThemeProductList, ThemeProductDetail, StoryList, \
     StoryDetail, AcaraList, AcaraDetail,DanaList, DanaDetail, ResumeList, ResumeDetail, \
-    MultiImageThemeList, MultiImageThemeDetail, ApiRoot
+    ApiRoot
 )
 
 
@@ -123,9 +123,6 @@ urlpatterns = [
 
     path('api/resume/', ResumeList.as_view(), name=views.ResumeList.name),
     path('api/resume/<int:pk>', ResumeDetail.as_view(), name=views.ResumeDetail.name),
-
-    path('api/multiimagetheme/', MultiImageThemeList.as_view(), name=views.MultiImageThemeList.name),
-    path('api/multiimagetheme/<int:pk>', MultiImageThemeDetail.as_view(), name=views.MultiImageThemeDetail.name),
 
     path('api/', ApiRoot.as_view(), name=views.ApiRoot.name),
 ]

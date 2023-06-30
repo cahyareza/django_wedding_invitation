@@ -21,7 +21,7 @@ from django.core.exceptions import ValidationError
 from .serializers import PortofolioSerializer, RekeningSerializer, DompetSerializer, \
     MultiImageSerializer, SpecialInvitationSerializer, PaymentSerializer, QuoteSerializer, \
     UcapanSerializer, HadirSerializer, FiturSerializer, ThemeSerializer, ThemeProductSerializer, \
-    StorySerializer, AcaraSerializer, DanaSerializer, ResumeSerializer, MultiImageThemeSerializer
+    StorySerializer, AcaraSerializer, DanaSerializer, ResumeSerializer
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -1963,20 +1963,6 @@ class ResumeDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ResumeSerializer
     name = 'resume-detail'
 
-# MultiimageTheme
-class MultiImageThemeList(generics.ListCreateAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    queryset = MultiImageTheme.objects.all()
-    serializer_class = MultiImageThemeSerializer
-    name = 'multiimagetheme-list'
-    filterset_fields = ['portofolio__slug']
-
-
-class MultiImageThemeDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = MultiImageTheme.objects.all()
-    serializer_class = MultiImageThemeSerializer
-    name = 'multiimagetheme-detail'
-
 # ROOT
 class ApiRoot(generics.GenericAPIView):
     name = 'api-root'
@@ -1998,5 +1984,4 @@ class ApiRoot(generics.GenericAPIView):
             'acara': reverse('portofolio:acara-list', request=request),
             'dana': reverse('portofolio:dana-list', request=request),
             'resume': reverse('portofolio:resume-list', request=request),
-            'multiimagetheme': reverse('portofolio:multiimagetheme-list', request=request),
             })

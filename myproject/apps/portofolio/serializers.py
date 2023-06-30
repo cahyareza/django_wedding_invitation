@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Portofolio, Rekening, Dompet, MultiImage, SpecialInvitation, \
     Payment, Quote, Ucapan, Hadir, Fitur, Theme, ThemeProduct, Story, Acara, Track, Dana, \
-    Resume, MultiImageTheme
+    Resume
 
 # Acara
 class TrackSerializer(serializers.HyperlinkedModelSerializer):
@@ -157,12 +157,3 @@ class ResumeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Resume
         fields = ("nama", "quantity_porto", "quantity_ucapan", "quantity_dompet", "quantity_tamu")
-
-# MultiimageTheme
-class MultiImageThemeSerializer(serializers.ModelSerializer):
-    portofolio = serializers.SlugRelatedField(queryset=Portofolio.objects.all(),
-        slug_field='slug')
-
-    class Meta:
-        model = MultiImageTheme
-        fields = ("portofolio", "image")
