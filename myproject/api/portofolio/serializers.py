@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from myproject.apps.portofolio.models import Portofolio, Rekening, Dompet, MultiImage, SpecialInvitation, \
     Payment, Quote, Ucapan, Hadir, Fitur, Theme, ThemeProduct, Story, Acara, Track, Dana, \
-    Resume, MultiImageTheme
+    Resume, MultiImageTheme, PortoBackground
 
 # Acara
 class TrackSerializer(serializers.HyperlinkedModelSerializer):
@@ -32,6 +32,16 @@ class MultiImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = MultiImage
         fields = ("portofolio", "image")
+
+# PortoBackground
+class PortoBackgroundSerializer(serializers.ModelSerializer):
+    portofolio = serializers.SlugRelatedField(queryset=Portofolio.objects.all(),
+        slug_field='slug')
+
+    class Meta:
+        model = PortoBackground
+        fields = ("portofolio", "image1", "image2", "image3", "image4", "image5",
+                  "image6", "image7", "image8", "image9", "image10")
 
 # SpecialInvitation
 class SpecialInvitationSerializer(serializers.HyperlinkedModelSerializer):

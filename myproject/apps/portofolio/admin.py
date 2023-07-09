@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import (Portofolio, MultiImage, SpecialInvitation, Dompet, Quote,
      Rekening, Ucapan, Hadir, Fitur, Payment, Theme, ThemeProduct, Kabupaten, Story,
-     Acara, Track, Kata, Dana, Resume, MultiImageTheme)
+     Acara, Track, Kata, Dana, Resume, MultiImageTheme, PortoBackground)
 
 # Inline
 class PortoInline(admin.TabularInline):
@@ -46,6 +46,9 @@ class DanaInline(admin.TabularInline):
 class MultiImageThemeInline(admin.TabularInline):
     model = MultiImageTheme
 
+class PortoBackgroundInline(admin.TabularInline):
+    model = PortoBackground
+
 
 @admin.register(Portofolio)
 class PortofolioAdmin(admin.ModelAdmin):
@@ -53,7 +56,8 @@ class PortofolioAdmin(admin.ModelAdmin):
     list_display = ['porto_name', 'pname', 'lname', 'tanggal_countdown', 'waktu_countdown', 'created']
     search_fields = ['porto_name', 'tanggal_countdown', 'created']
     inlines = [AcaraInline, MultiImageInline, SpecialInvitationInline, DompetInline, QuoteInline,
-               UcapanInline, HadirInline, StoryInline, ThemeProductInline, DanaInline, MultiImageThemeInline]
+               UcapanInline, HadirInline, StoryInline, ThemeProductInline, DanaInline, MultiImageThemeInline,
+               PortoBackgroundInline]
     list_per_page = 10
 
     # Fieldset
@@ -165,4 +169,8 @@ class ResumeAdmin(admin.ModelAdmin):
 
 @admin.register(MultiImageTheme)
 class MultiImageThemeAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(PortoBackground)
+class PortoBackgroundAdmin(admin.ModelAdmin):
     pass
