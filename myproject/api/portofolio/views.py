@@ -21,7 +21,8 @@ from django.core.exceptions import ValidationError
 from .serializers import PortofolioSerializer, RekeningSerializer, DompetSerializer, \
     MultiImageSerializer, SpecialInvitationSerializer, PaymentSerializer, QuoteSerializer, \
     UcapanSerializer, HadirSerializer, FiturSerializer, ThemeSerializer, ThemeProductSerializer, \
-    StorySerializer, AcaraSerializer, DanaSerializer, ResumeSerializer, MultiImageThemeSerializer
+    StorySerializer, AcaraSerializer, DanaSerializer, ResumeSerializer, MultiImageThemeSerializer, \
+    PortoBackgroundSerializer
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -43,7 +44,7 @@ from myproject.apps.coupon.models import Coupon
 from myproject.apps.order.models import Order, OrderItem
 from myproject.apps.portofolio.models import MultiImage, Portofolio, SpecialInvitation, Dompet, Quote, Fitur, \
     Rekening, Payment, MultiImage, SpecialInvitation, Ucapan, Hadir, Fitur, \
-    Theme, ThemeProduct, Story, Acara, Kata, Dana, Resume, MultiImageTheme
+    Theme, ThemeProduct, Story, Acara, Kata, Dana, Resume, MultiImageTheme, PortoBackground
 
 # from .forms import PortofolioForm, MultiImageForm, SpecialInvitationForm, \
 #     BaseRegisterFormSet, DompetForm, QuoteForm, ThemeProductForm, StoryForm, AcaraForm \
@@ -306,6 +307,21 @@ class MultiImageThemeDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = MultiImageThemeSerializer
     name = 'multiimagetheme-detail'
 
+
+# PortoBackground
+class PortoBackgroundList(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    queryset = PortoBackground.objects.all()
+    serializer_class = PortoBackgroundSerializer
+    name = 'portobackground-list'
+    filterset_fields = ['portofolio__slug']
+
+
+class PortoBackgroundDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = PortoBackground.objects.all()
+    serializer_class = PortoBackgroundSerializer
+    name = 'portobackground-detail'
+
 # ROOT
 class ApiRoot(generics.GenericAPIView):
     name = 'api-root'
@@ -328,4 +344,5 @@ class ApiRoot(generics.GenericAPIView):
             'dana': reverse('api:portofolio:dana-list', request=request),
             'resume': reverse('api:portofolio:resume-list', request=request),
             'multiimagetheme': reverse('api:portofolio:multiimagetheme-list', request=request),
+            'portobackground': reverse('api:portofolio:portobackground-list', request=request),
             })

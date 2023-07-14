@@ -259,6 +259,35 @@ class MultiImage(CreationModificationDateBase, UrlBase):
     #
     #     super().save(*args, **kwargs)
 
+class PortoBackground(CreationModificationDateBase, UrlBase):
+    portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE)
+    image1 = ResizedImageField(quality=75, blank=True, null=True, upload_to=portofolio_multiimagetheme_upload_to,
+            max_length=500)
+    image2 = ResizedImageField(quality=75, blank=True, null=True, upload_to=portofolio_multiimagetheme_upload_to,
+            max_length=500)
+    image3 = ResizedImageField(quality=75, blank=True, null=True, upload_to=portofolio_multiimagetheme_upload_to,
+            max_length=500)
+    image4 = ResizedImageField(quality=75, blank=True, null=True, upload_to=portofolio_multiimagetheme_upload_to,
+            max_length=500)
+    image5 = ResizedImageField(quality=75, blank=True, null=True, upload_to=portofolio_multiimagetheme_upload_to,
+            max_length=500)
+    image6 = ResizedImageField(quality=75, blank=True, null=True, upload_to=portofolio_multiimagetheme_upload_to,
+            max_length=500)
+    image7 = ResizedImageField(quality=75, blank=True, null=True, upload_to=portofolio_multiimagetheme_upload_to,
+            max_length=500)
+    image8 = ResizedImageField(quality=75, blank=True, null=True, upload_to=portofolio_multiimagetheme_upload_to,
+            max_length=500)
+    image9 = ResizedImageField(quality=75, blank=True, null=True, upload_to=portofolio_multiimagetheme_upload_to,
+            max_length=500)
+    image10 = ResizedImageField(quality=75, blank=True, null=True, upload_to=portofolio_multiimagetheme_upload_to,
+            max_length=500)
+
+    class Meta:
+        verbose_name_plural = "PortoBackgrounds"
+
+    def __str__(self):
+        return self.portofolio.porto_name
+
 class MultiImageTheme(CreationModificationDateBase, UrlBase):
     portofolio = models.ForeignKey(Portofolio, on_delete=models.CASCADE)
     image = ResizedImageField(quality=75, blank=True, null=True, upload_to=portofolio_multiimagetheme_upload_to,

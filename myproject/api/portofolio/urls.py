@@ -7,7 +7,8 @@ from .views import (
     HadirList, HadirDetail, FiturList, FiturDetail, \
     ThemeList, ThemeDetail,ThemeProductList, ThemeProductDetail, StoryList, \
     StoryDetail, AcaraList, AcaraDetail,DanaList, DanaDetail, ResumeList, ResumeDetail, \
-    MultiImageThemeList, MultiImageThemeDetail, ApiRoot
+    MultiImageThemeList, MultiImageThemeDetail, PortoBackgroundList, PortoBackgroundDetail, \
+    ApiRoot
 )
 
 app_name = "portofolio"
@@ -61,6 +62,9 @@ urlpatterns = [
 
     path('multiimagetheme/', MultiImageThemeList.as_view(), name=MultiImageThemeList.name),
     path('multiimagetheme/<int:pk>', MultiImageThemeDetail.as_view(), name=MultiImageThemeDetail.name),
+
+    path('portobackground/', PortoBackgroundList.as_view(), name=PortoBackgroundList.name),
+    path('portobackground/<int:pk>', PortoBackgroundDetail.as_view(), name=PortoBackgroundDetail.name),
 
     path('list/', ApiRoot.as_view(), name=ApiRoot.name),
 ]
